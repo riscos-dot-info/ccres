@@ -1,5 +1,5 @@
 /* Misc.c
-   $Id: Misc.c,v 1.3 2004/11/30 00:51:56 joty Exp $
+   $Id: Misc.c,v 1.4 2005/01/30 14:42:34 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -27,6 +27,8 @@
 
 #include "ccres.h"
 #include "Error.h"
+
+#define MAX_FILE	48
 
 // @@should read appname from _Messages file...
 wimp_t is_running(void)
@@ -165,7 +167,6 @@ void * My_Alloc(int cb, PSTR pszFile, int nLine)
 #include <stdarg.h>
 
 static BOOL fLog = FALSE;
-// static char achLog[] = APPDIR".log";
 static char achLog[] = "RAM::0.$.ccres_log";
 void log_on(void)
 {
