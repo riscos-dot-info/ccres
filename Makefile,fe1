@@ -28,7 +28,7 @@ USRLIBS = OSLib:o.OSLib32
 
 # Object files
 OBJS = 	o.Library o.Convert o.Error o.Eval o.Filer o.Main o.Menu \
-	o.Misc o.SaveAs
+	o.Misc o.SaveAs o.Utils
 
 TOBJS = o._ColourDbox o._ColourMenu o._DCS \
 	o._FileInfo o._FontDbox o._FontMenu o._Gadgets \
