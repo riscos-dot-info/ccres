@@ -1,7 +1,7 @@
 ; Library.s
-; $Id: Library.s,v 1.2 2004/03/20 22:14:47 joty Exp $
+; $Id: Library.s,v 1.3 2004/10/31 19:57:30 joty Exp $
 ;
-; Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+; Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 ;
 ; This file is part of CCres.
 ;
@@ -38,7 +38,6 @@
 	EXPORT	__stricmp
 	EXPORT	__strnicmp
 	EXPORT	__atoi
-	EXPORT	my_osfile_delete
 	EXPORT	my_osfile_exists
 	EXPORT	my_osfile_filesize
 	EXPORT	my_osfile_filetype
@@ -248,22 +247,6 @@ sregs	SETS	"lr"
 	RSBEQ	r0, r0, #0
 
 	FNEXIT	,$sregs
-
-
-; BOOL my_osfile_delete(PSTR pszFile);
-; on entry	on exit
-; r0=filepath	r0=True if deleted
-
-my_osfile_delete
-sregs	SETS	"r4-r5"
-
-	FNENTRY	$sregs
-	MOV	r1, r0
-	MOV	r0, #6
-	SWI	XOS_File
-	MOVVS	r0, #False
-	MOVVC	r0, #True
-	FNEXIT	, $sregs
 
 
 ; fileswitch_object_type my_osfile_exists(PSTR pszFile);
