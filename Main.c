@@ -22,12 +22,15 @@
 
 /* Std C headers :
  */
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /* OSLib headers :
  */
 #include <OSLib/proginfo.h>
 #include <OSLib/saveas.h>
+#include <OSLib/taskwindow.h>
 #include <OSLib/wimpreadsysinfo.h>
 
 /* Project headers :
@@ -64,7 +67,8 @@ static const wimp_message_list Message[] =
   };
 
 
-static BOOL ccres_initialise(PDATA data)
+static  BOOL ccres_initialise(PDATA data)
+//      =================================
 {
 data->idBaricon = toolbox_create_object(0, (toolbox_id) "Iconbar");
 data->idSaveAs  = toolbox_create_object(0, (toolbox_id) "SaveAs");
@@ -74,7 +78,8 @@ return TRUE;
 }
 
 
-static void ccres_pollloop(PDATA data)
+static  void ccres_pollloop(PDATA data)
+//      ===============================
 {
   wimp_event_no e;
   int a;
@@ -108,7 +113,8 @@ do {
 }
 
 
-int main(int argc, PSTR argv[])
+        int main(int argc, PSTR argv[])
+//      ===============================
 {
   static char achSyntax[] = "Wrong number of arguments - Syntax: !CCres <infile> <outfile>";
   bits nFileType;
@@ -118,7 +124,9 @@ int main(int argc, PSTR argv[])
   os_error * perr;
 
 memset(&data, 0, sizeof(data));
-if (argc == 1 && wimpreadsysinfo_desktop_state() == wimpreadsysinfo_STATE_DESKTOP)
+if (argc == 1
+    && wimpreadsysinfo_desktop_state() == wimpreadsysinfo_STATE_DESKTOP
+    && !taskwindowtaskinfo_window_task())
   {
   if (!is_running())
     {
@@ -142,7 +150,9 @@ else if (argc == 3)
   {
   log_on();
   MyAlloc_Init();
-  if (((nFileType = my_osfile_filetype(argv[1])) == osfile_TYPE_TEXT || nFileType == osfile_TYPE_RESOURCE || nFileType == osfile_TYPE_TEMPLATE)
+  if (((nFileType = my_osfile_filetype(argv[1])) == osfile_TYPE_TEXT
+       || nFileType == osfile_TYPE_RESOURCE
+       || nFileType == osfile_TYPE_TEMPLATE)
       && load_file(&data, argv[1], nFileType))
     convert(&data, argv[2]);
   else if (nFileType == osfile_TYPE_UNTYPED)
@@ -156,7 +166,14 @@ else if (argc == 3)
   MyAlloc_Report();
   }
 else
-  error(achSyntax);
+  {
+  fprintf(stderr, "CCres " VERSION "\n"
+                  "Convertor between RISC OS Toolbox Resource (filetype &FAE) & Wimp Template (filetype &FEC) files to and from text format.\n"
+                  "Syntax: CCres <infile> <outfile>\n"
+                  "  <infile>  : either Template, Resource or Text file\n"
+                  "  <outfile> : output Text file (case <infile> is a Template or Resource file) or output Template/Resource file (case <infile> is a Text file)\n");
+  return EXIT_FAILURE;
+  }
 
 return EXIT_SUCCESS;
 }
