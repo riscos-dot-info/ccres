@@ -1,5 +1,5 @@
-v1.10 29th Feb 2004
-~~~~~~~~~~~~~~~~~~~
+v1.10 3rd Mar 2004
+~~~~~~~~~~~~~~~~~~
 Template icons without the Text and Sprite bit set, are no longer giving the
 harmless "Unexpected icon Text/Sprite/Indirection flag combination" error.
 
