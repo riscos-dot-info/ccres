@@ -28,6 +28,7 @@ TEM01_ORGFILES = \
 	Tem01.AntiWord \
 	Tem01.DeskEdit \
 	Tem01.OneWindow \
+	Tem01.Pierpaolo \
 	Tem01.Template
 
 RES01_TXT01FILES = \
@@ -46,6 +47,7 @@ TEM01_TXT01FILES = \
 	Tem01_Txt01.AntiWord \
 	Tem01_Txt01.DeskEdit \
 	Tem01_Txt01.OneWindow \
+	Tem01_Txt01.Pierpaolo \
 	Tem01_Txt01.Template
 
 RES01_DAT01FILES = \
@@ -64,6 +66,7 @@ TEM01_DAT01FILES = \
 	Tem01_Dat01.AntiWord \
 	Tem01_Dat01.DeskEdit \
 	Tem01_Dat01.OneWindow \
+	Tem01_Dat01.Pierpaolo \
 	Tem01_Dat01.Template
 
 RES01_TXT02FILES = \
@@ -82,6 +85,7 @@ TEM01_TXT02FILES = \
 	Tem01_Txt02.AntiWord \
 	Tem01_Txt02.DeskEdit \
 	Tem01_Txt02.OneWindow \
+	Tem01_Txt02.Pierpaolo \
 	Tem01_Txt02.Template
 
 # Target:
