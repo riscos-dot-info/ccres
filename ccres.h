@@ -1,5 +1,5 @@
 /* ccres.h
-   $Id: $
+   $Id: ccres.h,v 1.1 2003/12/09 00:00:12 joty Exp $
 
    Copyright (c) 2003 Dave Appleby / John Tytgat
 
@@ -35,7 +35,7 @@
 #include <OSLib/toolbox.h>
 #include <OSLib/wimp.h>
 
-#define VERSION "1.09 (09-Dec-03)"
+#define VERSION "1.10 (03-Mar-2004)"
 #define APPNAME	"CCres"
 #define APPDIR	"<"APPNAME"$Dir>"
 
