@@ -1,0 +1,5 @@
+Idea's for improvement
+
+- Verify that all object references are valid (e.g. if a Window has a
+  'menu_name" entry, check that there is a corresponding menu object in the
+  file).  This is something that ResTest fails to do.

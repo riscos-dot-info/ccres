@@ -1,0 +1,45 @@
+IconSprites <Obey$Dir>.!Sprites
+Set CCres$Dir <Obey$Dir>
+
+If "<System$Path>" = "" Then Error 0 System resources cannot be found
+
+RMEnsure ColourDbox  0.00 System:Modules.Toolbox.ColourDbox
+RMEnsure ColourDbox  0.00 
+RMEnsure ColourMenu  0.00 System:Modules.Toolbox.ColourMenu
+RMEnsure ColourMenu  0.00 
+RMEnsure DCS         0.00 System:Modules.Toolbox.DCS_Quit
+RMEnsure DCS         0.00 
+RMEnsure FileInfo    0.00 System:Modules.Toolbox.FileInfo
+RMEnsure FileInfo    0.00 
+RMEnsure FontDbox    0.00 System:Modules.Toolbox.FontDbox
+RMEnsure FontDbox    0.00 
+RMEnsure FontMenu    0.00 System:Modules.Toolbox.FontMenu
+RMEnsure FontMenu    0.00 
+RMEnsure Iconbar     0.00 System:Modules.Toolbox.Iconbar
+RMEnsure Iconbar     0.00 
+RMEnsure Menu        0.00 System:Modules.Toolbox.Menu
+RMEnsure Menu        0.00 
+RMEnsure PrintDbox   0.00 System:Modules.Toolbox.PrintDbox
+RMEnsure PrintDbox   0.00 
+RMEnsure ProgInfo    0.00 System:Modules.Toolbox.ProgInfo
+RMEnsure ProgInfo    0.00 
+RMEnsure SaveAs      0.00 System:Modules.Toolbox.SaveAs
+RMEnsure SaveAs      0.00 
+RMEnsure Scale       0.00 System:Modules.Toolbox.Scale
+RMEnsure Scale       0.00 
+RMEnsure TextGadgets 0.00 System:Modules.Toolbox.TextGadget
+RMEnsure TextGadgets 0.00 
+RMEnsure ToolAction  0.00 System:Modules.Toolbox.ToolAction
+RMEnsure ToolAction  0.00 
+RMEnsure Toolbox     0.00 System:Modules.Toolbox.Toolbox
+RMEnsure Toolbox     0.00 
+RMEnsure Window      0.00 System:Modules.Toolbox.Window
+RMEnsure Window      0.00 
+
+| Needs approx 48K + sizeof(infile) + sizeof(outfile)
+WimpSlot -min 128K -max 128K
+
+| if two filenames are supplied on the command line,
+| the conversion will be done without launching the app
+| eg !CCres <infile> <outfile>
+Run <CCres$Dir>.!RunImage %*0

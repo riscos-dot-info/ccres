@@ -1,0 +1,55 @@
+v1.09 9th Dec 2003
+~~~~~~~~~~~~~~~~~~
+License changed to GNU General Public License.
+Temporary defined toolbox_relocatable_object_base (until OSLib has this definition).
+Using the latest OSLib version via CVS (past 6.50).
+Source cleanup for general source &amp; binary release.
+Changed optionbutton_SELECTED into OSLib's optionbutton_ON.
+
+v1.08 11th Nov 2003
+~~~~~~~~~~~~~~~~~~~
+Added optionbutton_SELECTED flag
+
+v1.07 27th Sept 2003
+~~~~~~~~~~~~~~~~~~~~
+Added Anti-Aliased Font details to Template
+
+v1.06 22nd Sept 2003
+~~~~~~~~~~~~~~~~~~~~
+Added optionbutton_GENERATE_STATE_CHANGE flag
+Added error when !RunImage is run from command line in the desktop with wrong no. of args. 
+
+v1.05 5th Sept 2003
+~~~~~~~~~~~~~~~~~~~~
+Fixed problem with LF terminated strings in Res files. 
+
+v1.04 27th July 2003
+~~~~~~~~~~~~~~~~~~~~
+Fixed problem with help_limit for empty help strings
+Fixed problem when empty string specified in fixed size text buffer.
+Fixed problem with sprite entries in menus
+Syntax error message when used incorrectly from command line
+
+v1.03 23rd April 2003
+~~~~~~~~~~~~~~~~~~~~~
+Fixed problem with throwback reporting wrong lines
+Added simple expression evaluation to bbox, coord and cmp fields
+In-memory file transfers now supported (previously only from Filer)
+
+v1.02 9th Feb 2003
+~~~~~~~~~~~~~~~~~~
+Can now handle Template files
+Button gadget button types now decompile correctly
+Braces ('{' and '}') embedded in text entries now work correctly
+
+v1.01 7th Jan 2003
+~~~~~~~~~~~~~~~~~~
+
+Corrected !Run file RMEnsure DCS module name
+Corrected entry for v1.01 ProgInfo 'Visit URL' event
+Added support for v1.00 ProgInfo (early version without web option)
+Now runs on OS v3.10
+
+v1.00 1st Jan 2003
+~~~~~~~~~~~~~~~~~~
+Initial release

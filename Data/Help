@@ -1,0 +1,89 @@
+Purpose
+~~~~~~~
+!CCres converts Toolbox Resource files (type FAE, RESF v1.00 or v1.01) and
+Wimp Template files (type &FEC) to and from text format.
+
+Wimp application
+~~~~~~~~~~~~~~~~
+Run !CCres by double clicking the icon. To convert either file type, simply
+drag the file to the Iconbar, then drag the 'Save As' icon to a filer viewer.
+
+Command line
+~~~~~~~~~~~~
+!CCres can be run without starting it as a wimp application by specifying
+both the from and to file names on the command line, eg
+
+*Run !CCres <infile> <outfile>
+
+Compatibility
+~~~~~~~~~~~~~
+CCres is 26/32bit compatible. It is now linked with the StubsG library, so
+should no longer require the updated System files from Castle.
+
+CCres can be run on RISC OS 3.10 or later using the latest Toolbox modules
+available from the RISC OS Web site
+<URL:http://support.riscos.com/Support/Updates/>
+
+Text file format
+~~~~~~~~~~~~~~~~
+Uses a simple C-like layout based on the equivalent OSLib header definitions.
+Some entry names have been changed slightly to avoid duplication and ambiguity
+where appropriate.
+
+String entries may be enclosed in quotes to ensure that trailing spaces are
+kept intact. CCres encloses strings in quotes by default, but they are not
+obligatory.
+
+The values for bbox, coord and cmp fields can be in the form of simple
+mathematical expressions. The symbols ()+-*/ are supported, allowing
+constructs like (100+50)/2 etc
+
+Some possible uses
+~~~~~~~~~~~~~~~~~~
+* Gadget renumbering
+* Aligning and resizing gadgets
+* Add or review interactive help
+* Simplifies language translation
+* File compare of text format res files gives useful output!
+
+NOTES
+~~~~~
+Res files created by !CCres may not be identical to !ResEd files:-
+  * Relocation information is stored 'sequentially' (ie ascending address
+    offset) by !CCres, but *not always* by !ResEd
+  * !ResEd sometimes saves superfluous information, which is stripped out by
+    !CCres (eg FileInfo, - data_and_time and file_size)
+  * !ResEd saves button gadget validation_limit as 1 even if no validation
+    string supplied. !CCres sets it to zero
+
+Template files created by !CCres may not be identical to !FormEd files:-
+  * When a string is truncated in FormEd, text beyond the new terminator is
+    sometimes still saved in the file. !CCres ignores any text after the
+    terminating charcter.
+  
+For these reasons a simple 'binary compare' of 'before and after' files will
+almost always say they're different.
+
+Author
+~~~~~~
+Dave Appleby wrote all the code up to v1.08 (included).  Versions after that
+(v1.09 and later) are maintained by John Tytgat / BASS.
+
+License
+~~~~~~~
+!CCres version before v1.09 were released as FreeWare. It must only be
+distributed in its original form and there must be no charge for it
+(except possibly for covering media costs).
+
+From version 1.09 onwards, the CCres license is the
+GNU General Public License of which you find a copy as !CCres.COPYING.
+
+Note that this software is provided in good faith and no guarantee is
+provided for suitability or reliably. The authors shall not be held
+responsible for any loss of data, or other problems arising from the use
+of this program.
+
+Bugs, Updates and Suggestions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Updates available from: <URL:http://www.bass-software.com/ccres/>
+Bug reports and suggestions to: <URL:mailto:ccres@bass-software.com>

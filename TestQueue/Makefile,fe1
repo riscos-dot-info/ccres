@@ -1,0 +1,116 @@
+# Project name: CCRes TestQueue
+# Written by John Tytgat / BASS
+
+CCRES = ^.^.Release.!CCRes.!RunImage
+CCRESFLAGS = 
+
+DIFF = diff
+DIFFFLAGS = -r
+
+MKDIR = cdir
+MKDIRFLAGS =
+
+# Dependencies
+
+RES01_ORGFILES = \
+	Res01.BB01 \
+	Res01.FullSet \
+	Res01.Jo01 \
+	Res01.Joe01 \
+	Res01.MenuSprites \
+	Res01.NoTitle \
+	Res01.Options \
+	Res01.OptOnOff \
+	Res01.Shortcuts+ \
+	Res01.Shortcuts-
+
+TEM01_ORGFILES = \
+	Tem01.AntiWord \
+	Tem01.DeskEdit \
+	Tem01.OneWindow \
+	Tem01.Template
+
+RES01_TXT01FILES = \
+	Res01_Txt01.BB01 \
+	Res01_Txt01.FullSet \
+	Res01_Txt01.Jo01 \
+	Res01_Txt01.Joe01 \
+	Res01_Txt01.MenuSprites \
+	Res01_Txt01.NoTitle \
+	Res01_Txt01.Options \
+	Res01_Txt01.OptOnOff \
+	Res01_Txt01.Shortcuts+ \
+	Res01_Txt01.Shortcuts-
+
+TEM01_TXT01FILES = \
+	Tem01_Txt01.AntiWord \
+	Tem01_Txt01.DeskEdit \
+	Tem01_Txt01.OneWindow \
+	Tem01_Txt01.Template
+
+RES01_DAT01FILES = \
+	Res01_Dat01.BB01 \
+	Res01_Dat01.FullSet \
+	Res01_Dat01.Jo01 \
+	Res01_Dat01.Joe01 \
+	Res01_Dat01.MenuSprites \
+	Res01_Dat01.NoTitle \
+	Res01_Dat01.Options \
+	Res01_Dat01.OptOnOff \
+	Res01_Dat01.Shortcuts+ \
+	Res01_Dat01.Shortcuts-
+
+TEM01_DAT01FILES = \
+	Tem01_Dat01.AntiWord \
+	Tem01_Dat01.DeskEdit \
+	Tem01_Dat01.OneWindow \
+	Tem01_Dat01.Template
+
+RES01_TXT02FILES = \
+	Res01_Txt02.BB01 \
+	Res01_Txt02.FullSet \
+	Res01_Txt02.Jo01 \
+	Res01_Txt02.Joe01 \
+	Res01_Txt02.MenuSprites \
+	Res01_Txt02.NoTitle \
+	Res01_Txt02.Options \
+	Res01_Txt02.OptOnOff \
+	Res01_Txt02.Shortcuts+ \
+	Res01_Txt02.Shortcuts-
+
+TEM01_TXT02FILES = \
+	Tem01_Txt02.AntiWord \
+	Tem01_Txt02.DeskEdit \
+	Tem01_Txt02.OneWindow \
+	Tem01_Txt02.Template
+
+# Target:
+All: TEM_TEST RES_TEST
+
+RES_TEST: $(RES01_TXT02FILES) $(RES01_DAT01FILES) $(RES01_TXT01FILES)
+	@$(DIFF) $(DIFFFLAGS) Res01_Txt01 Res01_Txt02
+	@Echo *** Resource Test Done.
+
+TEM_TEST: $(TEM01_TXT02FILES) $(TEM01_DAT01FILES) $(TEM01_TXT01FILES)
+	@$(DIFF) $(DIFFFLAGS) Tem01_Txt01 Tem01_Txt02
+	@Echo *** Template Test Done.
+
+.SUFFIXES: .Res01 .Res01_Txt01 .Res01_Dat01 .Res01_Txt02 .Tem01 .Tem01_Txt01 .Tem01_Dat01 .Tem01_Txt02
+
+.Res01.Res01_Txt01:;		$(CCRES) $(CCRESFLAGS) $< $@
+.Res01_Txt01.Res01_Dat01:;	$(CCRES) $(CCRESFLAGS) $< $@
+.Res01_Dat01.Res01_Txt02:;	$(CCRES) $(CCRESFLAGS) $< $@
+
+.Tem01.Tem01_Txt01:;		$(CCRES) $(CCRESFLAGS) $< $@
+.Tem01_Txt01.Tem01_Dat01:;	$(CCRES) $(CCRESFLAGS) $< $@
+.Tem01_Dat01.Tem01_Txt02:;	$(CCRES) $(CCRESFLAGS) $< $@
+
+.INIT:
+	@$(MKDIR) $(MKDIRFLAGS) Res01_Txt01
+	@$(MKDIR) $(MKDIRFLAGS) Res01_Dat01
+	@$(MKDIR) $(MKDIRFLAGS) Res01_Txt02
+	@$(MKDIR) $(MKDIRFLAGS) Tem01_Txt01
+	@$(MKDIR) $(MKDIRFLAGS) Tem01_Dat01
+	@$(MKDIR) $(MKDIRFLAGS) Tem01_Txt02
+
+# Dynamic dependencies:
