@@ -1,5 +1,5 @@
 /* _Scale.c
-   $Id: _Scale.c,v 1.3 2004/12/26 20:21:50 joty Exp $
+   $Id: _Scale.c,v 1.4 2005/01/30 14:55:39 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -25,6 +25,8 @@
 #include <OSLib/scale.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_Scale.h"
 
 static const FLAGS ScaleFlags[] = {
 	{scale_GENERATE_ABOUT_TO_BE_SHOWN , "scale_GENERATE_ABOUT_TO_BE_SHOWN" },

@@ -1,5 +1,5 @@
 /* _Icon.c
-   $Id: _Icon.c,v 1.5 2004/12/26 20:20:16 joty Exp $
+   $Id: _Icon.c,v 1.6 2005/01/30 14:51:32 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -23,6 +23,8 @@
 #include <OSLib/button.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_Icon.h"
 
 // Res file button gadget
 

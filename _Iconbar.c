@@ -1,5 +1,5 @@
 /* _Iconbar.c
-   $Id: _Iconbar.c,v 1.4 2004/12/26 20:20:15 joty Exp $
+   $Id: _Iconbar.c,v 1.5 2005/01/30 14:51:48 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,6 +26,8 @@
 #include <OSLib/iconbar.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_Iconbar.h"
 
 /* Things which should be defined in OSLib but aren't yet :
  */

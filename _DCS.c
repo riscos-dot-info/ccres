@@ -1,5 +1,5 @@
 /* _DCS.c
-   $Id: _DCS.c,v 1.3 2004/12/26 20:18:56 joty Exp $
+   $Id: _DCS.c,v 1.4 2005/01/30 14:49:12 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,6 +26,8 @@
 #include <OSLib/dcs.h>
 
 #include "ccres.h"
+#include "_DCS.h"
+#include "_Object.h"
 
 static const FLAGS DCSFlags[] = {
 	{dcs_GENERATE_ABOUT_TO_BE_SHOWN , "dcs_GENERATE_ABOUT_TO_BE_SHOWN" },

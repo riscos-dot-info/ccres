@@ -1,5 +1,5 @@
 /* _FontDBox.c
-   $Id: _FontDbox.c,v 1.3 2004/12/26 20:20:17 joty Exp $
+   $Id: _FontDbox.c,v 1.4 2005/01/30 14:49:47 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,6 +26,8 @@
 #include <OSLib/fontdbox.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_FontDbox.h"
 
 static const FLAGS FontDboxFlags[] = {
 	{fontdbox_GENERATE_ABOUT_TO_BE_SHOWN , "fontdbox_GENERATE_ABOUT_TO_BE_SHOWN" },

@@ -1,5 +1,5 @@
 /* _FileInfo.c
-   $Id: _FileInfo.c,v 1.3 2004/12/26 20:18:56 joty Exp $
+   $Id: _FileInfo.c,v 1.4 2005/01/30 14:49:29 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,6 +26,8 @@
 #include <OSLib/fileinfo.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_FileInfo.h"
 
 static const FLAGS FileInfoFlags[] = {
 	{fileinfo_GENERATE_ABOUT_TO_BE_SHOWN , "fileinfo_GENERATE_ABOUT_TO_BE_SHOWN" },

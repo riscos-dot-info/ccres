@@ -1,5 +1,5 @@
 /* _Window.c
-   $Id: _Window.c,v 1.3 2004/12/26 20:21:49 joty Exp $
+   $Id: _Window.c,v 1.4 2005/01/30 14:55:57 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -49,6 +49,10 @@
 #include "ccres.h"
 #include "Error.h"
 #include "tabs_treeview.h"
+#include "_Gadgets.h"
+#include "_Icon.h"
+#include "_Object.h"
+#include "_Window.h"
 
 static const GADGETS Gadgets[] = {
 	{class_ACTION_BUTTON,  actionbutton_g2t,  actionbutton_t2g,  "actionbutton_object" },

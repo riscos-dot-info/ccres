@@ -1,5 +1,5 @@
 /* _Menu.c
-   $Id: _Menu.c,v 1.3 2004/12/26 20:20:15 joty Exp $
+   $Id: _Menu.c,v 1.4 2005/01/30 14:52:50 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -25,6 +25,8 @@
 #include <OSLib/menu.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_Menu.h"
 
 static const FLAGS MenuFlags[] = {
 	{menu_GENERATE_ABOUT_TO_BE_SHOWN , "menu_GENERATE_ABOUT_TO_BE_SHOWN"  },

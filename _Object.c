@@ -1,5 +1,5 @@
 /* _Object.c
-   $Id: _Object.c,v 1.5 2004/12/01 23:22:22 joty Exp $
+   $Id: _Object.c,v 1.6 2005/01/30 14:53:48 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -27,6 +27,7 @@
 #include "ccres.h"
 #include "Error.h"
 #include "Utils.h"
+#include "_Object.h"
 
 static const FLAGS ObjectHeaderFlags[] = {
 	{toolbox_OBJECT_CREATE_ON_LOAD, "toolbox_OBJECT_CREATE_ON_LOAD"},

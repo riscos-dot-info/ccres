@@ -1,5 +1,5 @@
 /* _ColourDbox.c
-   $Id: _ColourDbox.c,v 1.3 2004/12/26 20:18:57 joty Exp $
+   $Id: _ColourDbox.c,v 1.4 2005/01/30 14:48:23 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,6 +26,8 @@
 #include <OSLib/colourdbox.h>
 
 #include "ccres.h"
+#include "_ColourDbox.h"
+#include "_Object.h"
 
 static const FLAGS ColourDboxFlags[] = {
 	{colourdbox_GENERATE_ABOUT_TO_BE_SHOWN , "colourdbox_GENERATE_ABOUT_TO_BE_SHOWN" },

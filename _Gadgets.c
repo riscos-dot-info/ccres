@@ -1,5 +1,5 @@
 /* _Gadgets.c
-   $Id: _Gadgets.c,v 1.3 2004/12/26 20:23:32 joty Exp $
+   $Id: _Gadgets.c,v 1.4 2005/01/30 14:51:10 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -44,6 +44,8 @@
 
 #include "ccres.h"
 #include "tabs_treeview.h"
+#include "_Object.h"
+#include "_Gadgets.h"
 
 // ActionButton gadget
 

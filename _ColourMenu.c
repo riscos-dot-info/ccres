@@ -1,5 +1,5 @@
 /* _ColourMenu.c
-   $Id: _ColourMenu.c,v 1.3 2004/12/26 20:18:57 joty Exp $
+   $Id: _ColourMenu.c,v 1.4 2005/01/30 14:48:40 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,6 +26,8 @@
 #include <OSLib/colourmenu.h>
 
 #include "ccres.h"
+#include "_ColourMenu.h"
+#include "_Object.h"
 
 static const FLAGS ColourMenuFlags[] = {
 	{colourmenu_GENERATE_ABOUT_TO_BE_SHOWN , "colourmenu_GENERATE_ABOUT_TO_BE_SHOWN" },

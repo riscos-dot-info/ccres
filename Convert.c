@@ -1,5 +1,5 @@
 /* Convert.c
-   $Id: Convert.c,v 1.3 2004/12/26 20:18:58 joty Exp $
+   $Id: Convert.c,v 1.4 2005/01/30 14:46:41 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -39,6 +39,22 @@
 
 #include "ccres.h"
 #include "Error.h"
+
+#include "_ColourDbox.h"
+#include "_ColourMenu.h"
+#include "_DCS.h"
+#include "_FileInfo.h"
+#include "_FontDbox.h"
+#include "_FontMenu.h"
+#include "_Iconbar.h"
+#include "_Menu.h"
+#include "_Object.h"
+#include "_PrintDbox.h"
+#include "_ProgInfo.h"
+#include "_Quit.h"
+#include "_SaveAs.h"
+#include "_Scale.h"
+#include "_Window.h"
 
 static const CLASSES Classes[] = {
 	{ColourDbox_ClassSWI, colourdbox_g2t, colourdbox_t2g, "colourdbox_object"},

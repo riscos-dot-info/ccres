@@ -1,5 +1,5 @@
 /* _PrintDbox.c
-   $Id: _PrintDbox.c,v 1.3 2004/12/26 20:21:51 joty Exp $
+   $Id: _PrintDbox.c,v 1.4 2005/01/30 14:54:29 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -25,6 +25,8 @@
 #include <OSLib/printdbox.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_PrintDbox.h"
 
 static const FLAGS PrintDboxFlags[] = {
 	{printdbox_GENERATE_ABOUT_TO_BE_SHOWN , "printdbox_GENERATE_ABOUT_TO_BE_SHOWN" },

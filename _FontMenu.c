@@ -1,5 +1,5 @@
 /* _FontMenu.c
-   $Id: _FontMenu.c,v 1.3 2004/12/26 20:20:16 joty Exp $
+   $Id: _FontMenu.c,v 1.4 2005/01/30 14:50:12 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,6 +26,8 @@
 #include <OSLib/fontmenu.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_FontMenu.h"
 
 static const FLAGS FontMenuFlags[] = {
 	{fontmenu_GENERATE_ABOUT_TO_BE_SHOWN , "fontmenu_GENERATE_ABOUT_TO_BE_SHOWN" },

@@ -1,5 +1,5 @@
 /* _ProgInfo.c
-   $Id: _ProgInfo.c,v 1.3 2004/12/26 20:21:51 joty Exp $
+   $Id: _ProgInfo.c,v 1.4 2005/01/30 14:54:50 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -25,6 +25,8 @@
 #include <OSLib/proginfo.h>
 
 #include "ccres.h"
+#include "_Object.h"
+#include "_ProgInfo.h"
 
 static const FLAGS ProgInfoLicenceType[] = {
 	{~0                             , "None"},
