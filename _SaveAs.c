@@ -1,7 +1,7 @@
 /* _SaveAs.c
-   $Id: _SaveAs.c,v 1.2 2004/03/20 22:13:57 joty Exp $
+   $Id: _SaveAs.c,v 1.3 2004/12/26 20:21:50 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -27,7 +27,7 @@
 
 #include "ccres.h"
 
-static FLAGS SaveAsFlags[] = {
+static const FLAGS SaveAsFlags[] = {
 	{saveas_GENERATE_ABOUT_TO_BE_SHOWN  , "saveas_GENERATE_ABOUT_TO_BE_SHOWN"  },
 	{saveas_GENERATE_DIALOGUE_COMPLETED , "saveas_GENERATE_DIALOGUE_COMPLETED" },
 	{saveas_NO_SELECTION_BUTTON         , "saveas_NO_SELECTION_BUTTON"         },
@@ -35,7 +35,7 @@ static FLAGS SaveAsFlags[] = {
 	{saveas_CLIENT_SUPPORTS_RAM_TRANSFER, "saveas_CLIENT_SUPPORTS_RAM_TRANSFER"}
 };
 
-static OBJECTLIST SaveAsObjectList[] = {
+static const OBJECTLIST SaveAsObjectList[] = {
 	{iol_FLAGS,  "saveas_flags:",            offsetof(saveas_object, flags),                   SaveAsFlags,    ELEMENTS(SaveAsFlags)              },
 	{iol_MSG,    "file_name:",               offsetof(saveas_object, file_name),               NULL,           0                                  },
 	{iol_BITS,   "file_type:",               offsetof(saveas_object, file_type),               NULL,           0                                  },
@@ -43,15 +43,17 @@ static OBJECTLIST SaveAsObjectList[] = {
 	{iol_STRING, "alternative_window_name:", offsetof(saveas_object, alternative_window_name), NULL,           0                                  }
 };
 
-int saveas_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int saveas_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+//      ================================================================================
 {
-	put_objects(data, pszIn, 0, (PSTR) (object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList));
+put_objects(data, pszIn, 0, (PSTR) (object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList));
 
-	return sizeof(saveas_object);
+return sizeof(saveas_object);
 }
 
 
-void saveas_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void saveas_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      =================================================================================================================
 {
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList), 1);
+get_objects(hf, pszStringTable, pszMessageTable, (const char *)(object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList), 1);
 }

@@ -1,7 +1,7 @@
 /* Main.c
-   $Id: Main.c,v 1.3 2004/03/20 22:01:13 joty Exp $
+   $Id: Main.c,v 1.4 2004/03/20 22:12:21 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -36,8 +36,10 @@
 /* Project headers :
  */
 #include "ccres.h"
+#include "Error.h"
 
 const char achProgName[] = APPNAME;
+int returnStatus = EXIT_SUCCESS;
 
 // Toolbox action codes returned by WimpPoll - each action has an associated handler
 static const toolbox_action_list Action[] =
@@ -175,5 +177,5 @@ else
   return EXIT_FAILURE;
   }
 
-return EXIT_SUCCESS;
+return returnStatus;
 }

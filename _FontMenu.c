@@ -1,7 +1,7 @@
 /* _FontMenu.c
-   $Id: _FontMenu.c,v 1.2 2004/03/20 22:13:35 joty Exp $
+   $Id: _FontMenu.c,v 1.3 2004/12/26 20:20:16 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -27,28 +27,30 @@
 
 #include "ccres.h"
 
-static FLAGS FontMenuFlags[] = {
+static const FLAGS FontMenuFlags[] = {
 	{fontmenu_GENERATE_ABOUT_TO_BE_SHOWN , "fontmenu_GENERATE_ABOUT_TO_BE_SHOWN" },
 	{fontmenu_GENERATE_DIALOGUE_COMPLETED, "fontmenu_GENERATE_DIALOGUE_COMPLETED"},
 	{fontmenu_GENERATE_HAS_BEEN_HIDDEN   , "fontmenu_GENERATE_HAS_BEEN_HIDDEN"   },
 	{fontmenu_INCLUDE_SYSTEM_FONT        , "fontmenu_INCLUDE_SYSTEM_FONT"        }
 };
 
-static OBJECTLIST FontMenuObjectList[] = {
+static const OBJECTLIST FontMenuObjectList[] = {
 	{iol_FLAGS,  "fontmenu_flags:", offsetof(fontmenu_object, flags),       FontMenuFlags, ELEMENTS(FontMenuFlags)},
 	{iol_STRING, "ticked_font:",    offsetof(fontmenu_object, ticked_font), NULL,          0                      }
 };
 
 
-int fontmenu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int fontmenu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+//      ==================================================================================
 {
-	put_objects(data, pszIn, 0, (PSTR) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList));
+put_objects(data, pszIn, 0, (PSTR) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList));
 
-	return sizeof(fontmenu_object);
+return sizeof(fontmenu_object);
 }
 
 
-void fontmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void fontmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ===================================================================================================================
 {
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList), 1);
+get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList), 1);
 }

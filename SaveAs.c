@@ -1,7 +1,7 @@
 /* _SaveAs.c
-   $Id: SaveAs.c,v 1.1 2003/12/09 00:00:03 joty Exp $
+   $Id: SaveAs.c,v 1.2 2004/03/20 22:12:19 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -20,29 +20,27 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <string.h>
 
 #include <OSLib/saveas.h>
 
+#include "ccres.h"
 
-void action_save_to_file(PDATA data)
+        void action_save_to_file(PDATA data)
+//      ====================================
 {
-	bits fSaved;
+bits fSaved;
 
-	fSaved = (convert(data, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
-	saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
-	if (fSaved == saveas_SAVE_SUCCESSFUL) {
-		toolbox_hide_object(0, data->idSaveAs);
-	}
+fSaved = (convert(data, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
+saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
+if (fSaved == saveas_SAVE_SUCCESSFUL)
+  toolbox_hide_object(0, data->idSaveAs);
 }
 
 
-void action_save_completed(PDATA data)
+        void action_save_completed(PDATA data)
+//      ======================================
 {
-	if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL) {
-		my_osfile_delete(data->poll.sa.file_name);
-	}
+if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL)
+  my_osfile_delete(data->poll.sa.file_name);
 }
-

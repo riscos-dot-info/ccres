@@ -1,7 +1,7 @@
 /* _Iconbar.c
-   $Id: _Iconbar.c,v 1.3 2004/12/01 23:17:48 joty Exp $
+   $Id: _Iconbar.c,v 1.4 2004/12/26 20:20:15 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -34,7 +34,7 @@
 #define iconbar_SHOW_SELECT_AT_POINTER		((iconbar_flags) 0x0200u)
 #define iconbar_SHOW_ADJUST_AT_POINTER		((iconbar_flags) 0x0400u)
 
-static FLAGS IconbarFlags[] = {
+static const FLAGS IconbarFlags[] = {
 	{iconbar_GENERATE_SELECT_ABOUT_TO_BE_SHOWN, "iconbar_GENERATE_SELECT_ABOUT_TO_BE_SHOWN"},
 	{iconbar_GENERATE_ADJUST_ABOUT_TO_BE_SHOWN, "iconbar_GENERATE_ADJUST_ABOUT_TO_BE_SHOWN"},
 	{iconbar_SELECT_IS_MENU                   , "iconbar_SELECT_IS_MENU"                   },
@@ -48,7 +48,7 @@ static FLAGS IconbarFlags[] = {
 	{iconbar_SHOW_ADJUST_AT_POINTER           , "iconbar_SHOW_ADJUST_AT_POINTER"           }
 };
 
-static FLAGS IconbarPosition[] = {
+static const FLAGS IconbarPosition[] = {
 	{(int) wimp_ICON_BAR_RIGHT              , "wimp_ICON_BAR_RIGHT"              },
 	{(int) wimp_ICON_BAR_LEFT               , "wimp_ICON_BAR_LEFT"               },
 	{(int) wimp_ICON_BAR_LEFT_RELATIVE      , "wimp_ICON_BAR_LEFT_RELATIVE"      },
@@ -60,7 +60,7 @@ static FLAGS IconbarPosition[] = {
 };
 
 
-static OBJECTLIST IconbarObjectList[] = {
+static const OBJECTLIST IconbarObjectList[] = {
 	{iol_FLAGS,  "iconbar_flags:", offsetof(iconbar_object, flags),         IconbarFlags,    ELEMENTS(IconbarFlags)                },
 	{iol_ENUM,   "position:",      offsetof(iconbar_object, position),      IconbarPosition, ELEMENTS(IconbarPosition)             },
 	{iol_INT,    "priority:",      offsetof(iconbar_object, priority),      NULL,            0                                     },
@@ -75,15 +75,17 @@ static OBJECTLIST IconbarObjectList[] = {
 };
 
 
-int iconbar_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int iconbar_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+//      =================================================================================
 {
-	put_objects(data, pszIn, 0, (PSTR) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList));
+put_objects(data, pszIn, 0, (PSTR) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList));
 
-	return sizeof(iconbar_object);
+return sizeof(iconbar_object);
 }
 
 
-void iconbar_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void iconbar_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ==================================================================================================================
 {
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList), 1);
+get_objects(hf, pszStringTable, pszMessageTable, (const char *) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList), 1);
 }

@@ -1,7 +1,7 @@
 /* _FontDBox.c
-   $Id: _FontDbox.c,v 1.2 2004/03/20 22:13:35 joty Exp $
+   $Id: _FontDbox.c,v 1.3 2004/12/26 20:20:17 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -27,12 +27,13 @@
 
 #include "ccres.h"
 
-static FLAGS FontDboxFlags[] = {
+static const FLAGS FontDboxFlags[] = {
 	{fontdbox_GENERATE_ABOUT_TO_BE_SHOWN , "fontdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{fontdbox_GENERATE_DIALOGUE_COMPLETED, "fontdbox_GENERATE_DIALOGUE_COMPLETED"}
+	{fontdbox_GENERATE_DIALOGUE_COMPLETED, "fontdbox_GENERATE_DIALOGUE_COMPLETED"},
+	{fontdbox_INCLUDE_SYSTEM_FONT        , "fontdbox_INCLUDE_SYSTEM_FONT"}
 };
 
-static OBJECTLIST FontDboxObjectList[] = {
+static const OBJECTLIST FontDboxObjectList[] = {
 	{iol_FLAGS,  "fontdbox_flags:",          offsetof(fontdbox_object, flags),                   FontDboxFlags,  ELEMENTS(FontDboxFlags)               },
 	{iol_MSG,    "title:",                   offsetof(fontdbox_object, title),                   "title_limit:", offsetof(fontdbox_object, title_limit)},
 	{iol_STRING, "initial_font:",            offsetof(fontdbox_object, initial.font),            NULL,           0                                     },
@@ -43,15 +44,17 @@ static OBJECTLIST FontDboxObjectList[] = {
 };
 
 
-int fontdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int fontdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+//      ==================================================================================
 {
-	put_objects(data, pszIn, 0, (PSTR) (object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList));
+put_objects(data, pszIn, 0, (PSTR) (object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList));
 
-	return sizeof(fontdbox_object);
+return sizeof(fontdbox_object);
 }
 
 
-void fontdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void fontdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ===================================================================================================================
 {
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList), 1);
+get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList), 1);
 }

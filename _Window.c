@@ -1,7 +1,7 @@
 /* _Window.c
-   $Id: _Window.c,v 1.2 2004/03/20 22:13:56 joty Exp $
+   $Id: _Window.c,v 1.3 2004/12/26 20:21:49 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -47,9 +47,10 @@
 #include <OSLib/writablefield.h>
 
 #include "ccres.h"
+#include "Error.h"
 #include "tabs_treeview.h"
 
-static GADGETS Gadgets[] = {
+static const GADGETS Gadgets[] = {
 	{class_ACTION_BUTTON,  actionbutton_g2t,  actionbutton_t2g,  "actionbutton_object" },
 	{class_ADJUSTER,       adjuster_g2t,      adjuster_t2g,      "adjuster_object"     },
 	{class_BUTTON,         button_g2t,        button_t2g,        "button_object"       },
@@ -71,7 +72,7 @@ static GADGETS Gadgets[] = {
 	{class_WRITABLE_FIELD, writablefield_g2t, writablefield_t2g, "writablefield_object"}
 };
 
-static FLAGS WindowFlags[] = {
+static const FLAGS WindowFlags[] = {
 	{window_GENERATE_ABOUT_TO_BE_SHOWN , "window_GENERATE_ABOUT_TO_BE_SHOWN" },
 	{window_AUTO_OPEN                  , "window_AUTO_OPEN"                  },
 	{window_AUTO_CLOSE                 , "window_AUTO_CLOSE"                 },
@@ -79,7 +80,7 @@ static FLAGS WindowFlags[] = {
 	{window_IS_TOOL_BAR                , "window_IS_TOOL_BAR"                }
 };
 
-static FLAGS WindowWindowFlags[] = {
+static const FLAGS WindowWindowFlags[] = {
 	{wimp_WINDOW_MOVEABLE         , "wimp_WINDOW_MOVEABLE"         },
 	{wimp_WINDOW_AUTO_REDRAW      , "wimp_WINDOW_AUTO_REDRAW"      },
 	{wimp_WINDOW_PANE             , "wimp_WINDOW_PANE"             },
@@ -111,7 +112,7 @@ static FLAGS WindowWindowFlags[] = {
 	{wimp_WINDOW_NEW_FORMAT       , "wimp_WINDOW_NEW_FORMAT"       }
 };
 
-static FLAGS WindowExtraFlags[] = {
+static const FLAGS WindowExtraFlags[] = {
 	{wimp_WINDOW_USE_TITLE_VALIDATION_COLOURS, "wimp_WINDOW_USE_TITLE_VALIDATION_COLOURS"},
 	{wimp_WINDOW_USE_TITLE_VALIDATION_STRING , "wimp_WINDOW_USE_TITLE_VALIDATION_STRING" },
 	{wimp_WINDOW_USE_EXTENDED_SCROLL_REQUEST , "wimp_WINDOW_USE_EXTENDED_SCROLL_REQUEST" },
@@ -119,7 +120,7 @@ static FLAGS WindowExtraFlags[] = {
 	{wimp_WINDOW_ALWAYS3D                    , "wimp_WINDOW_ALWAYS3D"                    }
 };
 
-static FLAGS WindowTitleFlags[] = {
+static const FLAGS WindowTitleFlags[] = {
 	{wimp_ICON_TEXT               , "wimp_ICON_TEXT"               },
 	{wimp_ICON_SPRITE             , "wimp_ICON_SPRITE"             },
 	{wimp_ICON_BORDER             , "wimp_ICON_BORDER"             },
@@ -127,15 +128,17 @@ static FLAGS WindowTitleFlags[] = {
 	{wimp_ICON_VCENTRED           , "wimp_ICON_VCENTRED"           },
 	{wimp_ICON_FILLED             , "wimp_ICON_FILLED"             },
 	{wimp_ICON_ANTI_ALIASED       , "wimp_ICON_ANTI_ALIASED"       },
+
 	{wimp_ICON_INDIRECTED         , "wimp_ICON_INDIRECTED"         },
 	{wimp_ICON_RJUSTIFIED         , "wimp_ICON_RJUSTIFIED"         },
 	{wimp_ICON_ALLOW_ADJUST       , "wimp_ICON_ALLOW_ADJUST"       },
 	{wimp_ICON_HALF_SIZE          , "wimp_ICON_HALF_SIZE"          },
+
 	{wimp_ICON_SELECTED           , "wimp_ICON_SELECTED"           },
 	{wimp_ICON_SHADED             , "wimp_ICON_SHADED"             }
 };
 
-static FLAGS WindowWorkFlags[] = {
+static const FLAGS WindowWorkFlags[] = {
 	{(wimp_BUTTON_ALWAYS            << wimp_ICON_BUTTON_TYPE_SHIFT), "wimp_BUTTON_ALWAYS"           },
 	{(wimp_BUTTON_REPEAT            << wimp_ICON_BUTTON_TYPE_SHIFT), "wimp_BUTTON_REPEAT"           },
 	{(wimp_BUTTON_CLICK             << wimp_ICON_BUTTON_TYPE_SHIFT), "wimp_BUTTON_CLICK"            },
@@ -151,13 +154,13 @@ static FLAGS WindowWorkFlags[] = {
 	{(wimp_BUTTON_WRITABLE          << wimp_ICON_BUTTON_TYPE_SHIFT), "wimp_BUTTON_WRITABLE"         }
 };
 
-static FLAGS WindowNextFlags[] = {
+static const FLAGS WindowNextFlags[] = {
 	{(int) wimp_TOP   , "wimp_TOP"   },
 	{(int) wimp_BOTTOM, "wimp_BOTTOM"},
 	{(int) wimp_HIDDEN, "wimp_HIDDEN"}
 };
 
-static OBJECTLIST WindowObjectList[] = {
+static const OBJECTLIST WindowObjectList[] = {
 	{iol_FLAGS,  "window_flags:",            offsetof(window_object_base, flags),               WindowFlags,       ELEMENTS(WindowFlags)                   },
 	{iol_MSG,    "help_message:",            offsetof(window_object_base, help_message),        "help_limit:",     offsetof(window_object_base, help_limit)},
 	{iol_STRING, "sprite_name:",             offsetof(window_object_base, sprite_name),         NULL,              0                                       },
@@ -197,20 +200,20 @@ static OBJECTLIST WindowObjectList[] = {
 	{iol_STRING, "window.title_valid:",      offsetof(window_object_base, window.title_data.indirected_text.validation), NULL, 0                           }
 };
 
-static OBJECTLIST GadgetHeaderList[] = {
+static const OBJECTLIST GadgetHeaderList[] = {
 	{iol_BITS, "cmp:",          offsetof(gadget_object, cmp),          NULL,          bits_EVAL                          },
 	{iol_BOX,  "bbox:",         offsetof(gadget_object, bbox),         NULL,          0                                  },
 	{iol_MSG,  "help_message:", offsetof(gadget_object, help_message), "help_limit:", offsetof(gadget_object, help_limit)}
 };
 
-static PSTR pszShortcutObject = "keyboardshortcut_object";
-static FLAGS ShortcutFlags[] = {
+static const PSTR pszShortcutObject = "keyboardshortcut_object";
+static const FLAGS ShortcutFlags[] = {
 	{keyboardshortcut_SHOW_AS_MENU   , "keyboardshortcut_SHOW_AS_MENU"   },
 	{keyboardshortcut_SHOW_AT_CENTRE , "keyboardshortcut_SHOW_AT_CENTRE" },
 	{keyboardshortcut_SHOW_AT_POINTER, "keyboardshortcut_SHOW_AT_POINTER"}
 };
 
-static OBJECTLIST ShortcutList[] = {
+static const OBJECTLIST ShortcutList[] = {
 	{iol_FLAGS,  "flags:",     offsetof(keyboardshortcut_object, flags),  ShortcutFlags, ELEMENTS(ShortcutFlags)},
 	{iol_BITS,   "key_code:",  offsetof(keyboardshortcut_object, c),      NULL,          0                      },
 	{iol_BITS,   "key_event:", offsetof(keyboardshortcut_object, action), NULL,          0                      },
@@ -297,12 +300,12 @@ void window_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszS
 	int n, g, nSize, nClass;
 
 	window_object = (window_object_base *) (object + 1);
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) window_object, WindowObjectList, ELEMENTS(WindowObjectList), 1);
+	get_objects(hf, pszStringTable, pszMessageTable, (const char *)window_object, WindowObjectList, ELEMENTS(WindowObjectList), 1);
 
 	shortcut = (keyboardshortcut_object *) ((PSTR) window_object + (int) window_object->shortcuts);
 	for (n = 0; n < window_object->shortcut_count; n++, shortcut++) {
 		fprintf(hf, "  %s {\n", pszShortcutObject);
-		get_objects(hf, pszStringTable, pszMessageTable, (PSTR) shortcut, ShortcutList, ELEMENTS(ShortcutList), 2);
+		get_objects(hf, pszStringTable, pszMessageTable, (const char *)shortcut, ShortcutList, ELEMENTS(ShortcutList), 2);
 		fputs("  }\n", hf);
 	}
 
@@ -314,7 +317,7 @@ void window_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszS
 			if (Gadgets[g].class_no == nClass) {
 LOG((Gadgets[g].name));
 				fprintf(hf, "  %s {\n", Gadgets[g].name);
-				get_objects(hf, pszStringTable, pszMessageTable, (PSTR) gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList), 2);
+				get_objects(hf, pszStringTable, pszMessageTable, (const char *)gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList), 2);
 				Gadgets[g].g2t(hf, gadget, pszStringTable, pszMessageTable);
 				fputs("  }\n", hf);
 LOG((""));
@@ -333,7 +336,7 @@ window_gadget_added:
 // a separate source file would have been nice, but sharing common data tricky without duplication...
 
 
-static OBJECTLIST WimpWindowObjectList[] = {
+static const OBJECTLIST WimpWindowObjectList[] = {
 	{iol_BOX,    "visible:",      offsetof(wimp_window_base, visible),      NULL,              0                          },
 	{iol_INT,    "xscroll:",      offsetof(wimp_window_base, xscroll),      NULL,              0                          },
 	{iol_INT,    "yscroll:",      offsetof(wimp_window_base, yscroll),      NULL,              0                          },
@@ -356,51 +359,55 @@ static OBJECTLIST WimpWindowObjectList[] = {
 };
 
 
-int _window_template(PDATA data, PSTR pszIn, int nOffset, wimp_window_base * window)
+        int window_text2template(PDATA data, PSTR pszIn, int nOffset, wimp_window_base * window)
+//      ========================================================================================
 {
-	wimp_icon * icon;
-	PSTR pszObject, pszEnd, strings;
-	int ref;
+wimp_icon * icon;
+PSTR pszObject, pszEnd, strings;
+int ref;
 
-	put_objects(data, pszIn, 0, (PSTR) window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList));
-	put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &window->title_data, window->title_flags);
+put_objects(data, pszIn, 0, (PSTR) window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList));
+put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &window->title_data, window->title_flags);
 
-	pszEnd = data->pszIn + data->cbIn;
-	icon = (wimp_icon *) (window + 1);
-	while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
+pszEnd = data->pszIn + data->cbIn;
+icon = (wimp_icon *) (window + 1);
+while ((pszObject = next_object(&pszIn, pszEnd)) != NULL)
+  {
 LOG(("_window pszObject=%s offset=%d (%x)", pszObject, -nOffset, -nOffset));
-		_icon(data, pszIn, nOffset, icon);
-		icon++;
-		if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
-			break;
-		}
-	}
-	window->icon_count = (int) ((PSTR) icon - (PSTR) (window + 1)) / sizeof(wimp_icon);
+  icon_text2template(data, pszIn, nOffset, icon);
+  icon++;
+  if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL)
+    break;
+  }
+window->icon_count = (int) ((PSTR) icon - (PSTR) (window + 1)) / sizeof(wimp_icon);
 
-	strings = (PSTR) icon;
-	if ((ref = data->StringTable.ref) > 0) {
-		memcpy(strings, data->StringTable.pstr, ref);
-		strings += ref;
-		reset_string_table(&data->StringTable);
-	}
-	return (int) (strings - (PSTR) window);
+strings = (PSTR) icon;
+if ((ref = data->StringTable.ref) > 0)
+  {
+  memcpy(strings, data->StringTable.pstr, ref);
+  strings += ref;
+  reset_string_table(&data->StringTable);
+  }
+return (int) (strings - (PSTR) window);
 }
 
 
-void window_template(FILE * hf, PSTR pszBuff)
+        void window_template2text(FILE * hf, PSTR pszBuff)
+//      ==================================================
 {
-	wimp_window_base * window;
-	wimp_icon * i;
-	int n;
+wimp_window_base * window;
+wimp_icon * i;
+int n;
 
-	window = (wimp_window_base *) pszBuff;
-	get_objects(hf, pszBuff, NULL, (PSTR) window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList), 1);
-	get_icon_data(hf, pszBuff, (wimp_icon_data *) &window->title_data, window->title_flags, 1);
+window = (wimp_window_base *) pszBuff;
+get_objects(hf, pszBuff, NULL, (const char *)window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList), 1);
+get_icon_data(hf, pszBuff, (wimp_icon_data *) &window->title_data, window->title_flags, 1);
 
-	i = (wimp_icon *) (window + 1);
-	for (n = 0; n < window->icon_count; n++, i++) {
-		fputs("  wimp_icon {\n", hf);
-		icon(hf, pszBuff, i);
-		fputs("  }\n", hf);
-	}
+i = (wimp_icon *) (window + 1);
+for (n = 0; n < window->icon_count; n++, i++)
+  {
+  fputs("  wimp_icon {\n", hf);
+  icon_template2text(hf, pszBuff, i);
+  fputs("  }\n", hf);
+  }
 }

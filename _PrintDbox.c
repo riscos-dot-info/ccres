@@ -1,7 +1,7 @@
 /* _PrintDbox.c
-   $Id: _PrintDbox.c,v 1.2 2004/03/20 22:13:59 joty Exp $
+   $Id: _PrintDbox.c,v 1.3 2004/12/26 20:21:51 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -26,7 +26,7 @@
 
 #include "ccres.h"
 
-static FLAGS PrintDboxFlags[] = {
+static const FLAGS PrintDboxFlags[] = {
 	{printdbox_GENERATE_ABOUT_TO_BE_SHOWN , "printdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
 	{printdbox_GENERATE_DIALOGUE_COMPLETED, "printdbox_GENERATE_DIALOGUE_COMPLETED"},
 	{printdbox_GENERATE_SHOW_SETUP_ACTION , "printdbox_GENERATE_SHOW_SETUP_ACTION" },
@@ -42,7 +42,7 @@ static FLAGS PrintDboxFlags[] = {
 	{printdbox_SELECT_DRAFT               , "printdbox_SELECT_DRAFT"               }
 };
 
-static OBJECTLIST PrintDboxObjectList[] = {
+static const OBJECTLIST PrintDboxObjectList[] = {
 	{iol_FLAGS,   "printdbox_flags:",         offsetof(printdbox_object, flags),                   PrintDboxFlags, ELEMENTS(PrintDboxFlags)},
 	{iol_INT,     "from:",                    offsetof(printdbox_object, from),                    NULL,           0                       },
 	{iol_INT,     "to:",                      offsetof(printdbox_object, to),                      NULL,           0                       },
@@ -52,15 +52,17 @@ static OBJECTLIST PrintDboxObjectList[] = {
 	{iol_STRING,  "alternative_window_name:", offsetof(printdbox_object, alternative_window_name), NULL,           0                       }
 };
 
-int printdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int printdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+//      ===================================================================================
 {
-	put_objects(data, pszIn, 0, (PSTR) (object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList));
+put_objects(data, pszIn, 0, (PSTR) (object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList));
 
-	return sizeof(printdbox_object);
+return sizeof(printdbox_object);
 }
 
 
-void printdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void printdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ====================================================================================================================
 {
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList), 1);
+get_objects(hf, pszStringTable, pszMessageTable, (const char *)(object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList), 1);
 }

@@ -1,7 +1,7 @@
 /* Filer.c
-   $Id: Filer.c,v 1.1 2003/12/08 23:59:59 joty Exp $
+   $Id: Filer.c,v 1.2 2004/03/20 22:12:21 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -20,9 +20,10 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <string.h>
+
+#include "ccres.h"
+#include "Error.h"
 
 static char achScrapFile[] = "<Wimp$Scrap>";
 
@@ -82,7 +83,7 @@ BOOL load_file(PDATA data, PSTR pszPath, bits nFiletype)
 	if ((cbIn = my_osfile_filesize(pszPath)) > 0 && (pszIn = (PSTR) MyAlloc(cbIn)) != NULL) {
 		if (my_osfile_load(pszPath, pszIn, cbIn) != cbIn) {
 			MyFree(pszIn);
-			return(FALSE);
+			return FALSE;
 		}
 		data->pszIn = pszIn;
 		data->cbIn = cbIn;
@@ -101,8 +102,8 @@ BOOL load_file(PDATA data, PSTR pszPath, bits nFiletype)
 		} else {
 			data->nFiletypeOut = osfile_TYPE_TEXT;
 		}
-		return(TRUE);
+		return TRUE;
 	}
 
-	return(FALSE);
+	return FALSE;
 }

@@ -1,7 +1,7 @@
 /* Misc.c
-   $Id: Misc.c,v 1.2 2004/03/20 22:12:20 joty Exp $
+   $Id: Misc.c,v 1.3 2004/11/30 00:51:56 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -20,13 +20,13 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
-#include <stdio.h>		// sprintf
-#include <string.h>		// strncmp
+#include <stdio.h>
+#include <string.h>
 
 #include <OSLib/taskmanager.h>
 
+#include "ccres.h"
+#include "Error.h"
 
 // @@should read appname from _Messages file...
 wimp_t is_running(void)

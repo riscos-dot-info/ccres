@@ -1,7 +1,7 @@
 /* Eval.c
-   $Id: Eval.c,v 1.1 2003/12/08 23:59:58 joty Exp $
+   $Id: Eval.c,v 1.2 2004/03/20 22:12:22 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -20,9 +20,10 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <ctype.h>
+
+#include "ccres.h"
+#include "Error.h"
 
 // hi nybble = precedence, added to lo nybble to make unique id
 enum {LBRACKET=0x11,ADD=0x21,SUB=0x22,MUL=0x31,DIV=0x32};
@@ -43,7 +44,7 @@ static BOOL Eval2(PINT sop, PINT sn, PINT piop, PINT pin)
 		res = lnum * rnum;
 	} else if (op ==  DIV) {
 		if (rnum == 0) {
-			return(FALSE);
+			return FALSE;
 		} else {
 			res = lnum / rnum;
 		}
@@ -52,13 +53,13 @@ static BOOL Eval2(PINT sop, PINT sn, PINT piop, PINT pin)
 	} else if (op ==  SUB) {
 		res = lnum - rnum;
 	} else {
-		return(FALSE);
+		return FALSE;
 	}
 	sn[in++] = res;
 
 	*piop = iop;
 	*pin = in;
-	return(TRUE);
+	return TRUE;
 }
 
 
@@ -129,7 +130,7 @@ int Eval(PDATA data, PSTR * ppstr)
 	}
 	if (in == 1) {
 		*ppstr = pstr;
-		return(sn[0]);
+		return sn[0];
 	}
 
 Eval_SyntaxError:
@@ -137,5 +138,5 @@ Eval_SyntaxError:
 LOG(("Expression syntax error"));
 	report(data, *ppstr, "Expression syntax error");
 	*ppstr = pstr;
-	return(0);
+	return 0;
 }

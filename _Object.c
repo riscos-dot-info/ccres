@@ -1,7 +1,7 @@
 /* _Object.c
-   $Id: _Object.c,v 1.4 2004/12/01 23:18:38 joty Exp $
+   $Id: _Object.c,v 1.5 2004/12/01 23:22:22 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -20,26 +20,29 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <string.h>
 
 #include <OSLib/ddeutils.h>
 
-static FLAGS ObjectHeaderFlags[] = {
+#include "ccres.h"
+#include "Error.h"
+#include "Utils.h"
+
+static const FLAGS ObjectHeaderFlags[] = {
 	{toolbox_OBJECT_CREATE_ON_LOAD, "toolbox_OBJECT_CREATE_ON_LOAD"},
 	{toolbox_OBJECT_SHOW_ON_CREATE, "toolbox_OBJECT_SHOW_ON_CREATE"},
 	{toolbox_OBJECT_SHARED        , "toolbox_OBJECT_SHARED"        },
 	{toolbox_OBJECT_ANCESTOR      , "toolbox_OBJECT_ANCESTOR"      }
 };
 
-static OBJECTLIST ObjectHeaderList[] = {
+static const OBJECTLIST ObjectHeaderList[] = {
 	{iol_FLAGS, "header_flags:", offsetof(toolbox_resource_file_object_base, flags),   ObjectHeaderFlags, ELEMENTS(ObjectHeaderFlags)},
 	{iol_INT,   "version:",      offsetof(toolbox_resource_file_object_base, version), NULL,              0                          },
 	{iol_PSTR,  "object_name:",  offsetof(toolbox_resource_file_object_base, name),    NULL,              0                          }
 };
 
-static FLAGS WimpIconFlags[] = {
+// Icon flags to be masked with 0xFFF + 0xE00000 :
+static const FLAGS WimpIconFlags[] = {
 	{wimp_ICON_TEXT                                                , "wimp_ICON_TEXT"               },
 	{wimp_ICON_SPRITE                                              , "wimp_ICON_SPRITE"             },
 	{wimp_ICON_BORDER                                              , "wimp_ICON_BORDER"             },
@@ -52,12 +55,14 @@ static FLAGS WimpIconFlags[] = {
 	{wimp_ICON_RJUSTIFIED                                          , "wimp_ICON_RJUSTIFIED"         },
 	{wimp_ICON_ALLOW_ADJUST                                        , "wimp_ICON_ALLOW_ADJUST"       },
 	{wimp_ICON_HALF_SIZE                                           , "wimp_ICON_HALF_SIZE"          },
+
 	{wimp_ICON_SELECTED                                            , "wimp_ICON_SELECTED"           },
 	{wimp_ICON_SHADED                                              , "wimp_ICON_SHADED"             },
 	{wimp_ICON_DELETED                                             , "wimp_ICON_DELETED"            }
 };
 
-static FLAGS WimpIconType[] = {
+// Icon flags to be masked with wimp_ICON_BUTTON_TYPE
+static const FLAGS WimpIconType[] = {
 	{(wimp_BUTTON_ALWAYS            << wimp_ICON_BUTTON_TYPE_SHIFT), "wimp_BUTTON_ALWAYS"           },
 	{(wimp_BUTTON_REPEAT            << wimp_ICON_BUTTON_TYPE_SHIFT), "wimp_BUTTON_REPEAT"           },
 	{(wimp_BUTTON_CLICK             << wimp_ICON_BUTTON_TYPE_SHIFT), "wimp_BUTTON_CLICK"            },
@@ -73,7 +78,7 @@ static FLAGS WimpIconType[] = {
 	{(wimp_BUTTON_WRITABLE          << wimp_ICON_BUTTON_TYPE_SHIFT), "wimp_BUTTON_WRITABLE"         }
 };
 
-static FLAGS OsColours[] = {
+static const FLAGS OsColours[] = {
 	{os_COLOUR_TRANSPARENT    , "os_COLOUR_TRANSPARENT"    },
 	{os_COLOUR_RED            , "os_COLOUR_RED"            },
 	{os_COLOUR_GREEN          , "os_COLOUR_GREEN"          },
@@ -99,7 +104,7 @@ static FLAGS OsColours[] = {
 	{os_COLOUR_LIGHT_BLUE     , "os_COLOUR_LIGHT_BLUE"     }
 };
 
-static FLAGS WimpColour[] = {
+static const FLAGS WimpColour[] = {
 	{wimp_COLOUR_WHITE          , "wimp_COLOUR_WHITE"          },
 	{wimp_COLOUR_VERY_LIGHT_GREY, "wimp_COLOUR_VERY_LIGHT_GREY"},
 	{wimp_COLOUR_LIGHT_GREY     , "wimp_COLOUR_LIGHT_GREY"     },
@@ -119,36 +124,13 @@ static FLAGS WimpColour[] = {
 	{wimp_COLOUR_TRANSPARENT    , "wimp_COLOUR_TRANSPARENT"    }
 };
 
-static FLAGS CmpFlags[] = {
+static const FLAGS CmpFlags[] = {
 	{toolbox_NULL_COMPONENT, "toolbox_NULL_COMPONENT"},
 	{toolbox_WINDOW_FOCUS  , "toolbox_WINDOW_FOCUS"  }
 };
 
 
-void report(PDATA data, PSTR ptr, PSTR pszFmt, ...)
-{
-	va_list list;
-	PSTR p;
-	int nRow;
-	char achError[1024];
-
-	va_start(list, pszFmt);
-	vsprintf(achError, pszFmt, list);
-	va_end(list);
-	for (nRow = 1, p = data->pszIn; p < ptr; p++) {
-		if (*p < ' ') {
-			nRow++;
-		}
-	}
-	if (!data->fThrowback) {
-		ddeutils_throwback_start();
-		data->fThrowback = TRUE;
-	}
-	ddeutils_throwback_send(ddeutils_THROWBACK_INFO_DETAILS, data->achTextFile, nRow, ddeutils_SEVERITY_ERROR, achError);
-}
-
-
-static PSTR parse(PDATA data, PSTR pszIn, PSTR pszEntry)
+static PSTR parse(PDATA data, PSTR pszIn, const char *pszEntry)
 {
 	PSTR p, pszEnd;
 	int cb;
@@ -160,13 +142,14 @@ static PSTR parse(PDATA data, PSTR pszIn, PSTR pszEntry)
 	pszEnd = &data->pszIn[data->cbIn] - cb;
 	while ((ch = *p++) != '}' && p < pszEnd) {
 		if (ch == ':' || ch == '#') {  // skip values and comments
-			while (*p++ >= ' ' && p < pszEnd) ;
+			while (*p++ >= ' ' && p < pszEnd)
+				/* */;
 		} else if (ch == ch0 && __strnicmp(p, pszEntry, cb) == 0) {
-			return(p + cb);
+			return p + cb;
 		}
 	}
 	report(data, pszIn, "Missing entry '%s'", --pszEntry);
-	return(NULL);
+	return NULL;
 }
 
 
@@ -182,14 +165,14 @@ static BOOL add_to_reloc_table(PRELOCTABLE pRelocTable, int nEntry, int nTable)
 	if (pRelocTable->ref >= (pRelocTable->max - sizeof(RELOC))) {
 		nReloc = pRelocTable->max * 3 / 2;
 		if ((pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL) {
-			return(FALSE);
+			return FALSE;
 		}
 		memcpy((PSTR) pReloc, (PSTR) pRelocTable->pReloc, pRelocTable->max * sizeof(RELOC));
 		MyFree(pRelocTable->pReloc);
 		pRelocTable->pReloc = pReloc;
 		pRelocTable->max = nReloc;
 	}
-	return(TRUE);
+	return TRUE;
 }
 
 
@@ -207,7 +190,7 @@ static PSTR remove_quotes(PDATA data, PSTR pszEntry)
 			if ((ch = pszEntry[cb]) == '\"') {
 				pszEntry[cbTerm] = ' ';		// keep line numbering correct for report()
 				pszEntry[cb] = '\0';
-				return(pszEntry + 1);
+				return pszEntry + 1;
 			} else if (ch != ' ') {
 				break;						// unmatched quotes
 			}
@@ -215,10 +198,10 @@ static PSTR remove_quotes(PDATA data, PSTR pszEntry)
 	} else if (pszEntry[cbTerm - 1] != '\"') {
 // if there are no quotes, how do we know if there are supposed to be trailing spaces or not?
 // on balance probably best to leave them in?
-		return(pszEntry);
+		return pszEntry;
 	}
 	report(data, pszEntry, "Unmatched quotes '%s'", pszEntry);
-	return(pszEntry);
+	return pszEntry;
 }
 
 
@@ -237,7 +220,7 @@ static BOOL put_string(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRING
 		nTable = toolbox_RELOCATE_MSG_REFERENCE;
 	} else {
 		error("Unexpected string table type (%d)", StringList->nTable);
-		return(FALSE);
+		return FALSE;
 	}
 	cbEntry = 0;
 LOG(("\nLookup: %s", StringList->pszEntry));
@@ -261,13 +244,12 @@ LOG(("'%s' (%d)", &pTable->pstr[pTable->ref], cbEntry));
 		pInt = (PINT) &object[StringList->nLimit];
 		*pInt = cbLimit;
 	}
-//	if (cbEntry > 0) {
 	if (cbEntry > 0 || cbLimit > 0) {
 		pTable->ref += cbEntry + 1;
 		if (pTable->ref > (pTable->max - 256)) {
 			cb = pTable->max * 3 / 2;
 			if ((pstr = MyAlloc(cb)) == NULL) {
-				return(FALSE);
+				return FALSE;
 			}
 			memcpy(pstr, pTable->pstr, pTable->max);
 			MyFree(pTable->pstr);
@@ -275,7 +257,7 @@ LOG(("'%s' (%d)", &pTable->pstr[pTable->ref], cbEntry));
 			pTable->max = cb;
 		}
 	}
-	return(TRUE);
+	return TRUE;
 }
 
 
@@ -315,7 +297,7 @@ static BOOL put_tstring(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRIN
 		if (pTable->ref > (pTable->max - 256)) {
 			cb = pTable->max * 3 / 2;
 			if ((pstr = MyAlloc(cb)) == NULL) {
-				return(FALSE);
+				return FALSE;
 			}
 			memcpy(pstr, pTable->pstr, pTable->max);
 			MyFree(pTable->pstr);
@@ -323,167 +305,197 @@ static BOOL put_tstring(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRIN
 			pTable->max = cb;
 		}
 	}
-	return(TRUE);
+	return TRUE;
 }
 
 
-static PSTR string_from_table(PSTR pszTable, int ref)
+static  PSTR string_from_table(PSTR pszTable, int ref)
+//      ==============================================
 {
 	static PSTR pszNull = "";
 	PSTR pstr, p;
 	char ch;
 
 	if (pszTable == NULL || ref < 0) {
-		return(pszNull);
+		return pszNull;
 	}
 // modified to handle Template \n terminated strings
-//	return(&pszTable[ref]);
+//	return &pszTable[ref];
 	pstr = p = &pszTable[ref];
-	while ((ch = *p++) != '\0' && ch != '\n' && ch != '\r') ;
+	while ((ch = *p++) != '\0' && ch != '\n' && ch != '\r')
+		/* */;
 	*(p - 1) = '\0';
-	return(pstr);
+	return pstr;
 }
 
 
-static void get_string(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, PSTR object, PSTRINGLIST StringList, PSTR pszIndent)
+static  void get_string(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, PSTRINGLIST StringList, PSTR pszIndent)
+//      ==================================================================================================================================
 {
-	PINT pInt;
-	PSTR pstr, qstr, string_table;
-	int cbLimit, ref;
+const int *pInt;
+PSTR pstr, qstr, string_table;
+int cbLimit, ref;
 
-	if (StringList->nTable == iol_STRING) {
-		string_table = pszStringTable;
-	} else if (StringList->nTable == iol_MSG) {
-		string_table = pszMessageTable;
-	} else {
-		error("Unexpected string table type (%d)", StringList->nTable);
-		return;
-	}
-	pInt = (PINT) &object[StringList->nEntry];
+switch (StringList->nTable)
+  {
+  case iol_STRING:
+    string_table = pszStringTable;
+    break;
+  case iol_MSG:
+    string_table = pszMessageTable;
+    break;
+  default:
+    error("Unexpected string table type (%d)", StringList->nTable);
+    return;
+  }
+
+pInt = (const int *)&objectP[StringList->nEntry];
 LOG(("get_string(object[%x]) = %x", StringList->nEntry, *pInt));
-	pstr = "";
-	if ((ref = *pInt) >= 0 && (qstr = string_from_table(string_table, ref)) != NULL) {
-		pstr = qstr;
-	}
+pstr = "";
+if ((ref = *pInt) >= 0 && (qstr = string_from_table(string_table, ref)) != NULL)
+  pstr = qstr;
+
 LOG(("entry=%s\"%s\"\n", StringList->pszEntry, pstr));
-	fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
-	if (StringList->pszLimit != NULL) {
-		pInt = (PINT) &object[StringList->nLimit];
-		cbLimit = *pInt;
-		fputs(pszIndent, hf);
-		if (cbLimit > (strlen(pstr) + 1)) {
-			fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
-		} else {
-			fprintf(hf, "%s*\n", StringList->pszLimit);
-		}
-	}
+fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
+if (StringList->pszLimit != NULL)
+  {
+  pInt = (const int *)&objectP[StringList->nLimit];
+  cbLimit = *pInt;
+  fputs(pszIndent, hf);
+  if (cbLimit >= strlen(pstr))
+    fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
+  else
+    fprintf(hf, "%s*\n", StringList->pszLimit);
+  }
 }
 
 
-static void get_tstring(FILE * hf, PSTR pszStringTable, PSTR object, PSTRINGLIST StringList, PSTR pszIndent)
+static  void get_tstring(FILE * hf, PSTR pszStringTable, const char *objectP, PSTRINGLIST StringList, PSTR pszIndent)
+//      =============================================================================================================
 {
-	PINT pInt;
-	PSTR pstr, qstr;
-	int cbLimit, ref;
+const int *pInt;
+PSTR pstr, qstr;
+int cbLimit, ref;
 
-	pInt = (PINT) &object[StringList->nEntry];
+pInt = (const int *) &objectP[StringList->nEntry];
 LOG(("get_tstring(object[%x]) = %x", StringList->nEntry, *pInt));
-	pstr = "";
-	if ((ref = *pInt) >= 0 && (qstr = string_from_table(pszStringTable, ref)) != NULL) {
-		pstr = qstr;
-	}
+pstr = "";
+if ((ref = *pInt) >= 0 && (qstr = string_from_table(pszStringTable, ref)) != NULL)
+  pstr = qstr;
+
 LOG(("entry=%s\"%s\"\n", StringList->pszEntry, pstr));
-	fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
-	if (StringList->pszLimit != NULL) {
-		pInt = (PINT) &object[StringList->nLimit];
-		cbLimit = *pInt;
-		fputs(pszIndent, hf);
-		if (cbLimit > (strlen(pstr) + 1)) {
-			fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
-		} else if (cbLimit > 0) {
-			fprintf(hf, "%s*\n", StringList->pszLimit);
-		} else {
-			fprintf(hf, "%s\n", StringList->pszLimit);
-		}
-	}
+fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
+if (StringList->pszLimit != NULL)
+  {
+  pInt = (const int *) &objectP[StringList->nLimit];
+  cbLimit = *pInt;
+  fputs(pszIndent, hf);
+  if (cbLimit >= strlen(pstr))
+    fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
+  else if (cbLimit > 0)
+    fprintf(hf, "%s*\n", StringList->pszLimit);
+  else
+    fprintf(hf, "%s\n", StringList->pszLimit);
+  }
 }
 
 
-static bits put_flags(PDATA data, PSTR pstrFlags, PFLAGS pFlags, int nFlags)
+static  bits put_flags(PDATA data, PSTR pstrFlags, PFLAGS pFlags, int nFlags)
+//      =====================================================================
 {
-	PSTR p;
-	bits f;
-	int n, cb;
-	char ch;
+PSTR p;
+bits f;
 
-	f = 0;
-	p = pstrFlags;
-	while (*p != '\0') {
-		while ((ch = *p) > ' ' && ch != '|') p++;
-		cb = p - pstrFlags;
-		for (n = 0; n < nFlags; n++) {
-			if (__strnicmp(pstrFlags, pFlags[n].pstr, cb) == 0 && strlen(pFlags[n].pstr) == cb) {
-				f |= pFlags[n].flag;
-				goto put_flags_next_flag;
-			}
-		}
-		report(data, pstrFlags, "Unknown flag '%.*s'", cb, pstrFlags);
+f = 0;
+for (p = pstrFlags; *p != '\0'; /* */)
+  {
+  int n, cb;
+  char ch;
 
-put_flags_next_flag:
+  while ((ch = *p) > ' ' && ch != '|')
+    p++;
+  cb = p - pstrFlags;
+  for (n = 0; n < nFlags; n++)
+    {
+    if (__strnicmp(pstrFlags, pFlags[n].pstr, cb) == 0 && strlen(pFlags[n].pstr) == cb)
+      {
+      f |= pFlags[n].flag;
+      break;
+      }
+    }
+  if (n == nFlags)
+    {
+    if (pstrFlags[0] == '0' && pstrFlags[1] == 'x')
+      {
+      unsigned int result;
+      (void)HexToUInt(data, pstrFlags, cb, &result);
+      f |= result;
+      }
+    else
+      report(data, pstrFlags, "Unknown flag '%.*s'", cb, pstrFlags);
+    }
 
-		while ((ch = *p) == ' ' || ch == '|') p++;
-		pstrFlags = p;
-	}
-	return(f);
+  while ((ch = *p) == ' ' || ch == '|')
+    p++;
+  pstrFlags = p;
+  }
+
+return f;
 }
 
 
-static void get_flags(FILE * hf, PSTR pszFlags, bits fFlags, PFLAGS pFlags, int nFlags)
+static  void get_flags(FILE * hf, PSTR pszFlags, bits fFlags, PFLAGS pFlags, int nFlags)
+//      ================================================================================
 {
-	PSTR pszOr;
-	int cb, n;
-	char achBuff[1120];		// =32 x 32 character flags
+const char *pszOr;
+int cb, n;
+char achBuff[1120];		// =32 x 32 character flags
 
-	cb = sprintf(achBuff, "%s", pszFlags);
-	pszOr = "";
-	for (n = 0; n < nFlags && fFlags != 0; n++) {
-		if ((fFlags & pFlags[n].flag) == pFlags[n].flag) {
-			cb += sprintf(&achBuff[cb], "%s%s", pszOr, pFlags[n].pstr);
-			pszOr = " | ";
-			fFlags ^= pFlags[n].flag;
-		}
-	}
-	/* Louzy error message but I don't know yet how I can improve it. */
-	if (fFlags != 0)
-		error("Not all bits are covered");
-	achBuff[cb++] = '\n';
-	fwrite(achBuff, cb, 1, hf);
+cb = sprintf(achBuff, "%s", pszFlags);
+pszOr = "";
+for (n = 0; n < nFlags && fFlags != 0; n++)
+  {
+  if ((fFlags & pFlags[n].flag) == pFlags[n].flag)
+    {
+    cb += sprintf(&achBuff[cb], "%s%s", pszOr, pFlags[n].pstr);
+    pszOr = " | ";
+    fFlags &= ~pFlags[n].flag;
+    }
+  }
+/* Louzy error message but I don't know yet how I can improve it. */
+if (fFlags != 0)
+  {
+  error("Not all bits are covered");
+  cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlags);
+  }
+achBuff[cb++] = '\n';
+fwrite(achBuff, cb, 1, hf);
 }
 
 
 // fInt - value may be a #defined variable or a nunber (hex or decimal)
-static int put_enum(PDATA data, PSTR pstrFlags, PFLAGS pFlags, int nFlags, BOOL fInt)
+static int put_enum(PDATA data, PSTR pstrFlags, const FLAGS *pFlags, int nFlags, BOOL fInt)
 {
 	int n;
 
 	if (*pstrFlags > ' ') {
 		for (n = 0; n < nFlags; n++) {
 			if (strcmp(pstrFlags, pFlags[n].pstr) == 0) {
-				return(pFlags[n].flag);
+				return pFlags[n].flag;
 			}
 		}
 		if (fInt) {
-			return(__atoi(&pstrFlags));
+			return __atoi(&pstrFlags);
 		}
 		report(data, pstrFlags, "Unknown variable '%s'", pstrFlags);
 	}
 
-	return(0);
+	return 0;
 }
 
 
 // fInt - value may be a #defined variable or a nunber (hex or decimal)
-static void get_enum(FILE * hf, PSTR pszFlags, int fFlags,  PFLAGS pFlags, int nFlags, BOOL fInt)
+static void get_enum(FILE * hf, const char *pszFlags, int fFlags, const FLAGS *pFlags, int nFlags, BOOL fInt)
 {
 	int cb, n;
 	char achBuff[64];		// = 32 + 32 character flags
@@ -508,73 +520,111 @@ get_enum_found:
 
 static bits put_iflags(PDATA data, PSTR pstrFlags)
 {
-	PFLAGS pFlags;
-	PSTR p;
-	bits f;
-	int n, cb, nFlags;
-	char ch;
+PSTR p;
+bits f;
 
-	f = 0;
-	p = pstrFlags;
-	while (*p != '\0') {
-		while ((ch = *p) > ' ' && ch != '|') p++;
-		cb = p - pstrFlags;
-		pFlags = WimpIconFlags;
-		nFlags = ELEMENTS(WimpIconFlags);
-		for (n = 0; n < nFlags; n++) {
-			if (__strnicmp(pstrFlags, pFlags[n].pstr, cb) == 0 && strlen(pFlags[n].pstr) == cb) {
-				f |= pFlags[n].flag;
-				goto put_iflags_next_flag;
-			}
-		}
-		pFlags = WimpIconType;
-		nFlags = ELEMENTS(WimpIconType);
-		for (n = 0; n < nFlags; n++) {
-			if (strcmp(pstrFlags, pFlags[n].pstr) == 0) {
-				f |= pFlags[n].flag;
-				goto put_iflags_next_flag;
-			}
-		}
-		report(data, pstrFlags, "Unknown flag '%.*s'", cb, pstrFlags);
+f = 0;
+p = pstrFlags;
+while (*p != '\0')
+  {
+  const FLAGS *pFlags;
+  int n, cb, nFlags;
+  char ch;
+
+  while ((ch = *p) > ' ' && ch != '|')
+    p++;
+  cb = p - pstrFlags;
+
+  pFlags = WimpIconFlags;
+  nFlags = ELEMENTS(WimpIconFlags);
+  for (n = 0; n < nFlags; n++)
+    {
+    if (__strnicmp(pstrFlags, pFlags[n].pstr, cb) == 0 && strlen(pFlags[n].pstr) == cb)
+      {
+      f |= pFlags[n].flag;
+      goto put_iflags_next_flag;
+      }
+    }
+
+  pFlags = WimpIconType;
+  nFlags = ELEMENTS(WimpIconType);
+  for (n = 0; n < nFlags; n++)
+    {
+    if (strcmp(pstrFlags, pFlags[n].pstr) == 0)
+      {
+      f |= pFlags[n].flag;
+      goto put_iflags_next_flag;
+      }
+    }
+  if (pstrFlags[0] == '0' && pstrFlags[1] == 'x')
+    {
+    unsigned int result;
+    (void)HexToUInt(data, pstrFlags, cb, &result);
+    f |= result;
+    }
+  else
+    report(data, pstrFlags, "Unknown flag '%.*s'", cb, pstrFlags);
 
 put_iflags_next_flag:
 
-		while ((ch = *p) == ' ' || ch == '|') p++;
-		pstrFlags = p;
-	}
+  while ((ch = *p) == ' ' || ch == '|')
+    p++;
+  pstrFlags = p;
+}
 
-	return(f);
+return f;
 }
 
 
-static void get_iflags(FILE * hf, PSTR pszFlags, bits fFlags)
+// Output the bits 0xFFF | 0xE00000 and wimp_ICON_BUTTON_TYPE
+static  void get_iflags(FILE * hf, PSTR pszFlags, bits fFlags)
+//      ======================================================
 {
-	PFLAGS pFlags;
-	PSTR pszOr;
-	int cb, n, nFlags;
-	char achBuff[1120];		// =32 x 32 character flags
+const FLAGS *pFlags;
+const char *pszOr;
+int cb, n, nFlags;
+bits fFlagsCur;
+char achBuff[1120];		// =32 x 32 character flags
 
-	pFlags = WimpIconFlags;
-	nFlags = ELEMENTS(WimpIconFlags);
-	cb = sprintf(achBuff, "%s", pszFlags);
-	pszOr = "";
-	for (n = 0; n < nFlags; n++) {
-		if ((fFlags & pFlags[n].flag) == pFlags[n].flag) {
-			cb += sprintf(&achBuff[cb], "%s%s", pszOr, pFlags[n].pstr);
-			pszOr = " | ";
-		}
-	}
-	pFlags = WimpIconType;
-	nFlags = ELEMENTS(WimpIconType);
-	fFlags &= wimp_ICON_BUTTON_TYPE;
-	for (n = 0; n < nFlags; n++) {
-		if (fFlags == pFlags[n].flag) {
-			cb += sprintf(&achBuff[cb], "%s%s", pszOr, pFlags[n].pstr);
-			break;
-		}
-	}
-	achBuff[cb++] = '\n';
-	fwrite(achBuff, cb, 1, hf);
+pFlags = WimpIconFlags;
+nFlags = ELEMENTS(WimpIconFlags);
+cb = sprintf(achBuff, "%s", pszFlags);
+pszOr = "";
+fFlagsCur = fFlags & (0xFFF | 0xE00000);
+for (n = 0; n < nFlags; n++)
+  {
+  if ((fFlagsCur & pFlags[n].flag) == pFlags[n].flag)
+    {
+    cb += sprintf(&achBuff[cb], "%s%s", pszOr, pFlags[n].pstr);
+    pszOr = " | ";
+    fFlagsCur &= ~pFlags[n].flag;
+    }
+  }
+if (fFlagsCur!= 0)
+  {
+  error("Not all bits are covered");
+  cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlagsCur & ~wimp_ICON_BUTTON_TYPE);
+  }
+
+pFlags = WimpIconType;
+nFlags = ELEMENTS(WimpIconType);
+fFlagsCur = fFlags & wimp_ICON_BUTTON_TYPE;
+for (n = 0; n < nFlags; n++)
+  {
+  if (fFlagsCur == pFlags[n].flag)
+    {
+    cb += sprintf(&achBuff[cb], "%s%s", pszOr, pFlags[n].pstr);
+    fFlagsCur = 0;
+    break;
+    }
+  }
+if (fFlagsCur != 0)
+  {
+  error("Not all bits are covered");
+  cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlagsCur);
+  }
+achBuff[cb++] = '\n';
+fwrite(achBuff, cb, 1, hf);
 }
 
 
@@ -593,9 +643,10 @@ LOG(("(%d, %d, %d, %d)", pi[0], pi[1], pi[2], pi[3]));
 }
 
 
-static void get_box(FILE * hf, PSTR pszBox, os_box * bbox)
+static  void get_box(FILE * hf, PSTR pszBox, const os_box * bbox)
+//      =========================================================
 {
-	fprintf(hf, "%s%d,%d,%d,%d\n", pszBox, bbox->x0, bbox->y0, bbox->x1, bbox->y1);
+fprintf(hf, "%s%d,%d,%d,%d\n", pszBox, bbox->x0, bbox->y0, bbox->x1, bbox->y1);
 }
 
 
@@ -615,52 +666,56 @@ LOG(("(%d, %d)", pi[0], pi[1]));
 }
 
 
-static void get_coord(FILE * hf, PSTR pszCoord, os_coord * coord)
+static  void get_coord(FILE * hf, PSTR pszCoord, const os_coord * coord)
+//      ================================================================
 {
-	fprintf(hf, "%s%d,%d\n", pszCoord, coord->x, coord->y);
+fprintf(hf, "%s%d,%d\n", pszCoord, coord->x, coord->y);
 }
 
 
-static void put_pstr(PDATA data, PSTR pstr, PSTR pszEntry, int nChars)
+static  void put_pstr(PDATA data, PSTR pstr, PSTR pszEntry, int nChars)
+//      ===============================================================
 {
-	int cb;
-
-	pszEntry = remove_quotes(data, pszEntry);
-	if (nChars != 0 && strlen(pszEntry) == nChars) {
-		memcpy(pstr, pszEntry, nChars);
-	} else {
-		if (data->nFiletypeOut == osfile_TYPE_TEMPLATE) {
-			cb = my_strcpy0d(pstr, pszEntry);
-			pstr[cb] = '\r';
-		} else {
-			strcpy(pstr, pszEntry);
-		}
-	}
+pszEntry = remove_quotes(data, pszEntry);
+if (nChars != 0 && strlen(pszEntry) == nChars)
+  memcpy(pstr, pszEntry, nChars);
+else
+  {
+  if (data->nFiletypeOut == osfile_TYPE_TEMPLATE)
+    {
+    int cb = my_strcpy0d(pstr, pszEntry);
+    pstr[cb] = '\r';
+    }
+  else
+    strcpy(pstr, pszEntry);
+  }
 }
 
 
-static void get_pstr(FILE * hf, PSTR pszEntry, PSTR pszObject, int nEntry, int nChars)
+static  void get_pstr(FILE * hf, PSTR pszEntry, const char *objectP, int nEntry, int nChars)
+//      ====================================================================================
 {
-	PSTR pszBuff;
+PSTR pszBuff;
 
-LOG(("get_pstr(%s, %s)", pszEntry, &pszObject[nEntry]));
-	pszBuff = NULL;
-	if (nChars == 0) {
-		fprintf(hf, "%s\"%s\"\n", pszEntry, string_from_table(pszObject, nEntry));
-	} else {
-		if ((pszBuff = MyAlloc(nChars + 1)) == NULL) {
-			error("Not enough memory to get %s", pszEntry);
-		} else {
-			my_strncpy0d(pszBuff, &pszObject[nEntry], nChars);
-LOG(("b(%s, %s)", pszBuff, pszBuff));
-			fprintf(hf, "%s\"%s\"\n", pszEntry, pszBuff);
-			MyFree(pszBuff);
-		}
-	}
+LOG(("get_pstr(%s, %s)", pszEntry, &objectP[nEntry]));
+pszBuff = NULL;
+if (nChars == 0)
+  fprintf(hf, "%s\"%s\"\n", pszEntry, string_from_table((char * /* yucky; any better solution ? */)objectP, nEntry));
+else
+  {
+  if ((pszBuff = MyAlloc(nChars + 1)) == NULL)
+    error("Not enough memory to get %s", pszEntry);
+  else
+    {
+    my_strncpy0d(pszBuff, &objectP[nEntry], nChars);
+    fprintf(hf, "%s\"%s\"\n", pszEntry, pszBuff);
+    MyFree(pszBuff);
+    }
+  }
 }
 
 
-void put_objects(PDATA data, PSTR pszIn, int nOffset, PSTR Object, POBJECTLIST ObjectList, int nObjects)
+void put_objects(PDATA data, PSTR pszIn, int nOffset, PSTR Object, const OBJECTLIST *ObjectList, int nObjects)
 {
 PBITS pBits;
 PINT pInt;
@@ -773,18 +828,14 @@ LOG(("-----"));
 }
 
 
-void get_objects(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, PSTR Object, POBJECTLIST ObjectList, int nObjects, int nIndent)
+void get_objects(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
 {
 PSTR pszIndent;
-PBITS pBits;
-PINT pInt;
-PSHORT pShort;
-PBYTE pByte;
 int i, n;
 
 pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
 LOG(("get_objects"));
-for (n = 0; n < nObjects; n++, ObjectList++)
+for (n = 0; n < nObjects; n++, ++ObjectList)
   {
 LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
   if (ObjectList->nTable != iol_OBJECT)
@@ -794,83 +845,111 @@ LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, Ob
       {
       case iol_MSG:
       case iol_STRING:
-        get_string(hf, pszStringTable, pszMessageTable, Object, (PSTRINGLIST) ObjectList, pszIndent);
+        get_string(hf, pszStringTable, pszMessageTable, objectP, (PSTRINGLIST) ObjectList, pszIndent);
         break;
       case iol_TSTRING:
-        get_tstring(hf, pszStringTable, Object, (PSTRINGLIST) ObjectList, pszIndent);
+        get_tstring(hf, pszStringTable, objectP, (PSTRINGLIST) ObjectList, pszIndent);
         break;
       case iol_FLAGS:
-        pBits = (PBITS) &Object[ObjectList->nEntry];
+        {
+        const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
         get_flags(hf, ObjectList->pszEntry, *pBits, (PFLAGS) ObjectList->pData, ObjectList->nData);
         break;
+        }
       case iol_IFLAGS:
-        pBits = (PBITS) &Object[ObjectList->nEntry];
+        {
+        const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
         get_iflags(hf, ObjectList->pszEntry, *pBits);
         break;
+        }
       case iol_BFLAGS:
-        pByte = (PBYTE) &Object[ObjectList->nEntry];
+        {
+        const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
         get_flags(hf, ObjectList->pszEntry, *pByte, (PFLAGS) ObjectList->pData, ObjectList->nData);
         break;
+        }
       case iol_ENUM:
-        pInt = (int *) &Object[ObjectList->nEntry];
+        {
+        const int *pInt = (const int *)&objectP[ObjectList->nEntry];
         get_enum(hf, ObjectList->pszEntry, *pInt, (PFLAGS) ObjectList->pData, ObjectList->nData, FALSE);
         break;
+        }
       case iol_CMP:
-        pInt = (int *) &Object[ObjectList->nEntry];
+        {
+        const int *pInt = (const int *)&objectP[ObjectList->nEntry];
         get_enum(hf, ObjectList->pszEntry, *pInt, CmpFlags, ELEMENTS(CmpFlags), TRUE);
         break;
+        }
       case iol_OSCOL:
-        pInt = (int *) &Object[ObjectList->nEntry];
+        {
+        const int *pInt = (const int *)&objectP[ObjectList->nEntry];
         get_enum(hf, ObjectList->pszEntry, *pInt, OsColours, ELEMENTS(OsColours), FALSE);
         break;
+        }
       case iol_BOX:
-        get_box(hf, ObjectList->pszEntry, (os_box *) &Object[ObjectList->nEntry]);
+        get_box(hf, ObjectList->pszEntry, (const os_box *) &objectP[ObjectList->nEntry]);
         break;
       case iol_BITS:
-        pBits = (PBITS) &Object[ObjectList->nEntry];
+        {
+        const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
         if (*pBits == ~0 && ObjectList->nData == bits_ACTION)
           fprintf(hf, "%s\n", ObjectList->pszEntry);
         else
           fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
         break;
+        }
       case iol_INT:
-        pInt = (PINT) &Object[ObjectList->nEntry];
+        {
+        const int *pInt = (const int *)&objectP[ObjectList->nEntry];
         fprintf(hf, "%s%d\n", ObjectList->pszEntry, *pInt);
         break;
+        }
       case iol_SHORT:
-        pShort = (PSHORT) &Object[ObjectList->nEntry];
+        {
+        const short *pShort = (const short *)&objectP[ObjectList->nEntry];
         fprintf(hf, "%s%d\n", ObjectList->pszEntry, (int) *pShort);
         break;
+        }
       case iol_BYTE:
-        pByte = (PBYTE) &Object[ObjectList->nEntry];
+        {
+        const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
         fprintf(hf, "%s%d\n", ObjectList->pszEntry, (bits) *pByte);
         break;
+        }
       case iol_COORD:
-        get_coord(hf, ObjectList->pszEntry, (os_coord *) &Object[ObjectList->nEntry]);
+        get_coord(hf, ObjectList->pszEntry, (const os_coord *)&objectP[ObjectList->nEntry]);
         break;
       case iol_SPRITE:
-        pBits = (PBITS) &Object[ObjectList->nEntry];
+        {
+        const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
         fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
         break;
+        }
       case iol_PSTR:
-        get_pstr(hf, ObjectList->pszEntry, Object, ObjectList->nEntry, ObjectList->nData);
+        get_pstr(hf, ObjectList->pszEntry, objectP, ObjectList->nEntry, ObjectList->nData);
         break;
       case iol_ESG:
-        pBits = (PBITS) &Object[ObjectList->nEntry];
+        {
+        const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
         fprintf(hf, "%s%d\n", ObjectList->pszEntry, (*pBits & wimp_ICON_ESG) >> wimp_ICON_ESG_SHIFT);
         break;
+        }
       case iol_WCOL:
-        pByte = (PBYTE) &Object[ObjectList->nEntry];
+        {
+        const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
         get_enum(hf, ObjectList->pszEntry, *pByte, WimpColour, ELEMENTS(WimpColour), FALSE);
         break;
+        }
       case iol_BCOLS:
-        pBits = (PBITS) &Object[ObjectList->nEntry];
+        {
+        const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
         i = (*pBits & wimp_ICON_FG_COLOUR) >> wimp_ICON_FG_COLOUR_SHIFT;
         get_enum(hf, ObjectList->pszEntry, i, WimpColour, ELEMENTS(WimpColour), FALSE);
         fputs(pszIndent, hf);
         i = (*pBits & wimp_ICON_BG_COLOUR) >> wimp_ICON_BG_COLOUR_SHIFT;
         get_enum(hf, ObjectList->pData, i, WimpColour, ELEMENTS(WimpColour), FALSE);
         break;
+        }
       default:
         error("Unknown iol_ value (%d)", ObjectList->nTable);
         break;
@@ -894,20 +973,22 @@ PSTR next_object(PSTR * pszIn, PSTR pszEnd)
 	p = *pszIn;
 	while ((ch = *p++) != '{') {
 		if (ch == '}' || p >= pszEnd) {
-			return(NULL);
+			return NULL;
 		}
 	}
 // p points to char *after* the brace
 	*pszIn = p--;
-	while (*(p - 1) <= ' ') p--;	// skip trailing spaces
+	while (*(p - 1) <= ' ')
+		p--;	// skip trailing spaces
 	*p = '\0';
 	q = p;
-	while (*(q - 1) > ' ') q--;		// find start of name to return
+	while (*(q - 1) > ' ')
+		q--;		// find start of name to return
 	cb = min((int) (p - q), sizeof(achObject) - 1);
 	memcpy(achObject, q, cb);
 	achObject[cb] = '\0';
 	*p = ' ';
-	return(&achObject[0]);
+	return &achObject[0];
 }
 
 
@@ -924,7 +1005,7 @@ PSTR object_end(PDATA data, PSTR pszIn, PSTR pszEnd)
 			while (*p++ >= ' ') {
 				if (p >= pszEnd) {
 					report(data, pszIn, "Missing brace }");
-					return(NULL);
+					return NULL;
 				}
 			}
 		} else {
@@ -935,15 +1016,15 @@ PSTR object_end(PDATA data, PSTR pszIn, PSTR pszEnd)
 			}
 			if (p >= pszEnd) {
 				report(data, pszIn, "Missing brace }");
-				return(NULL);
+				return NULL;
 			}
 		}
 	}
-	return(p);
+	return p;
 }
 
 
-void _object(FILE * hf, PDATA data, PSTR pszIn, PSTR pszOut, PCLASSES pClass)
+void object_text2resource(FILE * hf, PDATA data, PSTR pszIn, PSTR pszOut, const CLASSES *pClass)
 {
 	toolbox_relocatable_object_base * object;
 	PINT pReloc;
@@ -990,7 +1071,7 @@ void _object(FILE * hf, PDATA data, PSTR pszIn, PSTR pszOut, PCLASSES pClass)
 }
 
 
-void object(FILE * hf, toolbox_relocatable_object_base * object, object2text o2t)
+void object_resource2text(FILE * hf, toolbox_relocatable_object_base * object, object2text o2t)
 {
 	PSTR pszStringTable, pszMessageTable;
 
@@ -1009,6 +1090,6 @@ LOG(("MessageTable:%d", object->message_table_offset));
 //LOG(("header_size:%d", template->rf_header.header_size));
 //LOG(("body_size:%d", template->rf_header.body_size));
 
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) &object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);
+	get_objects(hf, pszStringTable, pszMessageTable, (const char *)&object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);
 	o2t(hf, (toolbox_resource_file_object_base *) &object->rf_obj, pszStringTable, pszMessageTable);
 }

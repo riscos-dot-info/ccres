@@ -1,7 +1,7 @@
 /* _Icon.c
-   $Id: _Icon.c,v 1.4 2004/03/20 23:36:08 joty Exp $
+   $Id: _Icon.c,v 1.5 2004/12/26 20:20:16 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -26,7 +26,7 @@
 
 // Res file button gadget
 
-static FLAGS ButtonFlags[] = {
+static const FLAGS ButtonFlags[] = {
   {button_TASK_SPRITE_AREA , "button_TASK_SPRITE_AREA" },
   {button_ALLOW_MENU_CLICKS, "button_ALLOW_MENU_CLICKS"},
   {gadget_FADED            , "gadget_FADED"            },
@@ -34,7 +34,7 @@ static FLAGS ButtonFlags[] = {
 };
 
 
-static OBJECTLIST ButtonObjectList[] = {
+static const OBJECTLIST ButtonObjectList[] = {
   {iol_FLAGS,  "flags:",        offsetof(button_object, flags),        ButtonFlags,         ELEMENTS(ButtonFlags)                    },
   {iol_IFLAGS, "button_flags:", offsetof(button_object, button_flags), NULL,                0                                        },
   {iol_ESG,    "button_esg:",   offsetof(button_object, button_flags), NULL,                0                                        },
@@ -62,45 +62,45 @@ get_objects(hf, pszStringTable, pszMessageTable, (PSTR) gadget, ButtonObjectList
 // Template file icon
 
 
-static OBJECTLIST IconObjectList[] = {
+static const OBJECTLIST IconObjectList[] = {
   {iol_BOX,    "extent:",      offsetof(wimp_icon, extent), NULL,          0                         },
   {iol_IFLAGS, "icon_flags:",  offsetof(wimp_icon, flags),  NULL,          0                         },
   {iol_ESG,    "icon_esg:",    offsetof(wimp_icon, flags),  NULL,          0                         }
   };
 
-static OBJECTLIST IconColorsObjectList[] = {
+static const OBJECTLIST IconColorsObjectList[] = {
   {iol_BCOLS,  "icon_fg:",     offsetof(wimp_icon, flags),  "icon_bg:",    offsetof(wimp_icon, flags)}
   };
 
-static OBJECTLIST IconFontHandleObjectList[] = {
+static const OBJECTLIST IconFontHandleObjectList[] = {
   {iol_BYTE,  "font_handle:", offsetof(wimp_icon, flags) + (wimp_ICON_FONT_HANDLE_SHIFT / 8),  "icon_bg:",    offsetof(wimp_icon, flags)}
   };
 
-static OBJECTLIST IconTextObjectList[] = {
+static const OBJECTLIST IconTextObjectList[] = {
   {iol_PSTR, "text_only:", offsetof(wimp_icon_data, text), NULL, sizeof(wimp_icon_data)}
   };
 
-static OBJECTLIST IconSpriteObjectList[] = {
+static const OBJECTLIST IconSpriteObjectList[] = {
   {iol_PSTR, "sprite_only:", offsetof(wimp_icon_data, sprite), NULL, sizeof(wimp_icon_data)}
   };
 
-static OBJECTLIST IconTextAndSpriteObjectList[] = {
+static const OBJECTLIST IconTextAndSpriteObjectList[] = {
   {iol_PSTR, "text_and_sprite:", offsetof(wimp_icon_data, text_and_sprite), NULL, sizeof(wimp_icon_data)}
   };
 
-static OBJECTLIST IconIndirectTextObjectList[] = {
+static const OBJECTLIST IconIndirectTextObjectList[] = {
   {iol_TSTRING, "text.text:",       offsetof(wimp_icon_data, indirected_text.text),       NULL, 0},
   {iol_TSTRING, "text.validation:", offsetof(wimp_icon_data, indirected_text.validation), NULL, 0},
   {iol_BITS,    "text.size:",       offsetof(wimp_icon_data, indirected_text.size),       NULL, 0}
   };
 
-static OBJECTLIST IconIndirectSpriteObjectList[] = {
+static const OBJECTLIST IconIndirectSpriteObjectList[] = {
   {iol_TSTRING, "sprite.id:",   offsetof(wimp_icon_data, indirected_sprite.id),   NULL, 0},
   {iol_BITS,    "sprite.area:", offsetof(wimp_icon_data, indirected_sprite.area), NULL, 0},
   {iol_BITS,    "sprite.size:", offsetof(wimp_icon_data, indirected_sprite.size), NULL, 0}
   };
 
-static OBJECTLIST IconIndirectTextAndSpriteObjectList[] = {
+static const OBJECTLIST IconIndirectTextAndSpriteObjectList[] = {
   {iol_TSTRING, "text_and_sprite.text",        offsetof(wimp_icon_data, indirected_text_and_sprite.text),       NULL, 0},
   {iol_TSTRING, "text_and_sprite.validation:", offsetof(wimp_icon_data, indirected_text_and_sprite.validation), NULL, 0},
   {iol_BITS,    "text_and_sprite.size:",       offsetof(wimp_icon_data, indirected_text_and_sprite.size),       NULL, 0}
@@ -171,27 +171,27 @@ switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
 }
 
 
-        void _icon(PDATA data, PSTR pszIn, int nOffset, wimp_icon * icon)
-//      =================================================================
+        void icon_text2template(PDATA data, PSTR pszIn, int nOffset, wimp_icon * icon)
+//      ==============================================================================
 {
 put_objects(data, pszIn, nOffset, (PSTR) icon, IconObjectList, ELEMENTS(IconObjectList));
 if (icon->flags & wimp_ICON_ANTI_ALIASED)
-    put_objects(data, pszIn, nOffset, (PSTR) icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList));
-  else
-    put_objects(data, pszIn, nOffset, (PSTR) icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList));
+  put_objects(data, pszIn, nOffset, (PSTR) icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList));
+else
+  put_objects(data, pszIn, nOffset, (PSTR) icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList));
 
 put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &icon->data, icon->flags);
 }
 
 
-        void icon(FILE * hf, PSTR pszStringTable, wimp_icon * icon)
-//      ===========================================================
+        void icon_template2text(FILE * hf, PSTR pszStringTable, wimp_icon * icon)
+//      =========================================================================
 {
 get_objects(hf, pszStringTable, NULL, (PSTR) icon, IconObjectList, ELEMENTS(IconObjectList), 2);
 if (icon->flags & wimp_ICON_ANTI_ALIASED)
-    get_objects(hf, pszStringTable, NULL, (PSTR) icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList), 2);
-  else
-    get_objects(hf, pszStringTable, NULL, (PSTR) icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList), 2);
+  get_objects(hf, pszStringTable, NULL, (PSTR) icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList), 2);
+else
+  get_objects(hf, pszStringTable, NULL, (PSTR) icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList), 2);
 
 get_icon_data(hf, pszStringTable, (wimp_icon_data *) &icon->data, icon->flags, 2);
 }

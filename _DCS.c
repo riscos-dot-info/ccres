@@ -1,7 +1,7 @@
 /* _DCS.c
-   $Id: _DCS.c,v 1.2 2004/03/20 22:13:36 joty Exp $
+   $Id: _DCS.c,v 1.3 2004/12/26 20:18:56 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -27,12 +27,12 @@
 
 #include "ccres.h"
 
-static FLAGS DCSFlags[] = {
+static const FLAGS DCSFlags[] = {
 	{dcs_GENERATE_ABOUT_TO_BE_SHOWN , "dcs_GENERATE_ABOUT_TO_BE_SHOWN" },
 	{dcs_GENERATE_DIALOGUE_COMPLETED, "dcs_GENERATE_DIALOGUE_COMPLETED"}
 };
 
-static OBJECTLIST DCSObjectList[] = {
+static const OBJECTLIST DCSObjectList[] = {
 	{iol_FLAGS,  "dcs_flags:",               offsetof(dcs_object, flags),                   DCSFlags,         ELEMENTS(DCSFlags)                 },
 	{iol_MSG,    "title:",                   offsetof(dcs_object, title),                   "title_limit:",   offsetof(dcs_object, title_limit)  },
 	{iol_MSG,    "message:",                 offsetof(dcs_object, message),                 "message_limit:", offsetof(dcs_object, message_limit)},
@@ -40,15 +40,17 @@ static OBJECTLIST DCSObjectList[] = {
 };
 
 
-int dcs_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int dcs_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+//      =============================================================================
 {
-	put_objects(data, pszIn, 0, (PSTR) (object + 1), DCSObjectList, ELEMENTS(DCSObjectList));
+put_objects(data, pszIn, 0, (PSTR) (object + 1), DCSObjectList, ELEMENTS(DCSObjectList));
 
-	return sizeof(dcs_object);
+return sizeof(dcs_object);
 }
 
 
-void dcs_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void dcs_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ==============================================================================================================
 {
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), DCSObjectList, ELEMENTS(DCSObjectList), 1);
+get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), DCSObjectList, ELEMENTS(DCSObjectList), 1);
 }

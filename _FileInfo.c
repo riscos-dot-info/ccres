@@ -1,7 +1,7 @@
 /* _FileInfo.c
-   $Id: _FileInfo.c,v 1.2 2004/03/20 22:13:36 joty Exp $
+   $Id: _FileInfo.c,v 1.3 2004/12/26 20:18:56 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -27,12 +27,12 @@
 
 #include "ccres.h"
 
-static FLAGS FileInfoFlags[] = {
+static const FLAGS FileInfoFlags[] = {
 	{fileinfo_GENERATE_ABOUT_TO_BE_SHOWN , "fileinfo_GENERATE_ABOUT_TO_BE_SHOWN" },
 	{fileinfo_GENERATE_DIALOGUE_COMPLETED, "fileinfo_GENERATE_DIALOGUE_COMPLETED"}
 };
 
-static OBJECTLIST FileInfoObjectList[] = {
+static const OBJECTLIST FileInfoObjectList[] = {
 	{iol_FLAGS,  "fileinfo_flags:",          offsetof(fileinfo_object, flags),                   FileInfoFlags,  ELEMENTS(FileInfoFlags)               },
 	{iol_MSG,    "title:",                   offsetof(fileinfo_object, title),                   "title_limit:", offsetof(fileinfo_object, title_limit)},
 	{iol_BITS,   "file_type:",               offsetof(fileinfo_object, file_type),               NULL,           0                                     },
@@ -41,15 +41,17 @@ static OBJECTLIST FileInfoObjectList[] = {
 };
 
 
-int fileinfo_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int fileinfo_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+//      ==================================================================================
 {
-	put_objects(data, pszIn, 0, (PSTR) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList));
+put_objects(data, pszIn, 0, (PSTR) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList));
 
-	return sizeof(fileinfo_object);
+return sizeof(fileinfo_object);
 }
 
 
-void fileinfo_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void fileinfo_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ===================================================================================================================
 {
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);
+get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);
 }

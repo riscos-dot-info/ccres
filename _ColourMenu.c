@@ -1,7 +1,7 @@
 /* _ColourMenu.c
-   $Id: _ColourMenu.c,v 1.2 2004/03/20 22:13:37 joty Exp $
+   $Id: _ColourMenu.c,v 1.3 2004/12/26 20:18:57 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -27,34 +27,36 @@
 
 #include "ccres.h"
 
-static FLAGS ColourMenuFlags[] = {
+static const FLAGS ColourMenuFlags[] = {
 	{colourmenu_GENERATE_ABOUT_TO_BE_SHOWN , "colourmenu_GENERATE_ABOUT_TO_BE_SHOWN" },
 	{colourmenu_GENERATE_DIALOGUE_COMPLETED, "colourmenu_GENERATE_DIALOGUE_COMPLETED"},
 	{colourmenu_GENERATE_HAS_BEEN_HIDDEN   , "colourmenu_GENERATE_HAS_BEEN_HIDDEN"   },
 	{colourmenu_NONE_ENTRY                 , "colourmenu_NONE_ENTRY"                 }
 };
 
-static FLAGS ColourMenuColours[] = {
+static const FLAGS ColourMenuColours[] = {
 	{colourmenu_TRANSPARENT, "colourmenu_TRANSPARENT"},
 	{colourmenu_NONE       , "colourmenu_NONE"       }
 };
 
-static OBJECTLIST ColourMenuObjectList[] = {
+static const OBJECTLIST ColourMenuObjectList[] = {
 	{iol_FLAGS, "colourmenu_flags:", offsetof(colourmenu_object, flags),  ColourMenuFlags,   ELEMENTS(ColourMenuFlags)               },
 	{iol_MSG,   "title:",            offsetof(colourmenu_object, title),  "title_limit:",    offsetof(colourmenu_object, title_limit)},
 	{iol_ENUM,  "colour:",           offsetof(colourmenu_object, colour), ColourMenuColours, ELEMENTS(ColourMenuColours)             }
 };
 
 
-int colourmenu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int colourmenu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+//      ====================================================================================
 {
-	put_objects(data, pszIn, 0, (PSTR) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList));
+put_objects(data, pszIn, 0, (PSTR) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList));
 
-	return sizeof(colourmenu_object);
+return sizeof(colourmenu_object);
 }
 
 
-void colourmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void colourmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      =====================================================================================================================
 {
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList), 1);
+get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList), 1);
 }

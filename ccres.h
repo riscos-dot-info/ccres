@@ -1,7 +1,7 @@
 /* ccres.h
-   $Id: ccres.h,v 1.4 2004/12/01 23:19:03 joty Exp $
+   $Id: ccres.h,v 1.5 2004/12/26 20:24:33 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -35,7 +35,7 @@
 #include <OSLib/toolbox.h>
 #include <OSLib/wimp.h>
 
-#define VERSION "1.11 (02-Dec-2004)"
+#define VERSION "1.12 (XX-XXX-2005)"
 #define APPNAME	"CCres"
 #define APPDIR	"<"APPNAME"$Dir>"
 
@@ -130,7 +130,7 @@ typedef struct {
 	int nTable;
 	PSTR pszEntry;
 	int nEntry;
-	PVOID pData;
+	const void *pData;
 	int nData;
 } OBJECTLIST;
 typedef OBJECTLIST * POBJECTLIST;
@@ -169,7 +169,6 @@ typedef struct {
 	text2object t2o;
 	PSTR name;
 } CLASSES;
-typedef CLASSES * PCLASSES;
 
 typedef struct {
 	toolbox_class class_no;
@@ -188,11 +187,11 @@ typedef FLAGS * PFLAGS;
 
 // library.s
 
-int my_strcpy(PSTR to, PSTR from);
-int my_strcpy0d(PSTR to, PSTR from);
-void my_strncpy0d(PSTR to, PSTR from, int max);
-int __stricmp(PSTR p, PSTR q);
-int __strnicmp(PSTR p, PSTR q, int n);
+int my_strcpy(char *to, const char *from);
+int my_strcpy0d(char *to, const char *from);
+void my_strncpy0d(char *to, const char *from, int max);
+int __stricmp(const char *p, const char *q);
+int __strnicmp(const char *p, const char *q, int n);
 unsigned int __atoi(PSTR * pszNumber);
 BOOL my_osfile_delete(PSTR pszFile);
 fileswitch_object_type my_osfile_exists(PSTR pszFile);
@@ -212,18 +211,6 @@ int my_osfscontrol_count_objects(PSTR pszDir);
 BOOL convert(PDATA data, PSTR pszOutFile);
 
 
-// error.c
-
-int question(PSTR pszKeys, bits nErr, PSTR pszFmt, ...);
-void toolbox_error(PDATA data);
-void oserr(os_error * err);
-void error(PSTR pszFmt, ...);
-void errtitle(PSTR pszTitle, PSTR pszError);
-#ifdef DEBUG
-void errnum(PSTR pszError, int num);
-#endif
-
-
 // eval.c
 
 int Eval(PDATA data, PSTR * pstr);
@@ -239,6 +226,7 @@ BOOL load_file(PDATA data, PSTR pszPath, bits nFiletype);
 // main.c
 
 extern const char achProgName[];
+extern int returnStatus;
 
 
 // menu.c
@@ -362,8 +350,8 @@ int button_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
 void button_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
 void put_icon_data(PDATA data, PSTR pszIn, int nOffset, wimp_icon_data * icon_data, bits flags);
 void get_icon_data(FILE * hf, PSTR pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent);
-void _icon(PDATA data, PSTR pszIn, int nOffset, wimp_icon * icon);
-void icon(FILE * hf, PSTR pszStringTable, wimp_icon * icon);
+void icon_text2template(PDATA data, PSTR pszIn, int nOffset, wimp_icon * icon);
+void icon_template2text(FILE * hf, PSTR pszStringTable, wimp_icon * icon);
 
 // _iconbar.c
 
@@ -379,13 +367,12 @@ void menu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStr
 
 // _object.c
 
-void report(PDATA data, PSTR ptr, PSTR pszFmt, ...);
-void put_objects(PDATA data, PSTR pszIn, int nOffset, PSTR object, POBJECTLIST Objectlist, int nObjects);
-void get_objects(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, PSTR object, POBJECTLIST ObjectList, int nObjects, int nIndent);
+void put_objects(PDATA data, PSTR pszIn, int nOffset, PSTR object, const OBJECTLIST *Objectlist, int nObjects);
+void get_objects(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent);
 PSTR next_object(PSTR * pszIn, PSTR pszEnd);
 PSTR object_end(PDATA data, PSTR pszIn, PSTR pszEnd);
-void _object(FILE * hf, PDATA data, PSTR pszIn, PSTR pszOut, PCLASSES pClass);
-void object(FILE * hf, toolbox_relocatable_object_base * object, object2text o2t);
+void object_text2resource(FILE * hf, PDATA data, PSTR pszIn, PSTR pszOut, const CLASSES *pClass);
+void object_resource2text(FILE * hf, toolbox_relocatable_object_base * object, object2text o2t);
 
 
 // _printdbox.c
@@ -422,7 +409,7 @@ void scale_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszSt
 
 int window_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
 void window_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
-int _window_template(PDATA data, PSTR pszIn, int nOffset, wimp_window_base * object);
-void window_template(FILE * hf, PSTR pszBuff);
+int window_text2template(PDATA data, PSTR pszIn, int nOffset, wimp_window_base * object);
+void window_template2text(FILE * hf, PSTR pszBuff);
 
 #endif
