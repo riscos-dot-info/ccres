@@ -1,5 +1,5 @@
 /* _Object.c
-   $Id: _Object.c,v 1.1 2003/12/09 00:00:08 joty Exp $
+   $Id: _Object.c,v 1.2 2004/03/20 22:13:59 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -659,168 +659,221 @@ LOG(("b(%s, %s)", pszBuff, pszBuff));
 
 void put_objects(PDATA data, PSTR pszIn, int nOffset, PSTR Object, POBJECTLIST ObjectList, int nObjects)
 {
-	PBITS pBits;
-	PINT pInt;
-	PSHORT pShort;
-	PBYTE pByte;
-	PSTR pszEntry;
-	int n;
+PBITS pBits;
+PINT pInt;
+PSHORT pShort;
+PBYTE pByte;
+PSTR pszEntry;
+int n;
 
 LOG(("put_objects(offset:%x)", nOffset));
-	for (n = 0; n < nObjects; n++, ObjectList++) {
+for (n = 0; n < nObjects; n++, ObjectList++)
+  {
 LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
-		if (ObjectList->nTable == iol_MSG || ObjectList->nTable == iol_STRING) {
-			put_string(data, pszIn, nOffset, Object, (PSTRINGLIST) ObjectList);
-		} else if (ObjectList->nTable == iol_TSTRING) {
-			put_tstring(data, pszIn, nOffset, Object, (PSTRINGLIST) ObjectList);
-		} else if (ObjectList->nTable == iol_OBJECT) {
-			add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_OBJECT_OFFSET);
-		} else if ((pszEntry = parse(data, pszIn, ObjectList->pszEntry)) != NULL) {
-			if (ObjectList->nTable == iol_FLAGS) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				*pBits = put_flags(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData);
-			} else if (ObjectList->nTable == iol_IFLAGS) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				*pBits = put_iflags(data, pszEntry);
-			} else if (ObjectList->nTable == iol_BFLAGS) {
-				pByte = (PBYTE) &Object[ObjectList->nEntry];
-				*pByte = (byte) put_flags(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData);
-			} else if (ObjectList->nTable == iol_ENUM) {
-				pInt = (PINT) &Object[ObjectList->nEntry];
-				*pInt = put_enum(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData, FALSE);
-			} else if (ObjectList->nTable == iol_CMP) {
-				pInt = (PINT) &Object[ObjectList->nEntry];
-				*pInt = put_enum(data, pszEntry, CmpFlags, ELEMENTS(CmpFlags), TRUE);
-			} else if (ObjectList->nTable == iol_OSCOL) {
-				pInt = (PINT) &Object[ObjectList->nEntry];
-				*pInt = put_enum(data, pszEntry, OsColours, ELEMENTS(OsColours), FALSE);
-			} else if (ObjectList->nTable == iol_BOX) {
-				put_box(data, pszEntry, (os_box *) &Object[ObjectList->nEntry]);
-			} else if (ObjectList->nTable == iol_BITS) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				if (*pszEntry < ' ') {
-					*pBits = (ObjectList->nData == bits_ACTION) ? ~0 : 0;
-				} else {
-					*pBits = (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : __atoi(&pszEntry);
-				}
-			} else if (ObjectList->nTable == iol_INT) {
-				pInt = (PINT) &Object[ObjectList->nEntry];
-				*pInt = __atoi(&pszEntry);
-			} else if (ObjectList->nTable == iol_SHORT) {
-				pShort = (PSHORT) &Object[ObjectList->nEntry];
-				*pShort = (short) __atoi(&pszEntry);
-			} else if (ObjectList->nTable == iol_BYTE) {
-				pByte = (PBYTE) &Object[ObjectList->nEntry];
-				*pByte = (byte) __atoi(&pszEntry);
-			} else if (ObjectList->nTable == iol_COORD) {
-				put_coord(data, pszEntry, (os_coord *) &Object[ObjectList->nEntry]);
-			} else if (ObjectList->nTable == iol_SPRITE) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				*pBits = __atoi(&pszEntry);
-				add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE);
-			} else if (ObjectList->nTable == iol_PSTR) {
-				put_pstr(data, &Object[ObjectList->nEntry], pszEntry, ObjectList->nData);
-			} else if (ObjectList->nTable == iol_ESG) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				*pBits |= (__atoi(&pszEntry) << wimp_ICON_ESG_SHIFT);
-			} else if (ObjectList->nTable == iol_WCOL) {
-				pByte = (PBYTE) &Object[ObjectList->nEntry];
-				*pByte = (byte) put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE);
-			} else if (ObjectList->nTable == iol_BCOLS) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				*pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE) << wimp_ICON_FG_COLOUR_SHIFT;
-				if ((pszEntry = parse(data, pszIn, ObjectList->pData)) != NULL) {
-					*pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE) << wimp_ICON_BG_COLOUR_SHIFT;
-				}
-			} else {
-				error("Unknown iol_ value (%d)", ObjectList->nTable);
-			}
-		}
-	}
+  switch (ObjectList->nTable)
+    {
+    case iol_MSG:
+    case iol_STRING:
+      put_string(data, pszIn, nOffset, Object, (PSTRINGLIST) ObjectList);
+      break;
+    case iol_TSTRING:
+      put_tstring(data, pszIn, nOffset, Object, (PSTRINGLIST) ObjectList);
+      break;
+    case iol_OBJECT:
+      add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_OBJECT_OFFSET);
+      break;
+    default:
+      if ((pszEntry = parse(data, pszIn, ObjectList->pszEntry)) != NULL)
+        {
+        switch (ObjectList->nTable)
+          {
+          case iol_FLAGS:
+            pBits = (PBITS) &Object[ObjectList->nEntry];
+            *pBits = put_flags(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData);
+            break;
+          case iol_IFLAGS:
+            pBits = (PBITS) &Object[ObjectList->nEntry];
+            *pBits = put_iflags(data, pszEntry);
+            break;
+          case iol_BFLAGS:
+            pByte = (PBYTE) &Object[ObjectList->nEntry];
+            *pByte = (byte) put_flags(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData);
+            break;
+          case iol_ENUM:
+            pInt = (PINT) &Object[ObjectList->nEntry];
+            *pInt = put_enum(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData, FALSE);
+            break;
+          case iol_CMP:
+            pInt = (PINT) &Object[ObjectList->nEntry];
+            *pInt = put_enum(data, pszEntry, CmpFlags, ELEMENTS(CmpFlags), TRUE);
+            break;
+          case iol_OSCOL:
+            pInt = (PINT) &Object[ObjectList->nEntry];
+            *pInt = put_enum(data, pszEntry, OsColours, ELEMENTS(OsColours), FALSE);
+            break;
+          case iol_BOX:
+            put_box(data, pszEntry, (os_box *) &Object[ObjectList->nEntry]);
+            break;
+          case iol_BITS:
+            pBits = (PBITS) &Object[ObjectList->nEntry];
+            if (*pszEntry < ' ')
+              *pBits = (ObjectList->nData == bits_ACTION) ? ~0 : 0;
+            else
+              *pBits = (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : __atoi(&pszEntry);
+            break;
+          case iol_INT:
+            pInt = (PINT) &Object[ObjectList->nEntry];
+            *pInt = __atoi(&pszEntry);
+            break;
+          case iol_SHORT:
+            pShort = (PSHORT) &Object[ObjectList->nEntry];
+            *pShort = (short) __atoi(&pszEntry);
+            break;
+          case iol_BYTE:
+            pByte = (PBYTE) &Object[ObjectList->nEntry];
+            *pByte = (byte) __atoi(&pszEntry);
+            break;
+          case iol_COORD:
+            put_coord(data, pszEntry, (os_coord *) &Object[ObjectList->nEntry]);
+            break;
+          case iol_SPRITE:
+            pBits = (PBITS) &Object[ObjectList->nEntry];
+            *pBits = __atoi(&pszEntry);
+            add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE);
+            break;
+          case iol_PSTR:
+            put_pstr(data, &Object[ObjectList->nEntry], pszEntry, ObjectList->nData);
+            break;
+          case iol_ESG:
+            pBits = (PBITS) &Object[ObjectList->nEntry];
+            *pBits |= (__atoi(&pszEntry) << wimp_ICON_ESG_SHIFT);
+            break;
+          case iol_WCOL:
+            pByte = (PBYTE) &Object[ObjectList->nEntry];
+            *pByte = (byte) put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE);
+            break;
+          case iol_BCOLS:
+            pBits = (PBITS) &Object[ObjectList->nEntry];
+            *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE) << wimp_ICON_FG_COLOUR_SHIFT;
+            if ((pszEntry = parse(data, pszIn, ObjectList->pData)) != NULL)
+              *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE) << wimp_ICON_BG_COLOUR_SHIFT;
+            break;
+          default:
+            error("Unknown iol_ value (%d)", ObjectList->nTable);
+            break;
+          }
+        }
+      break;
+    }
+  }
 LOG(("-----"));
 }
 
 
 void get_objects(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, PSTR Object, POBJECTLIST ObjectList, int nObjects, int nIndent)
 {
-	PSTR pszIndent;
-	PBITS pBits;
-	PINT pInt;
-	PSHORT pShort;
-	PBYTE pByte;
-	int i, n;
+PSTR pszIndent;
+PBITS pBits;
+PINT pInt;
+PSHORT pShort;
+PBYTE pByte;
+int i, n;
 
-	pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
+pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
 LOG(("get_objects"));
-	for (n = 0; n < nObjects; n++, ObjectList++) {
+for (n = 0; n < nObjects; n++, ObjectList++)
+  {
 LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
-		if (ObjectList->nTable != iol_OBJECT) {		// do nothing for res2text
-			fputs(pszIndent, hf);
-			if (ObjectList->nTable == iol_MSG || ObjectList->nTable == iol_STRING) {
-				get_string(hf, pszStringTable, pszMessageTable, Object, (PSTRINGLIST) ObjectList, pszIndent);
-			} else if (ObjectList->nTable == iol_TSTRING) {
-				get_tstring(hf, pszStringTable, Object, (PSTRINGLIST) ObjectList, pszIndent);
-			} else if (ObjectList->nTable == iol_FLAGS) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				get_flags(hf, ObjectList->pszEntry, *pBits, (PFLAGS) ObjectList->pData, ObjectList->nData);
-			} else if (ObjectList->nTable == iol_IFLAGS) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				get_iflags(hf, ObjectList->pszEntry, *pBits);
-			} else if (ObjectList->nTable == iol_BFLAGS) {
-				pByte = (PBYTE) &Object[ObjectList->nEntry];
-				get_flags(hf, ObjectList->pszEntry, *pByte, (PFLAGS) ObjectList->pData, ObjectList->nData);
-			} else if (ObjectList->nTable == iol_ENUM) {
-				pInt = (int *) &Object[ObjectList->nEntry];
-				get_enum(hf, ObjectList->pszEntry, *pInt, (PFLAGS) ObjectList->pData, ObjectList->nData, FALSE);
-			} else if (ObjectList->nTable == iol_CMP) {
-				pInt = (int *) &Object[ObjectList->nEntry];
-				get_enum(hf, ObjectList->pszEntry, *pInt, CmpFlags, ELEMENTS(CmpFlags), TRUE);
-			} else if (ObjectList->nTable == iol_OSCOL) {
-				pInt = (int *) &Object[ObjectList->nEntry];
-				get_enum(hf, ObjectList->pszEntry, *pInt, OsColours, ELEMENTS(OsColours), FALSE);
-			} else if (ObjectList->nTable == iol_BOX) {
-				get_box(hf, ObjectList->pszEntry, (os_box *) &Object[ObjectList->nEntry]);
-			} else if (ObjectList->nTable == iol_BITS) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				if (*pBits == ~0 && ObjectList->nData == bits_ACTION) {
-					fprintf(hf, "%s\n", ObjectList->pszEntry);
-				} else {
-					fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
-				}
-			} else if (ObjectList->nTable == iol_INT) {
-				pInt = (PINT) &Object[ObjectList->nEntry];
-				fprintf(hf, "%s%d\n", ObjectList->pszEntry, *pInt);
-			} else if (ObjectList->nTable == iol_SHORT) {
-				pShort = (PSHORT) &Object[ObjectList->nEntry];
-				fprintf(hf, "%s%d\n", ObjectList->pszEntry, (int) *pShort);
-			} else if (ObjectList->nTable == iol_BYTE) {
-				pByte = (PBYTE) &Object[ObjectList->nEntry];
-				fprintf(hf, "%s%d\n", ObjectList->pszEntry, (bits) *pByte);
-			} else if (ObjectList->nTable == iol_COORD) {
-				get_coord(hf, ObjectList->pszEntry, (os_coord *) &Object[ObjectList->nEntry]);
-			} else if (ObjectList->nTable == iol_SPRITE) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
-			} else if (ObjectList->nTable == iol_PSTR) {
-				get_pstr(hf, ObjectList->pszEntry, Object, ObjectList->nEntry, ObjectList->nData);
-			} else if (ObjectList->nTable == iol_ESG) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				fprintf(hf, "%s%d\n", ObjectList->pszEntry, (*pBits & wimp_ICON_ESG) >> wimp_ICON_ESG_SHIFT);
-			} else if (ObjectList->nTable == iol_WCOL) {
-				pByte = (PBYTE) &Object[ObjectList->nEntry];
-				get_enum(hf, ObjectList->pszEntry, *pByte, WimpColour, ELEMENTS(WimpColour), FALSE);
-			} else if (ObjectList->nTable == iol_BCOLS) {
-				pBits = (PBITS) &Object[ObjectList->nEntry];
-				i = (*pBits & wimp_ICON_FG_COLOUR) >> wimp_ICON_FG_COLOUR_SHIFT;
-				get_enum(hf, ObjectList->pszEntry, i, WimpColour, ELEMENTS(WimpColour), FALSE);
-				fputs(pszIndent, hf);
-				i = (*pBits & wimp_ICON_BG_COLOUR) >> wimp_ICON_BG_COLOUR_SHIFT;
-				get_enum(hf, ObjectList->pData, i, WimpColour, ELEMENTS(WimpColour), FALSE);
-			} else {
-				error("Unknown iol_ value (%d)", ObjectList->nTable);
-			}
-		}
-	}
+  if (ObjectList->nTable != iol_OBJECT)
+    { // do nothing for res2text
+    fputs(pszIndent, hf);
+    switch (ObjectList->nTable)
+      {
+      case iol_MSG:
+      case iol_STRING:
+        get_string(hf, pszStringTable, pszMessageTable, Object, (PSTRINGLIST) ObjectList, pszIndent);
+        break;
+      case iol_TSTRING:
+        get_tstring(hf, pszStringTable, Object, (PSTRINGLIST) ObjectList, pszIndent);
+        break;
+      case iol_FLAGS:
+        pBits = (PBITS) &Object[ObjectList->nEntry];
+        get_flags(hf, ObjectList->pszEntry, *pBits, (PFLAGS) ObjectList->pData, ObjectList->nData);
+        break;
+      case iol_IFLAGS:
+        pBits = (PBITS) &Object[ObjectList->nEntry];
+        get_iflags(hf, ObjectList->pszEntry, *pBits);
+        break;
+      case iol_BFLAGS:
+        pByte = (PBYTE) &Object[ObjectList->nEntry];
+        get_flags(hf, ObjectList->pszEntry, *pByte, (PFLAGS) ObjectList->pData, ObjectList->nData);
+        break;
+      case iol_ENUM:
+        pInt = (int *) &Object[ObjectList->nEntry];
+        get_enum(hf, ObjectList->pszEntry, *pInt, (PFLAGS) ObjectList->pData, ObjectList->nData, FALSE);
+        break;
+      case iol_CMP:
+        pInt = (int *) &Object[ObjectList->nEntry];
+        get_enum(hf, ObjectList->pszEntry, *pInt, CmpFlags, ELEMENTS(CmpFlags), TRUE);
+        break;
+      case iol_OSCOL:
+        pInt = (int *) &Object[ObjectList->nEntry];
+        get_enum(hf, ObjectList->pszEntry, *pInt, OsColours, ELEMENTS(OsColours), FALSE);
+        break;
+      case iol_BOX:
+        get_box(hf, ObjectList->pszEntry, (os_box *) &Object[ObjectList->nEntry]);
+        break;
+      case iol_BITS:
+        pBits = (PBITS) &Object[ObjectList->nEntry];
+        if (*pBits == ~0 && ObjectList->nData == bits_ACTION)
+          fprintf(hf, "%s\n", ObjectList->pszEntry);
+        else
+          fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
+        break;
+      case iol_INT:
+        pInt = (PINT) &Object[ObjectList->nEntry];
+        fprintf(hf, "%s%d\n", ObjectList->pszEntry, *pInt);
+        break;
+      case iol_SHORT:
+        pShort = (PSHORT) &Object[ObjectList->nEntry];
+        fprintf(hf, "%s%d\n", ObjectList->pszEntry, (int) *pShort);
+        break;
+      case iol_BYTE:
+        pByte = (PBYTE) &Object[ObjectList->nEntry];
+        fprintf(hf, "%s%d\n", ObjectList->pszEntry, (bits) *pByte);
+        break;
+      case iol_COORD:
+        get_coord(hf, ObjectList->pszEntry, (os_coord *) &Object[ObjectList->nEntry]);
+        break;
+      case iol_SPRITE:
+        pBits = (PBITS) &Object[ObjectList->nEntry];
+        fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
+        break;
+      case iol_PSTR:
+        get_pstr(hf, ObjectList->pszEntry, Object, ObjectList->nEntry, ObjectList->nData);
+        break;
+      case iol_ESG:
+        pBits = (PBITS) &Object[ObjectList->nEntry];
+        fprintf(hf, "%s%d\n", ObjectList->pszEntry, (*pBits & wimp_ICON_ESG) >> wimp_ICON_ESG_SHIFT);
+        break;
+      case iol_WCOL:
+        pByte = (PBYTE) &Object[ObjectList->nEntry];
+        get_enum(hf, ObjectList->pszEntry, *pByte, WimpColour, ELEMENTS(WimpColour), FALSE);
+        break;
+      case iol_BCOLS:
+        pBits = (PBITS) &Object[ObjectList->nEntry];
+        i = (*pBits & wimp_ICON_FG_COLOUR) >> wimp_ICON_FG_COLOUR_SHIFT;
+        get_enum(hf, ObjectList->pszEntry, i, WimpColour, ELEMENTS(WimpColour), FALSE);
+        fputs(pszIndent, hf);
+        i = (*pBits & wimp_ICON_BG_COLOUR) >> wimp_ICON_BG_COLOUR_SHIFT;
+        get_enum(hf, ObjectList->pData, i, WimpColour, ELEMENTS(WimpColour), FALSE);
+        break;
+      default:
+        error("Unknown iol_ value (%d)", ObjectList->nTable);
+        break;
+      }
+    }
+  }
 LOG(("-----"));
 }
 
