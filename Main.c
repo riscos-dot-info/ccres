@@ -1,5 +1,5 @@
 /* Main.c
-   $Id: Main.c,v 1.4 2004/03/20 22:12:21 joty Exp $
+   $Id: Main.c,v 1.5 2005/01/30 14:41:22 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -37,6 +37,10 @@
  */
 #include "ccres.h"
 #include "Error.h"
+
+#define APPDIR	"<"APPNAME"$Dir>"
+
+#define action_MENU_QUIT	0x01
 
 const char achProgName[] = APPNAME;
 int returnStatus = EXIT_SUCCESS;
@@ -88,7 +92,7 @@ static  void ccres_pollloop(PDATA data)
   bits nAction;
 
 do {
-  if ((e = wimp_poll(POLL_MASK, &data->poll.wb, 0)) == toolbox_EVENT)
+  if ((e = wimp_poll(wimp_MASK_NULL | wimp_MASK_LEAVING | wimp_MASK_ENTERING, &data->poll.wb, 0)) == toolbox_EVENT)
     {
     // is it a toolbox event?
     // if so, look-up the action number in the Action list, then call the associated handler
