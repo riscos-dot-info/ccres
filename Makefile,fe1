@@ -10,7 +10,7 @@ LINKFLAGS =
 #LINKFLAGS = -debug 
 
 OBJASM = objasm
-OBJASMFLAGS = -depend !Depend -throwback -Apcs 3/32/swst/nofpr -Stamp -quit -CloseExec
+OBJASMFLAGS = -depend !Depend -throwback -I <OSLib$Dir> -Apcs 3/32/swst/nofpr -Stamp -quit -CloseExec
 
 COPY = copy
 COPYFLAGS = A ~C ~D F ~L ~N ~P Q ~R ~S ~T V
@@ -43,7 +43,7 @@ DOBJS = Release.!CCres.Res \
 	Release.!CCres.!Help \
 	Release.!CCres.Messages \
 	Release.!CCres.!RunImage \
-	Release.!CCres.History/txt
+	Release.!CCres.History
 
 # Target:
 All: $(DOBJS)
@@ -72,8 +72,8 @@ Release.!CCres.!Help: Data.Help
 Release.!CCres.Messages: Data.Messages
 	$(COPY) Data.Messages $@ $(COPYFLAGS)
 
-Release.!CCres.History: History/txt
-	$(COPY) History/txt $@ $(COPYFLAGS)
+Release.!CCres.History: History
+	$(COPY) History $@ $(COPYFLAGS)
 
 .SUFFIXES: .o .c .s
 .c.o:;  	$(CC) $(CCFLAGS) -o $@ $<
