@@ -1,7 +1,7 @@
 # Project name: CCRes TestQueue
 # Written by John Tytgat / BASS
 
-CCRES = ^.^.Release.!CCRes.!RunImage
+CCRES = ^.Release.!CCRes.!RunImage
 CCRESFLAGS = 
 
 DIFF = diff
