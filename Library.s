@@ -1,5 +1,5 @@
 ; Library.s
-; $Id: Library.s,v 1.1 2003/12/09 00:00:00 joty Exp $
+; $Id: Library.s,v 1.2 2004/03/20 22:14:47 joty Exp $
 ;
 ; Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 ;
@@ -21,17 +21,16 @@
 
 ; need to include all recursively called headers here
 ; until assembler (as) can do conditional includes:-
-; temporarily comment out GET's from OSLib headers...
 
-	GET OSLib:OsLib.Hdr.Types
-	GET OSLib:OsLib.Hdr.OS
-	GET OSLib:OsLib.Hdr.FileSwitch
-	GET OSLib:OsLib.Hdr.OSArgs
-	GET OSLib:OsLib.Hdr.OSFile
-	GET OSLib:OsLib.Hdr.OSFind
-	GET OSLib:OsLib.Hdr.OSFSControl
-	GET OSLib:OsLib.Hdr.Territory
-	GET OSLib:OsLib.Hdr.Wimp
+	GET oslib.Hdr.Types
+	GET oslib.Hdr.OS
+	GET oslib.Hdr.FileSwitch
+	GET oslib.Hdr.OSArgs
+	GET oslib.Hdr.OSFile
+	GET oslib.Hdr.OSFind
+	GET oslib.Hdr.OSFSControl
+	GET oslib.Hdr.Territory
+	GET oslib.Hdr.Wimp
 
 	EXPORT	my_strcpy
 	EXPORT	my_strcpy0d
