@@ -1,5 +1,5 @@
 /* Convert.c
-   $Id: Convert.c,v 1.1 2003/12/08 23:59:57 joty Exp $
+   $Id: Convert.c,v 1.2 2004/03/20 22:12:23 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -43,20 +43,20 @@
 
 
 static CLASSES Classes[] = {
-	{ColourDbox_ClassSWI, colourdbox, _colourdbox, "colourdbox_object"},
-	{ColourMenu_ClassSWI, colourmenu, _colourmenu, "colourmenu_object"},
-	{DCS_ClassSWI       , dcs       , _dcs       , "dcs_object"       },
-	{FileInfo_ClassSWI  , fileinfo  , _fileinfo  , "fileinfo_object"  },
-	{FontDbox_ClassSWI  , fontdbox  , _fontdbox  , "fontdbox_object"  },
-	{FontMenu_ClassSWI  , fontmenu  , _fontmenu  , "fontmenu_object"  },
-	{Iconbar_ClassSWI   , iconbar   , _iconbar   , "iconbar_object"   },
-	{Menu_ClassSWI      , menu      , _menu      , "menu_object"      },
-	{PrintDbox_ClassSWI , printdbox , _printdbox , "printdbox_object" },
-	{ProgInfo_ClassSWI  , proginfo  , _proginfo  , "proginfo_object"  },
-	{Quit_ClassSWI      , quit      , _quit      , "quit_object"      },
-	{SaveAs_ClassSWI    , saveas    , _saveas    , "saveas_object"    },
-	{Scale_ClassSWI     , scale     , _scale     , "scale_object"     },
-	{Window_ClassSWI    , window    , _window    , "window_object"    }
+	{ColourDbox_ClassSWI, colourdbox_g2t, colourdbox_t2g, "colourdbox_object"},
+	{ColourMenu_ClassSWI, colourmenu_g2t, colourmenu_t2g, "colourmenu_object"},
+	{DCS_ClassSWI       , dcs_g2t       , dcs_t2g       , "dcs_object"       },
+	{FileInfo_ClassSWI  , fileinfo_g2t  , fileinfo_t2g  , "fileinfo_object"  },
+	{FontDbox_ClassSWI  , fontdbox_g2t  , fontdbox_t2g  , "fontdbox_object"  },
+	{FontMenu_ClassSWI  , fontmenu_g2t  , fontmenu_t2g  , "fontmenu_object"  },
+	{Iconbar_ClassSWI   , iconbar_g2t   , iconbar_t2g   , "iconbar_object"   },
+	{Menu_ClassSWI      , menu_g2t      , menu_t2g      , "menu_object"      },
+	{PrintDbox_ClassSWI , printdbox_g2t , printdbox_t2g , "printdbox_object" },
+	{ProgInfo_ClassSWI  , proginfo_g2t  , proginfo_t2g  , "proginfo_object"  },
+	{Quit_ClassSWI      , quit_g2t      , quit_t2g      , "quit_object"      },
+	{SaveAs_ClassSWI    , saveas_g2t    , saveas_t2g    , "saveas_object"    },
+	{Scale_ClassSWI     , scale_g2t     , scale_t2g     , "scale_object"     },
+	{Window_ClassSWI    , window_g2t    , window_t2g    , "window_object"    }
 };
 
 
@@ -67,10 +67,10 @@ static BOOL alloc_string_table(PSTRINGTABLE pTable)
 	pTable->ref = pTable->max = 0;
 	cb = 2 * 256 * 256;		// 256 gadgets, 256 chars each, 2 strings per gadget
 	if ((pTable->pstr = MyAlloc(cb)) == NULL) {
-		return(FALSE);
+		return FALSE;
 	}
 	pTable->max = cb;
-	return(TRUE);
+	return TRUE;
 }
 
 
@@ -81,10 +81,10 @@ static BOOL alloc_reloc_table(PRELOCTABLE pTable)
 	pTable->ref = pTable->max = 0;
 	nReloc = 2 * 256;		// 256 gadgets, 2 strings per gadget
 	if ((pTable->pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL) {
-		return(FALSE);
+		return FALSE;
 	}
 	pTable->max = nReloc;
-	return(TRUE);
+	return TRUE;
 }
 
 
@@ -120,17 +120,17 @@ static BOOL text2res(PDATA data, PSTR pszOutFile)
 	pszEnd = data->pszIn + data->cbIn;
 	if (memcmp(pszIn, "RESF:1.01", 8) != 0) {
 		error("File is not RESF v1.01");
-		return(FALSE);
+		return FALSE;
 	}
 	if ((pszOut = MyAlloc(296 * 268 * 3)) == NULL ||		// approx = window with 256 gadgets, 3 strings each
 				!alloc_string_table(&data->StringTable) ||
 				!alloc_string_table(&data->MessageTable) ||
 				!alloc_reloc_table(&data->RelocTable)) {
 		error("Unable to allocate necessary memory");
-		return(FALSE);
+		return FALSE;
 	} else if ((hf = fopen(pszOutFile, "wb")) == NULL) {
 		error("Unable to create output file '%s'", pszOutFile);
-		return(FALSE);
+		return FALSE;
 	} else {
 		data->fThrowback = FALSE;
 		Hdr.file_id = RESF;
@@ -176,7 +176,7 @@ LOG(("object_end returned NULL, so finished"));
 		free_reloc_table(&data->RelocTable);
 		MyFree(pszOut);
 	}
-	return(TRUE);
+	return TRUE;
 }
 
 
@@ -236,7 +236,7 @@ LOG(("Moving to next class by adding %d\n", cb));
 		fConverted = TRUE;
 	}
 
-	return(fConverted);
+	return fConverted;
 }
 
 #define template_NO_FONTS 		(bits)-1
@@ -284,7 +284,7 @@ static int window_count(PSTR pszIn, PSTR pszEnd, PINT pi)
 		}
 	}
 	*pi = i;
-	return(w);
+	return w;
 }
 
 static int icon_count(PSTR pszIn, PSTR pszEnd)
@@ -307,7 +307,7 @@ static int icon_count(PSTR pszIn, PSTR pszEnd)
 			}
 		}
 	}
-	return(i);
+	return i;
 }
 
 
@@ -439,7 +439,7 @@ LOG(("object_end returned NULL, so finished"));
 			free_string_table(&data->StringTable);
 		}
 	}
-	return(fConverted);
+	return fConverted;
 }
 
 
@@ -453,7 +453,7 @@ static BOOL template2text(PDATA data, PSTR pszOutFile)
 
 	if ((hf = fopen(pszOutFile, "wb")) == NULL) {
 		error("Unable to create output file '%s'", pszOutFile);
-		return(FALSE);
+		return FALSE;
 	}
 	fputs("Template:\n", hf);
 
@@ -489,7 +489,7 @@ static BOOL template2text(PDATA data, PSTR pszOutFile)
 		MyFree(pszBuff);
 	}
 
-	return(TRUE);
+	return TRUE;
 }
 
 
@@ -499,18 +499,18 @@ BOOL convert(PDATA data, PSTR pszOutFile)
 
 	if ((in = data->nFiletypeIn) == osfile_TYPE_TEXT) {
 		if ((out = data->nFiletypeOut) == osfile_TYPE_RESOURCE) {
-			return(text2res(data, pszOutFile));
+			return text2res(data, pszOutFile);
 		} else if (out == osfile_TYPE_TEMPLATE) {
-			return(text2template(data, pszOutFile));
+			return text2template(data, pszOutFile);
 		} else {
 LOG(("action_save_to_file - unknown nFiletypeOut(%03x)", data->nFiletypeOut));
 		}
 	} else if (in == osfile_TYPE_RESOURCE) {
-		return(res2text(data, pszOutFile));
+		return res2text(data, pszOutFile);
 	} else if (in == osfile_TYPE_TEMPLATE) {
-		return(template2text(data, pszOutFile));
+		return template2text(data, pszOutFile);
 	} else {
 LOG(("action_save_to_file - unknown nFiletypeIn(%03x)", data->nFiletypeIn));
 	}
-	return(FALSE);
+	return FALSE;
 }

@@ -1,5 +1,5 @@
 /* _SaveAs.c
-   $Id: _SaveAs.c,v 1.1 2003/12/09 00:00:11 joty Exp $
+   $Id: _SaveAs.c,v 1.2 2004/03/20 22:13:57 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,12 +20,12 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 #include <string.h>
 
 #include <OSLib/saveas.h>
+
+#include "ccres.h"
 
 static FLAGS SaveAsFlags[] = {
 	{saveas_GENERATE_ABOUT_TO_BE_SHOWN  , "saveas_GENERATE_ABOUT_TO_BE_SHOWN"  },
@@ -43,15 +43,15 @@ static OBJECTLIST SaveAsObjectList[] = {
 	{iol_STRING, "alternative_window_name:", offsetof(saveas_object, alternative_window_name), NULL,           0                                  }
 };
 
-int _saveas(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int saveas_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList));
 
-	return(sizeof(saveas_object));
+	return sizeof(saveas_object);
 }
 
 
-void saveas(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void saveas_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList), 1);
 }

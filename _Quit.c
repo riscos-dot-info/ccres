@@ -1,5 +1,5 @@
 /* _Quit.c
-   $Id: _Quit.c,v 1.1 2003/12/09 00:00:10 joty Exp $
+   $Id: _Quit.c,v 1.2 2004/03/20 22:13:58 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,12 +20,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 
 #include <OSLib/quit.h>
 
+#include "ccres.h"
 
 static FLAGS QuitFlags[] = {
 	{quit_GENERATE_ABOUT_TO_BE_SHOWN , "quit_GENERATE_ABOUT_TO_BE_SHOWN" },
@@ -39,15 +38,15 @@ static OBJECTLIST QuitObjectList[] = {
 	{iol_STRING,  "alternative_window_name:", offsetof(quit_object, alternative_window_name), NULL,             0                                   }
 };
 
-int _quit(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int quit_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), QuitObjectList, ELEMENTS(QuitObjectList));
 
-	return(sizeof(quit_object));
+	return sizeof(quit_object);
 }
 
 
-void quit(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void quit_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), QuitObjectList, ELEMENTS(QuitObjectList), 1);
 }

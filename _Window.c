@@ -1,5 +1,5 @@
 /* _Window.c
-   $Id: _Window.c,v 1.1 2003/12/09 00:00:12 joty Exp $
+   $Id: _Window.c,v 1.2 2004/03/20 22:13:56 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -19,8 +19,6 @@
    along with CCres; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-
-#include "ccres.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -48,24 +46,29 @@
 #include <OSLib/toolaction.h>
 #include <OSLib/writablefield.h>
 
+#include "ccres.h"
+#include "tabs_treeview.h"
+
 static GADGETS Gadgets[] = {
-	{class_ACTION_BUTTON,  actionbutton,  _actionbutton,  "actionbutton_object" },
-	{class_ADJUSTER,       adjuster,      _adjuster,      "adjuster_object"     },
-	{class_BUTTON,         button,        _button,        "button_object"       },
-	{class_DISPLAY_FIELD,  displayfield,  _displayfield,  "displayfield_object" },
-	{class_DRAGGABLE,      draggable,     _draggable,     "draggable_object"    },
-	{class_LABEL,          label,         _label,         "label_object"        },
-	{class_LABELLED_BOX,   labelledbox,   _labelledbox,   "labelledbox_object"  },
-	{class_NUMBER_RANGE,   numberrange,   _numberrange,   "numberrange_object"  },
-	{class_OPTION_BUTTON,  optionbutton,  _optionbutton,  "optionbutton_object" },
-	{class_POP_UP,         popup,         _popup,         "popup_object"        },
-	{class_RADIO_BUTTON,   radiobutton,   _radiobutton,   "radiobutton_object"  },
-	{class_SCROLL_LIST,    scrolllist,    _scrolllist,    "scrolllist_object"   },
-	{class_SLIDER,         slider,        _slider,        "slider_object"       },
-	{class_STRING_SET,     stringset,     _stringset,     "stringset_object"    },
-	{class_TEXT_AREA,      textarea,      _textarea,      "textarea_object"     },
-	{class_TOOL_ACTION,    toolaction,    _toolaction,    "toolaction_object"   },
-	{class_WRITABLE_FIELD, writablefield, _writablefield, "writablefield_object"}
+	{class_ACTION_BUTTON,  actionbutton_g2t,  actionbutton_t2g,  "actionbutton_object" },
+	{class_ADJUSTER,       adjuster_g2t,      adjuster_t2g,      "adjuster_object"     },
+	{class_BUTTON,         button_g2t,        button_t2g,        "button_object"       },
+	{class_DISPLAY_FIELD,  displayfield_g2t,  displayfield_t2g,  "displayfield_object" },
+	{class_DRAGGABLE,      draggable_g2t,     draggable_t2g,     "draggable_object"    },
+	{class_LABEL,          label_g2t,         label_t2g,         "label_object"        },
+	{class_LABELLED_BOX,   labelledbox_g2t,   labelledbox_t2g,   "labelledbox_object"  },
+	{class_NUMBER_RANGE,   numberrange_g2t,   numberrange_t2g,   "numberrange_object"  },
+	{class_OPTION_BUTTON,  optionbutton_g2t,  optionbutton_t2g,  "optionbutton_object" },
+	{class_POP_UP,         popup_g2t,         popup_t2g,         "popup_object"        },
+	{class_RADIO_BUTTON,   radiobutton_g2t,   radiobutton_t2g,   "radiobutton_object"  },
+	{class_SCROLL_LIST,    scrolllist_g2t,    scrolllist_t2g,    "scrolllist_object"   },
+	{class_SLIDER,         slider_g2t,        slider_t2g,        "slider_object"       },
+	{class_STRING_SET,     stringset_g2t,     stringset_t2g,     "stringset_object"    },
+	{class_TABS,           tabs_g2t,          tabs_t2g,          "tabs_object"         },
+	{class_TEXT_AREA,      textarea_g2t,      textarea_t2g,      "textarea_object"     },
+	{class_TREE_VIEW,      treeview_g2t,      treeview_t2g,      "treeview_object",    },
+	{class_TOOL_ACTION,    toolaction_g2t,    toolaction_t2g,    "toolaction_object"   },
+	{class_WRITABLE_FIELD, writablefield_g2t, writablefield_t2g, "writablefield_object"}
 };
 
 static FLAGS WindowFlags[] = {
@@ -215,7 +218,7 @@ static OBJECTLIST ShortcutList[] = {
 };
 
 
-int _window(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int window_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	window_object_base * window_object;
 	keyboardshortcut_object * shortcut;
@@ -257,6 +260,8 @@ LOG(("_window pszObject=%s @ %p", pszObject, gadget));
 				nOffset = (int) ((PSTR) gadget - (PSTR) window_object);
 				put_objects(data, pszIn, nOffset, (PSTR) gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList));
 				nSize = Gadgets[g].t2g(data, pszIn, nOffset, gadget);
+				if (nSize & 0x3)
+					error("Gadget class '%s' has non aligned size %d", pszObject, nSize);
 				gadget->class_no_and_size = (nSize << 16) | Gadgets[g].class_no;
 				gadget = (gadget_object_base *) ((PSTR) gadget + nSize);
 				gadget_count++;
@@ -280,11 +285,11 @@ _window_gadget_added:
 	} else {
 		window_object->gadgets = (toolbox_object_offset) -1;
 	}
-	return((int) ((PSTR) gadget - (PSTR) window_object));
+	return (int) ((PSTR) gadget - (PSTR) window_object);
 }
 
 
-void window(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void window_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	window_object_base * window_object;
 	gadget_object_base * gadget;
@@ -325,7 +330,7 @@ window_gadget_added:
 }
 
 //=================================== Template window handlers ======================================
-// a separate source file wuold have been nice, but sharing common data tricky without duplication...
+// a separate source file would have been nice, but sharing common data tricky without duplication...
 
 
 static OBJECTLIST WimpWindowObjectList[] = {
@@ -378,7 +383,7 @@ LOG(("_window pszObject=%s offset=%d (%x)", pszObject, -nOffset, -nOffset));
 		strings += ref;
 		reset_string_table(&data->StringTable);
 	}
-	return((int) (strings - (PSTR) window));
+	return (int) (strings - (PSTR) window);
 }
 
 

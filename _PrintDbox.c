@@ -1,5 +1,5 @@
 /* _PrintDbox.c
-   $Id: _PrintDbox.c,v 1.1 2003/12/09 00:00:09 joty Exp $
+   $Id: _PrintDbox.c,v 1.2 2004/03/20 22:13:59 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,12 +20,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 
 #include <OSLib/printdbox.h>
 
+#include "ccres.h"
 
 static FLAGS PrintDboxFlags[] = {
 	{printdbox_GENERATE_ABOUT_TO_BE_SHOWN , "printdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
@@ -53,15 +52,15 @@ static OBJECTLIST PrintDboxObjectList[] = {
 	{iol_STRING,  "alternative_window_name:", offsetof(printdbox_object, alternative_window_name), NULL,           0                       }
 };
 
-int _printdbox(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int printdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList));
 
-	return(sizeof(printdbox_object));
+	return sizeof(printdbox_object);
 }
 
 
-void printdbox(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void printdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList), 1);
 }

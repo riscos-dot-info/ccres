@@ -1,5 +1,5 @@
 /* _Scale.c
-   $Id: _Scale.c,v 1.1 2003/12/09 00:00:11 joty Exp $
+   $Id: _Scale.c,v 1.2 2004/03/20 22:13:57 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,11 +20,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 
 #include <OSLib/scale.h>
+
+#include "ccres.h"
 
 static FLAGS ScaleFlags[] = {
 	{scale_GENERATE_ABOUT_TO_BE_SHOWN , "scale_GENERATE_ABOUT_TO_BE_SHOWN" },
@@ -42,15 +42,15 @@ static OBJECTLIST ScaleObjectList[] = {
 	{iol_BOX,     "std_value:",               offsetof(scale_object, std_value),               NULL,           0                                  }
 };
 
-int _scale(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int scale_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), ScaleObjectList, ELEMENTS(ScaleObjectList));
 
-	return(sizeof(scale_object));
+	return sizeof(scale_object);
 }
 
 
-void scale(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void scale_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ScaleObjectList, ELEMENTS(ScaleObjectList), 1);
 }

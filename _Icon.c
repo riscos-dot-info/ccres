@@ -1,5 +1,5 @@
 /* _Icon.c
-   $Id: _Icon.c,v 1.3 2004/03/20 22:13:34 joty Exp $
+   $Id: _Icon.c,v 1.4 2004/03/20 23:36:08 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -19,10 +19,10 @@
    along with CCres; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include "ccres.h"
 
 #include <OSLib/button.h>
 
+#include "ccres.h"
 
 // Res file button gadget
 
@@ -43,8 +43,8 @@ static OBJECTLIST ButtonObjectList[] = {
   {iol_STRING, "validation:",   offsetof(button_object, validation),   "validation_limit:", offsetof(button_object, validation_limit)}
   };
 
-        int _button(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
-//      =============================================================================
+        int button_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+//      ================================================================================
 {
 put_objects(data, pszIn, nOffset, (PSTR) gadget, ButtonObjectList, ELEMENTS(ButtonObjectList));
 
@@ -52,8 +52,8 @@ return sizeof(button_object);
 }
 
 
-        void button(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
-//      ==============================================================================================
+        void button_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+//      ==================================================================================================
 {
 get_objects(hf, pszStringTable, pszMessageTable, (PSTR) gadget, ButtonObjectList, ELEMENTS(ButtonObjectList), 2);
 }

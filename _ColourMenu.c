@@ -1,5 +1,5 @@
 /* _ColourMenu.c
-   $Id: _ColourMenu.c,v 1.1 2003/12/09 00:00:04 joty Exp $
+   $Id: _ColourMenu.c,v 1.2 2004/03/20 22:13:37 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,12 +20,12 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 #include <string.h>
 
 #include <OSLib/colourmenu.h>
+
+#include "ccres.h"
 
 static FLAGS ColourMenuFlags[] = {
 	{colourmenu_GENERATE_ABOUT_TO_BE_SHOWN , "colourmenu_GENERATE_ABOUT_TO_BE_SHOWN" },
@@ -46,15 +46,15 @@ static OBJECTLIST ColourMenuObjectList[] = {
 };
 
 
-int _colourmenu(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int colourmenu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList));
 
-	return(sizeof(colourmenu_object));
+	return sizeof(colourmenu_object);
 }
 
 
-void colourmenu(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void colourmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList), 1);
 }

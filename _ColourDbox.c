@@ -1,5 +1,5 @@
 /* _ColourDbox.c
-   $Id: _ColourDbox.c,v 1.1 2003/12/09 00:00:03 joty Exp $
+   $Id: _ColourDbox.c,v 1.2 2004/03/20 22:12:19 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,12 +20,12 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 #include <string.h>
 
 #include <OSLib/colourdbox.h>
+
+#include "ccres.h"
 
 static FLAGS ColourDboxFlags[] = {
 	{colourdbox_GENERATE_ABOUT_TO_BE_SHOWN , "colourdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
@@ -41,15 +41,15 @@ static OBJECTLIST ColourDboxObjectList[] = {
 };
 
 
-int _colourdbox(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int colourdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList));
 
-	return(sizeof(colourdbox_object));
+	return sizeof(colourdbox_object);
 }
 
 
-void colourdbox(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void colourdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList), 1);
 }

@@ -1,5 +1,5 @@
 /* ccres.h
-   $Id: ccres.h,v 1.3 2004/03/20 22:14:48 joty Exp $
+   $Id: ccres.h,v 1.4 2004/12/01 23:19:03 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -283,79 +283,83 @@ void action_save_completed(PDATA data);
 
 // _colourdbox.c
 
-int _colourdbox(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void colourdbox(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int colourdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void colourdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _colourmenu.c
 
-int _colourmenu(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void colourmenu(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int colourmenu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void colourmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _dcs.c
 
-int _dcs(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void dcs(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int dcs_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void dcs_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _fileinfo.c
 
-int _fileinfo(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void fileinfo(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int fileinfo_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void fileinfo_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _fontbox.c
 
-int _fontdbox(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void fontdbox(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int fontdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void fontdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _fontmenu.c
 
-int _fontmenu(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void fontmenu(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int fontmenu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void fontmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _gadgets.c
 
-int _actionbutton(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void actionbutton(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _adjuster(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void adjuster(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _displayfield(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void displayfield(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _draggable(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void draggable(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _labelledbox(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void labelledbox(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _label(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void label(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _numberrange(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void numberrange(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _optionbutton(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void optionbutton(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _popup(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void popup(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _radiobutton(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void radiobutton(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _scrolllist(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void scrolllist(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _slider(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void slider(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _stringset(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void stringset(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _textarea(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void textarea(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _toolaction(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void toolaction(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
-int _writablefield(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void writablefield(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int actionbutton_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void actionbutton_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int adjuster_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void adjuster_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int displayfield_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void displayfield_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int draggable_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void draggable_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int labelledbox_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void labelledbox_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int label_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void label_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int numberrange_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void numberrange_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int optionbutton_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void optionbutton_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int popup_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void popup_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int radiobutton_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void radiobutton_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int scrolllist_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void scrolllist_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int slider_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void slider_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int stringset_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void stringset_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int textarea_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void textarea_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int toolaction_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void toolaction_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int writablefield_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void writablefield_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int tabs_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void tabs_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int treeview_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void treeview_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
 
 // _icon.c
 
-int _button(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-void button(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+int button_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
+void button_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
 void put_icon_data(PDATA data, PSTR pszIn, int nOffset, wimp_icon_data * icon_data, bits flags);
 void get_icon_data(FILE * hf, PSTR pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent);
 void _icon(PDATA data, PSTR pszIn, int nOffset, wimp_icon * icon);
@@ -363,14 +367,14 @@ void icon(FILE * hf, PSTR pszStringTable, wimp_icon * icon);
 
 // _iconbar.c
 
-int _iconbar(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void iconbar(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int iconbar_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void iconbar_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // menu.c
 
-int _menu(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void menu(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int menu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void menu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _object.c
@@ -386,41 +390,39 @@ void object(FILE * hf, toolbox_relocatable_object_base * object, object2text o2t
 
 // _printdbox.c
 
-int _printdbox(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void printdbox(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int printdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void printdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _proginfo.c
 
-int _proginfo(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void proginfo(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int proginfo_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void proginfo_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _quit.c
 
-int _quit(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void quit(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int quit_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void quit_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // saveas.c
 
-int _saveas(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void saveas(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int saveas_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void saveas_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // _scale.c
 
-int _scale(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void scale(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int scale_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void scale_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 
 // window.c
 
-int _window(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void window(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int window_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
+void window_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 int _window_template(PDATA data, PSTR pszIn, int nOffset, wimp_window_base * object);
 void window_template(FILE * hf, PSTR pszBuff);
 
-
-
-#endif	// __ccres_h
+#endif

@@ -1,5 +1,5 @@
 /* _Iconbar.c
-   $Id: _Iconbar.c,v 1.2 2004/03/20 22:13:33 joty Exp $
+   $Id: _Iconbar.c,v 1.3 2004/12/01 23:17:48 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,12 +20,12 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 #include <string.h>
 
 #include <OSLib/iconbar.h>
+
+#include "ccres.h"
 
 /* Things which should be defined in OSLib but aren't yet :
  */
@@ -75,15 +75,15 @@ static OBJECTLIST IconbarObjectList[] = {
 };
 
 
-int _iconbar(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int iconbar_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList));
 
-	return(sizeof(iconbar_object));
+	return sizeof(iconbar_object);
 }
 
 
-void iconbar(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void iconbar_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList), 1);
 }

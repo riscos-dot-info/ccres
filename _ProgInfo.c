@@ -1,5 +1,5 @@
 /* _ProgInfo.c
-   $Id: _ProgInfo.c,v 1.1 2003/12/09 00:00:09 joty Exp $
+   $Id: _ProgInfo.c,v 1.2 2004/03/20 22:13:58 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,11 +20,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 
 #include <OSLib/proginfo.h>
+
+#include "ccres.h"
 
 static FLAGS ProgInfoLicenceType[] = {
 	{~0                             , "None"},
@@ -61,18 +61,18 @@ static OBJECTLIST ProgInfoObjectList101[] = {
 };
 
 
-int _proginfo(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int proginfo_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), ProgInfoObjectList, ELEMENTS(ProgInfoObjectList));
 	if (object->rf_obj.version == 101) {
 		put_objects(data, pszIn, 0, (PSTR) (object + 1), ProgInfoObjectList101, ELEMENTS(ProgInfoObjectList101));
-		return(sizeof(proginfo_object));
+		return sizeof(proginfo_object);
 	}
-	return(offsetof(proginfo_object, uri));
+	return offsetof(proginfo_object, uri);
 }
 
 
-void proginfo(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void proginfo_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ProgInfoObjectList, ELEMENTS(ProgInfoObjectList), 1);
 	if (object->version == 101) {

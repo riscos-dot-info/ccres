@@ -1,5 +1,5 @@
 /* _FontMenu.c
-   $Id: _FontMenu.c,v 1.1 2003/12/09 00:00:05 joty Exp $
+   $Id: _FontMenu.c,v 1.2 2004/03/20 22:13:35 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -20,12 +20,12 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-
 #include <stdio.h>
 #include <string.h>
 
 #include <OSLib/fontmenu.h>
+
+#include "ccres.h"
 
 static FLAGS FontMenuFlags[] = {
 	{fontmenu_GENERATE_ABOUT_TO_BE_SHOWN , "fontmenu_GENERATE_ABOUT_TO_BE_SHOWN" },
@@ -40,15 +40,15 @@ static OBJECTLIST FontMenuObjectList[] = {
 };
 
 
-int _fontmenu(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int fontmenu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 {
 	put_objects(data, pszIn, 0, (PSTR) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList));
 
-	return(sizeof(fontmenu_object));
+	return sizeof(fontmenu_object);
 }
 
 
-void fontmenu(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+void fontmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
 {
 	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList), 1);
 }
