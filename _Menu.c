@@ -1,7 +1,7 @@
 /* _Menu.c
-   $Id: _Menu.c,v 1.2 2004/03/20 22:13:33 joty Exp $
+   $Id: _Menu.c,v 1.3 2004/12/26 20:20:15 joty Exp $
 
-   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -26,12 +26,13 @@
 
 #include "ccres.h"
 
-static FLAGS MenuFlags[] = {
-	{menu_GENERATE_ABOUT_TO_BE_SHOWN , "menu_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{menu_GENERATE_DIALOGUE_COMPLETED, "menu_GENERATE_DIALOGUE_COMPLETED"}
+static const FLAGS MenuFlags[] = {
+	{menu_GENERATE_ABOUT_TO_BE_SHOWN , "menu_GENERATE_ABOUT_TO_BE_SHOWN"  },
+	{menu_GENERATE_DIALOGUE_COMPLETED, "menu_GENERATE_DIALOGUE_COMPLETED" },
+	{menu_GENERATE_HAS_BEEN_HIDDEN,    "menu_GENERATE_HAS_BEEN_HIDDEN"    }
 };
 
-static OBJECTLIST MenuObjectList[] = {
+static const OBJECTLIST MenuObjectList[] = {
 	{iol_FLAGS, "menu_flags:",  offsetof(menu_object, flags),       MenuFlags,       ELEMENTS(MenuFlags)               },
 	{iol_MSG,   "title:",       offsetof(menu_object, title),       "title_limit:",  offsetof(menu_object, title_limit)},
 	{iol_MSG,   "help:",        offsetof(menu_object, help),        "help_limit:",   offsetof(menu_object, help_limit) },
@@ -39,7 +40,7 @@ static OBJECTLIST MenuObjectList[] = {
 	{iol_BITS,  "hide_action:", offsetof(menu_object, hide_action), NULL,            bits_ACTION                       }
 };
 
-static FLAGS MenuEntryFlags[] = {
+static const FLAGS MenuEntryFlags[] = {
 	{menu_ENTRY_TICKED                  , "menu_ENTRY_TICKED"                  },
 	{menu_ENTRY_SEPARATE                , "menu_ENTRY_SEPARATE"                },
 	{menu_ENTRY_FADED                   , "menu_ENTRY_FADED"                   },
@@ -51,10 +52,11 @@ static FLAGS MenuEntryFlags[] = {
 
 // MenuEntry must be split into two to cope with the text entry, which is STRING for text and MSG for sprites-
 // So when converting text to res, we read the flags, set iol_STRING or iol_MSG as appropriate, then do the rest...
-static OBJECTLIST MenuEntryObjectListFlags[] = {
+static const OBJECTLIST MenuEntryObjectListFlags[] = {
 	{iol_FLAGS, "flags:",                offsetof(menu_entry_object, flags),                MenuEntryFlags, ELEMENTS(MenuEntryFlags)               },
 	{iol_BITS,  "cmp:",                  offsetof(menu_entry_object, cmp),                  NULL,           bits_EVAL                              }
 };
+// This is *not* a const object !
 static OBJECTLIST MenuEntryObjectList[] = {
 	{iol_MSG,   "text:",                 offsetof(menu_entry_object, text),                 "text_limit:",  offsetof(menu_entry_object, text_limit)},
 	{iol_STRING,"click_object_name:",    offsetof(menu_entry_object, click_object_name),    NULL,           0                                      },
@@ -100,13 +102,13 @@ void menu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStr
 	int n;
 
 	menu = (menu_object_base *) (object + 1);
-	get_objects(hf, pszStringTable, pszMessageTable, (PSTR) menu, MenuObjectList, ELEMENTS(MenuObjectList), 1);
+	get_objects(hf, pszStringTable, pszMessageTable, (const char *)menu, MenuObjectList, ELEMENTS(MenuObjectList), 1);
 
 	for (n = 0, entry = (menu_entry_object *) (menu + 1); n < menu->entry_count; n++, entry++) {
 		fprintf(hf, "  Entry {\n    cmp:%d\n", (int) entry->cmp);
 		MenuEntryObjectList[0].nTable = (entry->flags & menu_ENTRY_IS_SPRITE) ? iol_STRING : iol_MSG;		// text or sprite?
-		get_objects(hf, pszStringTable, pszMessageTable, (PSTR) entry, MenuEntryObjectListFlags, ELEMENTS(MenuEntryObjectListFlags), 2);
-		get_objects(hf, pszStringTable, pszMessageTable, (PSTR) entry, MenuEntryObjectList, ELEMENTS(MenuEntryObjectList), 2);
+		get_objects(hf, pszStringTable, pszMessageTable, (const char *)entry, MenuEntryObjectListFlags, ELEMENTS(MenuEntryObjectListFlags), 2);
+		get_objects(hf, pszStringTable, pszMessageTable, (const char *)entry, MenuEntryObjectList, ELEMENTS(MenuEntryObjectList), 2);
 		fputs("  }\n", hf);
 	}
 }
