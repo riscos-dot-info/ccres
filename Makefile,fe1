@@ -1,8 +1,8 @@
 # Project name: CCRes
 
 CC = cc
-#CCFLAGS = -depend !Depend -throwback -DDEBUG=1 -Apcs 3/32/fpe2/swst/fp/nofpr -Wp -fahn -gflv -ICLib: -IOSLib: -c
-CCFLAGS = -depend !Depend -throwback -Apcs 3/32/fpe2/swst/fp/nofpr -Wp -fafh -ICLib: -IOSLib: -c
+#CCFLAGS = -depend !Depend -throwback -DDEBUG=1 -Apcs 3/32/fpe2/swst/fp/nofpr -Wp -fahn -gflv -IOSLib: -c
+CCFLAGS = -depend !Depend -throwback -Apcs 3/32/fpe2/swst/fp/nofpr -Wp -fafh -IOSLib: -c
 
 LINK = link
 LINKFLAGS = 
