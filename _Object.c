@@ -1,5 +1,5 @@
 /* _Object.c
-   $Id: _Object.c,v 1.3 2004/11/30 00:52:41 joty Exp $
+   $Id: _Object.c,v 1.4 2004/12/01 23:18:38 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -455,7 +455,7 @@ static void get_flags(FILE * hf, PSTR pszFlags, bits fFlags, PFLAGS pFlags, int 
 	}
 	/* Louzy error message but I don't know yet how I can improve it. */
 	if (fFlags != 0)
-		error("No all bits are covered");
+		error("Not all bits are covered");
 	achBuff[cb++] = '\n';
 	fwrite(achBuff, cb, 1, hf);
 }
