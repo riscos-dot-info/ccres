@@ -1,5 +1,5 @@
 /* Misc.c
-   $Id: Misc.c,v 1.1 2003/12/09 00:00:02 joty Exp $
+   $Id: Misc.c,v 1.2 2004/03/20 22:12:20 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -25,10 +25,7 @@
 #include <stdio.h>		// sprintf
 #include <string.h>		// strncmp
 
-#include <OSLib/displayfield.h>
-#include <OSLib/scrolllist.h>
 #include <OSLib/taskmanager.h>
-#include <OSLib/territory.h>
 
 
 // @@should read appname from _Messages file...
@@ -41,11 +38,11 @@ wimp_t is_running(void)
 	i = 0;
 	while ((i = taskmanager_enumerate_tasks(i, &task, sizeof(task), &pszEnd)) > 0) {
 		if (__strnicmp(task.name, APPNAME, sizeof(APPNAME) - 1) == 0 && task.name[sizeof(APPNAME) - 1] < ' ') {
-			return(task.task);
+			return task.task;
 		}
 	}
 
-	return(NULL);
+	return NULL;
 }
 
 
@@ -104,9 +101,9 @@ void * My_Alloc(int cb, PSTR pszFile, int nLine)
 				break;
 			}
 		}
-		return((void *) (p + 8));
+		return (void *) (p + 8);
 	}
-	return(NULL);
+	return NULL;
 }
 
 // check for overwritten memory & report if changed
@@ -158,7 +155,7 @@ void * My_Alloc(int cb, PSTR pszFile, int nLine)
 		sprintf(achBuff, "%d bytes in file '%s' at line '%d'", cb, pszFile, nLine);
 		errtitle(APPNAME": Unable to allocate memory", achBuff);
 	}
-	return(p);
+	return p;
 }
 
 #endif
