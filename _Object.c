@@ -1,5 +1,5 @@
 /* _Object.c
-   $Id: _Object.c,v 1.2 2004/03/20 22:13:59 joty Exp $
+   $Id: _Object.c,v 1.3 2004/11/30 00:52:41 joty Exp $
 
    Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
@@ -438,7 +438,7 @@ put_flags_next_flag:
 }
 
 
-static void get_flags(FILE * hf, PSTR pszFlags, bits fFlags,  PFLAGS pFlags, int nFlags)
+static void get_flags(FILE * hf, PSTR pszFlags, bits fFlags, PFLAGS pFlags, int nFlags)
 {
 	PSTR pszOr;
 	int cb, n;
@@ -453,6 +453,9 @@ static void get_flags(FILE * hf, PSTR pszFlags, bits fFlags,  PFLAGS pFlags, int
 			fFlags ^= pFlags[n].flag;
 		}
 	}
+	/* Louzy error message but I don't know yet how I can improve it. */
+	if (fFlags != 0)
+		error("No all bits are covered");
 	achBuff[cb++] = '\n';
 	fwrite(achBuff, cb, 1, hf);
 }
