@@ -1,7 +1,7 @@
 /* Tabs / TreeView
-   $Id: $
+   $Id: tabs_treeview.h,v 1.1 2004/12/26 20:26:20 joty Exp $
 
-   Copyright (c) 2004 John Tytgat
+   Copyright (c) 2004-2005 John Tytgat
 
    This file is part of CCres.
 
