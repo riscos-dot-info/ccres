@@ -1,8 +1,11 @@
-v1.11 ?? ??? 2004
+v1.11 2nd Dec 2004
 ~~~~~~~~~~~~~~~~~
 
 - Give now info, version and syntax when !RunImage is run without parameters in
   a TaskWindow or outside Desktop.
+- Four missing iconbar flags were added.
+- Flag bits which are set but not covered by OSLib constants are now faulted
+  with the error "Not all bits are covered".
 
 v1.10 3rd Mar 2004
 ~~~~~~~~~~~~~~~~~~
