@@ -1,7 +1,7 @@
 /* Error.c
-   $Id: $
+   $Id: Error.c,v 1.1 2003/12/08 23:59:58 joty Exp $
 
-   Copyright (c) 2003 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 

@@ -1,7 +1,7 @@
 /* _Quit.c
-   $Id: $
+   $Id: _Quit.c,v 1.1 2003/12/09 00:00:10 joty Exp $
 
-   Copyright (c) 2003 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 

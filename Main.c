@@ -1,7 +1,7 @@
 /* Main.c
-   $Id: Main.c,v 1.1 2003/12/09 00:00:00 joty Exp $
+   $Id: Main.c,v 1.3 2004/03/20 22:01:13 joty Exp $
 
-   Copyright (c) 2003 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2004 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
