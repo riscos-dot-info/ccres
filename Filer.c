@@ -1,5 +1,5 @@
 /* Filer.c
-   $Id: Filer.c,v 1.2 2004/03/20 22:12:21 joty Exp $
+   $Id: Filer.c,v 1.3 2005/01/30 14:40:23 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -20,12 +20,13 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <stdio.h>
 #include <string.h>
 
 #include "ccres.h"
 #include "Error.h"
 
-static char achScrapFile[] = "<Wimp$Scrap>";
+static const char achScrapFile[] = "<Wimp$Scrap>";
 
 // user has dragged something to us from another app...
 void message_data_save(PDATA data)
@@ -61,7 +62,7 @@ LOG(("message_data_load type=%d name=%s", msg->data.data_xfer.file_type, msg->da
 		error("Filetype must be Text (fff), Resource (fae) or Template (fec)");
 	}
 	if (data->fUnsafeLoad) {
-		my_osfile_delete(achScrapFile);
+		remove(achScrapFile);
 		data->fUnsafeLoad = FALSE;
 	}
 	msg = &data->poll.wb.message;

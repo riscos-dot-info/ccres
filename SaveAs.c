@@ -1,5 +1,5 @@
 /* _SaveAs.c
-   $Id: SaveAs.c,v 1.2 2004/03/20 22:12:19 joty Exp $
+   $Id: SaveAs.c,v 1.3 2005/01/30 14:47:53 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -20,6 +20,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <stdio.h>
 #include <string.h>
 
 #include <OSLib/saveas.h>
@@ -42,5 +43,5 @@ if (fSaved == saveas_SAVE_SUCCESSFUL)
 //      ======================================
 {
 if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL)
-  my_osfile_delete(data->poll.sa.file_name);
+  remove(data->poll.sa.file_name);
 }
