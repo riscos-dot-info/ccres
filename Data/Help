@@ -69,6 +69,13 @@ Author
 Dave Appleby wrote all the code up to v1.08 (included).  Versions after that
 (v1.09 and later) are maintained by John Tytgat / BASS.
 
+Thanks
+~~~~~~
+Many thanks to Dave Appleby to have written the first versions of CCres.
+Also thanks to all the people who gave feedback and/or bug reports
+(Pierpaolo Scaini, Bent Bracke) and Justin Fletcher to provide me with
+some missing technical info.
+
 License
 ~~~~~~~
 !CCres version before v1.09 were released as FreeWare. It must only be
@@ -87,3 +94,5 @@ Bugs, Updates and Suggestions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Updates available from: <URL:http://www.bass-software.com/ccres/>
 Bug reports and suggestions to: <URL:mailto:ccres@bass-software.com>
+
+-EOF-
