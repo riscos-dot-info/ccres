@@ -1,4 +1,5 @@
 # Project name: CCRes
+# Written by John Tytgat / BASS
 
 CC = cc
 #CCFLAGS = -depend !Depend -throwback -DDEBUG=1 -Apcs 3/32/fpe2/swst/fp/nofpr -Wp -fahn -gflv -IOSLib: -c
@@ -41,7 +42,8 @@ DOBJS = Release.!CCres.Res \
 	Release.!CCres.COPYING \
 	Release.!CCres.!Help \
 	Release.!CCres.Messages \
-	Release.!CCres.!RunImage
+	Release.!CCres.!RunImage \
+	Release.!CCres.History/txt
 
 # Target:
 All: $(DOBJS)
@@ -69,6 +71,9 @@ Release.!CCres.!Help: Data.Help
 
 Release.!CCres.Messages: Data.Messages
 	$(COPY) Data.Messages $@ $(COPYFLAGS)
+
+Release.!CCres.History: History/txt
+	$(COPY) History/txt $@ $(COPYFLAGS)
 
 .SUFFIXES: .o .c .s
 .c.o:;  	$(CC) $(CCFLAGS) -o $@ $<
