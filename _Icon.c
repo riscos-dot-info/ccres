@@ -1,5 +1,5 @@
 /* _Icon.c
-   $Id: $
+   $Id: _Icon.c,v 1.1 2003/12/09 00:00:07 joty Exp $
 
    Copyright (c) 2003 Dave Appleby / John Tytgat
 
@@ -107,6 +107,9 @@ static OBJECTLIST IconIndirectTextAndSpriteObjectList[] = {
 void put_icon_data(PDATA data, PSTR pszIn, int nOffset, wimp_icon_data * icon_data, bits flags)
 {
 	switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE)) {
+	case 0:
+	case wimp_ICON_INDIRECTED:
+		break;
 	case wimp_ICON_TEXT:
 		put_objects(data, pszIn, nOffset, (PSTR) icon_data, IconTextObjectList, ELEMENTS(IconTextObjectList));
 		break;
@@ -135,6 +138,9 @@ void put_icon_data(PDATA data, PSTR pszIn, int nOffset, wimp_icon_data * icon_da
 void get_icon_data(FILE * hf, PSTR pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent)
 {
 	switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE)) {
+	case 0:
+	case wimp_ICON_INDIRECTED:
+		break;
 	case wimp_ICON_TEXT:
 		get_objects(hf, pszStringTable, NULL, (PSTR) icon_data, IconTextObjectList, ELEMENTS(IconTextObjectList), nIndent);
 		break;
