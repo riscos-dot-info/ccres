@@ -1,5 +1,14 @@
+v1.12 ???
+
+- Support for Rik Griffin's Tab and Treeview gadgets.
+- Various src cleanups.
+- Set bits in Resource/Templates which are not convered by the translation
+  code are outputed in their hex representation and this hex representation
+  is taken into account when regenerating the Resource/Templates files.
+- Added menu_GENERATE_HAS_BEEN_HIDDEN.
+
 v1.11 2nd Dec 2004
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 - Give now info, version and syntax when !RunImage is run without parameters in
   a TaskWindow or outside Desktop.

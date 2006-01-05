@@ -1,5 +1,5 @@
 /* _Iconbar.c
-   $Id: _Iconbar.c,v 1.5 2005/01/30 14:51:48 joty Exp $
+   $Id: _Iconbar.c,v 1.6 2005/01/30 16:04:52 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -86,8 +86,8 @@ return sizeof(iconbar_object);
 }
 
 
-        void iconbar_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
-//      ==================================================================================================================
+        void iconbar_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ==============================================================================================================================
 {
-get_objects(hf, pszStringTable, pszMessageTable, (const char *) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList), 1);
+get_objects(data, hf, pszStringTable, pszMessageTable, (const char *) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList), 1);
 }

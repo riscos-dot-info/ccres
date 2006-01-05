@@ -1,5 +1,5 @@
 /* Eval.c
-   $Id: Eval.c,v 1.2 2004/03/20 22:12:22 joty Exp $
+   $Id: Eval.c,v 1.3 2005/01/30 14:40:09 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -24,6 +24,8 @@
 
 #include "ccres.h"
 #include "Error.h"
+#include "Eval.h"
+#include "Utils.h"
 
 // hi nybble = precedence, added to lo nybble to make unique id
 enum {LBRACKET=0x11,ADD=0x21,SUB=0x22,MUL=0x31,DIV=0x32};
@@ -114,9 +116,9 @@ int Eval(PDATA data, PSTR * ppstr)
 				goto Eval_SyntaxError;
 			}
 			pstr--;
-//LOG(("__atoi(%s)", pstr));
+//LOG((data, "__atoi(%s)", pstr));
 			sn[in++] = __atoi(&pstr);
-//LOG(("val=%d New pstr = %s", sn[in - 1], pstr));
+//LOG((data, "val=%d New pstr = %s", sn[in - 1], pstr));
 			fOp = FALSE;
 		} else {
 			pstr--;
@@ -135,7 +137,7 @@ int Eval(PDATA data, PSTR * ppstr)
 
 Eval_SyntaxError:
 
-LOG(("Expression syntax error"));
+LOG((data, "Expression syntax error"));
 	report(data, *ppstr, "Expression syntax error");
 	*ppstr = pstr;
 	return 0;

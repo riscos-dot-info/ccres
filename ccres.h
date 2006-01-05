@@ -1,5 +1,5 @@
 /* ccres.h
-   $Id: ccres.h,v 1.6 2005/01/30 14:56:15 joty Exp $
+   $Id: ccres.h,v 1.7 2005/01/30 16:02:15 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -134,18 +134,19 @@ typedef struct {
 	BOOL fRunning;			// see check_quit()
 	BOOL fThrowback;
 	BOOL fUnsafeLoad;
+	int returnStatus;
 	wimp_t task;
 	PSTR pszIn, pszOut;
 	int cbIn, cbOut;
 	bits nFiletypeIn, nFiletypeOut;
 	STRINGTABLE StringTable, MessageTable;
 	RELOCTABLE RelocTable;
-	toolbox_o idBaricon, idSaveAs;			// toolbox objects created from res file
-	osspriteop_area * pSprites;				// ...and sprite area
-	toolbox_block tb;						// ...easy-access toolbox block
+	toolbox_o idBaricon, idSaveAs;		// toolbox objects created from res file
+	osspriteop_area * pSprites;		// ...and sprite area
+	toolbox_block tb;			// ...easy-access toolbox block
 	union {
 		saveas_action_save_to_file_block sa;
-		toolbox_action ta;					// ...and action data
+		toolbox_action ta;		// ...and action data
 		wimp_block wb;
 	} poll;
 	char achTextFile[MAX_PATH];
@@ -154,9 +155,9 @@ typedef DATA * PDATA;
 
 typedef void (* action_handler)(PDATA data);
 typedef int  (* text2object)(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-typedef void (* object2text)(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+typedef void (* object2text)(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 typedef int  (* text2gadget)(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-typedef void (* gadget2text)(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+typedef void (* gadget2text)(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
 
 typedef struct {
 	toolbox_class class_no;
@@ -188,71 +189,15 @@ void my_strncpy0d(char *to, const char *from, int max);
 int __stricmp(const char *p, const char *q);
 int __strnicmp(const char *p, const char *q, int n);
 unsigned int __atoi(PSTR * pszNumber);
-fileswitch_object_type my_osfile_exists(PSTR pszFile);
-int my_osfile_filesize(PSTR pszFile);
-bits my_osfile_filetype(PSTR pszFile);
-int my_osfile_load(PSTR pszFile, PSTR pszBuff, int cbBuff);
-int my_osfscontrol_count_objects(PSTR pszDir);
-
-
-// convert.c
-
-
-// memset is (almost certainly) not required... so macro's will do
-#define reset_string_table(pTable) (pTable)->ref=0
-#define reset_reloc_table(pTable) (pTable)->ref=0
-
-BOOL convert(PDATA data, PSTR pszOutFile);
-
-
-// eval.c
-
-int Eval(PDATA data, PSTR * pstr);
-
 
 // filer.c
 
 void message_data_save(PDATA data);
 void message_data_load(PDATA data);
-BOOL load_file(PDATA data, PSTR pszPath, bits nFiletype);
-
-
-// main.c
-
-extern const char achProgName[];
-extern int returnStatus;
-
 
 // menu.c
 
 void menu_quit(PDATA data);
-
-
-// misc.c
-
-wimp_t is_running(void);
-
-void * My_Alloc(int cb, PSTR pszFile, int nLine);
-#define MyAlloc(v) My_Alloc(v, __FILE__, __LINE__)
-#ifdef DEBUG
-void MyAlloc_Init(void);
-void MyAlloc_Report(void);
-void My_Free(void * v, PSTR pszFile, int nLine);
-#define MyFree(v) My_Free(v, __FILE__, __LINE__)
-#else
-#define MyAlloc_Init();
-#define MyAlloc_Report();
-#define MyFree(v) free(v)
-#endif
-
-#ifdef DEBUG
-void log_on(void);
-void log_it(PSTR pszFmt, ...);
-#define LOG(p) log_it##p
-#else
-#define log_on()
-#define LOG(p)
-#endif
 
 
 // saveas.c

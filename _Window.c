@@ -1,5 +1,5 @@
 /* _Window.c
-   $Id: _Window.c,v 1.4 2005/01/30 14:55:57 joty Exp $
+   $Id: _Window.c,v 1.5 2005/01/30 16:04:28 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -48,6 +48,7 @@
 
 #include "ccres.h"
 #include "Error.h"
+#include "Utils.h"
 #include "tabs_treeview.h"
 #include "_Gadgets.h"
 #include "_Icon.h"
@@ -261,23 +262,23 @@ int window_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 	gadget = (gadget_object_base *) shortcut;
 	gadget_count = 0;
 	while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
-LOG(("_window pszObject=%s @ %p", pszObject, gadget));
+LOG((data, "_window pszObject=%s @ %p", pszObject, gadget));
 		for (g = 0; g < ELEMENTS(Gadgets); g++) {
 			if (__stricmp(Gadgets[g].name, pszObject) == 0) {
 				nOffset = (int) ((PSTR) gadget - (PSTR) window_object);
 				put_objects(data, pszIn, nOffset, (PSTR) gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList));
 				nSize = Gadgets[g].t2g(data, pszIn, nOffset, gadget);
 				if (nSize & 0x3)
-					error("Gadget class '%s' has non aligned size %d", pszObject, nSize);
+					error(data, "Gadget class '%s' has non aligned size %d", pszObject, nSize);
 				gadget->class_no_and_size = (nSize << 16) | Gadgets[g].class_no;
 				gadget = (gadget_object_base *) ((PSTR) gadget + nSize);
 				gadget_count++;
-LOG(("size=%d next object @ %p", nSize, gadget));
+LOG((data, "size=%d next object @ %p", nSize, gadget));
 				goto _window_gadget_added;
 			}
 		}
 		if (__stricmp(pszShortcutObject, pszObject) != 0) {
-			error("Unhandled gadget class '%s'", pszObject);
+			error(data, "Unhandled gadget class '%s'", pszObject);
 		}
 
 _window_gadget_added:
@@ -296,44 +297,48 @@ _window_gadget_added:
 }
 
 
-void window_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void window_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      =============================================================================================================================
 {
-	window_object_base * window_object;
-	gadget_object_base * gadget;
-	keyboardshortcut_object * shortcut;
-	int n, g, nSize, nClass;
+window_object_base * window_object;
+gadget_object_base * gadget;
+keyboardshortcut_object * shortcut;
+int n, g, nSize, nClass;
 
-	window_object = (window_object_base *) (object + 1);
-	get_objects(hf, pszStringTable, pszMessageTable, (const char *)window_object, WindowObjectList, ELEMENTS(WindowObjectList), 1);
+window_object = (window_object_base *) (object + 1);
+get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)window_object, WindowObjectList, ELEMENTS(WindowObjectList), 1);
 
-	shortcut = (keyboardshortcut_object *) ((PSTR) window_object + (int) window_object->shortcuts);
-	for (n = 0; n < window_object->shortcut_count; n++, shortcut++) {
-		fprintf(hf, "  %s {\n", pszShortcutObject);
-		get_objects(hf, pszStringTable, pszMessageTable, (const char *)shortcut, ShortcutList, ELEMENTS(ShortcutList), 2);
-		fputs("  }\n", hf);
-	}
+shortcut = (keyboardshortcut_object *) ((PSTR) window_object + (int) window_object->shortcuts);
+for (n = 0; n < window_object->shortcut_count; n++, shortcut++)
+  {
+  fprintf(hf, "  %s {\n", pszShortcutObject);
+  get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)shortcut, ShortcutList, ELEMENTS(ShortcutList), 2);
+  fputs("  }\n", hf);
+  }
 
-	gadget = (gadget_object_base *) ((PSTR) window_object + (int) window_object->gadgets);
-	for (n = 0; n < window_object->gadget_count; n++) {
-		nSize = (gadget->class_no_and_size >> 16);
-		nClass = (gadget->class_no_and_size & 0xffff);
-		for (g = 0; g < ELEMENTS(Gadgets); g++) {
-			if (Gadgets[g].class_no == nClass) {
-LOG((Gadgets[g].name));
-				fprintf(hf, "  %s {\n", Gadgets[g].name);
-				get_objects(hf, pszStringTable, pszMessageTable, (const char *)gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList), 2);
-				Gadgets[g].g2t(hf, gadget, pszStringTable, pszMessageTable);
-				fputs("  }\n", hf);
-LOG((""));
-				goto window_gadget_added;
-			}
-		}
-		error("Unhandled gadget class &%x size %d", nClass, nSize);
+gadget = (gadget_object_base *) ((PSTR) window_object + (int) window_object->gadgets);
+for (n = 0; n < window_object->gadget_count; n++) {
+  nSize = (gadget->class_no_and_size >> 16);
+  nClass = (gadget->class_no_and_size & 0xffff);
+  for (g = 0; g < ELEMENTS(Gadgets); g++)
+    {
+    if (Gadgets[g].class_no == nClass)
+      {
+      LOG((data, Gadgets[g].name));
+      fprintf(hf, "  %s {\n", Gadgets[g].name);
+      get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList), 2);
+      Gadgets[g].g2t(data, hf, gadget, pszStringTable, pszMessageTable);
+      fputs("  }\n", hf);
+      LOG((data, ""));
+      goto window_gadget_added;
+      }
+    }
+  error(data, "Unhandled gadget class &%x size %d", nClass, nSize);
 
-window_gadget_added:
+  window_gadget_added:
 
-		gadget = (gadget_object_base *) ((char *) gadget + nSize);
-	}
+  gadget = (gadget_object_base *) ((char *) gadget + nSize);
+  }
 }
 
 //=================================== Template window handlers ======================================
@@ -377,7 +382,7 @@ pszEnd = data->pszIn + data->cbIn;
 icon = (wimp_icon *) (window + 1);
 while ((pszObject = next_object(&pszIn, pszEnd)) != NULL)
   {
-LOG(("_window pszObject=%s offset=%d (%x)", pszObject, -nOffset, -nOffset));
+LOG((data, "_window pszObject=%s offset=%d (%x)", pszObject, -nOffset, -nOffset));
   icon_text2template(data, pszIn, nOffset, icon);
   icon++;
   if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL)
@@ -396,22 +401,22 @@ return (int) (strings - (PSTR) window);
 }
 
 
-        void window_template2text(FILE * hf, PSTR pszBuff)
-//      ==================================================
+        void window_template2text(PDATA data, FILE * hf, PSTR pszBuff)
+//      ==============================================================
 {
 wimp_window_base * window;
 wimp_icon * i;
 int n;
 
 window = (wimp_window_base *) pszBuff;
-get_objects(hf, pszBuff, NULL, (const char *)window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList), 1);
-get_icon_data(hf, pszBuff, (wimp_icon_data *) &window->title_data, window->title_flags, 1);
+get_objects(data, hf, pszBuff, NULL, (const char *)window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList), 1);
+get_icon_data(data, hf, pszBuff, (wimp_icon_data *) &window->title_data, window->title_flags, 1);
 
 i = (wimp_icon *) (window + 1);
 for (n = 0; n < window->icon_count; n++, i++)
   {
   fputs("  wimp_icon {\n", hf);
-  icon_template2text(hf, pszBuff, i);
+  icon_template2text(data, hf, pszBuff, i);
   fputs("  }\n", hf);
   }
 }

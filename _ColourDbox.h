@@ -1,5 +1,5 @@
 /* _ColourDbox.h
-   $Id: $
+   $Id: _ColourDbox.h,v 1.1 2005/01/30 15:59:42 joty Exp $
 
    Copyright (c) 2005 John Tytgat
 
@@ -28,6 +28,6 @@
 #include "ccres.h"
 
 int colourdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void colourdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+void colourdbox_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 #endif

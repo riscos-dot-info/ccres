@@ -1,5 +1,5 @@
 /* _Menu.h
-   $Id: $
+   $Id: _Menu.h,v 1.1 2005/01/30 15:59:20 joty Exp $
 
    Copyright (c) 2005 John Tytgat
 
@@ -28,6 +28,6 @@
 #include "ccres.h"
 
 int menu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void menu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+void menu_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
 
 #endif

@@ -1,5 +1,5 @@
 /* Main.c
-   $Id: Main.c,v 1.5 2005/01/30 14:41:22 joty Exp $
+   $Id: Main.c,v 1.6 2005/01/30 16:07:31 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -36,14 +36,19 @@
 /* Project headers :
  */
 #include "ccres.h"
+#include "Convert.h"
 #include "Error.h"
+#include "Utils.h"
 
 #define APPDIR	"<"APPNAME"$Dir>"
 
 #define action_MENU_QUIT	0x01
 
-const char achProgName[] = APPNAME;
-int returnStatus = EXIT_SUCCESS;
+static BOOL ccres_appl_initialise(PDATA data);
+static void ccres_appl_pollloop(PDATA data);
+static void toolbox_error(PDATA data);
+static int question(PSTR pszKeys, bits nErr, PSTR pszFmt, ...);
+
 
 // Toolbox action codes returned by WimpPoll - each action has an associated handler
 static const toolbox_action_list Action[] =
@@ -72,9 +77,8 @@ static const wimp_message_list Message[] =
   {{0}}
   };
 
-
-static  BOOL ccres_initialise(PDATA data)
-//      =================================
+static  BOOL ccres_appl_initialise(PDATA data)
+//      ======================================
 {
 data->idBaricon = toolbox_create_object(0, (toolbox_id) "Iconbar");
 data->idSaveAs  = toolbox_create_object(0, (toolbox_id) "SaveAs");
@@ -84,8 +88,8 @@ return TRUE;
 }
 
 
-static  void ccres_pollloop(PDATA data)
-//      ===============================
+static  void ccres_appl_pollloop(PDATA data)
+//      ====================================
 {
   wimp_event_no e;
   int a;
@@ -122,64 +126,59 @@ do {
         int main(int argc, PSTR argv[])
 //      ===============================
 {
-  static char achSyntax[] = "Wrong number of arguments - Syntax: !CCres <infile> <outfile>";
-  bits nFileType;
+DATA data;
+if (ccres_initialise(&data))
+  {
   int nVersion;
   messagetrans_control_block cb;
-  DATA data;
   os_error * perr;
-
-memset(&data, 0, sizeof(data));
-if (argc == 1
-    && wimpreadsysinfo_desktop_state() == wimpreadsysinfo_STATE_DESKTOP
-    && !taskwindowtaskinfo_window_task())
-  {
-  if (!is_running())
-    {
-    log_on();
-    MyAlloc_Init();
-    if ((perr = xtoolbox_initialise(0, 310, Message, Action, APPDIR, &cb, &data.tb, &nVersion, &data.task, &data.pSprites)) != NULL)
-      error("%s  OR if using from the command line  %s", perr->errmess, achSyntax);
-    else
-      {
-      data.fRunning = ccres_initialise(&data);
-      ccres_pollloop(&data);
-      wimp_close_down(data.task);
-      }
-
-    if (data.pszIn != NULL)
-      MyFree(data.pszIn);
-    MyAlloc_Report();
-    }
-  }
-else if (argc == 3)
-  {
-  log_on();
-  MyAlloc_Init();
-  if (((nFileType = my_osfile_filetype(argv[1])) == osfile_TYPE_TEXT
-       || nFileType == osfile_TYPE_RESOURCE
-       || nFileType == osfile_TYPE_TEMPLATE)
-      && load_file(&data, argv[1], nFileType))
-    convert(&data, argv[2]);
-  else if (nFileType == osfile_TYPE_UNTYPED)
-    error("File not found '%s'", argv[1]);
+  if ((perr = xtoolbox_initialise(0, 310, Message, Action, APPDIR, &cb, &data.tb, &nVersion, &data.task, &data.pSprites)) != NULL)
+    error(&data, "%s", perr->errmess);
   else
-    error("Not a valid file type '%s'", argv[1]);
+    {
+    data.fRunning = ccres_appl_initialise(&data);
+    ccres_appl_pollloop(&data);
+    wimp_close_down(data.task);
+    }
 
   if (data.pszIn != NULL)
     MyFree(data.pszIn);
-
-  MyAlloc_Report();
+  (void)ccres_finish();
   }
-else
+
+return data.returnStatus;
+}
+
+
+static  void toolbox_error(PDATA data)
+//      ==============================
+{
+if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.data.error.errmess) == 1)
   {
-  fprintf(stderr, "CCres " VERSION "\n"
-                  "Convertor between RISC OS Toolbox Resource (filetype &FAE) & Wimp Template (filetype &FEC) files to and from text format.\n"
-                  "Syntax: CCres <infile> <outfile>\n"
-                  "  <infile>  : either Template, Resource or Text file\n"
-                  "  <outfile> : output Text file (case <infile> is a Template or Resource file) or output Template/Resource file (case <infile> is a Text file)\n");
-  return EXIT_FAILURE;
+  data->fRunning = FALSE;
+  data->returnStatus = EXIT_FAILURE;
   }
+}
 
-return returnStatus;
+// return value is zero based index of keys passed in pszKeys
+static  int question(PSTR pszKeys, bits nErr, PSTR pszFmt, ...)
+//      =======================================================
+{
+os_error err;
+va_list list;
+
+err.errnum = nErr;
+va_start(list, pszFmt);
+vsprintf(err.errmess, pszFmt, list);
+va_end(list);
+return wimp_report_error_by_category(
+	&err,
+	wimp_ERROR_BOX_NO_PROMPT |
+	wimp_ERROR_BOX_SHORT_TITLE |
+	wimp_ERROR_BOX_GIVEN_CATEGORY |
+	(wimp_ERROR_BOX_CATEGORY_QUESTION << wimp_ERROR_BOX_CATEGORY_SHIFT),
+	APPNAME,
+	"!"APPNAME,
+	(osspriteop_area *) 1,		// wimp pool
+	pszKeys) - 3;			// ignore standard buttons
 }

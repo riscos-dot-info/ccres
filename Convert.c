@@ -1,5 +1,5 @@
 /* Convert.c
-   $Id: Convert.c,v 1.4 2005/01/30 14:46:41 joty Exp $
+   $Id: Convert.c,v 1.5 2005/01/30 16:06:45 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -38,7 +38,9 @@
 #include <OSLib/window.h>
 
 #include "ccres.h"
+#include "Convert.h"
 #include "Error.h"
+#include "Utils.h"
 
 #include "_ColourDbox.h"
 #include "_ColourMenu.h"
@@ -133,17 +135,17 @@ static BOOL text2res(PDATA data, PSTR pszOutFile)
 	pszIn = data->pszIn;
 	pszEnd = data->pszIn + data->cbIn;
 	if (memcmp(pszIn, "RESF:1.01", 8) != 0) {
-		error("File is not RESF v1.01");
+		error(data, "File is not RESF v1.01");
 		return FALSE;
 	}
 	if ((pszOut = MyAlloc(296 * 268 * 3)) == NULL ||		// approx = window with 256 gadgets, 3 strings each
 				!alloc_string_table(&data->StringTable) ||
 				!alloc_string_table(&data->MessageTable) ||
 				!alloc_reloc_table(&data->RelocTable)) {
-		error("Unable to allocate necessary memory");
+		error(data, "Unable to allocate necessary memory");
 		return FALSE;
 	} else if ((hf = fopen(pszOutFile, "wb")) == NULL) {
-		error("Unable to create output file '%s'", pszOutFile);
+		error(data, "Unable to create output file '%s'", pszOutFile);
 		return FALSE;
 	} else {
 		data->fThrowback = FALSE;
@@ -152,7 +154,7 @@ static BOOL text2res(PDATA data, PSTR pszOutFile)
 		Hdr.header_size = -1;
 		fHeader = FALSE;
 		while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
-LOG(("Found '%s'", pszObject));
+LOG((data, "Found '%s'", pszObject));
 			for (m = 0; m < ELEMENTS(Classes); m++) {
 				if (__stricmp(Classes[m].name, pszObject) == 0 && Classes[m].t2o != NULL) {
 					if (!fHeader) {
@@ -163,16 +165,16 @@ LOG(("Found '%s'", pszObject));
 					reset_string_table(&data->StringTable);
 					reset_string_table(&data->MessageTable);
 					reset_reloc_table(&data->RelocTable);
-					object_text2resource(hf, data, pszIn, pszOut, &Classes[m]);
+					object_text2resource(data, hf, pszIn, pszOut, &Classes[m]);
 					goto text2res_added;
 				}
 			}
-			error("Don't know how to handle object '%s'", pszObject);
+			error(data, "Don't know how to handle object '%s'", pszObject);
 
 text2res_added:
 
 			if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
-LOG(("object_end returned NULL, so finished"));
+LOG((data, "object_end returned NULL, so finished"));
 				break;
 			}
 		}
@@ -195,63 +197,72 @@ LOG(("object_end returned NULL, so finished"));
 }
 
 
-static BOOL res2text(PDATA data, PSTR pszOutFile)
+static  BOOL res2text(PDATA data, PSTR pszOutFile)
+//      ==========================================
 {
-	PINT relocation_table;
-	toolbox_resource_file_base * file_hdr;
-	toolbox_relocatable_object_base * obj, * end;
-	FILE * hf;
-	int cb, m;
-	BOOL fConverted;
+PINT relocation_table;
+toolbox_resource_file_base * file_hdr;
+FILE * hf;
+int cb, m;
+BOOL fConverted;
 
-	fConverted = FALSE;
-	file_hdr = (toolbox_resource_file_base *) data->pszIn;
-	if (file_hdr->file_id != RESF) {
-		error("Invalid Resource File Header (%x)", file_hdr->file_id);
-	}
-	if (file_hdr->version != 101) {
-		error("Unknown Resource File Version (%x)", file_hdr->version);
-	}
-//LOG(("file_id %x", file_hdr->file_id));
-//LOG(("version %d", file_hdr->version));
-//LOG(("header_size %d", file_hdr->header_size));
-	if ((hf = fopen(pszOutFile, "wb")) == NULL) {
-		error("Unable to create output file '%s'", pszOutFile);
-	} else {
-		fprintf(hf, "RESF:%d.%02d\n", file_hdr->version / 100, file_hdr->version % 100);
-		if (file_hdr->header_size > 0) {
-			obj = (toolbox_relocatable_object_base *) (file_hdr + 1);
-			end = (toolbox_relocatable_object_base *) &data->pszIn[data->cbIn];
-			do {
-				fputs("\n", hf);
-LOG(("Finding class_no:%x", obj->rf_obj.class_no));
-				for (m = 0; m < ELEMENTS(Classes); m++) {
-					if (Classes[m].class_no == obj->rf_obj.class_no) {
-						fprintf(hf, "%s {\n", Classes[m].name);
-						object_resource2text(hf, obj, Classes[m].o2t);
-						fputs("}\n", hf);
-						goto res2text_added;
-					}
-				}
-				error("Unknown class '%s' (%x)", obj->rf_obj.name, obj->rf_obj.class_no);
+file_hdr = (toolbox_resource_file_base *) data->pszIn;
+if (file_hdr->file_id != RESF)
+  {
+  error(data, "Invalid Resource File Header (%x)", file_hdr->file_id);
+  return FALSE;
+  }
+if (file_hdr->version != 101)
+  {
+  error(data, "Unknown Resource File Version (%x)", file_hdr->version);
+  return FALSE;
+  }
 
-res2text_added:
+if ((hf = fopen(pszOutFile, "wb")) == NULL)
+  {
+  error(data, "Unable to create output file '%s'", pszOutFile);
+  return FALSE;
+  }
 
-				cb = sizeof(toolbox_relocatable_object_base) - sizeof(obj->rf_obj) + obj->rf_obj.size;
-				if (obj->relocation_table_offset != -1) {
-					relocation_table = (PINT) (((PSTR) obj) + obj->relocation_table_offset);
-					cb += sizeof(int) * (1 + 2 * relocation_table[0]);
-				}
-LOG(("Moving to next class by adding %d\n", cb));
-				obj = (toolbox_relocatable_object_base *) (((PSTR) obj) + cb);
-			} while (cb != 0 && obj < end);
-		}
-		fclose(hf);
-		osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
-		fConverted = TRUE;
-	}
+fConverted = FALSE;
+fprintf(hf, "RESF:%d.%02d\n", file_hdr->version / 100, file_hdr->version % 100);
+if (file_hdr->header_size > 0)
+  {
+  toolbox_relocatable_object_base * obj, * end;
+  obj = (toolbox_relocatable_object_base *) (file_hdr + 1);
+  end = (toolbox_relocatable_object_base *) &data->pszIn[data->cbIn];
+  do
+    {
+    fputs("\n", hf);
+LOG((data, "Finding class_no:%x", obj->rf_obj.class_no));
+    for (m = 0; m < ELEMENTS(Classes); m++)
+      {
+      if (Classes[m].class_no == obj->rf_obj.class_no)
+        {
+        fprintf(hf, "%s {\n", Classes[m].name);
+        object_resource2text(data, hf, obj, Classes[m].o2t);
+        fputs("}\n", hf);
+        break;
+        }
+      }
+    if (m == ELEMENTS(Classes))
+      error(data, "Unknown class '%s' (%x)", obj->rf_obj.name, obj->rf_obj.class_no);
 
-	return fConverted;
+    cb = sizeof(toolbox_relocatable_object_base) - sizeof(obj->rf_obj) + obj->rf_obj.size;
+    if (obj->relocation_table_offset != -1)
+      {
+      relocation_table = (PINT) (((PSTR) obj) + obj->relocation_table_offset);
+      cb += sizeof(int) * (1 + 2 * relocation_table[0]);
+      }
+LOG((data, "Moving to next class by adding %d\n", cb));
+    obj = (toolbox_relocatable_object_base *) (((PSTR) obj) + cb);
+    } while (cb != 0 && obj < end);
+  }
+fclose(hf);
+osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
+fConverted = TRUE;
+
+return fConverted;
 }
 
 #define template_NO_FONTS 	((bits)-1)
@@ -333,7 +344,7 @@ static const OBJECTLIST TemplateFontDataList[] = {
 };
 
 
-static void get_template_fonts(FILE * hf, template_font_data * font_data, template_font_data * end)
+static void get_template_fonts(PDATA data, FILE * hf, template_font_data * font_data, template_font_data * end)
 {
 	template_font_data temp;
 	PSTR pszFrom;
@@ -342,7 +353,7 @@ static void get_template_fonts(FILE * hf, template_font_data * font_data, templa
 		pszFrom = (PSTR) font_data;			// bug in memcpy? without this it does a word-aligned copy
 		memcpy(&temp, pszFrom, sizeof(temp));
 		fputs("\ntemplate_font_data {\n", hf);
-		get_objects(hf, NULL, NULL, (const char *) &temp, TemplateFontDataList, ELEMENTS(TemplateFontDataList), 1);
+		get_objects(data, hf, NULL, NULL, (const char *) &temp, TemplateFontDataList, ELEMENTS(TemplateFontDataList), 1);
 		fputs("}\n", hf);
 		font_data++;
 	}
@@ -368,14 +379,14 @@ static BOOL text2template(PDATA data, PSTR pszOutFile)
 	pszEnd = data->pszIn + data->cbIn;
 	fConverted = FALSE;
 	if ((nWindows = window_count(pszIn, pszEnd, &nIcons)) > 0) {
-LOG(("Found %d windows and %d icons", nWindows, nIcons));
+LOG((data, "Found %d windows and %d icons", nWindows, nIcons));
 		if ((pszTemplate = MyAlloc(sizeof(template_header) + sizeof(int) +
 							   nWindows * (sizeof(template_index) + sizeof(wimp_window) + (nIcons * (256 + sizeof(wimp_icon)))))) == NULL ||
 			!alloc_string_table(&data->StringTable)) {      // this is only required so that we can share put_string with Res files
-			error("Unable to allocate necessary memory");
+			error(data, "Unable to allocate necessary memory");
 		} else {
 			if ((hf = fopen(pszOutFile, "wb")) == NULL) {
-				error("Unable to create output file '%s'", pszOutFile);
+				error(data, "Unable to create output file '%s'", pszOutFile);
 			} else {
 				data->fThrowback = FALSE;
 				header = (template_header *) pszTemplate;
@@ -388,14 +399,14 @@ LOG(("Found %d windows and %d icons", nWindows, nIcons));
 				i = index;
 				while ((pszObject = next_object(&pszIn, pszEnd)) != NULL && __stricmp(pszObject, "wimp_window") == 0) {
 					nIcons = icon_count(pszIn, pszEnd);
-LOG(("Found '%s' (%d icons) pszOut=%p", pszObject, nIcons, pszOut));
+LOG((data, "Found '%s' (%d icons) pszOut=%p", pszObject, nIcons, pszOut));
 					cb = sizeof(wimp_window) + (nIcons * (256 + sizeof(wimp_icon)));
 					if (cbBuff < cb) {
 						if (pszBuff != NULL) {
 							MyFree(pszBuff);
 						}
 						if ((pszBuff = MyAlloc(cb)) == NULL) {
-							error("Unable to allocate %d bytes", cb);
+							error(data, "Unable to allocate %d bytes", cb);
 							break;
 						}
 						cbBuff = cb;
@@ -416,7 +427,7 @@ LOG(("Found '%s' (%d icons) pszOut=%p", pszObject, nIcons, pszOut));
 					}
 					i++;
 					if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
-LOG(("object_end returned NULL, so finished"));
+LOG((data, "object_end returned NULL, so finished"));
 						break;
 					}
 				}
@@ -433,7 +444,7 @@ LOG(("object_end returned NULL, so finished"));
 						pszOut += sizeof(template_font_data);
 					}
 					if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
-LOG(("object_end returned NULL, so finished"));
+LOG((data, "object_end returned NULL, so finished"));
 						break;
 					}
 
@@ -469,7 +480,7 @@ int cbBuff;
 
 if ((hf = fopen(pszOutFile, "wb")) == NULL)
   {
-  error("Unable to create output file '%s'", pszOutFile);
+  error(data, "Unable to create output file '%s'", pszOutFile);
   return FALSE;
   }
 fputs("Template:\n", hf);
@@ -485,20 +496,20 @@ for (obj = (template_index *) (template_hdr + 1); obj->offset != 0; ++obj)
       MyFree(pszBuff);
     if ((pszBuff = MyAlloc(obj->size)) == NULL)
       {
-      error("Unable to allocate %d bytes", obj->size);
+      error(data, "Unable to allocate %d bytes", obj->size);
       break;
       }
     }
   memcpy(pszBuff, data->pszIn + obj->offset, obj->size);
   fputs("\nwimp_window {\n", hf);
-  get_objects(hf, NULL, NULL, (const char *) obj, TemplateHeaderList, ELEMENTS(TemplateHeaderList), 1);
-  window_template2text(hf, pszBuff);
+  get_objects(data, hf, NULL, NULL, (const char *) obj, TemplateHeaderList, ELEMENTS(TemplateHeaderList), 1);
+  window_template2text(data, hf, pszBuff);
   fputs("}\n", hf);
   }
 if (template_hdr->font_offset != template_NO_FONTS)
   {
   template_index *end = (template_index *) &data->pszIn[data->cbIn];
-  get_template_fonts(hf, (template_font_data *) (data->pszIn + template_hdr->font_offset), (template_font_data *) end);
+  get_template_fonts(data, hf, (template_font_data *) (data->pszIn + template_hdr->font_offset), (template_font_data *) end);
   }
 fclose(hf);
 osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
@@ -510,24 +521,47 @@ return TRUE;
 }
 
 
-BOOL convert(PDATA data, PSTR pszOutFile)
+        int ccres_initialise(DATA *sessionP)
+//      ====================================
 {
-	bits in, out;
+memset(sessionP, 0, sizeof(DATA));
+sessionP->returnStatus = EXIT_SUCCESS;
 
-	if ((in = data->nFiletypeIn) == osfile_TYPE_TEXT) {
-		if ((out = data->nFiletypeOut) == osfile_TYPE_RESOURCE) {
-			return text2res(data, pszOutFile);
-		} else if (out == osfile_TYPE_TEMPLATE) {
-			return text2template(data, pszOutFile);
-		} else {
-LOG(("action_save_to_file - unknown nFiletypeOut(%03x)", data->nFiletypeOut));
-		}
-	} else if (in == osfile_TYPE_RESOURCE) {
-		return res2text(data, pszOutFile);
-	} else if (in == osfile_TYPE_TEMPLATE) {
-		return template2text(data, pszOutFile);
-	} else {
-LOG(("action_save_to_file - unknown nFiletypeIn(%03x)", data->nFiletypeIn));
-	}
-	return FALSE;
+log_on(sessionP);
+MyAlloc_Init();
+
+return TRUE;
+}
+
+
+        int ccres_finish(void)
+//      ======================
+{
+MyAlloc_Report();
+
+return TRUE;
+}
+
+
+        BOOL ccres_convert(PDATA data, PSTR pszOutFile)
+//      ===============================================
+{
+switch (data->nFiletypeIn)
+  {
+  case osfile_TYPE_TEXT:
+    switch (data->nFiletypeOut)
+      {
+      case osfile_TYPE_RESOURCE:
+        return text2res(data, pszOutFile);
+      case osfile_TYPE_TEMPLATE:
+        return text2template(data, pszOutFile);
+      }
+    break;
+  case osfile_TYPE_RESOURCE:
+    return res2text(data, pszOutFile);
+  case osfile_TYPE_TEMPLATE:
+    return template2text(data, pszOutFile);
+  }
+
+return FALSE;
 }

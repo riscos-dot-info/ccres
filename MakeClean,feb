@@ -4,6 +4,7 @@
 | GNU Public License
 Echo Cleaning CCres project...
 IfThere <Obey$Dir>.o Then Wipe <Obey$Dir>.o ~CFR~V
+IfThere <Obey$Dir>.Release Then Wipe <Obey$Dir>.Release ~CFR~V
 Basic -quit <Obey$Dir>.Bin.CleanMakeFile -file <Obey$Dir>.Makefile
 |
 Echo Done.

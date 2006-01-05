@@ -1,5 +1,5 @@
 /* _Menu.c
-   $Id: _Menu.c,v 1.4 2005/01/30 14:52:50 joty Exp $
+   $Id: _Menu.c,v 1.5 2005/01/30 16:04:33 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -97,20 +97,22 @@ int menu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 }
 
 
-void menu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void menu_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ===========================================================================================================================
 {
-	menu_object_base * menu;
-	menu_entry_object * entry;
-	int n;
+menu_object_base * menu;
+menu_entry_object * entry;
+int n;
 
-	menu = (menu_object_base *) (object + 1);
-	get_objects(hf, pszStringTable, pszMessageTable, (const char *)menu, MenuObjectList, ELEMENTS(MenuObjectList), 1);
+menu = (menu_object_base *) (object + 1);
+get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)menu, MenuObjectList, ELEMENTS(MenuObjectList), 1);
 
-	for (n = 0, entry = (menu_entry_object *) (menu + 1); n < menu->entry_count; n++, entry++) {
-		fprintf(hf, "  Entry {\n    cmp:%d\n", (int) entry->cmp);
-		MenuEntryObjectList[0].nTable = (entry->flags & menu_ENTRY_IS_SPRITE) ? iol_STRING : iol_MSG;		// text or sprite?
-		get_objects(hf, pszStringTable, pszMessageTable, (const char *)entry, MenuEntryObjectListFlags, ELEMENTS(MenuEntryObjectListFlags), 2);
-		get_objects(hf, pszStringTable, pszMessageTable, (const char *)entry, MenuEntryObjectList, ELEMENTS(MenuEntryObjectList), 2);
-		fputs("  }\n", hf);
-	}
+for (n = 0, entry = (menu_entry_object *) (menu + 1); n < menu->entry_count; n++, entry++)
+  {
+  fprintf(hf, "  Entry {\n    cmp:%d\n", (int) entry->cmp);
+  MenuEntryObjectList[0].nTable = (entry->flags & menu_ENTRY_IS_SPRITE) ? iol_STRING : iol_MSG;		// text or sprite?
+  get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)entry, MenuEntryObjectListFlags, ELEMENTS(MenuEntryObjectListFlags), 2);
+  get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)entry, MenuEntryObjectList, ELEMENTS(MenuEntryObjectList), 2);
+  fputs("  }\n", hf);
+  }
 }

@@ -1,5 +1,5 @@
 /* _Icon.c
-   $Id: _Icon.c,v 1.6 2005/01/30 14:51:32 joty Exp $
+   $Id: _Icon.c,v 1.7 2005/01/30 16:04:53 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -54,10 +54,10 @@ return sizeof(button_object);
 }
 
 
-        void button_g2t(FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
-//      ==================================================================================================
+        void button_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+//      ==============================================================================================================
 {
-get_objects(hf, pszStringTable, pszMessageTable, (PSTR) gadget, ButtonObjectList, ELEMENTS(ButtonObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, ButtonObjectList, ELEMENTS(ButtonObjectList), 2);
 }
 
 
@@ -141,8 +141,8 @@ switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
 }
 
 
-        void get_icon_data(FILE * hf, PSTR pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent)
-//      =======================================================================================================
+        void get_icon_data(PDATA data, FILE * hf, PSTR pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent)
+//      ===================================================================================================================
 {
 switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
   {
@@ -151,23 +151,23 @@ switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
     break;
 
   case wimp_ICON_TEXT:
-    get_objects(hf, pszStringTable, NULL, (PSTR) icon_data, IconTextObjectList, ELEMENTS(IconTextObjectList), nIndent);
+    get_objects(data, hf, pszStringTable, NULL, (PSTR) icon_data, IconTextObjectList, ELEMENTS(IconTextObjectList), nIndent);
     break;
   case wimp_ICON_SPRITE:
-    get_objects(hf, pszStringTable, NULL, (PSTR) icon_data, IconSpriteObjectList, ELEMENTS(IconSpriteObjectList), nIndent);
+    get_objects(data, hf, pszStringTable, NULL, (PSTR) icon_data, IconSpriteObjectList, ELEMENTS(IconSpriteObjectList), nIndent);
     break;
   case (wimp_ICON_TEXT | wimp_ICON_SPRITE):
-    get_objects(hf, pszStringTable, NULL, (PSTR) icon_data, IconTextAndSpriteObjectList, ELEMENTS(IconTextAndSpriteObjectList), nIndent);
+    get_objects(data, hf, pszStringTable, NULL, (PSTR) icon_data, IconTextAndSpriteObjectList, ELEMENTS(IconTextAndSpriteObjectList), nIndent);
     break;
 
   case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT):
-    get_objects(hf, pszStringTable, NULL, (PSTR) icon_data, IconIndirectTextObjectList, ELEMENTS(IconIndirectTextObjectList), nIndent);
+    get_objects(data, hf, pszStringTable, NULL, (PSTR) icon_data, IconIndirectTextObjectList, ELEMENTS(IconIndirectTextObjectList), nIndent);
     break;
   case (wimp_ICON_INDIRECTED | wimp_ICON_SPRITE):
-    get_objects(hf, pszStringTable, NULL, (PSTR) icon_data, IconIndirectSpriteObjectList, ELEMENTS(IconIndirectSpriteObjectList), nIndent);
+    get_objects(data, hf, pszStringTable, NULL, (PSTR) icon_data, IconIndirectSpriteObjectList, ELEMENTS(IconIndirectSpriteObjectList), nIndent);
     break;
   case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE):
-    get_objects(hf, pszStringTable, NULL, (PSTR) icon_data, IconIndirectTextAndSpriteObjectList, ELEMENTS(IconIndirectTextAndSpriteObjectList), nIndent);
+    get_objects(data, hf, pszStringTable, NULL, (PSTR) icon_data, IconIndirectTextAndSpriteObjectList, ELEMENTS(IconIndirectTextAndSpriteObjectList), nIndent);
     break;
   }
 }
@@ -186,14 +186,14 @@ put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &icon->data, icon->flags)
 }
 
 
-        void icon_template2text(FILE * hf, PSTR pszStringTable, wimp_icon * icon)
-//      =========================================================================
+        void icon_template2text(PDATA data, FILE * hf, PSTR pszStringTable, wimp_icon * icon)
+//      =====================================================================================
 {
-get_objects(hf, pszStringTable, NULL, (PSTR) icon, IconObjectList, ELEMENTS(IconObjectList), 2);
+get_objects(data, hf, pszStringTable, NULL, (PSTR) icon, IconObjectList, ELEMENTS(IconObjectList), 2);
 if (icon->flags & wimp_ICON_ANTI_ALIASED)
-  get_objects(hf, pszStringTable, NULL, (PSTR) icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList), 2);
+  get_objects(data, hf, pszStringTable, NULL, (PSTR) icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList), 2);
 else
-  get_objects(hf, pszStringTable, NULL, (PSTR) icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList), 2);
+  get_objects(data, hf, pszStringTable, NULL, (PSTR) icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList), 2);
 
-get_icon_data(hf, pszStringTable, (wimp_icon_data *) &icon->data, icon->flags, 2);
+get_icon_data(data, hf, pszStringTable, (wimp_icon_data *) &icon->data, icon->flags, 2);
 }

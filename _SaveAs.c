@@ -1,5 +1,5 @@
 /* _SaveAs.c
-   $Id: _SaveAs.c,v 1.4 2005/01/30 14:55:25 joty Exp $
+   $Id: _SaveAs.c,v 1.5 2005/01/30 16:04:30 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -54,8 +54,8 @@ return sizeof(saveas_object);
 }
 
 
-        void saveas_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
-//      =================================================================================================================
+        void saveas_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      =============================================================================================================================
 {
-get_objects(hf, pszStringTable, pszMessageTable, (const char *)(object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList), 1);
+get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)(object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList), 1);
 }

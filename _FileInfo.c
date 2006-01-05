@@ -1,5 +1,5 @@
 /* _FileInfo.c
-   $Id: _FileInfo.c,v 1.4 2005/01/30 14:49:29 joty Exp $
+   $Id: _FileInfo.c,v 1.5 2005/01/30 16:04:56 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -52,8 +52,8 @@ return sizeof(fileinfo_object);
 }
 
 
-        void fileinfo_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
-//      ===================================================================================================================
+        void fileinfo_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      ===============================================================================================================================
 {
-get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);
+get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);
 }

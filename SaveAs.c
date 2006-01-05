@@ -1,5 +1,5 @@
 /* _SaveAs.c
-   $Id: SaveAs.c,v 1.3 2005/01/30 14:47:53 joty Exp $
+   $Id: SaveAs.c,v 1.4 2005/01/30 16:05:50 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,13 +26,14 @@
 #include <OSLib/saveas.h>
 
 #include "ccres.h"
+#include "Convert.h"
 
         void action_save_to_file(PDATA data)
 //      ====================================
 {
 bits fSaved;
 
-fSaved = (convert(data, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
+fSaved = (ccres_convert(data, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
 saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
 if (fSaved == saveas_SAVE_SUCCESSFUL)
   toolbox_hide_object(0, data->idSaveAs);

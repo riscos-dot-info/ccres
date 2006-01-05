@@ -1,5 +1,5 @@
 /* _ColourDbox.c
-   $Id: _ColourDbox.c,v 1.4 2005/01/30 14:48:23 joty Exp $
+   $Id: _ColourDbox.c,v 1.5 2005/01/30 16:04:57 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -52,8 +52,8 @@ return sizeof(colourdbox_object);
 }
 
 
-        void colourdbox_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
-//      =====================================================================================================================
+        void colourdbox_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      =================================================================================================================================
 {
-get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList), 1);
+get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList), 1);
 }

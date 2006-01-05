@@ -1,5 +1,5 @@
 ; Library.s
-; $Id: Library.s,v 1.3 2004/10/31 19:57:30 joty Exp $
+; $Id: Library.s,v 1.4 2005/01/30 16:03:28 joty Exp $
 ;
 ; Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 ;
@@ -38,13 +38,6 @@
 	EXPORT	__stricmp
 	EXPORT	__strnicmp
 	EXPORT	__atoi
-	EXPORT	my_osfile_exists
-	EXPORT	my_osfile_filesize
-	EXPORT	my_osfile_filetype
-	EXPORT	my_osfile_load
-	EXPORT	my_osfscontrol_count_objects
-
-	IMPORT	achProgName
 
 ; to assemble for 32bit code with ObjAsm use -Apcs 3/32bit (sets {CONFIG}=32)
 ; these MACRO's sort out flags by assuming the caller saves flags in 32bit
@@ -247,119 +240,4 @@ sregs	SETS	"lr"
 	RSBEQ	r0, r0, #0
 
 	FNEXIT	,$sregs
-
-
-; fileswitch_object_type my_osfile_exists(PSTR pszFile);
-; on entry	on exit
-; r0=filepath	r0=True if exists
-
-my_osfile_exists
-sregs	SETS	"r4-r5"
-
-	FNENTRY	$sregs
-	MOV	r1, r0
-	MOV	r0, #17
-	SWI	XOS_File
-	FNEXIT	, $sregs
-
-
-; int my_osfile_filesize(PSTR pszFile);
-; on entry	on exit
-; r0=file	r0=filesize
-
-my_osfile_filesize
-sregs	SETS	"r4-r5"
-
-	FNENTRY	$sregs
-	MOV	r1, r0
-	MOV	r0, #17
-	SWI	XOS_File
-	MOVVS	r4, #0
-	CMPS	r0, #OSFile_IsFile
-	MOVNE	r0, #0
-	MOVEQ	r0, r4
-	FNEXIT	, $sregs
-
-
-; bits my_osfile_filetype(PSTR pszFile);
-; on entry	on exit
-; r0=file	r0=type
-
-my_osfile_filetype
-sregs	SETS	"r4-r6"
-
-	FNENTRY	$sregs
-	MOV	r1, r0
-	MOV	r0, #23
-	SWI	XOS_File
-	CMPS	r0, #0
-	MVNEQ	r0, #0
-	MOVNE	r0, r6
-	FNEXIT	, $sregs
-
-
-; int my_osfile_load(PSTR pszFile, PSTR pszBuff, int cbBuff);
-; on entry	on exit
-; r0=file	r0=bytes read
-; r1=buff
-; r2=cbBuff
-
-my_osfile_load
-sregs	SETS	"r4-r5"
-pszBuff	RN	ip
-cbBuff	RN	lr
-
-	FNENTRY	$sregs
-	MOV	pszBuff, r1
-	MOV	cbBuff, r2
-
-	MOV	r1, r0
-	MOV	r0, #17
-	SWI	XOS_File
-	FNEXIT	VS, $sregs
-
-	CMPS	r0, #OSFile_IsFile
-	FNEXIT	NE, $sregs
-
-	CMPS	r4, cbBuff
-	ADRGT	r0, osfile_load_smallbuff
-	BGT	osfile_load_error
-
-	MOV	r0, #16
-; r1 is file path
-	MOV	r2, pszBuff
-	MOV	r3, #0
-	SWI	XOS_File
-	MOVVC	r0, r4
-	FNEXIT	VC, $sregs
-
-osfile_load_error
-
-	MOV	r1, #ReportOK
-	LDR	r2, pachProgName
-	SWI	Wimp_ReportError
-	FNEXIT	, $sregs
-
-pachProgName		DCD	achProgName
-osfile_load_smallbuff	DCD	0
-			DCB	"osfile_load buffer too small",0
-			ALIGN
-
-; int osfscontrol_count_objects(PSTR pszDir);
-; on entry	on exit
-; r0=dir	r0=Object count
-
-my_osfscontrol_count_objects
-
-	FNENTRY
-	MOV	r1, r0
-	MOV	r0, #28
-	MOV	r2, #0
-	MOV	r3, #0
-	SWI	XOS_FSControl
-	MOVVS	r0, #-1
-	MOVVC	r0, r3
-	FNEXIT
-
-
 	END

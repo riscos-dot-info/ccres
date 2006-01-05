@@ -1,5 +1,5 @@
 /* _ColourMenu.c
-   $Id: _ColourMenu.c,v 1.4 2005/01/30 14:48:40 joty Exp $
+   $Id: _ColourMenu.c,v 1.5 2005/01/30 16:04:57 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -57,8 +57,8 @@ return sizeof(colourmenu_object);
 }
 
 
-        void colourmenu_g2t(FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
-//      =====================================================================================================================
+        void colourmenu_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+//      =================================================================================================================================
 {
-get_objects(hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList), 1);
+get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList), 1);
 }

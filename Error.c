@@ -1,5 +1,5 @@
 /* Error.c
-   $Id: Error.c,v 1.2 2004/03/20 22:12:22 joty Exp $
+   $Id: Error.c,v 1.3 2005/01/30 14:47:08 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -56,75 +56,16 @@ void report_end(PDATA data)
 ddeutils_throwback_end();
 }
 
-// return value is zero based index of keys passed in pszKeys
-static int question(PSTR pszKeys, bits nErr, PSTR pszFmt, ...)
+
+void error(DATA *sessionP, PSTR pszFmt, ...)
 {
-	os_error err;
-	va_list list;
+os_error err;
+va_list list;
 
-	err.errnum = nErr;
-	va_start(list, pszFmt);
-	vsprintf(err.errmess, pszFmt, list);
-	va_end(list);
-	return wimp_report_error_by_category(
-				&err,
-				wimp_ERROR_BOX_NO_PROMPT |
-				wimp_ERROR_BOX_SHORT_TITLE |
-				wimp_ERROR_BOX_GIVEN_CATEGORY |
-				(wimp_ERROR_BOX_CATEGORY_QUESTION << wimp_ERROR_BOX_CATEGORY_SHIFT),
-				achProgName,
-				"!"APPNAME,
-				(osspriteop_area *) 1,		// wimp pool
-				pszKeys) - 3;			// ignore standard buttons
+err.errnum = 0;
+va_start(list, pszFmt);
+vsprintf(err.errmess, pszFmt, list);
+va_end(list);
+wimp_report_error(&err, wimp_ERROR_BOX_OK_ICON | wimp_ERROR_BOX_NO_PROMPT, APPNAME);
+sessionP->returnStatus = EXIT_FAILURE;
 }
-
-void toolbox_error(PDATA data)
-{
-	if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.data.error.errmess) == 1) {
-		data->fRunning = FALSE;
-		returnStatus = EXIT_FAILURE;
-	}
-}
-
-
-static void oserr(os_error * err)
-{
-	wimp_report_error(err, wimp_ERROR_BOX_OK_ICON | wimp_ERROR_BOX_NO_PROMPT, achProgName);
-	returnStatus = EXIT_FAILURE;
-}
-
-
-void error(PSTR pszFmt, ...)
-{
-	os_error err;
-	va_list list;
-
-	err.errnum = 0;
-	va_start(list, pszFmt);
-	vsprintf(err.errmess, pszFmt, list);
-	va_end(list);
-	oserr(&err);
-}
-
-
-void errtitle(PSTR pszTitle, PSTR pszError)
-{
-	os_error err;
-
-	err.errnum = 0;
-	strncpy(err.errmess, pszError, sizeof(err.errmess) - 2);
-	wimp_report_error(&err, (wimp_ERROR_BOX_OK_ICON | wimp_ERROR_BOX_NO_PROMPT | wimp_ERROR_BOX_SHORT_TITLE), pszTitle);
-	returnStatus = EXIT_FAILURE;
-}
-
-
-#ifdef DEBUG
-void errnum(PSTR pszError, int num)
-{
-	os_error err;
-
-	err.errnum = 0;
-	sprintf(err.errmess, "%.32s (%d)", pszError, num);
-	oserr(&err);
-}
-#endif

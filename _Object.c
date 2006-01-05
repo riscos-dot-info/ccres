@@ -1,5 +1,5 @@
 /* _Object.c
-   $Id: _Object.c,v 1.6 2005/01/30 14:53:48 joty Exp $
+   $Id: _Object.c,v 1.7 2005/01/30 16:04:32 joty Exp $
 
    Copyright (c) 2003-2005 Dave Appleby / John Tytgat
 
@@ -26,6 +26,7 @@
 
 #include "ccres.h"
 #include "Error.h"
+#include "Eval.h"
 #include "Utils.h"
 #include "_Object.h"
 
@@ -220,15 +221,15 @@ static BOOL put_string(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRING
 		pTable = &data->MessageTable;
 		nTable = toolbox_RELOCATE_MSG_REFERENCE;
 	} else {
-		error("Unexpected string table type (%d)", StringList->nTable);
+		error(data, "Unexpected string table type (%d)", StringList->nTable);
 		return FALSE;
 	}
 	cbEntry = 0;
-LOG(("\nLookup: %s", StringList->pszEntry));
+LOG((data, "\nLookup: %s", StringList->pszEntry));
 	if ((pszEntry = parse(data, pszIn, StringList->pszEntry)) != NULL) {
 		cbEntry = my_strcpy(&pTable->pstr[pTable->ref], remove_quotes(data, pszEntry));
 	}
-LOG(("'%s' (%d)", &pTable->pstr[pTable->ref], cbEntry));
+LOG((data, "'%s' (%d)", &pTable->pstr[pTable->ref], cbEntry));
 	cbLimit = 0;
 	if (StringList->pszLimit != NULL && (pszLimit = parse(data, pszIn, StringList->pszLimit)) != NULL) {
 		if (pszLimit[0] == '*') {
@@ -330,8 +331,8 @@ static  PSTR string_from_table(PSTR pszTable, int ref)
 }
 
 
-static  void get_string(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, PSTRINGLIST StringList, PSTR pszIndent)
-//      ==================================================================================================================================
+static  void get_string(PDATA data, FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, PSTRINGLIST StringList, PSTR pszIndent)
+//      ==============================================================================================================================================
 {
 const int *pInt;
 PSTR pstr, qstr, string_table;
@@ -346,17 +347,17 @@ switch (StringList->nTable)
     string_table = pszMessageTable;
     break;
   default:
-    error("Unexpected string table type (%d)", StringList->nTable);
+    error(data, "Unexpected string table type (%d)", StringList->nTable);
     return;
   }
 
 pInt = (const int *)&objectP[StringList->nEntry];
-LOG(("get_string(object[%x]) = %x", StringList->nEntry, *pInt));
+LOG((data, "get_string(object[%x]) = %x", StringList->nEntry, *pInt));
 pstr = "";
 if ((ref = *pInt) >= 0 && (qstr = string_from_table(string_table, ref)) != NULL)
   pstr = qstr;
 
-LOG(("entry=%s\"%s\"\n", StringList->pszEntry, pstr));
+LOG((data, "entry=%s\"%s\"\n", StringList->pszEntry, pstr));
 fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
 if (StringList->pszLimit != NULL)
   {
@@ -379,12 +380,12 @@ PSTR pstr, qstr;
 int cbLimit, ref;
 
 pInt = (const int *) &objectP[StringList->nEntry];
-LOG(("get_tstring(object[%x]) = %x", StringList->nEntry, *pInt));
+LOG((data, "get_tstring(object[%x]) = %x", StringList->nEntry, *pInt));
 pstr = "";
 if ((ref = *pInt) >= 0 && (qstr = string_from_table(pszStringTable, ref)) != NULL)
   pstr = qstr;
 
-LOG(("entry=%s\"%s\"\n", StringList->pszEntry, pstr));
+LOG((data, "entry=%s\"%s\"\n", StringList->pszEntry, pstr));
 fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
 if (StringList->pszLimit != NULL)
   {
@@ -445,8 +446,8 @@ return f;
 }
 
 
-static  void get_flags(FILE * hf, PSTR pszFlags, bits fFlags, PFLAGS pFlags, int nFlags)
-//      ================================================================================
+static  void get_flags(PDATA data, FILE * hf, PSTR pszFlags, bits fFlags, PFLAGS pFlags, int nFlags)
+//      ============================================================================================
 {
 const char *pszOr;
 int cb, n;
@@ -466,7 +467,7 @@ for (n = 0; n < nFlags && fFlags != 0; n++)
 /* Louzy error message but I don't know yet how I can improve it. */
 if (fFlags != 0)
   {
-  error("Not all bits are covered");
+  error(data, "Not all bits are covered");
   cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlags);
   }
 achBuff[cb++] = '\n';
@@ -578,8 +579,8 @@ return f;
 
 
 // Output the bits 0xFFF | 0xE00000 and wimp_ICON_BUTTON_TYPE
-static  void get_iflags(FILE * hf, PSTR pszFlags, bits fFlags)
-//      ======================================================
+static  void get_iflags(PDATA data, FILE * hf, PSTR pszFlags, bits fFlags)
+//      ==================================================================
 {
 const FLAGS *pFlags;
 const char *pszOr;
@@ -603,7 +604,7 @@ for (n = 0; n < nFlags; n++)
   }
 if (fFlagsCur!= 0)
   {
-  error("Not all bits are covered");
+  error(data, "Not all bits are covered");
   cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlagsCur & ~wimp_ICON_BUTTON_TYPE);
   }
 
@@ -621,7 +622,7 @@ for (n = 0; n < nFlags; n++)
   }
 if (fFlagsCur != 0)
   {
-  error("Not all bits are covered");
+  error(data, "Not all bits are covered");
   cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlagsCur);
   }
 achBuff[cb++] = '\n';
@@ -634,13 +635,13 @@ static void put_box(PDATA data, PSTR pstr, os_box * box)
 	PINT pi;
 	int n;
 
-LOG(("put_box %s", pstr));
+LOG((data, "put_box %s", pstr));
 	pi = (PINT) box;
 	for (n = 0; n < 4; n++) {
 		pi[n] = Eval(data, &pstr);
 		pstr++;
 	}
-LOG(("(%d, %d, %d, %d)", pi[0], pi[1], pi[2], pi[3]));
+LOG((data, "(%d, %d, %d, %d)", pi[0], pi[1], pi[2], pi[3]));
 }
 
 
@@ -656,14 +657,14 @@ static void put_coord(PDATA data, PSTR pstr, os_coord * coord)
 	PINT pi;
 	int n;
 
-LOG(("put_coord %s", pstr));
+LOG((data, "put_coord %s", pstr));
 	pi = (PINT) coord;
 	for (n = 0; n < 2; n++) {
 		pi[n] = Eval(data, &pstr);
-//LOG(("New pstr = '%s'", pstr));
+//LOG((data, "New pstr = '%s'", pstr));
 		pstr++;
 	}
-LOG(("(%d, %d)", pi[0], pi[1]));
+LOG((data, "(%d, %d)", pi[0], pi[1]));
 }
 
 
@@ -693,19 +694,19 @@ else
 }
 
 
-static  void get_pstr(FILE * hf, PSTR pszEntry, const char *objectP, int nEntry, int nChars)
-//      ====================================================================================
+static  void get_pstr(PDATA data, FILE * hf, PSTR pszEntry, const char *objectP, int nEntry, int nChars)
+//      ================================================================================================
 {
 PSTR pszBuff;
 
-LOG(("get_pstr(%s, %s)", pszEntry, &objectP[nEntry]));
+LOG((data, "get_pstr(%s, %s)", pszEntry, &objectP[nEntry]));
 pszBuff = NULL;
 if (nChars == 0)
   fprintf(hf, "%s\"%s\"\n", pszEntry, string_from_table((char * /* yucky; any better solution ? */)objectP, nEntry));
 else
   {
   if ((pszBuff = MyAlloc(nChars + 1)) == NULL)
-    error("Not enough memory to get %s", pszEntry);
+    error(data, "Not enough memory to get %s", pszEntry);
   else
     {
     my_strncpy0d(pszBuff, &objectP[nEntry], nChars);
@@ -725,10 +726,10 @@ PBYTE pByte;
 PSTR pszEntry;
 int n;
 
-LOG(("put_objects(offset:%x)", nOffset));
+LOG((data, "put_objects(offset:%x)", nOffset));
 for (n = 0; n < nObjects; n++, ObjectList++)
   {
-LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
+LOG((data, "Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
   switch (ObjectList->nTable)
     {
     case iol_MSG:
@@ -818,27 +819,27 @@ LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, Ob
               *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE) << wimp_ICON_BG_COLOUR_SHIFT;
             break;
           default:
-            error("Unknown iol_ value (%d)", ObjectList->nTable);
+            error(data, "Unknown iol_ value (%d)", ObjectList->nTable);
             break;
           }
         }
       break;
     }
   }
-LOG(("-----"));
+LOG((data, "-----"));
 }
 
 
-void get_objects(FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
+void get_objects(PDATA data, FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
 {
 PSTR pszIndent;
 int i, n;
 
 pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
-LOG(("get_objects"));
+LOG((data, "get_objects"));
 for (n = 0; n < nObjects; n++, ++ObjectList)
   {
-LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
+LOG((data, "Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
   if (ObjectList->nTable != iol_OBJECT)
     { // do nothing for res2text
     fputs(pszIndent, hf);
@@ -846,7 +847,7 @@ LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, Ob
       {
       case iol_MSG:
       case iol_STRING:
-        get_string(hf, pszStringTable, pszMessageTable, objectP, (PSTRINGLIST) ObjectList, pszIndent);
+        get_string(data, hf, pszStringTable, pszMessageTable, objectP, (PSTRINGLIST) ObjectList, pszIndent);
         break;
       case iol_TSTRING:
         get_tstring(hf, pszStringTable, objectP, (PSTRINGLIST) ObjectList, pszIndent);
@@ -854,19 +855,19 @@ LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, Ob
       case iol_FLAGS:
         {
         const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
-        get_flags(hf, ObjectList->pszEntry, *pBits, (PFLAGS) ObjectList->pData, ObjectList->nData);
+        get_flags(data, hf, ObjectList->pszEntry, *pBits, (PFLAGS) ObjectList->pData, ObjectList->nData);
         break;
         }
       case iol_IFLAGS:
         {
         const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
-        get_iflags(hf, ObjectList->pszEntry, *pBits);
+        get_iflags(data, hf, ObjectList->pszEntry, *pBits);
         break;
         }
       case iol_BFLAGS:
         {
         const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
-        get_flags(hf, ObjectList->pszEntry, *pByte, (PFLAGS) ObjectList->pData, ObjectList->nData);
+        get_flags(data, hf, ObjectList->pszEntry, *pByte, (PFLAGS) ObjectList->pData, ObjectList->nData);
         break;
         }
       case iol_ENUM:
@@ -927,7 +928,7 @@ LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, Ob
         break;
         }
       case iol_PSTR:
-        get_pstr(hf, ObjectList->pszEntry, objectP, ObjectList->nEntry, ObjectList->nData);
+        get_pstr(data, hf, ObjectList->pszEntry, objectP, ObjectList->nEntry, ObjectList->nData);
         break;
       case iol_ESG:
         {
@@ -952,12 +953,12 @@ LOG(("Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, Ob
         break;
         }
       default:
-        error("Unknown iol_ value (%d)", ObjectList->nTable);
+        error(data, "Unknown iol_ value (%d)", ObjectList->nTable);
         break;
       }
     }
   }
-LOG(("-----"));
+LOG((data, "-----"));
 }
 
 
@@ -1025,7 +1026,7 @@ PSTR object_end(PDATA data, PSTR pszIn, PSTR pszEnd)
 }
 
 
-void object_text2resource(FILE * hf, PDATA data, PSTR pszIn, PSTR pszOut, const CLASSES *pClass)
+void object_text2resource(PDATA data, FILE * hf, PSTR pszIn, PSTR pszOut, const CLASSES *pClass)
 {
 	toolbox_relocatable_object_base * object;
 	PINT pReloc;
@@ -1072,7 +1073,7 @@ void object_text2resource(FILE * hf, PDATA data, PSTR pszIn, PSTR pszOut, const 
 }
 
 
-void object_resource2text(FILE * hf, toolbox_relocatable_object_base * object, object2text o2t)
+void object_resource2text(PDATA data, FILE * hf, toolbox_relocatable_object_base * object, object2text o2t)
 {
 	PSTR pszStringTable, pszMessageTable;
 
@@ -1084,13 +1085,13 @@ void object_resource2text(FILE * hf, toolbox_relocatable_object_base * object, o
 		pszMessageTable = ((PSTR) object) + object->message_table_offset;
 	}
 
-LOG(("StringTable:%d", object->string_table_offset));
-LOG(("MessageTable:%d", object->message_table_offset));
+LOG((data, "StringTable:%d", object->string_table_offset));
+LOG((data, "MessageTable:%d", object->message_table_offset));
 
-//LOG(("size:%d", template->rf_header.size));
-//LOG(("header_size:%d", template->rf_header.header_size));
-//LOG(("body_size:%d", template->rf_header.body_size));
+//LOG((data, "size:%d", template->rf_header.size));
+//LOG((data, "header_size:%d", template->rf_header.header_size));
+//LOG((data, "body_size:%d", template->rf_header.body_size));
 
-	get_objects(hf, pszStringTable, pszMessageTable, (const char *)&object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);
-	o2t(hf, (toolbox_resource_file_object_base *) &object->rf_obj, pszStringTable, pszMessageTable);
+	get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)&object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);
+	o2t(data, hf, (toolbox_resource_file_object_base *) &object->rf_obj, pszStringTable, pszMessageTable);
 }

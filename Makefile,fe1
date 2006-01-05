@@ -9,6 +9,9 @@ LINK = link
 LINKFLAGS = 
 #LINKFLAGS = -debug 
 
+LIBFILE = libfile
+LIBFILEFLAGS = -c -o $@
+
 OBJASM = objasm
 OBJASMFLAGS = -depend !Depend -throwback -I <OSLib$Dir> -Apcs 3/32/swst/nofpr -Stamp -quit -CloseExec
 
@@ -27,13 +30,17 @@ LDLIBS = C:o.StubsG
 USRLIBS = OSLib:o.OSLib32
 
 # Object files
-OBJS = 	o.Library o.Convert o.Error o.Eval o.Filer o.Main o.Menu \
-	o.Misc o.SaveAs o.Utils
+CCRES_APPOBJS = o.Filer o.Main o.Menu o.Misc o.SaveAs
 
-TOBJS = o._ColourDbox o._ColourMenu o._DCS \
+CCRES_CMDOBJS = o.CMD
+
+CCRES_LIBOBJS = o.Eval o.Convert o.Utils o.Library o.Error \
+	o._ColourDbox o._ColourMenu o._DCS \
 	o._FileInfo o._FontDbox o._FontMenu o._Gadgets \
 	o._Icon o._Iconbar o._Menu o._Object o._PrintDbox \
 	o._ProgInfo o._Quit o._SaveAs o._Scale o._Window
+
+CCRES_LIB = o.CCResLib
 
 DOBJS = Release.!CCres.Res \
 	Release.!CCres.!Run \
@@ -43,13 +50,11 @@ DOBJS = Release.!CCres.Res \
 	Release.!CCres.!Help \
 	Release.!CCres.Messages \
 	Release.!CCres.!RunImage \
-	Release.!CCres.History
+	Release.!CCres.History \
+	Release.ccres
 
 # Target:
 All: $(DOBJS)
-
-Release.!CCres.!RunImage: $(OBJS) $(TOBJS) $(LDLIBS) $(USRLIBS)
-	$(LINK) $(LINKFLAGS) -o $@ $(OBJS) $(TOBJS) $(LDLIBS) $(USRLIBS)
 
 Release.!CCres.Res: Data.Res
 	$(COPY) Data.Res $@ $(COPYFLAGS)
@@ -74,6 +79,15 @@ Release.!CCres.Messages: Data.Messages
 
 Release.!CCres.History: History
 	$(COPY) History $@ $(COPYFLAGS)
+
+Release.!CCres.!RunImage: $(CCRES_APPOBJS) $(CCRES_LIB) $(LDLIBS) $(USRLIBS)
+	$(LINK) $(LINKFLAGS) -o $@ $(CCRES_APPOBJS) $(CCRES_LIB) $(LDLIBS) $(USRLIBS)
+
+o.CCResLib: $(CCRES_LIBOBJS)
+	$(LIBFILE) $(LIBFILEFLAGS) $(CCRES_LIBOBJS)
+
+Release.ccres: $(CCRES_CMDOBJS) $(CCRES_LIB) $(LDLIBS)
+	$(LINK) $(LINKFLAGS) -o $@ $(CCRES_CMDOBJS) $(CCRES_LIB) $(LDLIBS)
 
 .SUFFIXES: .o .c .s
 .c.o:;  	$(CC) $(CCFLAGS) -o $@ $<
