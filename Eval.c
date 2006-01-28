@@ -1,7 +1,6 @@
 /* Eval.c
-   $Id: Eval.c,v 1.3 2005/01/30 14:40:09 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -116,9 +115,7 @@ int Eval(PDATA data, PSTR * ppstr)
 				goto Eval_SyntaxError;
 			}
 			pstr--;
-//LOG((data, "__atoi(%s)", pstr));
-			sn[in++] = __atoi(&pstr);
-//LOG((data, "val=%d New pstr = %s", sn[in - 1], pstr));
+			sn[in++] = my_atoi(&pstr);
 			fOp = FALSE;
 		} else {
 			pstr--;
@@ -137,8 +134,14 @@ int Eval(PDATA data, PSTR * ppstr)
 
 Eval_SyntaxError:
 
-LOG((data, "Expression syntax error"));
 	report(data, *ppstr, "Expression syntax error");
+fprintf(stderr, "Start error at %p (buf %p, len 0x%x, offset %d)\n", pstr, data->pszIn, data->cbIn, pstr - data->pszIn);
+	while (*pstr != '\n' && pstr >= data->pszIn && (pstr - data->pszIn) < data->cbIn)
+	  ++pstr;
+fprintf(stderr, "  skipped until %p\n", pstr);
+static int jo;
+++jo;
+if (jo == 10) abort();
 	*ppstr = pstr;
 	return 0;
 }

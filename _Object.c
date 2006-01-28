@@ -1,7 +1,6 @@
 /* _Object.c
-   $Id: _Object.c,v 1.7 2005/01/30 16:04:32 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -22,7 +21,7 @@
 
 #include <string.h>
 
-#include <OSLib/ddeutils.h>
+#include <oslib/ddeutils.h>
 
 #include "ccres.h"
 #include "Error.h"
@@ -138,7 +137,7 @@ static PSTR parse(PDATA data, PSTR pszIn, const char *pszEntry)
 	int cb;
 	char ch, ch0;
 
-	ch0 = *pszEntry++;		// it's faster to check first char before calling __strnicmp
+	ch0 = *pszEntry++;		// it's faster to check first char before calling strncasecmp
 	cb = strlen(pszEntry);
 	p = pszIn;
 	pszEnd = &data->pszIn[data->cbIn] - cb;
@@ -146,7 +145,7 @@ static PSTR parse(PDATA data, PSTR pszIn, const char *pszEntry)
 		if (ch == ':' || ch == '#') {  // skip values and comments
 			while (*p++ >= ' ' && p < pszEnd)
 				/* */;
-		} else if (ch == ch0 && __strnicmp(p, pszEntry, cb) == 0) {
+		} else if (ch == ch0 && strncasecmp(p, pszEntry, cb) == 0) {
 			return p + cb;
 		}
 	}
@@ -225,17 +224,15 @@ static BOOL put_string(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRING
 		return FALSE;
 	}
 	cbEntry = 0;
-LOG((data, "\nLookup: %s", StringList->pszEntry));
 	if ((pszEntry = parse(data, pszIn, StringList->pszEntry)) != NULL) {
 		cbEntry = my_strcpy(&pTable->pstr[pTable->ref], remove_quotes(data, pszEntry));
 	}
-LOG((data, "'%s' (%d)", &pTable->pstr[pTable->ref], cbEntry));
 	cbLimit = 0;
 	if (StringList->pszLimit != NULL && (pszLimit = parse(data, pszIn, StringList->pszLimit)) != NULL) {
 		if (pszLimit[0] == '*') {
 			cbLimit = (cbEntry == 0) ? 0 : (cbEntry + 1);
 		} else {
-			cbLimit = __atoi(&pszLimit);
+			cbLimit = my_atoi(&pszLimit);
 			cbLimit = (cbLimit > 0 && cbLimit <= cbEntry) ? (cbEntry + 1) : cbLimit;
 		}
 	}
@@ -284,7 +281,7 @@ static BOOL put_tstring(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRIN
 		if (pszLimit[0] == '*') {
 			cbLimit = (cbEntry == 0) ? 0 : (cbEntry + 1);
 		} else {
-			cbLimit = __atoi(&pszLimit);
+			cbLimit = my_atoi(&pszLimit);
 			cbLimit = (cbLimit > 0 && cbLimit <= cbEntry) ? (cbEntry + 1) : cbLimit;
 		}
 	}
@@ -352,12 +349,10 @@ switch (StringList->nTable)
   }
 
 pInt = (const int *)&objectP[StringList->nEntry];
-LOG((data, "get_string(object[%x]) = %x", StringList->nEntry, *pInt));
 pstr = "";
 if ((ref = *pInt) >= 0 && (qstr = string_from_table(string_table, ref)) != NULL)
   pstr = qstr;
 
-LOG((data, "entry=%s\"%s\"\n", StringList->pszEntry, pstr));
 fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
 if (StringList->pszLimit != NULL)
   {
@@ -380,12 +375,10 @@ PSTR pstr, qstr;
 int cbLimit, ref;
 
 pInt = (const int *) &objectP[StringList->nEntry];
-LOG((data, "get_tstring(object[%x]) = %x", StringList->nEntry, *pInt));
 pstr = "";
 if ((ref = *pInt) >= 0 && (qstr = string_from_table(pszStringTable, ref)) != NULL)
   pstr = qstr;
 
-LOG((data, "entry=%s\"%s\"\n", StringList->pszEntry, pstr));
 fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
 if (StringList->pszLimit != NULL)
   {
@@ -419,7 +412,7 @@ for (p = pstrFlags; *p != '\0'; /* */)
   cb = p - pstrFlags;
   for (n = 0; n < nFlags; n++)
     {
-    if (__strnicmp(pstrFlags, pFlags[n].pstr, cb) == 0 && strlen(pFlags[n].pstr) == cb)
+    if (strncasecmp(pstrFlags, pFlags[n].pstr, cb) == 0 && strlen(pFlags[n].pstr) == cb)
       {
       f |= pFlags[n].flag;
       break;
@@ -464,12 +457,8 @@ for (n = 0; n < nFlags && fFlags != 0; n++)
     fFlags &= ~pFlags[n].flag;
     }
   }
-/* Louzy error message but I don't know yet how I can improve it. */
 if (fFlags != 0)
-  {
-  error(data, "Not all bits are covered");
   cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlags);
-  }
 achBuff[cb++] = '\n';
 fwrite(achBuff, cb, 1, hf);
 }
@@ -487,7 +476,7 @@ static int put_enum(PDATA data, PSTR pstrFlags, const FLAGS *pFlags, int nFlags,
 			}
 		}
 		if (fInt) {
-			return __atoi(&pstrFlags);
+			return my_atoi(&pstrFlags);
 		}
 		report(data, pstrFlags, "Unknown variable '%s'", pstrFlags);
 	}
@@ -541,7 +530,7 @@ while (*p != '\0')
   nFlags = ELEMENTS(WimpIconFlags);
   for (n = 0; n < nFlags; n++)
     {
-    if (__strnicmp(pstrFlags, pFlags[n].pstr, cb) == 0 && strlen(pFlags[n].pstr) == cb)
+    if (strncasecmp(pstrFlags, pFlags[n].pstr, cb) == 0 && strlen(pFlags[n].pstr) == cb)
       {
       f |= pFlags[n].flag;
       goto put_iflags_next_flag;
@@ -603,10 +592,7 @@ for (n = 0; n < nFlags; n++)
     }
   }
 if (fFlagsCur!= 0)
-  {
-  error(data, "Not all bits are covered");
   cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlagsCur & ~wimp_ICON_BUTTON_TYPE);
-  }
 
 pFlags = WimpIconType;
 nFlags = ELEMENTS(WimpIconType);
@@ -621,10 +607,7 @@ for (n = 0; n < nFlags; n++)
     }
   }
 if (fFlagsCur != 0)
-  {
-  error(data, "Not all bits are covered");
   cb += sprintf(&achBuff[cb], "%s0x%x", pszOr, fFlagsCur);
-  }
 achBuff[cb++] = '\n';
 fwrite(achBuff, cb, 1, hf);
 }
@@ -635,13 +618,11 @@ static void put_box(PDATA data, PSTR pstr, os_box * box)
 	PINT pi;
 	int n;
 
-LOG((data, "put_box %s", pstr));
 	pi = (PINT) box;
 	for (n = 0; n < 4; n++) {
 		pi[n] = Eval(data, &pstr);
 		pstr++;
 	}
-LOG((data, "(%d, %d, %d, %d)", pi[0], pi[1], pi[2], pi[3]));
 }
 
 
@@ -657,14 +638,11 @@ static void put_coord(PDATA data, PSTR pstr, os_coord * coord)
 	PINT pi;
 	int n;
 
-LOG((data, "put_coord %s", pstr));
 	pi = (PINT) coord;
 	for (n = 0; n < 2; n++) {
 		pi[n] = Eval(data, &pstr);
-//LOG((data, "New pstr = '%s'", pstr));
 		pstr++;
 	}
-LOG((data, "(%d, %d)", pi[0], pi[1]));
 }
 
 
@@ -699,7 +677,6 @@ static  void get_pstr(PDATA data, FILE * hf, PSTR pszEntry, const char *objectP,
 {
 PSTR pszBuff;
 
-LOG((data, "get_pstr(%s, %s)", pszEntry, &objectP[nEntry]));
 pszBuff = NULL;
 if (nChars == 0)
   fprintf(hf, "%s\"%s\"\n", pszEntry, string_from_table((char * /* yucky; any better solution ? */)objectP, nEntry));
@@ -726,10 +703,8 @@ PBYTE pByte;
 PSTR pszEntry;
 int n;
 
-LOG((data, "put_objects(offset:%x)", nOffset));
 for (n = 0; n < nObjects; n++, ObjectList++)
   {
-LOG((data, "Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
   switch (ObjectList->nTable)
     {
     case iol_MSG:
@@ -779,26 +754,26 @@ LOG((data, "Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEnt
             if (*pszEntry < ' ')
               *pBits = (ObjectList->nData == bits_ACTION) ? ~0 : 0;
             else
-              *pBits = (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : __atoi(&pszEntry);
+              *pBits = (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : my_atoi(&pszEntry);
             break;
           case iol_INT:
             pInt = (PINT) &Object[ObjectList->nEntry];
-            *pInt = __atoi(&pszEntry);
+            *pInt = my_atoi(&pszEntry);
             break;
           case iol_SHORT:
             pShort = (PSHORT) &Object[ObjectList->nEntry];
-            *pShort = (short) __atoi(&pszEntry);
+            *pShort = (short) my_atoi(&pszEntry);
             break;
           case iol_BYTE:
             pByte = (PBYTE) &Object[ObjectList->nEntry];
-            *pByte = (byte) __atoi(&pszEntry);
+            *pByte = (byte) my_atoi(&pszEntry);
             break;
           case iol_COORD:
             put_coord(data, pszEntry, (os_coord *) &Object[ObjectList->nEntry]);
             break;
           case iol_SPRITE:
             pBits = (PBITS) &Object[ObjectList->nEntry];
-            *pBits = __atoi(&pszEntry);
+            *pBits = my_atoi(&pszEntry);
             add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE);
             break;
           case iol_PSTR:
@@ -806,7 +781,7 @@ LOG((data, "Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEnt
             break;
           case iol_ESG:
             pBits = (PBITS) &Object[ObjectList->nEntry];
-            *pBits |= (__atoi(&pszEntry) << wimp_ICON_ESG_SHIFT);
+            *pBits |= (my_atoi(&pszEntry) << wimp_ICON_ESG_SHIFT);
             break;
           case iol_WCOL:
             pByte = (PBYTE) &Object[ObjectList->nEntry];
@@ -826,7 +801,6 @@ LOG((data, "Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEnt
       break;
     }
   }
-LOG((data, "-----"));
 }
 
 
@@ -836,10 +810,8 @@ PSTR pszIndent;
 int i, n;
 
 pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
-LOG((data, "get_objects"));
 for (n = 0; n < nObjects; n++, ++ObjectList)
   {
-LOG((data, "Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEntry, ObjectList->nTable));
   if (ObjectList->nTable != iol_OBJECT)
     { // do nothing for res2text
     fputs(pszIndent, hf);
@@ -958,7 +930,6 @@ LOG((data, "Item:%s\tOffset:%d\tType:%d", ObjectList->pszEntry, ObjectList->nEnt
       }
     }
   }
-LOG((data, "-----"));
 }
 
 
@@ -1084,13 +1055,6 @@ void object_resource2text(PDATA data, FILE * hf, toolbox_relocatable_object_base
 	if (object->message_table_offset != -1) {
 		pszMessageTable = ((PSTR) object) + object->message_table_offset;
 	}
-
-LOG((data, "StringTable:%d", object->string_table_offset));
-LOG((data, "MessageTable:%d", object->message_table_offset));
-
-//LOG((data, "size:%d", template->rf_header.size));
-//LOG((data, "header_size:%d", template->rf_header.header_size));
-//LOG((data, "body_size:%d", template->rf_header.body_size));
 
 	get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)&object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);
 	o2t(data, hf, (toolbox_resource_file_object_base *) &object->rf_obj, pszStringTable, pszMessageTable);

@@ -1,7 +1,6 @@
 /* Convert.c
-   $Id: Convert.c,v 1.5 2005/01/30 16:06:45 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -22,20 +21,20 @@
 
 #include <string.h>
 
-#include <OSLib/colourdbox.h>
-#include <OSLib/colourmenu.h>
-#include <OSLib/dcs.h>
-#include <OSLib/fileinfo.h>
-#include <OSLib/fontdbox.h>
-#include <OSLib/fontmenu.h>
-#include <OSLib/iconbar.h>
-#include <OSLib/menu.h>
-#include <OSLib/printdbox.h>
-#include <OSLib/proginfo.h>
-#include <OSLib/quit.h>
-#include <OSLib/saveas.h>
-#include <OSLib/scale.h>
-#include <OSLib/window.h>
+#include <oslib/colourdbox.h>
+#include <oslib/colourmenu.h>
+#include <oslib/dcs.h>
+#include <oslib/fileinfo.h>
+#include <oslib/fontdbox.h>
+#include <oslib/fontmenu.h>
+#include <oslib/iconbar.h>
+#include <oslib/menu.h>
+#include <oslib/printdbox.h>
+#include <oslib/proginfo.h>
+#include <oslib/quit.h>
+#include <oslib/saveas.h>
+#include <oslib/scale.h>
+#include <oslib/window.h>
 
 #include "ccres.h"
 #include "Convert.h"
@@ -154,9 +153,8 @@ static BOOL text2res(PDATA data, PSTR pszOutFile)
 		Hdr.header_size = -1;
 		fHeader = FALSE;
 		while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
-LOG((data, "Found '%s'", pszObject));
 			for (m = 0; m < ELEMENTS(Classes); m++) {
-				if (__stricmp(Classes[m].name, pszObject) == 0 && Classes[m].t2o != NULL) {
+				if (strcasecmp(Classes[m].name, pszObject) == 0 && Classes[m].t2o != NULL) {
 					if (!fHeader) {
 						Hdr.header_size = sizeof(Hdr);
 						fwrite(&Hdr, sizeof(Hdr), 1, hf);
@@ -174,7 +172,6 @@ LOG((data, "Found '%s'", pszObject));
 text2res_added:
 
 			if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
-LOG((data, "object_end returned NULL, so finished"));
 				break;
 			}
 		}
@@ -182,7 +179,9 @@ LOG((data, "object_end returned NULL, so finished"));
 			fwrite(&Hdr, sizeof(Hdr), 1, hf);
 		}
 		fclose(hf);
+#ifdef __riscos__
 		osfile_set_type(pszOutFile, osfile_TYPE_RESOURCE);
+#endif
 		if (data->fThrowback)
 		  {
 		  report_end(data);
@@ -234,7 +233,6 @@ if (file_hdr->header_size > 0)
   do
     {
     fputs("\n", hf);
-LOG((data, "Finding class_no:%x", obj->rf_obj.class_no));
     for (m = 0; m < ELEMENTS(Classes); m++)
       {
       if (Classes[m].class_no == obj->rf_obj.class_no)
@@ -254,12 +252,13 @@ LOG((data, "Finding class_no:%x", obj->rf_obj.class_no));
       relocation_table = (PINT) (((PSTR) obj) + obj->relocation_table_offset);
       cb += sizeof(int) * (1 + 2 * relocation_table[0]);
       }
-LOG((data, "Moving to next class by adding %d\n", cb));
     obj = (toolbox_relocatable_object_base *) (((PSTR) obj) + cb);
     } while (cb != 0 && obj < end);
   }
 fclose(hf);
+#ifdef __riscos__
 osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
+#endif
 fConverted = TRUE;
 
 return fConverted;
@@ -286,12 +285,14 @@ typedef struct {
 	char font_name[40];
 } template_font_data;
 
+// Returns the number of windows and the maximum number of icons used in
+// those windows (not the total number of icons !).
 static int window_count(PSTR pszIn, PSTR pszEnd, PINT pi)
 {
-	int d, w, i;
+	int d, w, i, maxi;
 	char ch, ch0;
 
-	d = w = i = 0;
+	d = w = i = maxi = 0;
 	ch0 = '\0';
 	while(pszIn < pszEnd) {
 		if ((ch = *pszIn++) == ':' || ch == '\0') {
@@ -300,6 +301,9 @@ static int window_count(PSTR pszIn, PSTR pszEnd, PINT pi)
 			if (ch == '{') {
 				if (d == 0) {
 					w++;
+					if (i > maxi)
+					  maxi = i;
+					i = 0;
 				} else {
 					i++;
 				}
@@ -309,7 +313,7 @@ static int window_count(PSTR pszIn, PSTR pszEnd, PINT pi)
 			}
 		}
 	}
-	*pi = i;
+	*pi = maxi;
 	return w;
 }
 
@@ -379,7 +383,6 @@ static BOOL text2template(PDATA data, PSTR pszOutFile)
 	pszEnd = data->pszIn + data->cbIn;
 	fConverted = FALSE;
 	if ((nWindows = window_count(pszIn, pszEnd, &nIcons)) > 0) {
-LOG((data, "Found %d windows and %d icons", nWindows, nIcons));
 		if ((pszTemplate = MyAlloc(sizeof(template_header) + sizeof(int) +
 							   nWindows * (sizeof(template_index) + sizeof(wimp_window) + (nIcons * (256 + sizeof(wimp_icon)))))) == NULL ||
 			!alloc_string_table(&data->StringTable)) {      // this is only required so that we can share put_string with Res files
@@ -397,9 +400,8 @@ LOG((data, "Found %d windows and %d icons", nWindows, nIcons));
 				pszBuff = NULL;
 				cbBuff = 0;
 				i = index;
-				while ((pszObject = next_object(&pszIn, pszEnd)) != NULL && __stricmp(pszObject, "wimp_window") == 0) {
+				while ((pszObject = next_object(&pszIn, pszEnd)) != NULL && strcasecmp(pszObject, "wimp_window") == 0) {
 					nIcons = icon_count(pszIn, pszEnd);
-LOG((data, "Found '%s' (%d icons) pszOut=%p", pszObject, nIcons, pszOut));
 					cb = sizeof(wimp_window) + (nIcons * (256 + sizeof(wimp_icon)));
 					if (cbBuff < cb) {
 						if (pszBuff != NULL) {
@@ -427,13 +429,12 @@ LOG((data, "Found '%s' (%d icons) pszOut=%p", pszObject, nIcons, pszOut));
 					}
 					i++;
 					if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
-LOG((data, "object_end returned NULL, so finished"));
 						break;
 					}
 				}
 				pszIn = data->pszIn;
 				while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
-					if (__stricmp(pszObject, "template_font_data") == 0) {
+					if (strcasecmp(pszObject, "template_font_data") == 0) {
 						if (header->font_offset == template_NO_FONTS) {
 							header->font_offset = (bits) (pszOut - pszTemplate);
 						}
@@ -444,14 +445,15 @@ LOG((data, "object_end returned NULL, so finished"));
 						pszOut += sizeof(template_font_data);
 					}
 					if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
-LOG((data, "object_end returned NULL, so finished"));
 						break;
 					}
 
 				}
 				fwrite(pszTemplate, (int) (pszOut - pszTemplate), 1, hf);
 				fclose(hf);
+#ifdef __riscos__
 				osfile_set_type(pszOutFile, osfile_TYPE_TEMPLATE);
+#endif
 				if (data->fThrowback)
 				  {
 				  report_end(data);
@@ -512,7 +514,9 @@ if (template_hdr->font_offset != template_NO_FONTS)
   get_template_fonts(data, hf, (template_font_data *) (data->pszIn + template_hdr->font_offset), (template_font_data *) end);
   }
 fclose(hf);
+#ifdef __riscos__
 osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
+#endif
 
 if (pszBuff != NULL)
   MyFree(pszBuff);
@@ -527,9 +531,6 @@ return TRUE;
 memset(sessionP, 0, sizeof(DATA));
 sessionP->returnStatus = EXIT_SUCCESS;
 
-log_on(sessionP);
-MyAlloc_Init();
-
 return TRUE;
 }
 
@@ -537,7 +538,6 @@ return TRUE;
         int ccres_finish(void)
 //      ======================
 {
-MyAlloc_Report();
 
 return TRUE;
 }

@@ -1,7 +1,6 @@
 /* Misc.c
-   $Id: Misc.c,v 1.5 2005/01/30 16:06:19 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 

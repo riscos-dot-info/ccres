@@ -1,7 +1,6 @@
 /* _Window.c
-   $Id: _Window.c,v 1.5 2005/01/30 16:04:28 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -23,28 +22,28 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <OSLib/toolbox.h>
-#include <OSLib/window.h>
+#include <oslib/toolbox.h>
+#include <oslib/window.h>
 
-#include <OSLib/actionbutton.h>
-#include <OSLib/adjuster.h>
-#include <OSLib/button.h>
-#include <OSLib/displayfield.h>
-#include <OSLib/draggable.h>
-#include <OSLib/keyboardshortcut.h>
-#include <OSLib/label.h>
-#include <OSLib/labelledbox.h>
-#include <OSLib/numberrange.h>
-#include <OSLib/optionbutton.h>
-#include <OSLib/popup.h>
-#include <OSLib/radiobutton.h>
-#include <OSLib/scrolllist.h>
-#include <OSLib/slider.h>
-#include <OSLib/stringset.h>
-#include <OSLib/textarea.h>
-#include <OSLib/textgadgets.h>
-#include <OSLib/toolaction.h>
-#include <OSLib/writablefield.h>
+#include <oslib/actionbutton.h>
+#include <oslib/adjuster.h>
+#include <oslib/button.h>
+#include <oslib/displayfield.h>
+#include <oslib/draggable.h>
+#include <oslib/keyboardshortcut.h>
+#include <oslib/label.h>
+#include <oslib/labelledbox.h>
+#include <oslib/numberrange.h>
+#include <oslib/optionbutton.h>
+#include <oslib/popup.h>
+#include <oslib/radiobutton.h>
+#include <oslib/scrolllist.h>
+#include <oslib/slider.h>
+#include <oslib/stringset.h>
+#include <oslib/textarea.h>
+#include <oslib/textgadgets.h>
+#include <oslib/toolaction.h>
+#include <oslib/writablefield.h>
 
 #include "ccres.h"
 #include "Error.h"
@@ -242,7 +241,7 @@ int window_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 	shortcut = (keyboardshortcut_object *) ((PSTR) window_object + sizeof(window_object_base));
 	shortcut_count = 0;
 	while ((pszObject = next_object(&pszShortcut, pszEnd)) != NULL) {
-		if (__stricmp(pszShortcutObject, pszObject) == 0) {
+		if (strcasecmp(pszShortcutObject, pszObject) == 0) {
 			nOffset = (int) ((PSTR) shortcut - (PSTR) window_object);
 			put_objects(data, pszShortcut, nOffset, (PSTR) shortcut, ShortcutList, ELEMENTS(ShortcutList));
 			shortcut++;
@@ -262,9 +261,8 @@ int window_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 	gadget = (gadget_object_base *) shortcut;
 	gadget_count = 0;
 	while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
-LOG((data, "_window pszObject=%s @ %p", pszObject, gadget));
 		for (g = 0; g < ELEMENTS(Gadgets); g++) {
-			if (__stricmp(Gadgets[g].name, pszObject) == 0) {
+			if (strcasecmp(Gadgets[g].name, pszObject) == 0) {
 				nOffset = (int) ((PSTR) gadget - (PSTR) window_object);
 				put_objects(data, pszIn, nOffset, (PSTR) gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList));
 				nSize = Gadgets[g].t2g(data, pszIn, nOffset, gadget);
@@ -273,11 +271,10 @@ LOG((data, "_window pszObject=%s @ %p", pszObject, gadget));
 				gadget->class_no_and_size = (nSize << 16) | Gadgets[g].class_no;
 				gadget = (gadget_object_base *) ((PSTR) gadget + nSize);
 				gadget_count++;
-LOG((data, "size=%d next object @ %p", nSize, gadget));
 				goto _window_gadget_added;
 			}
 		}
-		if (__stricmp(pszShortcutObject, pszObject) != 0) {
+		if (strcasecmp(pszShortcutObject, pszObject) != 0) {
 			error(data, "Unhandled gadget class '%s'", pszObject);
 		}
 
@@ -324,12 +321,10 @@ for (n = 0; n < window_object->gadget_count; n++) {
     {
     if (Gadgets[g].class_no == nClass)
       {
-      LOG((data, Gadgets[g].name));
       fprintf(hf, "  %s {\n", Gadgets[g].name);
       get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList), 2);
       Gadgets[g].g2t(data, hf, gadget, pszStringTable, pszMessageTable);
       fputs("  }\n", hf);
-      LOG((data, ""));
       goto window_gadget_added;
       }
     }
@@ -382,7 +377,6 @@ pszEnd = data->pszIn + data->cbIn;
 icon = (wimp_icon *) (window + 1);
 while ((pszObject = next_object(&pszIn, pszEnd)) != NULL)
   {
-LOG((data, "_window pszObject=%s offset=%d (%x)", pszObject, -nOffset, -nOffset));
   icon_text2template(data, pszIn, nOffset, icon);
   icon++;
   if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL)

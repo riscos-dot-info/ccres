@@ -1,7 +1,6 @@
 /* ccres.h
-   $Id: ccres.h,v 1.7 2005/01/30 16:02:15 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -28,14 +27,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <OSLib/fileswitch.h>
-#include <OSLib/gadget.h>
-#include <OSLib/osfile.h>
-#include <OSLib/saveas.h>
-#include <OSLib/toolbox.h>
-#include <OSLib/wimp.h>
+#include <oslib/fileswitch.h>
+#include <oslib/gadget.h>
+#include <oslib/osfile.h>
+#include <oslib/saveas.h>
+#include <oslib/toolbox.h>
+#include <oslib/wimp.h>
 
-#define VERSION "1.12 (XX-XXX-2005)"
+#define VERSION "1.12 (28-Jan-2005)"
 #define APPNAME	"CCres"
 
 #define RESF	0x46534552
@@ -74,7 +73,7 @@ enum {
 // modifiers for iol_BITS
 enum {
 	bits_ACTION = 1,	// use value of -1 if unset
-	bits_EVAL			// use Eval rather than __atoi
+	bits_EVAL		// use Eval rather than atoi()
 };
 
 // The following should in fact be defined in OSLib but aren't in 6.50
@@ -181,14 +180,18 @@ typedef struct {
 typedef FLAGS * PFLAGS;
 
 
-// library.s
+// library.c
 
 int my_strcpy(char *to, const char *from);
 int my_strcpy0d(char *to, const char *from);
 void my_strncpy0d(char *to, const char *from, int max);
-int __stricmp(const char *p, const char *q);
-int __strnicmp(const char *p, const char *q, int n);
-unsigned int __atoi(PSTR * pszNumber);
+int my_atoi(char **inPP);
+#ifndef HAVE_STRCASECMP
+int strcasecmp(const char *s1, const char *s2);
+#endif
+#ifndef HAVE_STRNCASECMP
+int strncasecmp(const char *s1, const char *s2, size_t n);
+#endif
 
 // filer.c
 

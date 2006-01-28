@@ -1,4 +1,5 @@
-v1.12 ???
+v1.12 28 Jan 2006
+~~~~~~~~~~~~~~~~~
 
 - Support for Rik Griffin's Tab and Treeview gadgets.
 - Various src cleanups.
@@ -6,6 +7,12 @@ v1.12 ???
   code are outputed in their hex representation and this hex representation
   is taken into account when regenerating the Resource/Templates files.
 - Added menu_GENERATE_HAS_BEEN_HIDDEN.
+- Created command line version without any Wimp support.
+- Support for cross-compilation using GCCSDK.
+- Heavyly reduced memory needs (total number of icons x number of windows ->
+  max number of icons in one window x number of windows).
+- Removed the error "Not all bits are covered" but made sure that those bits
+  were round-trippable.
 
 v1.11 2nd Dec 2004
 ~~~~~~~~~~~~~~~~~~

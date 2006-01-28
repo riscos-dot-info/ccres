@@ -1,7 +1,6 @@
 /* _SaveAs.h
-   $Id: _SaveAs.h,v 1.1 2005/01/30 15:59:18 joty Exp $
 
-   Copyright (c) 2005 John Tytgat
+   Copyright (c) 2005-2006 John Tytgat
 
    This file is part of CCres.
 

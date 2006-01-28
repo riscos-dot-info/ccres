@@ -1,7 +1,6 @@
 /* Error.c
-   $Id: Error.c,v 1.3 2005/01/30 14:47:08 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -23,7 +22,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <OSLib/ddeutils.h>
+#include <oslib/ddeutils.h>
 
 #include "ccres.h"
 #include "Error.h"
@@ -44,28 +43,45 @@ void report(PDATA data, const char *ptrP, PSTR pszFmt, ...)
 		}
 	}
 	if (!data->fThrowback) {
-		ddeutils_throwback_start();
+#ifdef __riscos__
+//FIXME:		ddeutils_throwback_start();
+#endif
 		data->fThrowback = TRUE;
 	}
-	ddeutils_throwback_send(ddeutils_THROWBACK_INFO_DETAILS, data->achTextFile, nRow, ddeutils_SEVERITY_ERROR, achError);
+#ifdef __riscos__
+//FIXME:	ddeutils_throwback_send(ddeutils_THROWBACK_INFO_DETAILS, data->achTextFile, nRow, ddeutils_SEVERITY_ERROR, achError);
+	fprintf(stderr, "Line %d: %s\n", nRow, achError);
+#else
+	fprintf(stderr, "Line %d: %s\n", nRow, achError);
+#endif
 }
 
 
 void report_end(PDATA data)
 {
-ddeutils_throwback_end();
+#ifdef __riscos__
+//FIXME:ddeutils_throwback_end();
+#endif
 }
 
 
 void error(DATA *sessionP, PSTR pszFmt, ...)
 {
+//FIXME:#ifdef __riscos__
+#if 0
 os_error err;
 va_list list;
-
 err.errnum = 0;
 va_start(list, pszFmt);
 vsprintf(err.errmess, pszFmt, list);
 va_end(list);
 wimp_report_error(&err, wimp_ERROR_BOX_OK_ICON | wimp_ERROR_BOX_NO_PROMPT, APPNAME);
+#else
+va_list list;
+va_start(list, pszFmt);
+vfprintf(stderr, pszFmt, list);
+va_end(list);
+fputc('\n', stderr);
+#endif
 sessionP->returnStatus = EXIT_FAILURE;
 }

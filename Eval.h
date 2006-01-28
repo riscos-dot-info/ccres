@@ -1,4 +1,4 @@
-/* _FileInfo.h
+/* Eval.h
 
    Copyright (c) 2005-2006 John Tytgat
 
@@ -19,14 +19,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef FILEINFO_HEADER_INCLUDED
-#define FILEFINO_HEADER_INCLUDED
-
-#include <stdio.h>
+#ifndef EVAL_HEADER_INCLUDED
+#define EVAL_HEADER_INCLUDED
 
 #include "ccres.h"
 
-int fileinfo_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void fileinfo_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int Eval(PDATA data, PSTR * pstr);
 
 #endif

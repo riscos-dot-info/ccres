@@ -1,7 +1,6 @@
 /* Menu.c
-   $Id: Menu.c,v 1.2 2004/03/20 22:12:20 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 

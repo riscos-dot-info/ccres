@@ -1,7 +1,6 @@
 /* Utils.h
-   $Id: Utils.h,v 1.1 2005/01/30 16:09:43 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -23,7 +22,7 @@
 #ifndef UTILS_HEADER_INCLUDED
 #define UTILS_HEADER_INCLUDED
 
-#include <OSLib/types.h>
+#include <oslib/types.h>
 
 #include "ccres.h"
 
@@ -38,24 +37,6 @@ BOOL load_file(PDATA data, PSTR pszPath, bits nFiletype);
 
 void * My_Alloc(int cb, PSTR pszFile, int nLine);
 #define MyAlloc(v) My_Alloc(v, __FILE__, __LINE__)
-#ifdef DEBUG
-void MyAlloc_Init(void);
-void MyAlloc_Report(void);
-void My_Free(void * v, PSTR pszFile, int nLine);
-#define MyFree(v) My_Free(v, __FILE__, __LINE__)
-#else
-#define MyAlloc_Init();
-#define MyAlloc_Report();
 #define MyFree(v) free(v)
-#endif
-
-#ifdef DEBUG
-void log_on(PDATA data);
-void log_it(PDATA data, PSTR pszFmt, ...);
-#define LOG(p) log_it##p
-#else
-#define log_on(d)
-#define LOG(p)
-#endif
 
 #endif

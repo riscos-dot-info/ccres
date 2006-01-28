@@ -1,7 +1,6 @@
 /* _Gadgets.c
-   $Id: _Gadgets.c,v 1.5 2005/01/30 16:04:53 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -22,25 +21,25 @@
 
 #include <stdio.h>
 
-#include <OSLib/actionbutton.h>
-#include <OSLib/adjuster.h>
-#include <OSLib/displayfield.h>
-#include <OSLib/draggable.h>
-#include <OSLib/label.h>
-#include <OSLib/labelledbox.h>
-#include <OSLib/numberrange.h>
-#include <OSLib/optionbutton.h>
-#include <OSLib/popup.h>
-#include <OSLib/radiobutton.h>
-#include <OSLib/scale.h>
-#include <OSLib/scrolllist.h>
-#include <OSLib/slider.h>
-#include <OSLib/stringset.h>
-#include <OSLib/textarea.h>
-#include <OSLib/textgadgets.h>
-#include <OSLib/toolaction.h>
-#include <OSLib/toolbox.h>
-#include <OSLib/writablefield.h>
+#include <oslib/actionbutton.h>
+#include <oslib/adjuster.h>
+#include <oslib/displayfield.h>
+#include <oslib/draggable.h>
+#include <oslib/label.h>
+#include <oslib/labelledbox.h>
+#include <oslib/numberrange.h>
+#include <oslib/optionbutton.h>
+#include <oslib/popup.h>
+#include <oslib/radiobutton.h>
+#include <oslib/scale.h>
+#include <oslib/scrolllist.h>
+#include <oslib/slider.h>
+#include <oslib/stringset.h>
+#include <oslib/textarea.h>
+#include <oslib/textgadgets.h>
+#include <oslib/toolaction.h>
+#include <oslib/toolbox.h>
+#include <oslib/writablefield.h>
 
 #include "ccres.h"
 #include "tabs_treeview.h"

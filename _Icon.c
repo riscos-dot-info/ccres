@@ -1,7 +1,6 @@
 /* _Icon.c
-   $Id: _Icon.c,v 1.7 2005/01/30 16:04:53 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -20,7 +19,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <OSLib/button.h>
+#include <oslib/button.h>
 
 #include "ccres.h"
 #include "_Object.h"

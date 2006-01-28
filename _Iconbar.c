@@ -1,7 +1,6 @@
 /* _Iconbar.c
-   $Id: _Iconbar.c,v 1.6 2005/01/30 16:04:52 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -23,18 +22,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <OSLib/iconbar.h>
+#include <oslib/iconbar.h>
 
 #include "ccres.h"
 #include "_Object.h"
 #include "_Iconbar.h"
-
-/* Things which should be defined in OSLib but aren't yet :
- */
-#define iconbar_SHOW_SELECT_CENTRED		((iconbar_flags) 0x0080u)
-#define iconbar_SHOW_ADJUST_CENTRED		((iconbar_flags) 0x0100u)
-#define iconbar_SHOW_SELECT_AT_POINTER		((iconbar_flags) 0x0200u)
-#define iconbar_SHOW_ADJUST_AT_POINTER		((iconbar_flags) 0x0400u)
 
 static const FLAGS IconbarFlags[] = {
 	{iconbar_GENERATE_SELECT_ABOUT_TO_BE_SHOWN, "iconbar_GENERATE_SELECT_ABOUT_TO_BE_SHOWN"},
@@ -44,8 +36,8 @@ static const FLAGS IconbarFlags[] = {
 	{iconbar_HAS_TEXT                         , "iconbar_HAS_TEXT"                         },
 	{iconbar_GENERATE_SELECT_CLICKED          , "iconbar_GENERATE_SELECT_CLICKED"          },
 	{iconbar_GENERATE_ADJUST_CLICKED          , "iconbar_GENERATE_ADJUST_CLICKED"          },
-	{iconbar_SHOW_SELECT_CENTRED              , "iconbar_SHOW_SELECT_CENTRED"              },
-	{iconbar_SHOW_ADJUST_CENTRED              , "iconbar_SHOW_ADJUST_CENTRED"              },
+	{iconbar_SHOW_SELECT_CENTERED             , "iconbar_SHOW_SELECT_CENTERED"             },
+	{iconbar_SHOW_ADJUST_CENTERED             , "iconbar_SHOW_ADJUST_CENTERED"             },
 	{iconbar_SHOW_SELECT_AT_POINTER           , "iconbar_SHOW_SELECT_AT_POINTER"           },
 	{iconbar_SHOW_ADJUST_AT_POINTER           , "iconbar_SHOW_ADJUST_AT_POINTER"           }
 };

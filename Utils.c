@@ -1,7 +1,6 @@
 /* Utils.c
-   $Id: Utils.c,v 1.1 2005/01/30 16:09:42 joty Exp $
 
-   Copyright (c) 2003-2005 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
 
    This file is part of CCres.
 
@@ -74,17 +73,13 @@ for (cpStrP = strP + 2, len -= 2; len-- > 0; ++cpStrP)
         bits get_filetype(PDATA sessionP, const char *filenameP)
 //      ========================================================
 {
-char buffer[16];
 FILE *fhandle;
-const toolbox_resource_file_base *resFileHdrP;
-const int *temFileHdrP;
-int i;
-
 if ((fhandle = fopen(filenameP, "rb")) == NULL)
   {
   error(sessionP, "Can not open file <%s> for input", filenameP);
   return 0;
   }
+char buffer[16];
 if (fread(buffer, sizeof(buffer), 1, fhandle) != 1)
   {
   error(sessionP, "Can't read the file contents <%s>", filenameP);
@@ -93,205 +88,88 @@ if (fread(buffer, sizeof(buffer), 1, fhandle) != 1)
 fclose(fhandle);
 
 // Binary resource file ?
-resFileHdrP = (const toolbox_resource_file_base *)buffer;
+const toolbox_resource_file_base *resFileHdrP = (const toolbox_resource_file_base *)buffer;
 if (resFileHdrP->file_id == RESF && resFileHdrP->version == 101)
   return osfile_TYPE_RESOURCE;
 
 // Binary template file ?
-temFileHdrP = (const int *)buffer;
+const int *temFileHdrP = (const int *)buffer;
 if (temFileHdrP[1] == 0 && temFileHdrP[2] == 0 && temFileHdrP[3] == 0)
   return osfile_TYPE_TEMPLATE;
 
-// Text file ?
+// Text file (check for control chars) ?
+int i;
 for (i = 0; i < sizeof(buffer); ++i)
-  if (buffer[i] < 32)
+  if (buffer[i] < 32 && buffer[i] != 10)
     return 0;
 
 return osfile_TYPE_TEXT;
 }
 
 
-BOOL load_file(PDATA data, PSTR pszPath, bits nFiletype)
+// Returns 'FALSE' in case of an error.
+        BOOL load_file(PDATA sessionP, PSTR pszPath, bits nFiletype)
+//      ============================================================
 {
-PSTR pszIn;
-int cbIn;
+sessionP->nFiletypeIn = nFiletype;
+if (sessionP->pszIn != NULL)
+  MyFree(sessionP->pszIn);
 
-data->nFiletypeIn = nFiletype;
-if (data->pszIn != NULL)
-  MyFree(data->pszIn);
-
-if ((cbIn = my_osfile_filesize(pszPath)) > 0
-    && (pszIn = (PSTR) MyAlloc(cbIn)) != NULL)
+FILE *fhandle;
+if ((fhandle = fopen(pszPath, "rb")) == NULL)
   {
-  if (my_osfile_load(pszPath, pszIn, cbIn) != cbIn)
+  error(sessionP, "Can not open file <%s> for input", pszPath);
+  return FALSE;
+  }
+fseek(fhandle, 0, SEEK_END);
+int cbIn = (int)ftell(fhandle);
+fseek(fhandle, 0, SEEK_SET);
+
+PSTR pszIn;
+if ((pszIn = (PSTR) MyAlloc(cbIn)) == NULL)
+  return FALSE;
+
+if (fread(pszIn, cbIn, 1, fhandle) != 1)
+  {
+  error(sessionP, "Can not read file <%s>", pszPath);
+  MyFree(pszIn);
+  return FALSE;
+  }
+fclose(fhandle); fhandle = NULL;
+
+sessionP->pszIn = pszIn;
+sessionP->cbIn = cbIn;
+if (nFiletype == osfile_TYPE_TEXT)
+  {
+  strcpy(sessionP->achTextFile, pszPath);	// for throwback
+  while (--cbIn >= 0)
     {
-    MyFree(pszIn);
+    if (pszIn[cbIn] == '\n')		// replace newlines with NULLs
+      pszIn[cbIn] = '\0';
+    }
+
+  if (!memcmp(pszIn, "RESF:", sizeof("RESF:")-1))
+    sessionP->nFiletypeOut = osfile_TYPE_RESOURCE;
+  else if (!memcmp(pszIn, "Template:", sizeof("Template:")-1))
+    sessionP->nFiletypeOut = osfile_TYPE_TEMPLATE;
+  else
+    {
+    error(sessionP, "Unrecognized input file type for %s", pszPath);
     return FALSE;
     }
-
-  data->pszIn = pszIn;
-  data->cbIn = cbIn;
-  if (nFiletype == osfile_TYPE_TEXT)
-    {
-    strcpy(data->achTextFile, pszPath);	// for throwback
-    while (--cbIn >= 0)
-      {
-      if (pszIn[cbIn] == '\n')		// replace newlines with NULLs
-        pszIn[cbIn] = '\0';
-      }
-
-    if (memcmp(pszIn, "RESF:", 5) == 0)
-      data->nFiletypeOut = osfile_TYPE_RESOURCE;
-    else if (memcmp(pszIn, "Template:", 9) == 0)
-      data->nFiletypeOut = osfile_TYPE_TEMPLATE;
-    }
-  else
-    data->nFiletypeOut = osfile_TYPE_TEXT;
-
-  return TRUE;
-}
-
-return FALSE;
-}
-
-
-#ifdef DEBUG
-// use these for bounds checking and garbage collection during develop phase
-
-static struct {
-	void * p;
-	int cb, nLine;
-	char achFile[MAX_FILE];
-} aAllocs[64];		// arbitary maximum no. of blocks
-
-void MyAlloc_Init(void)
-{
-	memset(aAllocs, 0, sizeof(aAllocs));
-}
-
-// check all memory blocks have been deleted OK, and report the creator of any remaining
-void MyAlloc_Report(void)
-{
-int i;
-
-for (i = 0; i < ELEMENTS(aAllocs); i++)
-  {
-  if (aAllocs[i].p != NULL)
-    LOG((data, "Memory leak: cb=%d File:%s Line:%d", aAllocs[i].cb, aAllocs[i].achFile, aAllocs[i].nLine));
   }
+else
+  sessionP->nFiletypeOut = osfile_TYPE_TEXT;
+
+return TRUE;
 }
 
-
-// allocate 12 extra bytes -
-// 1st word set to required block size (cb)
-// 2nd and last words set to 0x50515253
-void * My_Alloc(int cb, PSTR pszFile, int nLine)
-{
-PSTR p;
-int i;
-char achBuff[128];
-
-if ((p = (PSTR) calloc(1, cb + 12)) == NULL)
-	LOG((data, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine))
-else {
-	*((int *) p) = cb;
-	for (i = 0; i < 4; i++) {
-		p[i + 4] = p[i + cb + 8] = (0x50 | i);
-	}
-	for (i = 0; i < ELEMENTS(aAllocs); i++) {
-		if (aAllocs[i].p == NULL) {
-			aAllocs[i].p = p;
-			aAllocs[i].cb = cb;
-			aAllocs[i].nLine = nLine;
-			strcpy(aAllocs[i].achFile, pszFile);
-			break;
-		}
-	}
-	return (void *) (p + 8);
-}
-return NULL;
-}
-
-// check for overwritten memory & report if changed
-void My_Free(void * v, PSTR pszFile, int nLine)
-{
-	PSTR p;
-	int cb, cbErr, i;
-	char achBuff[128];
-
-	p = (PSTR) v;
-	p -= 8;
-	cb = *((int *) p);
-
-	cbErr = 0;
-	for (i = 0; i < 4; i++) {
-		if (p[i + 4] != (0x50 | i)) {
-			if (cbErr == 0) {
-				cbErr += sprintf(&achBuff[cbErr], "%s (%d)", pszFile, nLine);
-			}
-			cbErr += sprintf(&achBuff[cbErr], "lo[%d = %d]", i, p[i + 4]);
-		}
-		if (p[i + cb + 8] != (0x50 | i)) {
-			if (cbErr == 0) {
-				cbErr += sprintf(&achBuff[cbErr], "%s (%d)", pszFile, nLine);
-			}
-			cbErr += sprintf(&achBuff[cbErr], "hi[%d = %d]", i, p[i + cb + 8]);
-		}
-	}
-	if (cbErr > 0)
-		LOG((data, "Memory overwritten: %s", achBuff));
-	free(p);
-	for (i = 0; i < ELEMENTS(aAllocs); i++) {
-		if (aAllocs[i].p == p) {
-			aAllocs[i].p = NULL;
-			break;
-		}
-	}
-}
-
-#else
 
 void * My_Alloc(int cb, PSTR pszFile, int nLine)
 {
 PSTR p;
 
 if ((p = (PSTR) calloc(1, cb)) == NULL)
-  LOG((data, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine));
+  fprintf(stderr, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine);
 return p;
 }
-
-#endif
-
-#ifdef DEBUG
-
-#include <stdarg.h>
-
-static BOOL fLog = FALSE;
-static char achLog[] = "RAM::0.$.ccres_log";
-void log_on(PDATA data)
-{
-	FILE * hLog;
-
-	if ((hLog = fopen(achLog, "w")) != NULL) {
-		fclose(hLog);
-		fLog = TRUE;
-	} else {
-		error(data, "Unable to create log file");
-	}
-}
-
-void log_it(PDATA data, PSTR szFmt, ...)
-{
-	FILE * hLog;
-	va_list list;
-
-	if (fLog && (hLog = fopen(achLog, "a")) != NULL) {
-		va_start(list, szFmt);
-		vfprintf(hLog, szFmt, list);
-		va_end(list);
-		fputc('\n', hLog);
-		fclose(hLog);
-	}
-}
-
-#endif	// DEBUG
