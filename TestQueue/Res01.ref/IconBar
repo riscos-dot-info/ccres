@@ -1,0 +1,105 @@
+RESF:1.01
+
+iconbar_object {
+  header_flags:toolbox_OBJECT_CREATE_ON_LOAD | toolbox_OBJECT_SHOW_ON_CREATE
+  version:100
+  object_name:"Iconbar"
+  iconbar_flags:iconbar_SHOW_SELECT_AT_POINTER
+  position:wimp_ICON_BAR_RIGHT
+  priority:0
+  sprite_name:"!Meaning"
+  sprite_limit:*
+  text:""
+  text_limit:*
+  menu:""
+  select_action:&14
+  adjust_action:&11
+  select_show:"Main"
+  adjust_show:""
+  help_message:""
+  help_limit:*
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"Main"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:&1
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:1188,1300,1696,1852
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&0
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Meaning"
+  window.title_text_limit:*
+  window.title_valid:""
+  keyboardshortcut_object {
+    flags:
+    key_code:&d
+    key_event:&30
+    key_show:""
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&11
+    key_event:&82a91
+    key_show:""
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&1b
+    key_event:&31
+    key_show:""
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&181
+    key_event:&11
+    key_show:""
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&1a1
+    key_event:&17
+    key_show:""
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&17
+    key_event:&18
+    key_show:""
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&188
+    key_event:&33
+    key_show:""
+  }
+}

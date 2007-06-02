@@ -1,0 +1,88 @@
+Template:
+
+wimp_window {
+  template_name:"MainWindow"
+  visible:396,960,1506,1720
+  xscroll:0
+  yscroll:0
+  next:wimp_TOP
+  window_flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_OPEN | wimp_WINDOW_NOT_COVERED | wimp_WINDOW_BACK_ICON | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_TOGGLE_ICON | wimp_WINDOW_VSCROLL | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_HSCROLL | wimp_WINDOW_NEW_FORMAT
+  title_fg:wimp_COLOUR_BLACK
+  title_bg:wimp_COLOUR_LIGHT_GREY
+  work_fg:wimp_COLOUR_BLACK
+  work_bg:wimp_COLOUR_WHITE
+  scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  highlight_bg:wimp_COLOUR_CREAM
+  extra_flags:
+  extent:0,-1024,1280,0
+  title_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_ICON_INDIRECTED
+  work_flags:wimp_BUTTON_CLICK
+  sprite_area:&1
+  xmin:0
+  ymin:0
+  text.text:"<Untitled>"
+  text.validation:""
+  text.size:&1c
+  wimp_icon {
+    extent:38,-156,536,-46
+    icon_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_ICON_ANTI_ALIASED | wimp_ICON_INDIRECTED | wimp_BUTTON_CLICK_DRAG
+    icon_esg:0
+    font_handle:1
+    text.text:"Homerton.Bold 20"
+    text.validation:""
+    text.size:&11
+  }
+  wimp_icon {
+    extent:208,-552,566,-414
+    icon_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_ICON_ANTI_ALIASED | wimp_BUTTON_CLICK_DRAG
+    icon_esg:0
+    font_handle:2
+    text_only:"Selwyn 14"
+  }
+  wimp_icon {
+    extent:586,-454,1072,-370
+    icon_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_ICON_ANTI_ALIASED | wimp_ICON_INDIRECTED | wimp_BUTTON_CLICK_DRAG
+    icon_esg:0
+    font_handle:3
+    text.text:"Trinity.Medium.Italic 14"
+    text.validation:""
+    text.size:&19
+  }
+  wimp_icon {
+    extent:594,-166,782,-118
+    icon_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_BUTTON_CLICK_DRAG
+    icon_esg:0
+    icon_fg:wimp_COLOUR_RED
+    icon_bg:wimp_COLOUR_LIGHT_BLUE
+    text_only:"Red on Blue"
+  }
+  wimp_icon {
+    extent:576,-706,876,-550
+    icon_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_ICON_INDIRECTED | wimp_BUTTON_CLICK_DRAG
+    icon_esg:0
+    icon_fg:wimp_COLOUR_WHITE
+    icon_bg:wimp_COLOUR_DARK_BLUE
+    text.text:"White on dark blue"
+    text.validation:""
+    text.size:&13
+  }
+}
+
+template_font_data {
+  x_point_size:&140
+  y_point_size:&140
+  font_name:"Homerton.Bold"
+}
+
+template_font_data {
+  x_point_size:&e0
+  y_point_size:&e0
+  font_name:"Selwyn"
+}
+
+template_font_data {
+  x_point_size:&e0
+  y_point_size:&e0
+  font_name:"Trinity.Medium.Italic"
+}

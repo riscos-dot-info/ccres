@@ -1,0 +1,2050 @@
+RESF:1.01
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"MainMenu"
+  menu_flags:
+  title:"MinApp"
+  title_limit:10
+  help:""
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&0
+    text:"File"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"FileMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Actions on file."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&1
+    text:"Edit"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"EditMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Choose operations on selection."
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&2
+    text:"Effect"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"EffectMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Choose desired text display effects."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&3
+    text:"Style"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"StyleMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Choose options affecting the general style of the document."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&4
+    text:"Utilities"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"UtilsMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Carry out various useful operations on the document."
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"FileMenu"
+  menu_flags:
+  title:"File"
+  title_limit:9
+  help:""
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&0
+    text:"Info        ^F1"
+    text_limit:*
+    click_object_name:"FileInfo"
+    sub_menu_object_name:"FileInfo"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Give information on a file."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&1
+    text:"Save         F3"
+    text_limit:*
+    click_object_name:"SaveAs"
+    sub_menu_object_name:"SaveAs"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Save document."
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&2
+    text:"Export"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"ExportMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Export (save) the document in different formats."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:
+    cmp:&3
+    text:"Print...  Print"
+    text_limit:*
+    click_object_name:"PrintDbox"
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Click here to print the document."
+    help_limit:*
+  }
+}
+
+fileinfo_object {
+  header_flags:
+  version:100
+  object_name:"FileInfo"
+  fileinfo_flags:
+  title:""
+  title_limit:*
+  file_type:&fae
+  file_name:"FileName"
+  alternative_window_name:""
+}
+
+saveas_object {
+  header_flags:
+  version:100
+  object_name:"SaveAs"
+  saveas_flags:saveas_GIVEN_DATA
+  file_name:"FileName"
+  file_type:&fae
+  title:""
+  title_limit:*
+  alternative_window_name:""
+}
+
+printdbox_object {
+  header_flags:
+  version:100
+  object_name:"PrintDbox"
+  printdbox_flags:printdbox_INCLUDE_ALL_FROM_TO | printdbox_INCLUDE_COPIES | printdbox_INCLUDE_SCALE | printdbox_INCLUDE_ORIENTATION | printdbox_INCLUDE_SAVE | printdbox_INCLUDE_DRAFT
+  from:1
+  to:1
+  copies:1
+  scale:100
+  further_options:""
+  alternative_window_name:""
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"ExportMenu"
+  menu_flags:
+  title:"Export as "
+  title_limit:*
+  help:"This menu may be used to save the document in different formats."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&1
+    text:"Text"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"ExportText"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&2
+    text:"Sprite"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"ExportSprit"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&3
+    text:"Draw"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"ExportDraw"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}
+
+saveas_object {
+  header_flags:
+  version:100
+  object_name:"ExportText"
+  saveas_flags:saveas_GIVEN_DATA
+  file_name:"TextFile"
+  file_type:&fff
+  title:"Export as"
+  title_limit:*
+  alternative_window_name:""
+}
+
+saveas_object {
+  header_flags:
+  version:100
+  object_name:"ExportSprit"
+  saveas_flags:saveas_GIVEN_DATA
+  file_name:"SpriteFile"
+  file_type:&ff9
+  title:"Export as"
+  title_limit:*
+  alternative_window_name:""
+}
+
+saveas_object {
+  header_flags:
+  version:100
+  object_name:"ExportDraw"
+  saveas_flags:saveas_GIVEN_DATA
+  file_name:"DrawFile"
+  file_type:&aff
+  title:"Export as"
+  title_limit:*
+  alternative_window_name:""
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"EditMenu"
+  menu_flags:
+  title:"Edit"
+  title_limit:9
+  help:""
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Cut         ^X"
+    text_limit:16
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Removes selection and places it temporarily in the clipboard."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Copy        ^C"
+    text_limit:16
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Copies selection into the clipbaord."
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"Paste       ^V"
+    text_limit:16
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Pastes the contents of the clipboard to the caret."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SEPARATE
+    cmp:&3
+    text:"Delete      ^K"
+    text_limit:16
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Delete the selected text."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:
+    cmp:&4
+    text:"Select all  ^A"
+    text_limit:16
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Select the entire document."
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:
+    cmp:&5
+    text:"Clear       ^Z"
+    text_limit:16
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Clear (deselect) the current selection."
+    help_limit:*
+  }
+}
+
+iconbar_object {
+  header_flags:toolbox_OBJECT_CREATE_ON_LOAD | toolbox_OBJECT_SHOW_ON_CREATE
+  version:100
+  object_name:"Iconbar"
+  iconbar_flags:
+  position:wimp_ICON_BAR_RIGHT
+  priority:0
+  sprite_name:"!minapp"
+  sprite_limit:9
+  text:""
+  text_limit:*
+  menu:"IbarMenu"
+  select_action:&0
+  adjust_action:&0
+  select_show:"MainWindow"
+  adjust_show:""
+  help_message:"This is the minimal application demonstration program."
+  help_limit:*
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"MainWindow"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:"This is the document editing window."
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:"MainMenu"
+  default_focus:toolbox_WINDOW_FOCUS
+  show_action:&0
+  hide_action:&0
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:24,264,1036,864
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_NO_BOUNDS | wimp_WINDOW_BOUNDED | wimp_WINDOW_BACK_ICON | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_TOGGLE_ICON | wimp_WINDOW_VSCROLL | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_HSCROLL | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_WHITE
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"MinApp"
+  window.title_text_limit:14
+  window.title_valid:""
+  keyboardshortcut_object {
+    flags:keyboardshortcut_SHOW_AS_MENU
+    key_code:&13
+    key_event:&0
+    key_show:"OtherSize"
+  }
+  keyboardshortcut_object {
+    flags:keyboardshortcut_SHOW_AS_MENU
+    key_code:&1a1
+    key_event:&0
+    key_show:"FileInfo"
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&183
+    key_event:&0
+    key_show:"SaveAs"
+  }
+  keyboardshortcut_object {
+    flags:keyboardshortcut_SHOW_AS_MENU
+    key_code:&c
+    key_event:&0
+    key_show:"LineSpace"
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&1cb
+    key_event:&0
+    key_show:"Scale"
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&185
+    key_event:&0
+    key_show:"GoTo"
+  }
+  keyboardshortcut_object {
+    flags:keyboardshortcut_SHOW_AS_MENU
+    key_code:&184
+    key_event:&0
+    key_show:"FindRepl"
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"IbarMenu"
+  menu_flags:
+  title:"MinApp"
+  title_limit:9
+  help:"This is MinApps main menu."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&0
+    text:"Info"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"ProgInfo"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Information on this application."
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"Options..."
+    text_limit:*
+    click_object_name:"Options"
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Clicking here enables the alteration of the application's general configuration."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Quit"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&1
+    help:"Click here to exit the application."
+    help_limit:*
+  }
+}
+
+proginfo_object {
+  header_flags:
+  version:100
+  object_name:"ProgInfo"
+  proginfo_flags:
+  title:""
+  title_limit:*
+  purpose:"Demonstrate resource files"
+  author:"© Acorn Computers Ltd, 1994"
+  licence_type:None
+  prog_version:"0.03 (6-Jan-95)"
+  alternative_window_name:""
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"EffectMenu"
+  menu_flags:
+  title:"Effect"
+  title_limit:9
+  help:"This menu may be used to select the desired effect."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&0
+    text:"Text font"
+    text_limit:16
+    click_object_name:""
+    sub_menu_object_name:"FontMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&1
+    text:"Text size     ^S"
+    text_limit:18
+    click_object_name:"OtherSize"
+    sub_menu_object_name:"SizeMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:10
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&a
+    text:"Text colour"
+    text_limit:16
+    click_object_name:""
+    sub_menu_object_name:"ColourMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&2
+    text:"Line spacing  ^L"
+    text_limit:18
+    click_object_name:"LineSpace"
+    sub_menu_object_name:"LineSpace"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Choose gap between each line of text."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SEPARATE | menu_ENTRY_SUB_MENU
+    cmp:&3
+    text:"Alignment"
+    text_limit:17
+    click_object_name:""
+    sub_menu_object_name:"Alignment"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Choose position of text."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:
+    cmp:&4
+    text:"Bold          ^B"
+    text_limit:21
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:
+    cmp:&5
+    text:"Italic        ^I"
+    text_limit:21
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:6
+    flags:
+    cmp:&6
+    text:"Underline    ‹^U"
+    text_limit:21
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:7
+    flags:
+    cmp:&7
+    text:"Superscript  ‹^J"
+    text_limit:21
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:8
+    flags:
+    cmp:&8
+    text:"Subscript    ‹^K"
+    text_limit:21
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"StyleMenu"
+  menu_flags:
+  title:"Style"
+  title_limit:9
+  help:"This menu may be used to choose general options affecting the document's appearance."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Text font..."
+    text_limit:*
+    click_object_name:"FontDbox"
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_SEPARATE
+    cmp:&1
+    text:"Text colour..."
+    text_limit:*
+    click_object_name:"ColourDbox"
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&2
+    text:"Line width"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"WidthMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&3
+    text:"Line colour"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"ColourDbox"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&4
+    text:"Fill colour"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"ColourDbox"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&5
+    text:"Line pattern"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"LinePatMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:6
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&6
+    text:"Join"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"JoinMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"UtilsMenu"
+  menu_flags:
+  title:"Utilities"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_SEPARATE | menu_ENTRY_SUB_MENU
+    cmp:&0
+    text:"Scale view     F11"
+    text_limit:*
+    click_object_name:"Scale"
+    sub_menu_object_name:"Scale"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Change scale of document editing window."
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&2
+    text:"Go to           F5"
+    text_limit:*
+    click_object_name:"GoTo"
+    sub_menu_object_name:"GoTo"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Go to location in document."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SEPARATE | menu_ENTRY_SUB_MENU
+    cmp:&3
+    text:"Find/Replace    F4"
+    text_limit:*
+    click_object_name:"FindRepl"
+    sub_menu_object_name:"FindRepl"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Search document for the occurance of given text, optionally substituting a replacement."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_TICKED
+    cmp:&4
+    text:"Show print borders"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:"Display print borders in the document editing window."
+    help_limit:*
+  }
+}
+
+colourmenu_object {
+  header_flags:
+  version:100
+  object_name:"ColourMenu"
+  colourmenu_flags:colourmenu_NONE_ENTRY
+  title:""
+  title_limit:*
+  colour:
+}
+
+fontmenu_object {
+  header_flags:
+  version:100
+  object_name:"FontMenu"
+  fontmenu_flags:fontmenu_INCLUDE_SYSTEM_FONT
+  ticked_font:""
+}
+
+fontdbox_object {
+  header_flags:
+  version:100
+  object_name:"FontDbox"
+  fontdbox_flags:
+  title:""
+  title_limit:*
+  initial_font:"Trinity.Medium"
+  initial_height:12
+  initial_aspect:100
+  try_string:"The quick brown fox jumps over the lazy dog."
+  alternative_window_name:""
+}
+
+colourdbox_object {
+  header_flags:
+  version:100
+  object_name:"ColourDbox"
+  colourdbox_flags:colourdbox_INCLUDE_NONE_BUTTON
+  title:""
+  title_limit:*
+  colour:os_COLOUR_BLACK
+}
+
+scale_object {
+  header_flags:
+  version:100
+  object_name:"Scale"
+  scale_flags:scale_INCLUDE_SCALE_TO_FIT
+  lower_bound:10
+  upper_bound:400
+  step_size:1
+  title:""
+  title_limit:*
+  alternative_window_name:""
+  std_value:33,80,100,120
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"OtherSize"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:"This dialogue box may be used to alter text size."
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:&0
+  hide_action:&0
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:376,592,724,752
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-160,348,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Other text size"
+  window.title_text_limit:*
+  window.title_valid:""
+  label_object {
+    cmp:&0
+    bbox:24,-64,112,-12
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Size"
+  }
+  writablefield_object {
+    cmp:&1
+    bbox:128,-64,288,-12
+    help_message:"Type in this icon to change text size."
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:"12"
+    text_limit:5
+    allowable:"0-9"
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  actionbutton_object {
+    cmp:&2
+    bbox:12,-140,172,-84
+    help_message:"Click here to revert to default text size."
+    help_limit:*
+    flags:
+    text:"Default"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&3
+    bbox:184,-148,336,-76
+    help_message:"Click here to set the displayed text size."
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT | actionbutton_IS_CANCEL
+    text:"Set"
+    text_limit:8
+    click_show:""
+    action:&0
+  }
+  label_object {
+    cmp:&4
+    bbox:292,-64,332,-12
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"pt"
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"SizeMenu"
+  menu_flags:
+  title:"Text size"
+  title_limit:*
+  help:"This menu may be used to alter the displayed text's size."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Condensed"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_SEPARATE
+    cmp:&1
+    text:"Expanded"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"8 pt"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:
+    cmp:&3
+    text:"10 pt"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_TICKED
+    cmp:&4
+    text:"12 pt"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:
+    cmp:&5
+    text:"14 pt"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:6
+    flags:
+    cmp:&6
+    text:"18 pt"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:7
+    flags:
+    cmp:&7
+    text:"24 pt"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:8
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&8
+    text:"Other  ^S"
+    text_limit:*
+    click_object_name:"OtherSize"
+    sub_menu_object_name:"OtherSize"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Choose other text size."
+    help_limit:*
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"LineSpace"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:"This dialogue box may be used to alter the line spacing of the document."
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:&0
+  hide_action:&0
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:424,496,772,656
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-160,348,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Line spacing"
+  window.title_text_limit:16
+  window.title_valid:""
+  label_object {
+    cmp:&0
+    bbox:24,-64,112,-12
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Size"
+  }
+  writablefield_object {
+    cmp:&1
+    bbox:124,-64,284,-12
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:"14.4"
+    text_limit:6
+    allowable:"0-9."
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  actionbutton_object {
+    cmp:&2
+    bbox:12,-140,172,-84
+    help_message:"Click here to revert to the default line spacing."
+    help_limit:*
+    flags:
+    text:"Default"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&3
+    bbox:184,-148,336,-76
+    help_message:"Click here to select the current displayed line spacing."
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT | actionbutton_IS_CANCEL
+    text:"Set"
+    text_limit:8
+    click_show:""
+    action:&0
+  }
+  label_object {
+    cmp:&4
+    bbox:288,-64,328,-12
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"pt"
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"Alignment"
+  menu_flags:
+  title:"Alignment"
+  title_limit:*
+  help:"This menu may be used to choose the position of the text."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_TICKED
+    cmp:&0
+    text:"Left align     ^F5"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Centre         ^F6"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"Right align    ^F7"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:
+    cmp:&3
+    text:"Fully justify  ^F8"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"LinePatMenu"
+  menu_flags:
+  title:"Line pattern"
+  title_limit:*
+  help:"This menu may be used to choose the desired apperance of line."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&0
+    text:"pat1"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&1
+    text:"pat2"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&2
+    text:"pat3"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&3
+    text:"pat4"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&4
+    text:"none"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"JoinMenu"
+  menu_flags:
+  title:"Join"
+  title_limit:9
+  help:"This menu may be used to select type of join."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_TICKED
+    cmp:&0
+    text:"Mitred"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Round"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"Bevelled"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"WidthMenu"
+  menu_flags:
+  title:"Line width"
+  title_limit:*
+  help:"This menu may be used to alter the width of the line."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Thin"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"0.25"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"0.5"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_TICKED
+    cmp:&3
+    text:"1"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:
+    cmp:&4
+    text:"2"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:
+    cmp:&5
+    text:"4"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:6
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&6
+    text:"Other"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:"OtherWidth"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Choose other line width."
+    help_limit:*
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"OtherWidth"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:"This dialogue box may be used to select the desired line width."
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:&0
+  hide_action:&0
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:400,544,748,704
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-160,348,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Other line width"
+  window.title_text_limit:*
+  window.title_valid:""
+  label_object {
+    cmp:&0
+    bbox:24,-64,124,-12
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Width"
+  }
+  writablefield_object {
+    cmp:&1
+    bbox:132,-64,320,-12
+    help_message:"Type in this icon to change line width."
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:"1"
+    text_limit:4
+    allowable:"0-9"
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  actionbutton_object {
+    cmp:&2
+    bbox:12,-140,172,-84
+    help_message:"Click here to revert to default line width."
+    help_limit:*
+    flags:
+    text:"Default"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&3
+    bbox:184,-148,336,-76
+    help_message:"Click here to select currently displayed line width."
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT | actionbutton_IS_CANCEL
+    text:"Set"
+    text_limit:8
+    click_show:""
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"FindRepl"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:796,452,1596,740
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-288,800,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Find and Replace"
+  window.title_text_limit:*
+  window.title_valid:""
+  actionbutton_object {
+    cmp:&1
+    bbox:280,-264,504,-212
+    help_message:"Replace all occurances of the given text with new text."
+    help_limit:*
+    flags:
+    text:"Replace all"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  writablefield_object {
+    cmp:&3
+    bbox:248,-68,776,-16
+    help_message:"Type text here you want to find in document."
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:*
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  optionbutton_object {
+    cmp:&5
+    bbox:244,-188,596,-144
+    help_message:"If selected matches capital letters to both capital and non-capital and vice versa."
+    help_limit:*
+    flags:
+    label:"Case sensitive"
+    label_limit:*
+    action:&0
+  }
+  label_object {
+    cmp:&6
+    bbox:48,-68,236,-16
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Find"
+  }
+  label_object {
+    cmp:&7
+    bbox:20,-132,236,-80
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Replace with"
+  }
+  writablefield_object {
+    cmp:&8
+    bbox:248,-132,776,-80
+    help_message:"If you wish to replace the above text, type replacment text here."
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:*
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  actionbutton_object {
+    cmp:&9
+    bbox:536,-272,776,-204
+    help_message:"Find the next occurance of the text."
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"Find next"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&a
+    bbox:32,-264,256,-212
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_CANCEL
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"GoTo"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:"Use this dialogue box to jump to another location in the document."
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:&7
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:936,600,1416,1024
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-424,480,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Go to"
+  window.title_text_limit:*
+  window.title_valid:""
+  label_object {
+    cmp:&0
+    bbox:32,-72,240,-20
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Current line"
+  }
+  displayfield_object {
+    cmp:&1
+    bbox:248,-76,436,-24
+    help_message:"This is the current line number in the document."
+    help_limit:*
+    flags:displayfield_RJUSTIFIED
+    text:"0"
+    text_limit:*
+  }
+  label_object {
+    cmp:&2
+    bbox:32,-136,240,-84
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Current char"
+  }
+  displayfield_object {
+    cmp:&3
+    bbox:248,-140,436,-88
+    help_message:"This is the current place in the document."
+    help_limit:*
+    flags:displayfield_RJUSTIFIED
+    text:"0"
+    text_limit:*
+  }
+  labelledbox_object {
+    cmp:&4
+    bbox:48,-320,436,-144
+    help_message:""
+    help_limit:*
+    flags:gadget_AT_BACK
+    label:"Go to"
+  }
+  radiobutton_object {
+    cmp:&5
+    bbox:100,-232,228,-188
+    help_message:"If this is selected, jump to line number given below."
+    help_limit:*
+    flags:radiobutton_ON
+    group:0
+    label:"line"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&6
+    bbox:276,-232,412,-188
+    help_message:"If this is selected, jump to the character number given below."
+    help_limit:*
+    flags:
+    group:0
+    label:"char"
+    label_limit:*
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&8
+    bbox:28,-400,216,-348
+    help_message:"Cancel this operation."
+    help_limit:*
+    flags:actionbutton_IS_CANCEL
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&9
+    bbox:252,-408,456,-340
+    help_message:"Go to location."
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"Go"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  numberrange_object {
+    cmp:&a
+    bbox:128,-296,356,-244
+    help_message:"This may be used to jump to the given place in the document."
+    help_limit:*
+    flags:numberrange_WRITABLE | numberrange_ADJUSTERS | numberrange_RJUSTIFIED | numberrange_KNOB_COLOUR_MID_DARK_GREY
+    lower_bound:0
+    upper_bound:10000
+    step_size:1
+    initial_value:0
+    precision:0
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+    display_length:116
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"Options"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:"This dialogue box may be used to alter the application's general configuration."
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:&0
+  hide_action:&0
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:56,292,696,708
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_NO_BOUNDS | wimp_WINDOW_BOUNDED | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-416,640,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:640
+  window.ymin:100
+  window.title_text:"Options"
+  window.title_text_limit:14
+  window.title_valid:""
+  actionbutton_object {
+    cmp:&b
+    bbox:224,-400,412,-348
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_CANCEL
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&a
+    bbox:416,-408,620,-340
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"Set"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  stringset_object {
+    cmp:&7
+    bbox:268,-308,576,-256
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    string_set:"Block,Underscore,Caret"
+    title:""
+    initial_selected_string:"Block"
+    selected_string_limit:11
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  labelledbox_object {
+    cmp:&8
+    bbox:20,-332,620,-204
+    help_message:""
+    help_limit:*
+    flags:gadget_AT_BACK
+    label:"Document"
+  }
+  labelledbox_object {
+    cmp:&0
+    bbox:20,-188,620,-12
+    help_message:""
+    help_limit:*
+    flags:gadget_AT_BACK
+    label:"Configuration"
+  }
+  radiobutton_object {
+    cmp:&c
+    bbox:52,-104,196,-60
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON
+    group:2
+    label:"One"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&d
+    bbox:52,-168,196,-124
+    help_message:""
+    help_limit:*
+    flags:
+    group:2
+    label:"Four"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&e
+    bbox:244,-168,388,-124
+    help_message:""
+    help_limit:*
+    flags:
+    group:2
+    label:"Five"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&f
+    bbox:244,-104,388,-60
+    help_message:""
+    help_limit:*
+    flags:
+    group:2
+    label:"Two"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&10
+    bbox:424,-104,568,-60
+    help_message:""
+    help_limit:*
+    flags:
+    group:2
+    label:"Three"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&11
+    bbox:424,-168,568,-124
+    help_message:""
+    help_limit:*
+    flags:
+    group:2
+    label:"Six"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&12
+    bbox:48,-304,204,-260
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Cursor"
+    label_limit:*
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&13
+    bbox:24,-400,212,-348
+    help_message:""
+    help_limit:*
+    flags:
+    text:"Save"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+}

@@ -1,0 +1,87 @@
+RESF:1.01
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"Window"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:32,960,400,1264
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_TOGGLE_ICON | wimp_WINDOW_VSCROLL | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_HSCROLL | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Window object"
+  window.title_text_limit:*
+  window.title_valid:""
+  keyboardshortcut_object {
+    flags:
+    key_code:&181
+    key_event:&1
+    key_show:""
+  }
+  keyboardshortcut_object {
+    flags:
+    key_code:&182
+    key_event:&2
+    key_show:""
+  }
+  keyboardshortcut_object {
+    flags:keyboardshortcut_SHOW_AS_MENU | keyboardshortcut_SHOW_AT_POINTER
+    key_code:&183
+    key_event:&0
+    key_show:"Menu"
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"Menu"
+  menu_flags:
+  title:"New Menu"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Menu Entry"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}

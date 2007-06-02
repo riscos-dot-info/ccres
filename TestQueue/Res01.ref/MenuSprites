@@ -1,0 +1,131 @@
+RESF:1.01
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"LinePatMenu"
+  menu_flags:
+  title:"Line pattern"
+  title_limit:*
+  help:"This menu may be used to choose the desired apperance of line."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&0
+    text:"pat1"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&1
+    text:"pat2"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&2
+    text:"pat3"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&3
+    text:"pat4"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_IS_SPRITE
+    cmp:&4
+    text:"none"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"JoinMenu"
+  menu_flags:
+  title:"Join"
+  title_limit:9
+  help:"This menu may be used to select type of join."
+  help_limit:*
+  show_action:&0
+  hide_action:&0
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_TICKED
+    cmp:&0
+    text:"Mitred"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Round"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"Bevelled"
+    text_limit:11
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}

@@ -1,0 +1,3855 @@
+RESF:1.01
+
+iconbar_object {
+  header_flags:
+  version:100
+  object_name:"Iconbar"
+  iconbar_flags:iconbar_GENERATE_SELECT_CLICKED | iconbar_GENERATE_ADJUST_CLICKED
+  position:wimp_ICON_BAR_RIGHT
+  priority:0
+  sprite_name:"!cvs"
+  sprite_limit:*
+  text:""
+  text_limit:*
+  menu:"IconbarMenu"
+  select_action:&9
+  adjust_action:&3
+  select_show:""
+  adjust_show:""
+  help_message:""
+  help_limit:*
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"IconbarMenu"
+  menu_flags:
+  title:"CVS"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&0
+    text:"Info"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"ProgInfo"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Move the pointer right to see information about this version of CVS GUI."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:
+    cmp:&3
+    text:"Projects..."
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&3
+    help:"Click SELECT to open the project browser (to create new or edit/delete/copy existing projects)."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:
+    cmp:&4
+    text:"Choices..."
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&b
+    help:"Click SELECT to adapt global CVS options."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Quit"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&1
+    help:"Click SELECT to quit the CVS GUI application."
+    help_limit:*
+  }
+}
+
+proginfo_object {
+  header_flags:
+  version:101
+  object_name:"ProgInfo"
+  proginfo_flags:proginfo_INCLUDE_WEB_PAGE_BUTTON
+  title:""
+  title_limit:*
+  purpose:"Frontend for Concurrent Versions System (CVS)"
+  author:"© John Tytgat / BASS"
+  licence_type:None
+  prog_version:"0.18 (28-Apr-2003)"
+  alternative_window_name:""
+  visit_url:"http://www.cvs.riscos.org.uk/"
+  visit_url_event:&82b42
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"Choices"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:36,236,892,488
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"CVS Choices"
+  window.title_text_limit:*
+  window.title_valid:""
+  numberrange_object {
+    cmp:&0
+    bbox:444,-120,632,-68
+    help_message:""
+    help_limit:*
+    flags:numberrange_WRITABLE | numberrange_ADJUSTERS | numberrange_RJUSTIFIED | numberrange_KNOB_COLOUR_MID_DARK_GREY
+    lower_bound:1024
+    upper_bound:20480
+    step_size:1024
+    initial_value:3072
+    precision:0
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+    display_length:116
+  }
+  label_object {
+    cmp:&1
+    bbox:12,-120,436,-68
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"CVS Cmd line WimpSlot size"
+  }
+  actionbutton_object {
+    cmp:&2
+    bbox:652,-108,840,-56
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_CANCEL
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&3
+    bbox:652,-168,840,-116
+    help_message:""
+    help_limit:*
+    flags:
+    text:"Save"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&4
+    bbox:644,-244,848,-176
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"OK"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  label_object {
+    cmp:&5
+    bbox:12,-180,440,-128
+    help_message:"This defines the compression rate for communication with the CVS server (pserver transport mode only)"
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Communication compression"
+  }
+  stringset_object {
+    cmp:&6
+    bbox:432,-180,632,-128
+    help_message:""
+    help_limit:*
+    flags:stringset_JUSTIFICATION_CENTRED
+    string_set:"none,1,2,3,4,5,6,7,8,highest"
+    title:"Compression"
+    initial_selected_string:"4"
+    selected_string_limit:8
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  optionbutton_object {
+    cmp:&7
+    bbox:12,-236,632,-184
+    help_message:""
+    help_limit:*
+    flags:
+    label:"External Edit for log messages"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&8
+    bbox:12,-60,632,-16
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Use Dynamic Area for CVS Cmd line"
+    label_limit:*
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"Projects"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:696,376,1772,844
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"CVS Projects"
+  window.title_text_limit:*
+  window.title_valid:""
+  scrolllist_object {
+    cmp:&0
+    bbox:12,-400,836,-16
+    help_message:""
+    help_limit:*
+    flags:
+    event:0
+    foreground:os_COLOUR_BLACK
+    background:os_COLOUR_WHITE
+  }
+  actionbutton_object {
+    cmp:&1
+    bbox:872,-380,1060,-328
+    help_message:""
+    help_limit:*
+    flags:
+    text:"Save"
+    text_limit:*
+    click_show:""
+    action:&23
+  }
+  actionbutton_object {
+    cmp:&3
+    bbox:864,-456,1068,-388
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"Close"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  labelledbox_object {
+    cmp:&4
+    bbox:-20,-652,856,56
+    help_message:""
+    help_limit:*
+    flags:gadget_AT_BACK
+    label:""
+  }
+  actionbutton_object {
+    cmp:&5
+    bbox:24,-460,212,-408
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"Create..."
+    text_limit:*
+    click_show:""
+    action:&2
+  }
+  actionbutton_object {
+    cmp:&6
+    bbox:228,-460,416,-408
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"Edit..."
+    text_limit:*
+    click_show:""
+    action:&4
+  }
+  actionbutton_object {
+    cmp:&7
+    bbox:432,-460,620,-408
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"Copy"
+    text_limit:*
+    click_show:""
+    action:&6
+  }
+  actionbutton_object {
+    cmp:&8
+    bbox:636,-460,824,-408
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"Delete"
+    text_limit:*
+    click_show:""
+    action:&5
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"Project"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:76,444,956,1064
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:""
+  window.title_text_limit:128
+  window.title_valid:""
+  label_object {
+    cmp:&0
+    bbox:8,-400,200,-348
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"CVSRoot Dir"
+  }
+  label_object {
+    cmp:&3
+    bbox:8,-528,200,-476
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Local Dir"
+  }
+  label_object {
+    cmp:&6
+    bbox:8,-56,200,-4
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Project"
+  }
+  writablefield_object {
+    cmp:&7
+    bbox:200,-56,872,-4
+    help_message:""
+    help_limit:*
+    flags:writablefield_GENERATE_USER_VALUE_CHANGED | writablefield_HCENTRED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&b
+    next:&9
+  }
+  stringset_object {
+    cmp:&8
+    bbox:200,-116,444,-64
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_JUSTIFICATION_CENTRED
+    string_set:"local,server,pserver"
+    title:"Protocols"
+    initial_selected_string:"local"
+    selected_string_limit:8
+    allowable:""
+    allowable_limit:*
+    prev:&7
+    next:&9
+  }
+  writablefield_object {
+    cmp:&9
+    bbox:400,-172,872,-120
+    help_message:""
+    help_limit:*
+    flags:writablefield_GENERATE_USER_VALUE_CHANGED | writablefield_HCENTRED
+    text:""
+    text_limit:31
+    allowable:"~ @"
+    allowable_limit:*
+    prev:&8
+    next:&14
+  }
+  writablefield_object {
+    cmp:&a
+    bbox:200,-400,796,-348
+    help_message:""
+    help_limit:*
+    flags:writablefield_GENERATE_USER_VALUE_CHANGED | writablefield_HCENTRED
+    text:""
+    text_limit:255
+    allowable:"~ "
+    allowable_limit:*
+    prev:&15
+    next:&16
+  }
+  writablefield_object {
+    cmp:&b
+    bbox:200,-528,796,-476
+    help_message:""
+    help_limit:*
+    flags:writablefield_GENERATE_USER_VALUE_CHANGED | writablefield_HCENTRED
+    text:""
+    text_limit:255
+    allowable:"~ "
+    allowable_limit:*
+    prev:&16
+    next:&7
+  }
+  label_object {
+    cmp:&c
+    bbox:8,-116,200,-64
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Transport"
+  }
+  draggable_object {
+    cmp:&d
+    bbox:804,-400,872,-340
+    help_message:""
+    help_limit:*
+    flags:draggable_SPRITE | draggable_DROP_SHADOW
+    text:""
+    text_limit:*
+    sprite_name:"directory"
+    sprite_limit:*
+  }
+  draggable_object {
+    cmp:&e
+    bbox:804,-528,872,-468
+    help_message:""
+    help_limit:*
+    flags:draggable_SPRITE | draggable_DROP_SHADOW
+    text:""
+    text_limit:*
+    sprite_name:"directory"
+    sprite_limit:*
+  }
+  actionbutton_object {
+    cmp:&f
+    bbox:668,-608,872,-540
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT | actionbutton_IS_LOCAL
+    text:"xxxxxxxx"
+    text_limit:11
+    click_show:""
+    action:&22
+  }
+  actionbutton_object {
+    cmp:&10
+    bbox:464,-600,652,-548
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_CANCEL | actionbutton_IS_LOCAL
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&21
+  }
+  label_object {
+    cmp:&11
+    bbox:200,-172,388,-120
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Username"
+  }
+  label_object {
+    cmp:&12
+    bbox:200,-228,388,-176
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED | gadget_FADED
+    label:"Hostname"
+  }
+  label_object {
+    cmp:&13
+    bbox:200,-284,388,-232
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED | gadget_FADED
+    label:"Password"
+  }
+  writablefield_object {
+    cmp:&14
+    bbox:400,-228,872,-176
+    help_message:""
+    help_limit:*
+    flags:writablefield_GENERATE_USER_VALUE_CHANGED | writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:47
+    allowable:"~ @"
+    allowable_limit:*
+    prev:&9
+    next:&15
+  }
+  writablefield_object {
+    cmp:&15
+    bbox:400,-284,872,-232
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | writablefield_CONCEAL_TEXT | gadget_FADED
+    text:""
+    text_limit:31
+    allowable:""
+    allowable_limit:*
+    prev:&14
+    next:&a
+  }
+  stringset_object {
+    cmp:&16
+    bbox:200,-464,872,-412
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_WRITABLE | stringset_GENERATE_ABOUT_TO_BE_SHOWN | stringset_JUSTIFICATION_CENTRED
+    string_set:""
+    title:"Repository"
+    initial_selected_string:""
+    selected_string_limit:64
+    allowable:"~ "
+    allowable_limit:*
+    prev:&a
+    next:&b
+  }
+  label_object {
+    cmp:&17
+    bbox:12,-464,200,-412
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Repository"
+  }
+  actionbutton_object {
+    cmp:&18
+    bbox:236,-600,448,-548
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"Options..."
+    text_limit:*
+    click_show:""
+    action:&c
+  }
+  numberrange_object {
+    cmp:&19
+    bbox:400,-340,872,-288
+    help_message:""
+    help_limit:*
+    flags:numberrange_GENERATE_VALUE_CHANGED | numberrange_WRITABLE | numberrange_ADJUSTERS | numberrange_RJUSTIFIED | numberrange_KNOB_COLOUR_MID_DARK_GREY | gadget_FADED
+    lower_bound:1
+    upper_bound:65535
+    step_size:1
+    initial_value:2401
+    precision:0
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+    display_length:116
+  }
+  label_object {
+    cmp:&1a
+    bbox:200,-340,388,-288
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED | gadget_FADED
+    label:"Port"
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"ProjectOpt"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:220,308,1360,500
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"CVS Project Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  label_object {
+    cmp:&0
+    bbox:12,-64,280,-12
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Suffix swapping"
+  }
+  writablefield_object {
+    cmp:&1
+    bbox:288,-64,1136,-12
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:"a:c:cc:f:h:i:ii:l:o:p:s:y"
+    text_limit:63
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  optionbutton_object {
+    cmp:&2
+    bbox:12,-112,1136,-68
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Add ",xyz" suffix to server filenames for RISC OS text files too"
+    label_limit:*
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&3
+    bbox:932,-188,1136,-120
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"Update"
+    text_limit:*
+    click_show:""
+    action:&d
+  }
+  actionbutton_object {
+    cmp:&4
+    bbox:724,-180,912,-128
+    help_message:""
+    help_limit:*
+    flags:
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+}
+
+quit_object {
+  header_flags:
+  version:100
+  object_name:"Quit"
+  quit_flags:
+  title:""
+  title_limit:*
+  message:"The CVS project database has been changed without saving.  Do you really want to quit ?"
+  message_limit:*
+  alternative_window_name:""
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"Select"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:"SelectMenu"
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:196,148,956,680
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_BACK_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_TOGGLE_ICON | wimp_WINDOW_VSCROLL | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_LIGHT_GREY
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-532,760,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&0
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"CVS Action"
+  window.title_text_limit:*
+  window.title_valid:""
+  label_object {
+    cmp:&0
+    bbox:8,-60,132,-8
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | label_RJUSTIFIED
+    label:"Project"
+  }
+  stringset_object {
+    cmp:&1
+    bbox:140,-60,756,-8
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_GENERATE_ABOUT_TO_BE_SHOWN | stringset_JUSTIFICATION_CENTRED
+    string_set:""
+    title:"Project"
+    initial_selected_string:""
+    selected_string_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  stringset_object {
+    cmp:&4
+    bbox:68,-404,528,-352
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_JUSTIFICATION_CENTRED
+    string_set:"add,checkout,commit,diff,log,remove,status,update"
+    title:"CVS Action"
+    initial_selected_string:"add"
+    selected_string_limit:9
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  actionbutton_object {
+    cmp:&6
+    bbox:608,-524,752,-456
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT | actionbutton_IS_LOCAL
+    text:"Do it"
+    text_limit:*
+    click_show:""
+    action:&7
+  }
+  radiobutton_object {
+    cmp:&7
+    bbox:20,-224,760,-180
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | radiobutton_ON
+    group:0
+    label:"Action on the complete project"
+    label_limit:*
+    action:&a
+  }
+  stringset_object {
+    cmp:&8
+    bbox:68,-284,528,-232
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_JUSTIFICATION_CENTRED
+    string_set:"checkout,commit,diff,log,update"
+    title:"CVS Action"
+    initial_selected_string:"checkout"
+    selected_string_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  radiobutton_object {
+    cmp:&9
+    bbox:20,-344,752,-300
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED
+    group:0
+    label:"Action on selected object(s)"
+    label_limit:*
+    action:&a
+  }
+  radiobutton_object {
+    cmp:&a
+    bbox:20,-456,552,-412
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED
+    group:0
+    label:"Action Import directory"
+    label_limit:*
+    action:&a
+  }
+  actionbutton_object {
+    cmp:&b
+    bbox:216,-516,404,-464
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"Show Cmd"
+    text_limit:*
+    click_show:""
+    action:&8
+  }
+  actionbutton_object {
+    cmp:&c
+    bbox:12,-516,208,-464
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL | actionbutton_SHOW_AT_POINTER
+    text:"Options..."
+    text_limit:*
+    click_show:""
+    action:&e
+  }
+  actionbutton_object {
+    cmp:&d
+    bbox:412,-516,600,-464
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_CANCEL
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&e
+    bbox:20,-112,760,-68
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED
+    group:0
+    label:"Action on the repository (CVSROOT)"
+    label_limit:*
+    action:&a
+  }
+  stringset_object {
+    cmp:&f
+    bbox:68,-172,528,-120
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_JUSTIFICATION_CENTRED
+    string_set:"rdiff,rtag"
+    title:"CVS Action"
+    initial_selected_string:"rdiff"
+    selected_string_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  button_object {
+    cmp:&10
+    bbox:544,-444,752,-120
+    help_message:""
+    help_limit:*
+    flags:button_TASK_SPRITE_AREA
+    button_flags:wimp_ICON_TEXT | wimp_ICON_SPRITE | wimp_ICON_HCENTRED | wimp_ICON_INDIRECTED
+    button_esg:0
+    button_fg:wimp_COLOUR_BLACK
+    button_bg:wimp_COLOUR_VERY_LIGHT_GREY
+    value:"Drag the files in this window to do CVS operations on them."
+    value_limit:*
+    validation:"Sloadicon;L"
+    validation_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"SelectMenu"
+  menu_flags:menu_GENERATE_ABOUT_TO_BE_SHOWN
+  title:"CVS Action"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:&0
+  hide_action:
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"Project browser"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&3
+    help:"Click SELECT to open the project browser (to create new or edit/delete/copy existing projects)."
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&5
+    text:"Selected objects"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"SelectLSel"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Move the pointer right to add one or more CVSROOT specific files or to remove selected objects from the list."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SUB_MENU | menu_ENTRY_GENERATE_SUB_MENU_ACTION
+    cmp:&3
+    text:"List..."
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"SelectLMenu"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Move the pointer right to list available modes and/or their status."
+    help_limit:*
+  }
+  Entry {
+    cmp:6
+    flags:menu_ENTRY_SUB_MENU | menu_ENTRY_GENERATE_SUB_MENU_ACTION
+    cmp:&6
+    text:"Export"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&1e
+    click_action:&0
+    help:"Move the pointer right to do a CVS export operation."
+    help_limit:*
+  }
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Show CVSROOT directory"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&f
+    help:"Click SELECT to open a filer window containing the CVSROOT files."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Show local directory"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&10
+    help:"Click SELECT to open the filer window of your local directory (sandbox)."
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"SelectLSel"
+  menu_flags:
+  title:"Selection"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&4
+    text:"Add"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"SelectLAdd"
+    sub_menu_action:&0
+    click_action:&0
+    help:"Move the pointer right to add one or more CVSROOT specific files."
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:
+    cmp:&5
+    text:"Graphical view"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&24
+    help:"Click SELECT to see all the versions of the selected objects graphically."
+    help_limit:*
+  }
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Remove from list"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&1d
+    help:"Click SELECT to remove the selected objects from the list."
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"SelectLAdd"
+  menu_flags:
+  title:"Add to selected objects"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"CVSROOT.modules"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&13
+    help:"Click SELECT to add the CVSROOT modules files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"CVSROOT.commitinfo"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&14
+    help:"Click SELECT to add the CVSROOT commitinfo files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"CVSROOT.verifymsg"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&15
+    help:"Click SELECT to add the CVSROOT verifymsg files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:
+    cmp:&3
+    text:"CVSROOT.editinfo"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&16
+    help:"Click SELECT to add the CVSROOT editinfo files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:
+    cmp:&4
+    text:"CVSROOT.loginfo"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&17
+    help:"Click SELECT to add the CVSROOT loginfo files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:
+    cmp:&5
+    text:"CVSROOT.rcsinfo"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&18
+    help:"Click SELECT to add the CVSROOT rcsinfo files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:6
+    flags:
+    cmp:&6
+    text:"CVSROOT.notify"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&19
+    help:"Click SELECT to add the CVSROOT notify files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:7
+    flags:
+    cmp:&7
+    text:"CVSROOT.cvswrappers"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&1a
+    help:"Click SELECT to add the CVSROOT cvswrappers files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:8
+    flags:
+    cmp:&8
+    text:"CVSROOT.config"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&1b
+    help:"Click SELECT to add the CVSROOT config files to the selected list."
+    help_limit:*
+  }
+  Entry {
+    cmp:9
+    flags:
+    cmp:&9
+    text:"CVSROOT.checkoutlist"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&1c
+    help:"Click SELECT to add the CVSROOT checkoutlist files to the selected list."
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"SelectLMenu"
+  menu_flags:
+  title:"List..."
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Available modules"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&11
+    help:"Click SELECT to list all defined modules of the CVS server defined in the current project."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Available modules and status"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&12
+    help:"Click SELECT to list all defined modules and their status of the CVS server defined in the current project."
+    help_limit:*
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"CVSCmd"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:100,268,1380,344
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:12
+  window.title_text:"CVS Command Line"
+  window.title_text_limit:*
+  window.title_valid:""
+  writablefield_object {
+    cmp:&0
+    bbox:4,-64,1172,-12
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:999
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  actionbutton_object {
+    cmp:&1
+    bbox:1180,-72,1272,-4
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"OK"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcRDiff"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:652,604,1484,1336
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-732,832,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:48
+  window.title_text:"RDiff Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&0
+    bbox:8,-576,548,-532
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Process directories recursively"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&1
+    bbox:4,-108,192,-64
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED
+    group:0
+    label:"Compare"
+    label_limit:*
+    action:&0
+  }
+  stringset_object {
+    cmp:&2
+    bbox:212,-232,816,-180
+    help_message:""
+    help_limit:*
+    flags:stringset_JUSTIFICATION_CENTRED
+    string_set:"revision,most recent revision no later than"
+    title:""
+    initial_selected_string:"revision"
+    selected_string_limit:35
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  writablefield_object {
+    cmp:&6
+    bbox:52,-172,396,-120
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&d
+    next:&a
+  }
+  label_object {
+    cmp:&7
+    bbox:416,-172,808,-120
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"with current head revision."
+  }
+  radiobutton_object {
+    cmp:&8
+    bbox:4,-228,192,-184
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED
+    group:0
+    label:"Compare"
+    label_limit:*
+    action:&0
+  }
+  stringset_object {
+    cmp:&9
+    bbox:212,-112,816,-60
+    help_message:""
+    help_limit:*
+    flags:stringset_JUSTIFICATION_CENTRED
+    string_set:"revision,most recent revision no later than"
+    title:""
+    initial_selected_string:"revision"
+    selected_string_limit:35
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  writablefield_object {
+    cmp:&a
+    bbox:52,-296,396,-244
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&6
+    next:&d
+  }
+  label_object {
+    cmp:&b
+    bbox:52,-360,196,-308
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"with"
+  }
+  stringset_object {
+    cmp:&c
+    bbox:212,-360,816,-308
+    help_message:""
+    help_limit:*
+    flags:stringset_JUSTIFICATION_CENTRED
+    string_set:"revision,most recent revision no later than"
+    title:""
+    initial_selected_string:"revision"
+    selected_string_limit:35
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  writablefield_object {
+    cmp:&d
+    bbox:52,-420,396,-368
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&a
+    next:&6
+  }
+  optionbutton_object {
+    cmp:&e
+    bbox:8,-524,796,-480
+    help_message:""
+    help_limit:*
+    flags:
+    label:"If no matching revision, retrieve the most recent one"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&f
+    bbox:4,-52,732,-8
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | radiobutton_ON
+    group:0
+    label:"Compare the top two revisions"
+    label_limit:*
+    action:&0
+  }
+  label_object {
+    cmp:&10
+    bbox:8,-640,224,-588
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Output format"
+  }
+  stringset_object {
+    cmp:&11
+    bbox:236,-640,688,-588
+    help_message:""
+    help_limit:*
+    flags:stringset_JUSTIFICATION_CENTRED
+    string_set:"context,unidiff"
+    title:"Output format"
+    initial_selected_string:"context"
+    selected_string_limit:*
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  optionbutton_object {
+    cmp:&12
+    bbox:8,-472,744,-428
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    label:"Summary change report"
+    label_limit:*
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&13
+    bbox:620,-724,824,-656
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"OK"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&14
+    bbox:420,-716,608,-664
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_CANCEL
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcCOFile"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:380,992,1136,1368
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Checkout Options (selected objects)"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&7
+    bbox:8,-52,492,-8
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Prune empty directories"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&9
+    bbox:8,-104,432,-60
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Reset any sticky tags"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&a
+    bbox:8,-156,544,-112
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Merge differences between"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&c
+    bbox:60,-204,528,-160
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON | gadget_FADED
+    group:1
+    label:"common ancestor"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&d
+    bbox:60,-252,264,-208
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    group:1
+    label:"revision"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&e
+    bbox:272,-256,748,-204
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&3
+    next:&10
+  }
+  label_object {
+    cmp:&f
+    bbox:60,-312,272,-260
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"and revision"
+  }
+  writablefield_object {
+    cmp:&10
+    bbox:272,-312,748,-260
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&e
+    next:&6
+  }
+  label_object {
+    cmp:&17
+    bbox:60,-368,404,-316
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"into Local Dir"
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcCOPrjct"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:1660,92,2416,780
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Checkout options (project)"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&1
+    bbox:8,-52,376,-8
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Version selection"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&3
+    bbox:256,-160,748,-108
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&6
+    next:&e
+  }
+  writablefield_object {
+    cmp:&6
+    bbox:256,-104,748,-52
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:48
+    allowable:"~ "
+    allowable_limit:*
+    prev:&10
+    next:&3
+  }
+  optionbutton_object {
+    cmp:&7
+    bbox:8,-368,492,-324
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Prune empty directories"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&9
+    bbox:8,-420,432,-376
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Reset any sticky tags"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&a
+    bbox:8,-472,544,-428
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Merge differences between"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&c
+    bbox:60,-520,528,-476
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON | gadget_FADED
+    group:1
+    label:"common ancestor"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&d
+    bbox:60,-568,264,-524
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    group:1
+    label:"revision"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&e
+    bbox:272,-572,748,-520
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&3
+    next:&10
+  }
+  label_object {
+    cmp:&f
+    bbox:60,-628,272,-576
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"and revision"
+  }
+  writablefield_object {
+    cmp:&10
+    bbox:272,-628,748,-576
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&e
+    next:&6
+  }
+  radiobutton_object {
+    cmp:&12
+    bbox:108,-320,428,-276
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    group:5
+    label:"Ignore the file"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&13
+    bbox:108,-264,692,-220
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON | gadget_FADED
+    group:5
+    label:"Select the most recent version"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&14
+    bbox:60,-100,248,-56
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON | gadget_FADED
+    group:4
+    label:"Date"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&15
+    bbox:60,-156,248,-112
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    group:4
+    label:"Revision"
+    label_limit:*
+    action:&0
+  }
+  label_object {
+    cmp:&16
+    bbox:64,-220,628,-168
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"When no matching version is found"
+  }
+  label_object {
+    cmp:&17
+    bbox:60,-684,404,-632
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"into Local Dir"
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcAdd"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:304,660,1068,772
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Add Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  label_object {
+    cmp:&1
+    bbox:4,-56,204,-4
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Add message"
+  }
+  writablefield_object {
+    cmp:&2
+    bbox:4,-104,756,-52
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:256
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcImport"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:324,480,1092,832
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Import Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  writablefield_object {
+    cmp:&0
+    bbox:12,-232,760,-180
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:256
+    allowable:""
+    allowable_limit:*
+    prev:&8
+    next:&3
+  }
+  label_object {
+    cmp:&1
+    bbox:12,-176,312,-124
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Import message"
+  }
+  writablefield_object {
+    cmp:&3
+    bbox:300,-288,760,-236
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:"1.1.1"
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&0
+    next:&a
+  }
+  label_object {
+    cmp:&5
+    bbox:12,-64,212,-12
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Vendor tag"
+  }
+  writablefield_object {
+    cmp:&6
+    bbox:216,-64,760,-12
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&a
+    next:&8
+  }
+  label_object {
+    cmp:&7
+    bbox:12,-120,212,-68
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Release tag"
+  }
+  writablefield_object {
+    cmp:&8
+    bbox:216,-120,760,-68
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&6
+    next:&0
+  }
+  optionbutton_object {
+    cmp:&9
+    bbox:12,-284,292,-240
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Vendor branch"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&a
+    bbox:300,-344,760,-292
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:256
+    allowable:""
+    allowable_limit:*
+    prev:&3
+    next:&6
+  }
+  optionbutton_object {
+    cmp:&b
+    bbox:12,-340,296,-296
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Ignore objects"
+    label_limit:*
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcCommit"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:84,1076,844,1248
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Commit Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&1
+    bbox:8,-56,196,-12
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Revision"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&2
+    bbox:200,-60,752,-8
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&4
+    next:&4
+  }
+  label_object {
+    cmp:&3
+    bbox:8,-116,308,-64
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Commit message"
+  }
+  writablefield_object {
+    cmp:&4
+    bbox:8,-164,752,-112
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:256
+    allowable:""
+    allowable_limit:*
+    prev:&2
+    next:&2
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcDiff"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:172,584,996,1224
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Diff Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&0
+    bbox:12,-460,640,-416
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Process directories recursively"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&1
+    bbox:12,-512,752,-468
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Check for added and removed files"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&3
+    bbox:8,-52,768,-8
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | radiobutton_ON
+    group:0
+    label:"Compare orginal version with current working file"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&4
+    bbox:8,-108,196,-64
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED
+    group:0
+    label:"Compare"
+    label_limit:*
+    action:&0
+  }
+  stringset_object {
+    cmp:&5
+    bbox:212,-112,816,-60
+    help_message:""
+    help_limit:*
+    flags:stringset_JUSTIFICATION_CENTRED
+    string_set:"revision,most recent revision no later than date"
+    title:""
+    initial_selected_string:"revision"
+    selected_string_limit:40
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  writablefield_object {
+    cmp:&6
+    bbox:68,-172,412,-120
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&6
+    next:&6
+  }
+  label_object {
+    cmp:&7
+    bbox:416,-172,768,-120
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"with current working file."
+  }
+  radiobutton_object {
+    cmp:&8
+    bbox:8,-224,196,-180
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED
+    group:0
+    label:"Compare"
+    label_limit:*
+    action:&0
+  }
+  stringset_object {
+    cmp:&9
+    bbox:212,-232,816,-180
+    help_message:""
+    help_limit:*
+    flags:stringset_JUSTIFICATION_CENTRED
+    string_set:"revision,most recent revision no later than date"
+    title:""
+    initial_selected_string:"revision"
+    selected_string_limit:40
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  writablefield_object {
+    cmp:&a
+    bbox:68,-296,412,-244
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&d
+    next:&d
+  }
+  label_object {
+    cmp:&b
+    bbox:64,-352,200,-300
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"with"
+  }
+  stringset_object {
+    cmp:&c
+    bbox:212,-352,816,-300
+    help_message:""
+    help_limit:*
+    flags:stringset_JUSTIFICATION_CENTRED
+    string_set:"revision,most recent revision no later than date"
+    title:""
+    initial_selected_string:"revision"
+    selected_string_limit:40
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  writablefield_object {
+    cmp:&d
+    bbox:68,-408,412,-356
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&a
+    next:&a
+  }
+  stringset_object {
+    cmp:&e
+    bbox:228,-568,584,-516
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_JUSTIFICATION_CENTRED
+    string_set:"default,context,unified,ifdef"
+    title:"Output format"
+    initial_selected_string:"default"
+    selected_string_limit:*
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  label_object {
+    cmp:&f
+    bbox:12,-572,216,-520
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Output format"
+  }
+  writablefield_object {
+    cmp:&10
+    bbox:68,-632,412,-580
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcExport"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:&82bc01
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:1288,68,2044,692
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Export options"
+  window.title_text_limit:*
+  window.title_valid:""
+  writablefield_object {
+    cmp:&3
+    bbox:208,-116,744,-64
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&6
+    next:&82bc01
+  }
+  writablefield_object {
+    cmp:&6
+    bbox:208,-60,744,-8
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:"NOW"
+    text_limit:48
+    allowable:"~ "
+    allowable_limit:*
+    prev:&6
+    next:&6
+  }
+  optionbutton_object {
+    cmp:&7
+    bbox:8,-368,492,-324
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Process directories recursively"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&9
+    bbox:8,-420,660,-376
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Freeze keyword revision information"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&a
+    bbox:8,-472,544,-428
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Do not run any checkout program"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&12
+    bbox:56,-276,376,-232
+    help_message:""
+    help_limit:*
+    flags:
+    group:5
+    label:"Ignore the file"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&13
+    bbox:56,-220,640,-176
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON
+    group:5
+    label:"Select the most recent version"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&14
+    bbox:8,-56,196,-12
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON
+    group:4
+    label:"Date"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&15
+    bbox:8,-112,196,-68
+    help_message:""
+    help_limit:*
+    flags:
+    group:4
+    label:"Revision"
+    label_limit:*
+    action:&0
+  }
+  label_object {
+    cmp:&16
+    bbox:12,-176,576,-124
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"When no matching version is found"
+  }
+  draggable_object {
+    cmp:&82bc00
+    bbox:12,-540,84,-480
+    help_message:"Drag this icon to the directory in which you want to save the file,|Mor drag it to the application to which you wish to transfer the data."
+    help_limit:*
+    flags:draggable_SPRITE | draggable_DROP_SHADOW
+    text:""
+    text_limit:*
+    sprite_name:"directory"
+    sprite_limit:13
+  }
+  writablefield_object {
+    cmp:&82bc01
+    bbox:88,-536,748,-484
+    help_message:"This shows the filename for this data.|MIf it is not a full pathname, drag the icon to a directory display."
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:255
+    allowable:"~ "
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  actionbutton_object {
+    cmp:&82bc02
+    bbox:376,-604,564,-552
+    help_message:"\Sclose this box without saving the data."
+    help_limit:*
+    flags:actionbutton_IS_CANCEL
+    text:"Cancel"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&82bc03
+    bbox:576,-612,744,-544
+    help_message:"\Ssave the data with the current filename.|MIf it is not a full pathname, you must drag the icon to a directory display."
+    help_limit:*
+    flags:actionbutton_IS_DEFAULT
+    text:"Export"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcRemove"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:420,692,1060,752
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-60,640,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:48
+  window.title_text:"Remove Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&1
+    bbox:4,-52,632,-8
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Delete file before removing it"
+    label_limit:*
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcLogPrjct"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:512,4,1272,1264
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_VSCROLL | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1476,760,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Log Options (project)"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&1
+    bbox:40,-96,720,-52
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Select revisions with a checking date"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&2
+    bbox:92,-144,272,-100
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | radiobutton_ON | gadget_FADED
+    group:2
+    label:"Between"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&3
+    bbox:276,-148,732,-96
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&1f
+    next:&5
+  }
+  label_object {
+    cmp:&4
+    bbox:140,-200,268,-156
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"and"
+  }
+  writablefield_object {
+    cmp:&5
+    bbox:276,-204,732,-152
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&3
+    next:&7
+  }
+  radiobutton_object {
+    cmp:&6
+    bbox:92,-260,272,-216
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | gadget_FADED
+    group:2
+    label:"Before"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&7
+    bbox:276,-260,732,-208
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&5
+    next:&25
+  }
+  optionbutton_object {
+    cmp:&8
+    bbox:144,-308,628,-264
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    label:"Only the latest revision"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&9
+    bbox:92,-356,324,-312
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | gadget_FADED
+    group:2
+    label:"Later than"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&a
+    bbox:40,-408,696,-364
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"And selected revisions checked in by"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&b
+    bbox:260,-464,732,-412
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:64
+    allowable:"~ "
+    allowable_limit:*
+    prev:&25
+    next:&10
+  }
+  label_object {
+    cmp:&c
+    bbox:40,-536,492,-484
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"which are also selected by"
+  }
+  optionbutton_object {
+    cmp:&d
+    bbox:40,-596,676,-552
+    help_message:""
+    help_limit:*
+    flags:
+    label:"All revisions on the default branch"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&e
+    bbox:40,-652,592,-608
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"And the following revisions"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&f
+    bbox:92,-700,424,-656
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | radiobutton_ON | gadget_FADED
+    group:3
+    label:"Revisions between"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&10
+    bbox:436,-704,732,-652
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&b
+    next:&12
+  }
+  label_object {
+    cmp:&11
+    bbox:144,-756,216,-712
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"and"
+  }
+  writablefield_object {
+    cmp:&12
+    bbox:224,-760,732,-708
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&10
+    next:&14
+  }
+  radiobutton_object {
+    cmp:&13
+    bbox:92,-812,416,-768
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | gadget_FADED
+    group:3
+    label:"Revisions before"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&14
+    bbox:432,-816,732,-764
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&12
+    next:&16
+  }
+  radiobutton_object {
+    cmp:&15
+    bbox:92,-868,400,-824
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | gadget_FADED
+    group:3
+    label:"Revisions after"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&16
+    bbox:408,-872,732,-820
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&14
+    next:&18
+  }
+  radiobutton_object {
+    cmp:&17
+    bbox:92,-920,516,-876
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | gadget_FADED
+    group:3
+    label:"All revisions on branch"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&18
+    bbox:140,-976,732,-924
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&16
+    next:&1b
+  }
+  radiobutton_object {
+    cmp:&19
+    bbox:92,-1024,580,-980
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | gadget_FADED
+    group:3
+    label:"All revisions on branches"
+    label_limit:*
+    action:&0
+  }
+  label_object {
+    cmp:&1a
+    bbox:140,-1076,280,-1024
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"between"
+  }
+  writablefield_object {
+    cmp:&1b
+    bbox:288,-1076,732,-1024
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&18
+    next:&1d
+  }
+  label_object {
+    cmp:&1c
+    bbox:140,-1128,280,-1084
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"and"
+  }
+  writablefield_object {
+    cmp:&1d
+    bbox:288,-1132,732,-1080
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&1b
+    next:&1f
+  }
+  radiobutton_object {
+    cmp:&1e
+    bbox:92,-1180,632,-1136
+    help_message:""
+    help_limit:*
+    flags:radiobutton_GENERATE_STATE_CHANGED | gadget_FADED
+    group:3
+    label:"The latest revision on branch"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&1f
+    bbox:140,-1236,732,-1184
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&1d
+    next:&3
+  }
+  labelledbox_object {
+    cmp:&20
+    bbox:12,-1252,752,-8
+    help_message:""
+    help_limit:*
+    flags:gadget_AT_BACK
+    label:"Which revisions to select ?"
+  }
+  optionbutton_object {
+    cmp:&21
+    bbox:16,-1312,600,-1268
+    help_message:""
+    help_limit:*
+    flags:
+    label:"No history and description text"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&22
+    bbox:16,-1364,276,-1320
+    help_message:""
+    help_limit:*
+    flags:
+    label:"No history"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&23
+    bbox:16,-1416,472,-1372
+    help_message:""
+    help_limit:*
+    flags:
+    label:"No tags"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&24
+    bbox:16,-1468,452,-1424
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Show only the RCS name"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&25
+    bbox:328,-360,732,-308
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&7
+    next:&b
+  }
+  label_object {
+    cmp:&26
+    bbox:88,-464,260,-412
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"the users"
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcStatus"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:444,1028,1084,1084
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-56,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:56
+  window.title_text:"Status Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&1
+    bbox:4,-48,632,-4
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Include tag information"
+    label_limit:*
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcUpdate"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:368,448,1128,1188
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Update Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&1
+    bbox:12,-52,380,-8
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Version selection"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&3
+    bbox:260,-160,752,-108
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&6
+    next:&e
+  }
+  writablefield_object {
+    cmp:&6
+    bbox:260,-104,752,-52
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:48
+    allowable:"~ "
+    allowable_limit:*
+    prev:&10
+    next:&3
+  }
+  optionbutton_object {
+    cmp:&7
+    bbox:12,-368,496,-324
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Prune empty directories"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&9
+    bbox:12,-420,436,-376
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Reset any sticky tags"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&a
+    bbox:12,-520,548,-476
+    help_message:""
+    help_limit:*
+    flags:optionbutton_GENERATE_STATE_CHANGED
+    label:"Merge differences between"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&c
+    bbox:64,-568,532,-524
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON | gadget_FADED
+    group:1
+    label:"common ancestor"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&d
+    bbox:64,-616,268,-572
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    group:1
+    label:"revision"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&e
+    bbox:276,-620,752,-568
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&3
+    next:&10
+  }
+  label_object {
+    cmp:&f
+    bbox:64,-676,276,-624
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"and revision"
+  }
+  writablefield_object {
+    cmp:&10
+    bbox:276,-676,752,-624
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:"~ "
+    allowable_limit:*
+    prev:&e
+    next:&6
+  }
+  radiobutton_object {
+    cmp:&12
+    bbox:112,-320,432,-276
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    group:5
+    label:"Ignore the file"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&13
+    bbox:112,-264,696,-220
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON | gadget_FADED
+    group:5
+    label:"Select the most recent version"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&14
+    bbox:64,-100,252,-56
+    help_message:""
+    help_limit:*
+    flags:radiobutton_ON | gadget_FADED
+    group:4
+    label:"Date"
+    label_limit:*
+    action:&0
+  }
+  radiobutton_object {
+    cmp:&15
+    bbox:64,-156,252,-112
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    group:4
+    label:"Revision"
+    label_limit:*
+    action:&0
+  }
+  label_object {
+    cmp:&16
+    bbox:68,-220,632,-168
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"When no matching version is found"
+  }
+  label_object {
+    cmp:&17
+    bbox:64,-732,408,-680
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX | gadget_FADED
+    label:"into Local Dir"
+  }
+  optionbutton_object {
+    cmp:&18
+    bbox:12,-468,664,-424
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Create directories if necessary"
+    label_limit:*
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcLogFile"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:564,664,1168,880
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-2000,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Log Options (selected objects)"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&21
+    bbox:8,-52,592,-8
+    help_message:""
+    help_limit:*
+    flags:
+    label:"No history and description text"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&22
+    bbox:8,-104,268,-60
+    help_message:""
+    help_limit:*
+    flags:
+    label:"No history"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&23
+    bbox:8,-156,464,-112
+    help_message:""
+    help_limit:*
+    flags:
+    label:"No tags"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&24
+    bbox:8,-208,444,-164
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Show only the RCS name"
+    label_limit:*
+    action:&0
+  }
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"AcRTag"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:336,696,1160,1252
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:wimp_WINDOW_NEVER3D | wimp_WINDOW_ALWAYS3D
+  window.extent:0,-556,824,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:48
+  window.title_text:"RTag Options"
+  window.title_text_limit:*
+  window.title_valid:""
+  optionbutton_object {
+    cmp:&c
+    bbox:56,-392,592,-348
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Move tag if it already exists"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&d
+    bbox:8,-548,724,-504
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Clear tag from removed files"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&e
+    bbox:56,-168,816,-124
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    label:"If no matching revision, retrieve the most recent one"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&f
+    bbox:8,-496,548,-452
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Process directories recursively"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&10
+    bbox:8,-444,756,-400
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Do not run any tag program"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&12
+    bbox:56,-340,748,-296
+    help_message:""
+    help_limit:*
+    flags:
+    label:"New tag is a branch tag"
+    label_limit:*
+    action:&0
+  }
+  label_object {
+    cmp:&13
+    bbox:8,-56,292,-4
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Select the revisions"
+  }
+  stringset_object {
+    cmp:&14
+    bbox:304,-56,812,-4
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_JUSTIFICATION_CENTRED
+    string_set:"all,most recent no later than,with tag"
+    title:"Which revisions ?"
+    initial_selected_string:"all"
+    selected_string_limit:26
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  writablefield_object {
+    cmp:&15
+    bbox:236,-116,760,-64
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED | gadget_FADED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  label_object {
+    cmp:&16
+    bbox:8,-224,356,-172
+    help_message:""
+    help_limit:*
+    flags:label_NO_BOX
+    label:"Select the tag operation"
+  }
+  stringset_object {
+    cmp:&17
+    bbox:368,-224,812,-172
+    help_message:""
+    help_limit:*
+    flags:stringset_GENERATE_USER_VALUE_CHANGED | stringset_JUSTIFICATION_CENTRED
+    string_set:"apply a new tag,delete a tag"
+    title:"Tag operation"
+    initial_selected_string:"apply a new tag"
+    selected_string_limit:*
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+  writablefield_object {
+    cmp:&18
+    bbox:236,-284,760,-232
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:toolbox_NULL_COMPONENT
+    next:toolbox_NULL_COMPONENT
+  }
+}
+
+saveas_object {
+  header_flags:
+  version:100
+  object_name:"PExportSave"
+  saveas_flags:saveas_NO_SELECTION_BUTTON
+  file_name:""
+  file_type:&1000
+  title:"Export project as"
+  title_limit:*
+  alternative_window_name:"AcExport"
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"CVSTree"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:32,720,1028,1264
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_BACK_ICON | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_TOGGLE_ICON | wimp_WINDOW_VSCROLL | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_HSCROLL | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_TRANSPARENT
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:wimp_BUTTON_REPEAT | wimp_BUTTON_RELEASE
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"Window object"
+  window.title_text_limit:*
+  window.title_valid:""
+}
+
+window_object {
+  header_flags:
+  version:102
+  object_name:"CVSTreeNote"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:808,460,1672,920
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_BACK_ICON | wimp_WINDOW_CLOSE_ICON | wimp_WINDOW_SIZE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_CREAM
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:
+  window.extent:0,-1024,1280,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:""
+  window.title_text_limit:*
+  window.title_valid:""
+}

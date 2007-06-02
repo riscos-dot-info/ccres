@@ -1,0 +1,349 @@
+RESF:1.01
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"IBMenu"
+  menu_flags:
+  title:"<DRONE_APPNAME>"
+  title_limit:17
+  help:""
+  help_limit:*
+  show_action:&7
+  hide_action:
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_SEPARATE | menu_ENTRY_SUB_MENU | menu_ENTRY_GENERATE_SUB_MENU_ACTION
+    cmp:&1
+    text:"Info"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"ProgInfo"
+    sub_menu_action:&0
+    click_action:&17
+    help:"Move the pointer right for information about CD2MP3."
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"Choices..."
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&10
+    help:"\Schoose options to control how CD2MP3 behaves."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&3
+    text:"View"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"View"
+    sub_menu_action:&0
+    click_action:&11
+    help:"This leads to the view menu, from which you can:|Mview the status window.|MView the manual."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_SEPARATE | menu_ENTRY_SUB_MENU
+    cmp:&4
+    text:"Contact"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"Contact"
+    sub_menu_action:&0
+    click_action:&0
+    help:"This leads to the Contact menu from which you can contact the author and submit a bug report."
+    help_limit:*
+  }
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Quit"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&82a91
+    help:"\Squit CD2MP3."
+    help_limit:*
+  }
+}
+
+iconbar_object {
+  header_flags:toolbox_OBJECT_CREATE_ON_LOAD | toolbox_OBJECT_SHOW_ON_CREATE
+  version:100
+  object_name:"Iconbar"
+  iconbar_flags:iconbar_GENERATE_SELECT_CLICKED | iconbar_GENERATE_ADJUST_CLICKED | iconbar_SHOW_SELECT_AT_POINTER | iconbar_SHOW_ADJUST_AT_POINTER
+  position:wimp_ICON_BAR_RIGHT
+  priority:0
+  sprite_name:"Untitled"
+  sprite_limit:*
+  text:""
+  text_limit:*
+  menu:"IBMenu"
+  select_action:&14
+  adjust_action:&12
+  select_show:""
+  adjust_show:""
+  help_message:""
+  help_limit:*
+}
+
+proginfo_object {
+  header_flags:toolbox_OBJECT_SHARED
+  version:101
+  object_name:"ProgInfo"
+  proginfo_flags:proginfo_INCLUDE_WEB_PAGE_BUTTON
+  title:""
+  title_limit:*
+  purpose:"<DRONE_PURPOSE>"
+  author:"<DRONE_AUTHOR>"
+  licence_type:None
+  prog_version:"<DRONE_VERSION> (XX-XX-XXXXXXXX)"
+  alternative_window_name:""
+  visit_url:"<DRONE_APPPAGE>"
+  visit_url_event:&0
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"View"
+  menu_flags:
+  title:"View"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Status window..."
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&16
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:menu_ENTRY_SEPARATE
+    cmp:&5
+    text:"Track Selection window..."
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&12
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&3
+    text:"Manual..."
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"Manual"
+    sub_menu_action:&0
+    click_action:&11
+    help:"\Sopen the manual of CD2MP3."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_SEPARATE
+    cmp:&4
+    text:"Interactive Help"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&17
+    help:"\Sactivate the interactive help."
+    help_limit:*
+  }
+  Entry {
+    cmp:6
+    flags:
+    cmp:&6
+    text:"Homepage"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&18
+    help:"\Sview the homepage of CD2MP3."
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"Manual"
+  menu_flags:
+  title:"Manual"
+  title_limit:*
+  help:"This allows direct access to each chapter of the manual."
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:0
+    flags:menu_ENTRY_SEPARATE
+    cmp:&0
+    text:"Introduction"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&20
+    help:"\Sview this chapter of the manual."
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Installation"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&20
+    help:"\Sview this chapter of the manual."
+    help_limit:*
+  }
+  Entry {
+    cmp:2
+    flags:
+    cmp:&2
+    text:"Starting"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&20
+    help:"\Sview this chapter of the manual."
+    help_limit:*
+  }
+  Entry {
+    cmp:3
+    flags:
+    cmp:&3
+    text:"The Process"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&20
+    help:"\Sview this chapter of the manual."
+    help_limit:*
+  }
+  Entry {
+    cmp:4
+    flags:menu_ENTRY_SEPARATE
+    cmp:&4
+    text:"Track Selection"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&20
+    help:"\Sview this chapter of the manual."
+    help_limit:*
+  }
+  Entry {
+    cmp:5
+    flags:
+    cmp:&5
+    text:"Problems"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&20
+    help:"\Sview this chapter of the manual."
+    help_limit:*
+  }
+  Entry {
+    cmp:6
+    flags:
+    cmp:&6
+    text:"History"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&20
+    help:"\Sview this chapter of the manual."
+    help_limit:*
+  }
+  Entry {
+    cmp:7
+    flags:
+    cmp:&7
+    text:"Licence"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&20
+    help:"\Sview this chapter of the manual."
+    help_limit:*
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"Contact"
+  menu_flags:
+  title:"Contact"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Email"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&19
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:1
+    flags:
+    cmp:&1
+    text:"Create Bug report"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&21
+    help:""
+    help_limit:*
+  }
+}

@@ -1,0 +1,524 @@
+RESF:1.01
+
+window_object {
+  header_flags:toolbox_OBJECT_SHARED
+  version:102
+  object_name:"MainWindow"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:""
+  default_focus:toolbox_NULL_COMPONENT
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:592,144,1592,1144
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_BLACK
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:
+  window.extent:0,-1000,1000,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:100
+  window.ymin:100
+  window.title_text:"gadget test harness"
+  window.title_text_limit:256
+  window.title_valid:""
+  actionbutton_object {
+    cmp:&4
+    bbox:20,-988,208,-936
+    help_message:"Click to quit this application"
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"Quit"
+    text_limit:*
+    click_show:""
+    action:&82a91
+  }
+}
+
+menu_object {
+  header_flags:
+  version:102
+  object_name:"Menu"
+  menu_flags:
+  title:"New Menu"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Menu Entry"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+}
+
+window_object {
+  header_flags:toolbox_OBJECT_SHARED
+  version:102
+  object_name:"Pane0"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:"Menu"
+  default_focus:&0
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:996,788,1936,1628
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_TRANSPARENT
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:
+  window.extent:0,-840,940,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:540
+  window.ymin:600
+  window.title_text:"Treeview"
+  window.title_text_limit:*
+  window.title_valid:""
+  actionbutton_object {
+    cmp:&10
+    bbox:116,-544,196,-492
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"prev"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&11
+    bbox:116,-612,196,-560
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"next"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&12
+    bbox:200,-576,296,-524
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"child"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&13
+    bbox:16,-576,112,-524
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"parent"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&14
+    bbox:20,-680,156,-628
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"add node"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&15
+    bbox:20,-744,156,-692
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"add child"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&16
+    bbox:464,-772,560,-720
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"get"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&17
+    bbox:356,-772,452,-720
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"set"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&18
+    bbox:20,-808,156,-756
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"delete"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&1a
+    bbox:168,-680,304,-628
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"get first"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  actionbutton_object {
+    cmp:&1b
+    bbox:168,-744,304,-692
+    help_message:""
+    help_limit:*
+    flags:actionbutton_IS_LOCAL
+    text:"get next"
+    text_limit:*
+    click_show:""
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&20
+    bbox:572,-52,904,-8
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Allow V scrollbar"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&21
+    bbox:572,-100,904,-56
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Allow H scrollbar"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&22
+    bbox:572,-148,904,-104
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Auto update"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&23
+    bbox:572,-196,904,-152
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Show current node"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&24
+    bbox:572,-244,904,-200
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Plot lines"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&25
+    bbox:572,-292,904,-248
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Allow selection"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&26
+    bbox:572,-340,904,-296
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Notify selection"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&27
+    bbox:572,-388,904,-344
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Select children"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&28
+    bbox:572,-436,904,-392
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Allow expand"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&29
+    bbox:572,-484,904,-440
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Notify expand"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&2a
+    bbox:572,-532,904,-488
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Expand by default"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&2b
+    bbox:572,-580,904,-536
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Allow rename"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&2c
+    bbox:572,-628,904,-584
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Notify rename"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&2d
+    bbox:572,-676,904,-632
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Allow drags"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&2e
+    bbox:572,-724,904,-680
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Notify drag end"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&2f
+    bbox:572,-772,904,-728
+    help_message:""
+    help_limit:*
+    flags:
+    label:"Deliver all events"
+    label_limit:*
+    action:&0
+  }
+  optionbutton_object {
+    cmp:&3f
+    bbox:572,-820,856,-776
+    help_message:""
+    help_limit:*
+    flags:gadget_FADED
+    label:"Fade"
+    label_limit:*
+    action:&0
+  }
+  writablefield_object {
+    cmp:&100
+    bbox:356,-548,544,-496
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&102
+    next:&101
+  }
+  writablefield_object {
+    cmp:&101
+    bbox:356,-612,544,-560
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&100
+    next:&102
+  }
+  writablefield_object {
+    cmp:&102
+    bbox:356,-676,544,-624
+    help_message:""
+    help_limit:*
+    flags:writablefield_HCENTRED
+    text:""
+    text_limit:32
+    allowable:""
+    allowable_limit:*
+    prev:&101
+    next:&100
+  }
+  button_object {
+    cmp:&103
+    bbox:12,-440,548,-12
+    help_message:""
+    help_limit:*
+    flags:
+    button_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+    button_esg:0
+    button_fg:wimp_COLOUR_BLACK
+    button_bg:wimp_COLOUR_WHITE
+    value:""
+    value_limit:8
+    validation:""
+    validation_limit:*
+  }
+}
+
+window_object {
+  header_flags:toolbox_OBJECT_SHARED
+  version:102
+  object_name:"Pane1"
+  window_flags:window_AUTO_OPEN | window_AUTO_CLOSE
+  help_message:""
+  help_limit:*
+  sprite_name:""
+  pointer_limit:0
+  hotspot:0,0
+  menu_name:"Menu"
+  default_focus:&0
+  show_action:
+  hide_action:
+  toolbar_ibl:""
+  toolbar_itl:""
+  toolbar_ebl:""
+  toolbar_etl:""
+  window.visible:1000,696,1940,1536
+  window.xscroll:0
+  window.yscroll:0
+  window.next:wimp_TOP
+  window.flags:wimp_WINDOW_MOVEABLE | wimp_WINDOW_AUTO_REDRAW | wimp_WINDOW_TITLE_ICON | wimp_WINDOW_NEW_FORMAT
+  window.title_fg:wimp_COLOUR_TRANSPARENT
+  window.title_bg:wimp_COLOUR_LIGHT_GREY
+  window.work_fg:wimp_COLOUR_BLACK
+  window.work_bg:wimp_COLOUR_VERY_LIGHT_GREY
+  window.scroll_outer:wimp_COLOUR_MID_LIGHT_GREY
+  window.scroll_inner:wimp_COLOUR_VERY_LIGHT_GREY
+  window.highlight_bg:wimp_COLOUR_CREAM
+  window.extra_flags:
+  window.extent:0,-840,940,0
+  window.title_flags:wimp_ICON_TEXT | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+  window.work_flags:
+  window.sprite_area:&ffffffff
+  window.xmin:540
+  window.ymin:600
+  window.title_text:"second pane"
+  window.title_text_limit:*
+  window.title_valid:""
+  button_object {
+    cmp:&0
+    bbox:120,-632,640,-252
+    help_message:""
+    help_limit:*
+    flags:
+    button_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_INDIRECTED
+    button_esg:0
+    button_fg:wimp_COLOUR_BLACK
+    button_bg:wimp_COLOUR_WHITE
+    value:"this pane is not used"
+    value_limit:*
+    validation:""
+    validation_limit:*
+  }
+}
