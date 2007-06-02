@@ -1,6 +1,7 @@
 /* _Menu.c
 
-   Copyright (c) 2003-2006 Dave Appleby / John Tytgat
+   Copyright (c) 2003-2003 Dave Appleby
+   Copyright (c) 2003-2007 John Tytgat
 
    This file is part of CCres.
 
