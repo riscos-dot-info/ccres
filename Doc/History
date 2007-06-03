@@ -18,7 +18,7 @@ v1.12 28 Jan 2006
 - Added menu_GENERATE_HAS_BEEN_HIDDEN.
 - Created command line version without any Wimp support.
 - Support for cross-compilation using GCCSDK.
-- Heavyly reduced memory needs (total number of icons x number of windows ->
+- Heavily reduced memory needs (total number of icons x number of windows ->
   max number of icons in one window x number of windows).
 - Removed the error "Not all bits are covered" but made sure that those bits
   were round-trippable.
