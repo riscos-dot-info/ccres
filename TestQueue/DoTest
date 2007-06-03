@@ -1,0 +1,49 @@
+#!/bin/bash
+
+CCRES=../Release/ccres,ff8
+CCRESFLAGS=
+
+##set -e
+
+LOGFILE_B2T=diff_bin2txt.log
+test -f $LOGFILE_B2T && rm $LOGFILE_B2T
+LOGFILE_T2B=diff_txt2bin.log
+test -f $LOGFILE_T2B && rm $LOGFILE_T2B
+
+echo +++ Testing for Resource regressions
+test ! -d Res01.bin2txt && mkdir Res01.bin2txt
+test ! -d Res01.bin2txt.txt2bin && mkdir Res01.bin2txt.txt2bin
+test ! -d Res01.bin2txt.txt2bin.bin2txt && mkdir Res01.bin2txt.txt2bin.bin2txt
+RESFILES=`( cd Res01 ; echo *,fae )`
+for RFILE in $RESFILES ; do
+  TRFILE=$(echo $RFILE | sed s/,fae//)
+  echo Comparing test file $TRFILE
+
+  echo Comparing test file $TRFILE >> $LOGFILE_B2T
+  $CCRES $CCRESFLAGS Res01/$RFILE Res01.bin2txt/$TRFILE
+  diff Res01.ref/$TRFILE Res01.bin2txt/$TRFILE >> $LOGFILE_B2T
+
+  echo Comparing test file $TRFILE >> $LOGFILE_T2B
+  $CCRES $CCRESFLAGS Res01.bin2txt/$TRFILE Res01.bin2txt.txt2bin/$TRFILE
+  $CCRES $CCRESFLAGS Res01.bin2txt.txt2bin/$TRFILE Res01.bin2txt.txt2bin.bin2txt/$TRFILE
+  diff Res01.bin2txt/$TRFILE Res01.bin2txt.txt2bin.bin2txt/$TRFILE >> $LOGFILE_T2B && echo "  *** FAILED"
+done
+
+echo +++ Testing for Template regressions
+test ! -d Tem01.bin2txt && mkdir Tem01.bin2txt
+test ! -d Tem01.bin2txt.txt2bin && mkdir Tem01.bin2txt.txt2bin
+test ! -d Tem01.bin2txt.txt2bin.bin2txt && mkdir Tem01.bin2txt.txt2bin.bin2txt
+TEMFILES=`( cd Tem01 ; echo *,fec )`
+for TFILE in $TEMFILES ; do
+  TTFILE=$(echo $TFILE | sed s/,fec//)
+  echo Comparing test file $TTFILE
+
+  echo Comparing test file $TTFILE >> $LOGFILE_B2T
+  $CCRES $CCRESFLAGS Tem01/$TFILE Tem01.bin2txt/$TTFILE
+  diff Tem01.ref/$TTFILE Tem01.bin2txt/$TTFILE >> $LOGFILE_B2T
+
+  echo Comparing test file $TTFILE >> $LOGFILE_T2B
+  $CCRES $CCRESFLAGS Tem01.bin2txt/$TTFILE Tem01.bin2txt.txt2bin/$TTFILE
+  $CCRES $CCRESFLAGS Tem01.bin2txt.txt2bin/$TTFILE Tem01.bin2txt.txt2bin.bin2txt/$TTFILE
+  diff Tem01.bin2txt/$TTFILE Tem01.bin2txt.txt2bin.bin2txt/$TTFILE >> $LOGFILE_T2B && echo "  *** FAILED"
+done
