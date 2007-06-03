@@ -135,14 +135,15 @@ static bool text2res(DATA *data, char *pszOutFile)
 
 	pszIn = data->pszIn;
 	pszEnd = data->pszIn + data->cbIn;
-	if (memcmp(pszIn, "RESF:1.01", 8) != 0) {
+	if (memcmp(pszIn, "RESF:1.01", sizeof("RESF:1.01")-1) != 0) {
 		error(data, "File is not RESF v1.01");
 		return false;
 	}
-	if ((pszOut = MyAlloc(296 * 268 * 3)) == NULL ||		// approx = window with 256 gadgets, 3 strings each
-				!alloc_string_table(&data->StringTable) ||
-				!alloc_string_table(&data->MessageTable) ||
-				!alloc_reloc_table(&data->RelocTable)) {
+	// approx = window with 256 gadgets, 3 strings each
+	if ((pszOut = MyAlloc(296 * 268 * 3)) == NULL
+			|| !alloc_string_table(&data->StringTable)
+			|| !alloc_string_table(&data->MessageTable)
+			|| !alloc_reloc_table(&data->RelocTable)) {
 		error(data, "Unable to allocate necessary memory");
 		return false;
 	} else if ((hf = fopen(pszOutFile, "wb")) == NULL) {
