@@ -40,7 +40,7 @@ static const FLAGS ObjectHeaderFlags[] = {
 static const OBJECTLIST ObjectHeaderList[] = {
 	{iol_FLAGS, "header_flags:", offsetof(toolbox_resource_file_object_base, flags),   ObjectHeaderFlags, ELEMENTS(ObjectHeaderFlags)},
 	{iol_INT,   "version:",      offsetof(toolbox_resource_file_object_base, version), NULL,              0                          },
-	{iol_PSTR,  "object_name:",  offsetof(toolbox_resource_file_object_base, name),    NULL,              0                          }
+	{iol_CHARPTR,  "object_name:",  offsetof(toolbox_resource_file_object_base, name),    NULL,              0                          }
 };
 
 // Icon flags to be masked with 0xFFF + 0xE00000 :
@@ -132,9 +132,9 @@ static const FLAGS CmpFlags[] = {
 };
 
 
-static PSTR parse(PDATA data, PSTR pszIn, const char *pszEntry)
+static char *parse(PDATA data, char *pszIn, const char *pszEntry)
 {
-	PSTR p, pszEnd;
+	char *p, *pszEnd;
 	int cb;
 	char ch, ch0;
 
@@ -169,7 +169,7 @@ static BOOL add_to_reloc_table(PRELOCTABLE pRelocTable, int nEntry, int nTable)
 		if ((pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL) {
 			return FALSE;
 		}
-		memcpy((PSTR) pReloc, (PSTR) pRelocTable->pReloc, pRelocTable->max * sizeof(RELOC));
+		memcpy(pReloc, pRelocTable->pReloc, pRelocTable->max * sizeof(RELOC));
 		MyFree(pRelocTable->pReloc);
 		pRelocTable->pReloc = pReloc;
 		pRelocTable->max = nReloc;
@@ -181,7 +181,7 @@ static BOOL add_to_reloc_table(PRELOCTABLE pRelocTable, int nEntry, int nTable)
 // may be trailing spaces after closing quote
 // may be no quotes at all
 // report imbalance
-static PSTR remove_quotes(PDATA data, PSTR pszEntry)
+static char *remove_quotes(PDATA data, char *pszEntry)
 {
 	int cb, cbTerm;
 	char ch;
@@ -207,11 +207,11 @@ static PSTR remove_quotes(PDATA data, PSTR pszEntry)
 }
 
 
-static BOOL put_string(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRINGLIST StringList)
+static BOOL put_string(PDATA data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
 {
-	PSTRINGTABLE pTable;
+	STRINGTABLE *pTable;
 	PINT pInt;
-	PSTR pszEntry, pszLimit, pstr;
+	char *pszEntry, *pszLimit, *pstr;
 	int cb, cbEntry, cbLimit, nTable;
 
 	if (StringList->nTable == iol_STRING) {
@@ -261,11 +261,11 @@ static BOOL put_string(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRING
 }
 
 
-static BOOL put_tstring(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRINGLIST StringList)
+static BOOL put_tstring(PDATA data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
 {
-	PSTRINGTABLE pTable;
+	STRINGTABLE *pTable;
 	PINT pInt;
-	PSTR pszEntry, pszLimit, pstr;
+	char *pszEntry, *pszLimit, *pstr;
 	int cb, cbEntry, cbLimit, nTable;
 
 	pTable = &data->StringTable;
@@ -309,11 +309,11 @@ static BOOL put_tstring(PDATA data, PSTR pszIn, int nOffset, PSTR object, PSTRIN
 }
 
 
-static  PSTR string_from_table(PSTR pszTable, int ref)
+static  char *string_from_table(char *pszTable, int ref)
 //      ==============================================
 {
-	static PSTR pszNull = "";
-	PSTR pstr, p;
+	static char *pszNull = "";
+	char *pstr, *p;
 	char ch;
 
 	if (pszTable == NULL || ref < 0) {
@@ -329,11 +329,11 @@ static  PSTR string_from_table(PSTR pszTable, int ref)
 }
 
 
-static  void get_string(PDATA data, FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, PSTRINGLIST StringList, PSTR pszIndent)
+static  void get_string(PDATA data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
 //      ==============================================================================================================================================
 {
 const int *pInt;
-PSTR pstr, qstr, string_table;
+char *pstr, *qstr, *string_table;
 int cbLimit, ref;
 
 switch (StringList->nTable)
@@ -368,11 +368,11 @@ if (StringList->pszLimit != NULL)
 }
 
 
-static  void get_tstring(FILE * hf, PSTR pszStringTable, const char *objectP, PSTRINGLIST StringList, PSTR pszIndent)
+static  void get_tstring(FILE * hf, char *pszStringTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
 //      =============================================================================================================
 {
 const int *pInt;
-PSTR pstr, qstr;
+char *pstr, *qstr;
 int cbLimit, ref;
 
 pInt = (const int *) &objectP[StringList->nEntry];
@@ -396,10 +396,10 @@ if (StringList->pszLimit != NULL)
 }
 
 
-static  bits put_flags(PDATA data, PSTR pstrFlags, PFLAGS pFlags, int nFlags)
+static  bits put_flags(PDATA data, char *pstrFlags, PFLAGS pFlags, int nFlags)
 //      =====================================================================
 {
-PSTR p;
+char *p;
 bits f;
 
 f = 0;
@@ -440,7 +440,7 @@ return f;
 }
 
 
-static  void get_flags(PDATA data, FILE * hf, PSTR pszFlags, bits fFlags, PFLAGS pFlags, int nFlags)
+static  void get_flags(PDATA data, FILE * hf, char *pszFlags, bits fFlags, PFLAGS pFlags, int nFlags)
 //      ============================================================================================
 {
 const char *pszOr;
@@ -466,7 +466,7 @@ fwrite(achBuff, cb, 1, hf);
 
 
 // fInt - value may be a #defined variable or a nunber (hex or decimal)
-static int put_enum(PDATA data, PSTR pstrFlags, const FLAGS *pFlags, int nFlags, BOOL fInt)
+static int put_enum(PDATA data, char *pstrFlags, const FLAGS *pFlags, int nFlags, BOOL fInt)
 {
 	int n;
 
@@ -510,9 +510,9 @@ get_enum_found:
 }
 
 
-static bits put_iflags(PDATA data, PSTR pstrFlags)
+static bits put_iflags(PDATA data, char *pstrFlags)
 {
-PSTR p;
+char *p;
 bits f;
 
 f = 0;
@@ -569,7 +569,7 @@ return f;
 
 
 // Output the bits 0xFFF | 0xE00000 and wimp_ICON_BUTTON_TYPE
-static  void get_iflags(PDATA data, FILE * hf, PSTR pszFlags, bits fFlags)
+static  void get_iflags(PDATA data, FILE * hf, char *pszFlags, bits fFlags)
 //      ==================================================================
 {
 const FLAGS *pFlags;
@@ -614,7 +614,7 @@ fwrite(achBuff, cb, 1, hf);
 }
 
 
-static void put_box(PDATA data, PSTR pstr, os_box * box)
+static void put_box(PDATA data, char *pstr, os_box * box)
 {
 	PINT pi;
 	int n;
@@ -627,14 +627,14 @@ static void put_box(PDATA data, PSTR pstr, os_box * box)
 }
 
 
-static  void get_box(FILE * hf, PSTR pszBox, const os_box * bbox)
+static  void get_box(FILE * hf, char *pszBox, const os_box * bbox)
 //      =========================================================
 {
 fprintf(hf, "%s%d,%d,%d,%d\n", pszBox, bbox->x0, bbox->y0, bbox->x1, bbox->y1);
 }
 
 
-static void put_coord(PDATA data, PSTR pstr, os_coord * coord)
+static void put_coord(PDATA data, char *pstr, os_coord * coord)
 {
 	PINT pi;
 	int n;
@@ -647,14 +647,14 @@ static void put_coord(PDATA data, PSTR pstr, os_coord * coord)
 }
 
 
-static  void get_coord(FILE * hf, PSTR pszCoord, const os_coord * coord)
+static  void get_coord(FILE * hf, char *pszCoord, const os_coord * coord)
 //      ================================================================
 {
 fprintf(hf, "%s%d,%d\n", pszCoord, coord->x, coord->y);
 }
 
 
-static  void put_pstr(PDATA data, PSTR pstr, PSTR pszEntry, int nChars)
+static  void put_pstr(PDATA data, char *pstr, char *pszEntry, int nChars)
 //      ===============================================================
 {
 pszEntry = remove_quotes(data, pszEntry);
@@ -673,10 +673,10 @@ else
 }
 
 
-static  void get_pstr(PDATA data, FILE * hf, PSTR pszEntry, const char *objectP, int nEntry, int nChars)
+static  void get_pstr(PDATA data, FILE * hf, char *pszEntry, const char *objectP, int nEntry, int nChars)
 //      ================================================================================================
 {
-PSTR pszBuff;
+char *pszBuff;
 
 pszBuff = NULL;
 if (nChars == 0)
@@ -695,13 +695,13 @@ else
 }
 
 
-void put_objects(PDATA data, PSTR pszIn, int nOffset, PSTR Object, const OBJECTLIST *ObjectList, int nObjects)
+void put_objects(PDATA data, char *pszIn, int nOffset, char *Object, const OBJECTLIST *ObjectList, int nObjects)
 {
 PBITS pBits;
 PINT pInt;
 PSHORT pShort;
 PBYTE pByte;
-PSTR pszEntry;
+char *pszEntry;
 int n;
 
 for (n = 0; n < nObjects; n++, ObjectList++)
@@ -710,10 +710,10 @@ for (n = 0; n < nObjects; n++, ObjectList++)
     {
     case iol_MSG:
     case iol_STRING:
-      put_string(data, pszIn, nOffset, Object, (PSTRINGLIST) ObjectList);
+      put_string(data, pszIn, nOffset, Object, (STRINGLIST *)ObjectList);
       break;
     case iol_TSTRING:
-      put_tstring(data, pszIn, nOffset, Object, (PSTRINGLIST) ObjectList);
+      put_tstring(data, pszIn, nOffset, Object, (STRINGLIST *)ObjectList);
       break;
     case iol_OBJECT:
       add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_OBJECT_OFFSET);
@@ -777,7 +777,7 @@ for (n = 0; n < nObjects; n++, ObjectList++)
             *pBits = my_atoi(&pszEntry);
             add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE);
             break;
-          case iol_PSTR:
+          case iol_CHARPTR:
             put_pstr(data, &Object[ObjectList->nEntry], pszEntry, ObjectList->nData);
             break;
           case iol_ESG:
@@ -805,9 +805,9 @@ for (n = 0; n < nObjects; n++, ObjectList++)
 }
 
 
-void get_objects(PDATA data, FILE * hf, PSTR pszStringTable, PSTR pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
+void get_objects(PDATA data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
 {
-PSTR pszIndent;
+char *pszIndent;
 int i, n;
 
 pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
@@ -820,10 +820,10 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
       {
       case iol_MSG:
       case iol_STRING:
-        get_string(data, hf, pszStringTable, pszMessageTable, objectP, (PSTRINGLIST) ObjectList, pszIndent);
+        get_string(data, hf, pszStringTable, pszMessageTable, objectP, (STRINGLIST *)ObjectList, pszIndent);
         break;
       case iol_TSTRING:
-        get_tstring(hf, pszStringTable, objectP, (PSTRINGLIST) ObjectList, pszIndent);
+        get_tstring(hf, pszStringTable, objectP, (STRINGLIST *)ObjectList, pszIndent);
         break;
       case iol_FLAGS:
         {
@@ -900,7 +900,7 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
         fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
         break;
         }
-      case iol_PSTR:
+      case iol_CHARPTR:
         get_pstr(data, hf, ObjectList->pszEntry, objectP, ObjectList->nEntry, ObjectList->nData);
         break;
       case iol_ESG:
@@ -937,9 +937,9 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
 #define min(a,b) ((a)<(b)?(a):(b))
 // Iconbar {
 // returns "Iconbar\0" and sets pszIn to byte after '{'
-PSTR next_object(PSTR * pszIn, PSTR pszEnd)
+char *next_object(char ** pszIn, char *pszEnd)
 {
-	PSTR p, q;
+	char *p, *q;
 	int cb;
 	char ch;
 	static char achObject[48];
@@ -966,9 +966,9 @@ PSTR next_object(PSTR * pszIn, PSTR pszEnd)
 }
 
 
-PSTR object_end(PDATA data, PSTR pszIn, PSTR pszEnd)
+char *object_end(PDATA data, char *pszIn, char *pszEnd)
 {
-	PSTR p;
+	char *p;
 	int nDepth;
 	char ch;
 
@@ -998,48 +998,48 @@ PSTR object_end(PDATA data, PSTR pszIn, PSTR pszEnd)
 }
 
 
-void object_text2resource(PDATA data, FILE * hf, PSTR pszIn, PSTR pszOut, const CLASSES *pClass)
+void object_text2resource(PDATA data, FILE * hf, char *pszIn, char *pszOut, const CLASSES *pClass)
 {
 	toolbox_relocatable_object_base * object;
 	PINT pReloc;
-	PSTR strings;
+	char *strings;
 	int cb, ref;
 
 	object = (toolbox_relocatable_object_base *) pszOut;
 	object->rf_obj.class_no = pClass->class_no;
-	put_objects(data, pszIn, 0, (PSTR) &object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList));
+	put_objects(data, pszIn, 0, (char *) &object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList));
 	object->rf_obj.body_size = pClass->t2o(data, pszIn, object);
 
-	strings = (PSTR) (object + 1) + object->rf_obj.body_size;
+	strings = (char *) (object + 1) + object->rf_obj.body_size;
 	if ((ref = data->StringTable.ref) == 0) {
 		object->string_table_offset = -1;
 	} else {
-		object->string_table_offset = (int) ((PSTR) strings - (PSTR) object);
+		object->string_table_offset = (int) ((char *) strings - (char *) object);
 		memcpy(strings, data->StringTable.pstr, ref);
 		strings += ALIGN(ref);
 	}
 	if ((ref = data->MessageTable.ref) == 0) {
 		object->message_table_offset = -1;
 	} else {
-		object->message_table_offset = (int) ((PSTR) strings - (PSTR) object);
+		object->message_table_offset = (int) ((char *) strings - (char *) object);
 		memcpy(strings, data->MessageTable.pstr, ref);
 		strings += ALIGN(ref);
 	}
 	if (data->RelocTable.ref == 0) {
 		object->relocation_table_offset = -1;
 	} else {
-		object->relocation_table_offset = (int) ((PSTR) strings - (PSTR) object);
+		object->relocation_table_offset = (int) ((char *) strings - (char *) object);
 		pReloc = (PINT) strings;
 		*pReloc++ = data->RelocTable.ref;
 		cb = data->RelocTable.ref * sizeof(RELOC);
-		memcpy((PSTR) pReloc, (PSTR) data->RelocTable.pReloc, cb);
-		strings = (PSTR) pReloc;
+		memcpy(pReloc, data->RelocTable.pReloc, cb);
+		strings = (char *) pReloc;
 		strings += cb;
 	}
 
 	object->rf_obj.size = object->relocation_table_offset - (sizeof(toolbox_relocatable_object_base) - sizeof(object->rf_obj));
 	object->rf_obj.header_size = sizeof(object->rf_obj);
-	cb = (int) ((PSTR) strings - (PSTR) object);
+	cb = (int) ((char *) strings - (char *) object);
 	fwrite(pszOut, cb, 1, hf);
 	memset(pszOut, 0, cb);
 }
@@ -1047,14 +1047,14 @@ void object_text2resource(PDATA data, FILE * hf, PSTR pszIn, PSTR pszOut, const 
 
 void object_resource2text(PDATA data, FILE * hf, toolbox_relocatable_object_base * object, object2text o2t)
 {
-	PSTR pszStringTable, pszMessageTable;
+	char *pszStringTable, *pszMessageTable;
 
 	pszStringTable = pszMessageTable = NULL;
 	if (object->string_table_offset != -1) {
-		pszStringTable = ((PSTR) object) + object->string_table_offset;
+		pszStringTable = ((char *) object) + object->string_table_offset;
 	}
 	if (object->message_table_offset != -1) {
-		pszMessageTable = ((PSTR) object) + object->message_table_offset;
+		pszMessageTable = ((char *) object) + object->message_table_offset;
 	}
 
 	get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)&object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);

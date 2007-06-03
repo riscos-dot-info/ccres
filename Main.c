@@ -47,7 +47,7 @@
 static BOOL ccres_appl_initialise(PDATA data);
 static void ccres_appl_pollloop(PDATA data);
 static void toolbox_error(PDATA data);
-static int question(PSTR pszKeys, bits nErr, PSTR pszFmt, ...);
+static int question(char *pszKeys, bits nErr, char *pszFmt, ...);
 
 
 // Toolbox action codes returned by WimpPoll - each action has an associated handler
@@ -123,7 +123,7 @@ do {
 }
 
 
-        int main(int argc, PSTR argv[])
+        int main(int argc, char *argv[])
 //      ===============================
 {
 DATA data;
@@ -161,7 +161,7 @@ if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.dat
 }
 
 // return value is zero based index of keys passed in pszKeys
-static  int question(PSTR pszKeys, bits nErr, PSTR pszFmt, ...)
+static  int question(char *pszKeys, bits nErr, char *pszFmt, ...)
 //      =======================================================
 {
 os_error err;

@@ -65,9 +65,9 @@ static BOOL Eval2(PINT sop, PINT sn, PINT piop, PINT pin)
 }
 
 
-int Eval(PDATA data, PSTR * ppstr)
+int Eval(PDATA data, char ** ppstr)
 {
-	PSTR pstr;
+	char *pstr;
 	int sop[16], sn[16];
 	int iop, in, op;
 	BOOL fOp;

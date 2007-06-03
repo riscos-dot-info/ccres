@@ -211,7 +211,7 @@ static const OBJECTLIST GadgetHeaderList[] = {
 	{iol_MSG,  "help_message:", offsetof(gadget_object, help_message), "help_limit:", offsetof(gadget_object, help_limit)}
 };
 
-static const PSTR pszShortcutObject = "keyboardshortcut_object";
+static const char *pszShortcutObject = "keyboardshortcut_object";
 static const FLAGS ShortcutFlags[] = {
 	{keyboardshortcut_SHOW_AS_MENU   , "keyboardshortcut_SHOW_AS_MENU"   },
 	{keyboardshortcut_SHOW_AT_CENTRE , "keyboardshortcut_SHOW_AT_CENTRE" },
@@ -226,25 +226,25 @@ static const OBJECTLIST ShortcutList[] = {
 };
 
 
-int window_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int window_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object)
 {
 	window_object_base * window_object;
 	keyboardshortcut_object * shortcut;
 	gadget_object_base * gadget;
-	PSTR pszObject, pszShortcut, pszEnd;
+	char *pszObject, *pszShortcut, *pszEnd;
 	int shortcut_count, g, gadget_count, nOffset, nSize;
 
 	window_object = (window_object_base *) (object + 1);
-	put_objects(data, pszIn, 0, (PSTR) window_object, WindowObjectList, ELEMENTS(WindowObjectList));
+	put_objects(data, pszIn, 0, (char *) window_object, WindowObjectList, ELEMENTS(WindowObjectList));
 
 	pszEnd = data->pszIn + data->cbIn;
 	pszShortcut = pszIn;
-	shortcut = (keyboardshortcut_object *) ((PSTR) window_object + sizeof(window_object_base));
+	shortcut = (keyboardshortcut_object *) ((char *) window_object + sizeof(window_object_base));
 	shortcut_count = 0;
 	while ((pszObject = next_object(&pszShortcut, pszEnd)) != NULL) {
 		if (strcasecmp(pszShortcutObject, pszObject) == 0) {
-			nOffset = (int) ((PSTR) shortcut - (PSTR) window_object);
-			put_objects(data, pszShortcut, nOffset, (PSTR) shortcut, ShortcutList, ELEMENTS(ShortcutList));
+			nOffset = (int) ((char *) shortcut - (char *) window_object);
+			put_objects(data, pszShortcut, nOffset, (char *) shortcut, ShortcutList, ELEMENTS(ShortcutList));
 			shortcut++;
 			shortcut_count++;
 		}
@@ -264,13 +264,13 @@ int window_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 	while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
 		for (g = 0; g < ELEMENTS(Gadgets); g++) {
 			if (strcasecmp(Gadgets[g].name, pszObject) == 0) {
-				nOffset = (int) ((PSTR) gadget - (PSTR) window_object);
-				put_objects(data, pszIn, nOffset, (PSTR) gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList));
+				nOffset = (int) ((char *) gadget - (char *) window_object);
+				put_objects(data, pszIn, nOffset, (char *) gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList));
 				nSize = Gadgets[g].t2g(data, pszIn, nOffset, gadget);
 				if (nSize & 0x3)
 					error(data, "Gadget class '%s' has non aligned size %d", pszObject, nSize);
 				gadget->class_no_and_size = (nSize << 16) | Gadgets[g].class_no;
-				gadget = (gadget_object_base *) ((PSTR) gadget + nSize);
+				gadget = (gadget_object_base *) ((char *) gadget + nSize);
 				gadget_count++;
 				goto _window_gadget_added;
 			}
@@ -287,15 +287,15 @@ _window_gadget_added:
 	}
 	if (gadget_count > 0) {
 		window_object->gadget_count = gadget_count;
-		window_object->gadgets = (toolbox_object_offset) ((PSTR) sizeof(window_object_base) + (shortcut_count * sizeof(keyboardshortcut_object)));
+		window_object->gadgets = (toolbox_object_offset) ((char *) sizeof(window_object_base) + (shortcut_count * sizeof(keyboardshortcut_object)));
 	} else {
 		window_object->gadgets = (toolbox_object_offset) -1;
 	}
-	return (int) ((PSTR) gadget - (PSTR) window_object);
+	return (int) ((char *) gadget - (char *) window_object);
 }
 
 
-        void window_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void window_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
 //      =============================================================================================================================
 {
 window_object_base * window_object;
@@ -306,7 +306,7 @@ int n, g, nSize, nClass;
 window_object = (window_object_base *) (object + 1);
 get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)window_object, WindowObjectList, ELEMENTS(WindowObjectList), 1);
 
-shortcut = (keyboardshortcut_object *) ((PSTR) window_object + (int) window_object->shortcuts);
+shortcut = (keyboardshortcut_object *) ((char *) window_object + (int) window_object->shortcuts);
 for (n = 0; n < window_object->shortcut_count; n++, shortcut++)
   {
   fprintf(hf, "  %s {\n", pszShortcutObject);
@@ -314,7 +314,7 @@ for (n = 0; n < window_object->shortcut_count; n++, shortcut++)
   fputs("  }\n", hf);
   }
 
-gadget = (gadget_object_base *) ((PSTR) window_object + (int) window_object->gadgets);
+gadget = (gadget_object_base *) ((char *) window_object + (int) window_object->gadgets);
 for (n = 0; n < window_object->gadget_count; n++) {
   nSize = (gadget->class_no_and_size >> 16);
   nClass = (gadget->class_no_and_size & 0xffff);
@@ -364,14 +364,14 @@ static const OBJECTLIST WimpWindowObjectList[] = {
 };
 
 
-        int window_text2template(PDATA data, PSTR pszIn, int nOffset, wimp_window_base * window)
+        int window_text2template(PDATA data, char *pszIn, int nOffset, wimp_window_base * window)
 //      ========================================================================================
 {
 wimp_icon * icon;
-PSTR pszObject, pszEnd, strings;
+char *pszObject, *pszEnd, *strings;
 int ref;
 
-put_objects(data, pszIn, 0, (PSTR) window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList));
+put_objects(data, pszIn, 0, (char *) window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList));
 put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &window->title_data, window->title_flags);
 
 pszEnd = data->pszIn + data->cbIn;
@@ -383,20 +383,20 @@ while ((pszObject = next_object(&pszIn, pszEnd)) != NULL)
   if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL)
     break;
   }
-window->icon_count = (int) ((PSTR) icon - (PSTR) (window + 1)) / sizeof(wimp_icon);
+window->icon_count = (int) ((char *) icon - (char *) (window + 1)) / sizeof(wimp_icon);
 
-strings = (PSTR) icon;
+strings = (char *) icon;
 if ((ref = data->StringTable.ref) > 0)
   {
   memcpy(strings, data->StringTable.pstr, ref);
   strings += ref;
   reset_string_table(&data->StringTable);
   }
-return (int) (strings - (PSTR) window);
+return (int) (strings - (char *) window);
 }
 
 
-        void window_template2text(PDATA data, FILE * hf, PSTR pszBuff)
+        void window_template2text(PDATA data, FILE * hf, char *pszBuff)
 //      ==============================================================
 {
 wimp_window_base * window;

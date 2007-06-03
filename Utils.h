@@ -34,9 +34,9 @@
 void HexToUInt(PDATA data, const char *strP, unsigned int len, unsigned int *resultP);
 
 bits get_filetype(PDATA sessionP, const char *filenameP);
-BOOL load_file(PDATA data, PSTR pszPath, bits nFiletype);
+BOOL load_file(PDATA data, char *pszPath, bits nFiletype);
 
-void * My_Alloc(int cb, PSTR pszFile, int nLine);
+void * My_Alloc(int cb, char *pszFile, int nLine);
 #define MyAlloc(v) My_Alloc(v, __FILE__, __LINE__)
 #define MyFree(v) free(v)
 

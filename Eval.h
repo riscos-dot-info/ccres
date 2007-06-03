@@ -24,6 +24,6 @@
 
 #include "ccres.h"
 
-int Eval(PDATA data, PSTR * pstr);
+int Eval(PDATA data, char ** pstr);
 
 #endif

@@ -69,23 +69,23 @@ static OBJECTLIST MenuEntryObjectList[] = {
 };
 
 
-int menu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+int menu_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object)
 {
 	menu_object_base * menu;
 	menu_entry_object * entry;
-	PSTR pszEnd;
+	char *pszEnd;
 	int entry_count;
 
 	menu = (menu_object_base *) (object + 1);
-	put_objects(data, pszIn, 0, (PSTR) menu, MenuObjectList, ELEMENTS(MenuObjectList));
+	put_objects(data, pszIn, 0, (char *) menu, MenuObjectList, ELEMENTS(MenuObjectList));
 
 	pszEnd = data->pszIn + data->cbIn;
 	entry = (menu_entry_object *) (menu + 1);
 	entry_count = 0;
 	while (next_object(&pszIn, pszEnd) != NULL) {
-		put_objects(data, pszIn, (int) ((PSTR) entry - (PSTR) menu), (PSTR) entry, MenuEntryObjectListFlags, ELEMENTS(MenuEntryObjectListFlags));
+		put_objects(data, pszIn, (int) ((char *) entry - (char *) menu), (char *) entry, MenuEntryObjectListFlags, ELEMENTS(MenuEntryObjectListFlags));
 		MenuEntryObjectList[0].nTable = (entry->flags & menu_ENTRY_IS_SPRITE) ? iol_STRING : iol_MSG;		// text or sprite?
-		put_objects(data, pszIn, (int) ((PSTR) entry - (PSTR) menu), (PSTR) entry, MenuEntryObjectList, ELEMENTS(MenuEntryObjectList));
+		put_objects(data, pszIn, (int) ((char *) entry - (char *) menu), (char *) entry, MenuEntryObjectList, ELEMENTS(MenuEntryObjectList));
 		entry++;
 		entry_count++;
 		if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
@@ -93,11 +93,11 @@ int menu_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
 		}
 	}
 	menu->entry_count = entry_count;
-	return (int) ((PSTR) entry - (PSTR) menu);
+	return (int) ((char *) entry - (char *) menu);
 }
 
 
-        void menu_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void menu_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
 //      ===========================================================================================================================
 {
 menu_object_base * menu;

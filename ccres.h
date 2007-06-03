@@ -52,7 +52,7 @@ enum {
 	iol_STRING,		// toolbox_RELOCATE_STRING_REFERENCE
 	iol_SPRITE,		// toolbox_RELOCATE_SPRITE_AREA_REFERENCE
 	iol_OBJECT,		// toolbox_RELOCATE_OBJECT_OFFSET, but without entry in text file
-	iol_PSTR,		// bodge for iol_OBJECT also needing string
+	iol_CHARPTR,		// bodge for iol_OBJECT also needing string
 	iol_BITS,		// unsigned int
 	iol_INT,		// signed int
 	iol_SHORT,		// 16 bit int
@@ -92,14 +92,12 @@ typedef int * PINT;
 typedef bits * PBITS;
 typedef short * PSHORT;
 typedef unsigned char * PBYTE;
-typedef char * PSTR;
 typedef void * PVOID;
 
 typedef struct {
-	PSTR pstr;
+	char *pstr;
 	int ref, max;
 } STRINGTABLE;
-typedef STRINGTABLE * PSTRINGTABLE;
 
 typedef struct {
 	int offset, type;
@@ -114,16 +112,15 @@ typedef RELOCTABLE * PRELOCTABLE;
 
 typedef struct {
 	int nTable;
-	PSTR pszEntry;
+	char *pszEntry;
 	int nEntry;
-	PSTR pszLimit;
+	char *pszLimit;
 	int nLimit;
 } STRINGLIST;
-typedef STRINGLIST * PSTRINGLIST;
 
 typedef struct {
 	int nTable;
-	PSTR pszEntry;
+	char *pszEntry;
 	int nEntry;
 	const void *pData;
 	int nData;
@@ -136,7 +133,8 @@ typedef struct {
 	BOOL fUnsafeLoad;
 	int returnStatus;
 	wimp_t task;
-	PSTR pszIn, pszOut;
+	char *pszIn;
+        char *pszOut;
 	int cbIn, cbOut;
 	bits nFiletypeIn, nFiletypeOut;
 	STRINGTABLE StringTable, MessageTable;
@@ -154,29 +152,29 @@ typedef struct {
 typedef DATA * PDATA;
 
 typedef void (* action_handler)(PDATA data);
-typedef int  (* text2object)(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-typedef void (* object2text)(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
-typedef int  (* text2gadget)(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget);
-typedef void (* gadget2text)(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable);
+typedef int  (* text2object)(PDATA data, char *pszIn, toolbox_relocatable_object_base * object);
+typedef void (* object2text)(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable);
+typedef int  (* text2gadget)(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget);
+typedef void (* gadget2text)(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable);
 
 typedef struct {
 	toolbox_class class_no;
 	object2text o2t;
 	text2object t2o;
-	PSTR name;
+	char *name;
 } CLASSES;
 
 typedef struct {
 	toolbox_class class_no;
 	gadget2text g2t;
 	text2gadget t2g;
-	PSTR name;
+	char *name;
 } GADGETS;
 typedef GADGETS * PGADEGET;
 
 typedef struct {
 	bits flag;
-	PSTR pstr;
+	char *pstr;
 } FLAGS;
 typedef FLAGS * PFLAGS;
 

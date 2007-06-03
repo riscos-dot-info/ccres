@@ -43,17 +43,17 @@ static const OBJECTLIST ColourDboxObjectList[] = {
 };
 
 
-        int colourdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object)
+        int colourdbox_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object)
 //      ====================================================================================
 {
-put_objects(data, pszIn, 0, (PSTR) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList));
+put_objects(data, pszIn, 0, (char *) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList));
 
 return sizeof(colourdbox_object);
 }
 
 
-        void colourdbox_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable)
+        void colourdbox_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
 //      =================================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList), 1);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList), 1);
 }

@@ -28,7 +28,7 @@
 #include "ccres.h"
 #include "Error.h"
 
-void report(PDATA data, const char *ptrP, PSTR pszFmt, ...)
+void report(PDATA data, const char *ptrP, char *pszFmt, ...)
 {
 	va_list list;
 	const char *pP;
@@ -66,7 +66,7 @@ void report_end(PDATA data)
 }
 
 
-void error(DATA *sessionP, PSTR pszFmt, ...)
+void error(DATA *sessionP, char *pszFmt, ...)
 {
 //FIXME:#ifdef __riscos__
 #if 0

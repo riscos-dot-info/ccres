@@ -24,8 +24,8 @@
 
 #include "ccres.h"
 
-void report(PDATA data, const char *ptrP, PSTR pszFmt, ...);
+void report(PDATA data, const char *ptrP, char *pszFmt, ...);
 void report_end(PDATA data);
-void error(PDATA data, PSTR pszFmt, ...);
+void error(PDATA data, char *pszFmt, ...);
 
 #endif

@@ -26,7 +26,7 @@
 
 #include "ccres.h"
 
-int printdbox_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void printdbox_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int printdbox_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object);
+void printdbox_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable);
 
 #endif

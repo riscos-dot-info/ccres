@@ -109,7 +109,7 @@ return osfile_TYPE_TEXT;
 
 
 // Returns 'FALSE' in case of an error.
-        BOOL load_file(PDATA sessionP, PSTR pszPath, bits nFiletype)
+        BOOL load_file(PDATA sessionP, char *pszPath, bits nFiletype)
 //      ============================================================
 {
 sessionP->nFiletypeIn = nFiletype;
@@ -126,8 +126,8 @@ fseek(fhandle, 0, SEEK_END);
 int cbIn = (int)ftell(fhandle);
 fseek(fhandle, 0, SEEK_SET);
 
-PSTR pszIn;
-if ((pszIn = (PSTR) MyAlloc(cbIn)) == NULL)
+char *pszIn;
+if ((pszIn = (char *) MyAlloc(cbIn)) == NULL)
   return FALSE;
 
 if (fread(pszIn, cbIn, 1, fhandle) != 1)
@@ -166,11 +166,11 @@ return TRUE;
 }
 
 
-void * My_Alloc(int cb, PSTR pszFile, int nLine)
+void * My_Alloc(int cb, char *pszFile, int nLine)
 {
-PSTR p;
+char *p;
 
-if ((p = (PSTR) calloc(1, cb)) == NULL)
+if ((p = (char *) calloc(1, cb)) == NULL)
   fprintf(stderr, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine);
 return p;
 }

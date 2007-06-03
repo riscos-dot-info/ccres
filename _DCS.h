@@ -26,7 +26,7 @@
 
 #include "ccres.h"
 
-int dcs_t2g(PDATA data, PSTR pszIn, toolbox_relocatable_object_base * object);
-void dcs_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, PSTR pszStringTable, PSTR pszMessageTable);
+int dcs_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object);
+void dcs_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable);
 
 #endif

@@ -76,7 +76,7 @@ static const CLASSES Classes[] = {
 };
 
 
-static BOOL alloc_string_table(PSTRINGTABLE pTable)
+static BOOL alloc_string_table(STRINGTABLE *pTable)
 {
 	int cb;
 
@@ -104,7 +104,7 @@ static BOOL alloc_reloc_table(PRELOCTABLE pTable)
 }
 
 
-static void free_string_table(PSTRINGTABLE pTable)
+static void free_string_table(STRINGTABLE *pTable)
 {
 	if (pTable->pstr != NULL) {
 		MyFree(pTable->pstr);
@@ -124,11 +124,11 @@ static void free_reloc_table(PRELOCTABLE pTable)
 }
 
 
-static BOOL text2res(PDATA data, PSTR pszOutFile)
+static BOOL text2res(PDATA data, char *pszOutFile)
 {
 	toolbox_resource_file_base Hdr;
 	FILE * hf;
-	PSTR pszIn, pszOut, pszEnd, pszObject;
+	char *pszIn, *pszOut, *pszEnd, *pszObject;
 	int m;
 	BOOL fHeader;
 
@@ -197,7 +197,7 @@ text2res_added:
 }
 
 
-static  BOOL res2text(PDATA data, PSTR pszOutFile)
+static  BOOL res2text(PDATA data, char *pszOutFile)
 //      ==========================================
 {
 PINT relocation_table;
@@ -250,10 +250,10 @@ if (file_hdr->header_size > 0)
     cb = sizeof(toolbox_relocatable_object_base) - sizeof(obj->rf_obj) + obj->rf_obj.size;
     if (obj->relocation_table_offset != -1)
       {
-      relocation_table = (PINT) (((PSTR) obj) + obj->relocation_table_offset);
+      relocation_table = (PINT) (((char *) obj) + obj->relocation_table_offset);
       cb += sizeof(int) * (1 + 2 * relocation_table[0]);
       }
-    obj = (toolbox_relocatable_object_base *) (((PSTR) obj) + cb);
+    obj = (toolbox_relocatable_object_base *) (((char *) obj) + cb);
     } while (cb != 0 && obj < end);
   }
 fclose(hf);
@@ -288,7 +288,7 @@ typedef struct {
 
 // Returns the number of windows and the maximum number of icons used in
 // those windows (not the total number of icons !).
-static int window_count(PSTR pszIn, PSTR pszEnd, PINT pi)
+static int window_count(const char *pszIn, const char *pszEnd, int *pi)
 {
 	int d, w, i, maxi;
 	char ch, ch0;
@@ -318,7 +318,7 @@ static int window_count(PSTR pszIn, PSTR pszEnd, PINT pi)
 	return w;
 }
 
-static int icon_count(PSTR pszIn, PSTR pszEnd)
+static int icon_count(char *pszIn, char *pszEnd)
 {
 	int d, i;
 	char ch, ch0;
@@ -345,17 +345,17 @@ static int icon_count(PSTR pszIn, PSTR pszEnd)
 static const OBJECTLIST TemplateFontDataList[] = {
 	{iol_BITS,  "x_point_size:",  offsetof(template_font_data, x_point_size), NULL,  0},
 	{iol_BITS,  "y_point_size:",  offsetof(template_font_data, y_point_size), NULL,  0},
-	{iol_PSTR,  "font_name:",     offsetof(template_font_data, font_name),    NULL, 40}
+	{iol_CHARPTR,  "font_name:",     offsetof(template_font_data, font_name),    NULL, 40}
 };
 
 
 static void get_template_fonts(PDATA data, FILE * hf, template_font_data * font_data, template_font_data * end)
 {
 	template_font_data temp;
-	PSTR pszFrom;
+	char *pszFrom;
 
 	while (font_data < end) {
-		pszFrom = (PSTR) font_data;			// bug in memcpy? without this it does a word-aligned copy
+		pszFrom = (char *) font_data;			// bug in memcpy? without this it does a word-aligned copy
 		memcpy(&temp, pszFrom, sizeof(temp));
 		fputs("\ntemplate_font_data {\n", hf);
 		get_objects(data, hf, NULL, NULL, (const char *) &temp, TemplateFontDataList, ELEMENTS(TemplateFontDataList), 1);
@@ -366,17 +366,17 @@ static void get_template_fonts(PDATA data, FILE * hf, template_font_data * font_
 
 
 static const OBJECTLIST TemplateHeaderList[] = {
-	{iol_PSTR,  "template_name:",  offsetof(template_index, name), NULL, 12}
+	{iol_CHARPTR,  "template_name:",  offsetof(template_index, name), NULL, 12}
 };
 
-static BOOL text2template(PDATA data, PSTR pszOutFile)
+static BOOL text2template(PDATA data, char *pszOutFile)
 {
 	template_font_data font_data;
 	template_header * header;
 	template_index * index, * i;
 	FILE * hf;
 	PINT pTerm;
-	PSTR pszIn, pszTemplate, pszOut, pszEnd, pszObject, pszBuff;
+	char *pszIn, *pszTemplate, *pszOut, *pszEnd, *pszObject, *pszBuff;
 	int cb, cbBuff, nWindows, nIcons;
 	BOOL fConverted;
 
@@ -397,7 +397,7 @@ static BOOL text2template(PDATA data, PSTR pszOutFile)
 				header->font_offset = template_NO_FONTS;
 				index = (template_index *) (header + 1);
 				pTerm = (PINT) (index + nWindows);
-				pszOut = (PSTR) (pTerm + 1);
+				pszOut = (char *) (pTerm + 1);
 				pszBuff = NULL;
 				cbBuff = 0;
 				i = index;
@@ -420,9 +420,9 @@ static BOOL text2template(PDATA data, PSTR pszOutFile)
 					i->offset = (int) (pszOut - pszTemplate);
 					pszOut += cb;
 					i->type = template_TYPE_WINDOW;
-					put_objects(data, pszIn, 0, (PSTR) i, TemplateHeaderList, ELEMENTS(TemplateHeaderList));
+					put_objects(data, pszIn, 0, (char *) i, TemplateHeaderList, ELEMENTS(TemplateHeaderList));
 // template name is different to icon name because it always needs a terminator, which restricts it to 11 chars
-// to avoid having to write separate code, use the iol_PSTR data type then apply this bodge...
+// to avoid having to write separate code, use the iol_char *data type then apply this bodge...
 					if (i->name[11] >= ' ') {
 						i->name[11] = '\0';
 						report(data, pszObject, "Template name truncated to '%s'", i->name);
@@ -441,7 +441,7 @@ static BOOL text2template(PDATA data, PSTR pszOutFile)
 						}
 // make sure we're writing to a word-aligned structure...
 						memset(&font_data, 0, sizeof(font_data));
-						put_objects(data, pszIn, 0, (PSTR) &font_data, TemplateFontDataList, ELEMENTS(TemplateFontDataList));
+						put_objects(data, pszIn, 0, (char *) &font_data, TemplateFontDataList, ELEMENTS(TemplateFontDataList));
 						memcpy(pszOut, &font_data, sizeof(font_data));
 						pszOut += sizeof(template_font_data);
 					}
@@ -473,11 +473,11 @@ static BOOL text2template(PDATA data, PSTR pszOutFile)
 }
 
 
-static BOOL template2text(PDATA data, PSTR pszOutFile)
+static BOOL template2text(PDATA data, char *pszOutFile)
 {
 template_header * template_hdr;
 template_index * obj;
-PSTR pszBuff;
+char *pszBuff;
 FILE * hf;
 int cbBuff;
 
@@ -544,7 +544,7 @@ return TRUE;
 }
 
 
-        BOOL ccres_convert(PDATA data, PSTR pszOutFile)
+        BOOL ccres_convert(PDATA data, char *pszOutFile)
 //      ===============================================
 {
 switch (data->nFiletypeIn)

@@ -68,18 +68,18 @@ static const OBJECTLIST ActionbuttonObjectList[] = {
 	{iol_BITS,   "action:",     offsetof(actionbutton_object, action),     NULL,              bits_ACTION                              }
 };
 
-        int actionbutton_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int actionbutton_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ======================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, ActionbuttonObjectList, ELEMENTS(ActionbuttonObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, ActionbuttonObjectList, ELEMENTS(ActionbuttonObjectList));
 
 return sizeof(actionbutton_object);
 }
 
-        void actionbutton_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void actionbutton_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ====================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, ActionbuttonObjectList, ELEMENTS(ActionbuttonObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, ActionbuttonObjectList, ELEMENTS(ActionbuttonObjectList), 2);
 }
 
 
@@ -98,18 +98,18 @@ static const OBJECTLIST AdjusterObjectList[] = {
 };
 
 
-        int adjuster_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int adjuster_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ==================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, AdjusterObjectList, ELEMENTS(AdjusterObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, AdjusterObjectList, ELEMENTS(AdjusterObjectList));
 
 return sizeof(adjuster_object);
 }
 
-        void adjuster_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void adjuster_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, AdjusterObjectList, ELEMENTS(AdjusterObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, AdjusterObjectList, ELEMENTS(AdjusterObjectList), 2);
 }
 
 
@@ -127,18 +127,18 @@ static const OBJECTLIST DisplayFieldObjectList[] = {
 	{iol_MSG,    "text:",  offsetof(displayfield_object, text),  "text_limit:",     offsetof(displayfield_object, text_limit)}
 };
 
-        int displayfield_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int displayfield_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ======================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, DisplayFieldObjectList, ELEMENTS(DisplayFieldObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, DisplayFieldObjectList, ELEMENTS(DisplayFieldObjectList));
 
 return sizeof(displayfield_object);
 }
 
-        void displayfield_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void displayfield_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ====================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, DisplayFieldObjectList, ELEMENTS(DisplayFieldObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, DisplayFieldObjectList, ELEMENTS(DisplayFieldObjectList), 2);
 }
 
 
@@ -163,18 +163,18 @@ static const OBJECTLIST DraggableObjectList[] = {
 	{iol_STRING, "sprite_name:", offsetof(draggable_object, sprite_name), "sprite_limit:", offsetof(draggable_object, sprite_limit)},
 };
 
-        int draggable_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int draggable_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ===================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, DraggableObjectList, ELEMENTS(DraggableObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, DraggableObjectList, ELEMENTS(DraggableObjectList));
 
 return sizeof(draggable_object);
 }
 
-        void draggable_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void draggable_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      =================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, DraggableObjectList, ELEMENTS(DraggableObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, DraggableObjectList, ELEMENTS(DraggableObjectList), 2);
 }
 
 
@@ -193,18 +193,18 @@ static const OBJECTLIST LabelObjectList[] = {
 	{iol_MSG,   "label:", offsetof(label_object, label), NULL,       0                   }
 };
 
-        int label_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int label_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ===============================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, LabelObjectList, ELEMENTS(LabelObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, LabelObjectList, ELEMENTS(LabelObjectList));
 
 return sizeof(label_object);
 }
 
-        void label_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void label_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      =============================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, LabelObjectList, ELEMENTS(LabelObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, LabelObjectList, ELEMENTS(LabelObjectList), 2);
 }
 
 
@@ -222,18 +222,18 @@ static const OBJECTLIST LabelledBoxObjectList[] = {
 	{iol_MSG,   "label:", offsetof(labelledbox_object, label), NULL,             0                         }
 };
 
-        int labelledbox_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int labelledbox_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      =====================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, LabelledBoxObjectList, ELEMENTS(LabelledBoxObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, LabelledBoxObjectList, ELEMENTS(LabelledBoxObjectList));
 
 return sizeof(labelledbox_object);
 }
 
-        void labelledbox_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void labelledbox_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ===================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, LabelledBoxObjectList, ELEMENTS(LabelledBoxObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, LabelledBoxObjectList, ELEMENTS(LabelledBoxObjectList), 2);
 }
 
 
@@ -327,18 +327,18 @@ static const OBJECTLIST NumberRangeObjectList[] = {
 	{iol_INT,    "display_length:", offsetof(numberrange_object, display_length), NULL,             0                         }
 };
 
-        int numberrange_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int numberrange_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      =====================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, NumberRangeObjectList, ELEMENTS(NumberRangeObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, NumberRangeObjectList, ELEMENTS(NumberRangeObjectList));
 
 return sizeof(numberrange_object);
 }
 
-        void numberrange_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void numberrange_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ===================================================================================================================
 {
-	get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, NumberRangeObjectList, ELEMENTS(NumberRangeObjectList), 2);
+	get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, NumberRangeObjectList, ELEMENTS(NumberRangeObjectList), 2);
 }
 
 
@@ -357,18 +357,18 @@ static const OBJECTLIST OptionButtonObjectList[] = {
 	{iol_BITS,   "action:", offsetof(optionbutton_object, action), NULL,               bits_ACTION                                }
 };
 
-        int optionbutton_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int optionbutton_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ======================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, OptionButtonObjectList, ELEMENTS(OptionButtonObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, OptionButtonObjectList, ELEMENTS(OptionButtonObjectList));
 
 return sizeof(optionbutton_object);
 }
 
-        void optionbutton_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void optionbutton_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ====================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, OptionButtonObjectList, ELEMENTS(OptionButtonObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, OptionButtonObjectList, ELEMENTS(OptionButtonObjectList), 2);
 }
 
 
@@ -385,18 +385,18 @@ static const OBJECTLIST PopupObjectList[] = {
 	{iol_STRING, "menu_name:", offsetof(popup_object, menu_name),  NULL,       0                   }
 };
 
-        int popup_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int popup_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ===============================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, PopupObjectList, ELEMENTS(PopupObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, PopupObjectList, ELEMENTS(PopupObjectList));
 
 return sizeof(popup_object);
 }
 
-        void popup_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void popup_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      =============================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, PopupObjectList, ELEMENTS(PopupObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, PopupObjectList, ELEMENTS(PopupObjectList), 2);
 }
 
 
@@ -417,18 +417,18 @@ static const OBJECTLIST RadioButtonObjectList[] = {
 	{iol_BITS,  "action:", offsetof(radiobutton_object, action), NULL,             bits_ACTION                               }
 };
 
-        int radiobutton_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int radiobutton_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      =====================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, RadioButtonObjectList, ELEMENTS(RadioButtonObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, RadioButtonObjectList, ELEMENTS(RadioButtonObjectList));
 
 return sizeof(radiobutton_object);
 }
 
-        void radiobutton_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void radiobutton_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ===================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, RadioButtonObjectList, ELEMENTS(RadioButtonObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, RadioButtonObjectList, ELEMENTS(RadioButtonObjectList), 2);
 }
 
 
@@ -447,18 +447,18 @@ static const OBJECTLIST ScrolllistObjectList[] = {
 	{iol_OSCOL, "background:", offsetof(scrolllist_object, background), NULL,            0                        }
 };
 
-        int scrolllist_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int scrolllist_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ====================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, ScrolllistObjectList, ELEMENTS(ScrolllistObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, ScrolllistObjectList, ELEMENTS(ScrolllistObjectList));
 
 return sizeof(scrolllist_object);
 }
 
-        void scrolllist_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void scrolllist_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ==================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, ScrolllistObjectList, ELEMENTS(ScrolllistObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, ScrolllistObjectList, ELEMENTS(ScrolllistObjectList), 2);
 }
 
 #define slider_KNOB_COLOUR_VERY_LIGHT_GREY    (wimp_COLOUR_VERY_LIGHT_GREY << slider_KNOB_COLOUR_SHIFT)
@@ -540,18 +540,18 @@ static const OBJECTLIST SliderObjectList[] = {
 	{iol_INT,   "initial_value:", offsetof(slider_object, initial_value), NULL,        0                    }
 };
 
-        int slider_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int slider_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, SliderObjectList, ELEMENTS(SliderObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, SliderObjectList, ELEMENTS(SliderObjectList));
 
 return sizeof(slider_object);
 }
 
-        void slider_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void slider_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ==============================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, SliderObjectList, ELEMENTS(SliderObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, SliderObjectList, ELEMENTS(SliderObjectList), 2);
 }
 
 
@@ -582,18 +582,18 @@ static const OBJECTLIST StringsetObjectList[] = {
 	{iol_CMP,   "next:",                    offsetof(stringset_object, next),                    NULL,                     0                                                }
 };
 
-        int stringset_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int stringset_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ===================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, StringsetObjectList, ELEMENTS(StringsetObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, StringsetObjectList, ELEMENTS(StringsetObjectList));
 
 return sizeof(stringset_object);
 }
 
-        void stringset_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void stringset_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      =================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, StringsetObjectList, ELEMENTS(StringsetObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, StringsetObjectList, ELEMENTS(StringsetObjectList), 2);
 }
 
 // TextArea gadget
@@ -620,18 +620,18 @@ static const OBJECTLIST TextAreaObjectList[] = {
 	{iol_OSCOL,  "background:", offsetof(textarea_object, background), NULL,          0                      }
 };
 
-        int textarea_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int textarea_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ==================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, TextAreaObjectList, ELEMENTS(TextAreaObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, TextAreaObjectList, ELEMENTS(TextAreaObjectList));
 
 return sizeof(textarea_object);
 }
 
-        void textarea_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void textarea_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, TextAreaObjectList, ELEMENTS(TextAreaObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, TextAreaObjectList, ELEMENTS(TextAreaObjectList), 2);
 }
 
 
@@ -662,18 +662,18 @@ static const OBJECTLIST ToolActionObjectList[] = {
 	{iol_STRING, "fade_text:",     offsetof(toolaction_object, fade_text),      "fade_text_limit:", offsetof(toolaction_object, fade_text_limit)}
 };
 
-        int toolaction_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int toolaction_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ====================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, ToolActionObjectList, ELEMENTS(ToolActionObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, ToolActionObjectList, ELEMENTS(ToolActionObjectList));
 
 return sizeof(toolaction_object);
 }
 
-        void toolaction_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void toolaction_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ==================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, ToolActionObjectList, ELEMENTS(ToolActionObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, ToolActionObjectList, ELEMENTS(ToolActionObjectList), 2);
 }
 
 
@@ -697,18 +697,18 @@ static const OBJECTLIST WritableFieldObjectList[] = {
 	{iol_CMP,   "next:",      offsetof(writablefield_object, next),      NULL,               0                                              }
 };
 
-        int writablefield_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int writablefield_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      =======================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, WritableFieldObjectList, ELEMENTS(WritableFieldObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, WritableFieldObjectList, ELEMENTS(WritableFieldObjectList));
 
 return sizeof(writablefield_object);
 }
 
-        void writablefield_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void writablefield_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      =====================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, WritableFieldObjectList, ELEMENTS(WritableFieldObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, WritableFieldObjectList, ELEMENTS(WritableFieldObjectList), 2);
 }
 
 
@@ -727,18 +727,18 @@ static const OBJECTLIST TabsObjectList[] = {
 	{iol_MSG,   "text:",       offsetof(tabs_object, text),       NULL,      0                   }
 };
 
-        int tabs_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int tabs_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ==============================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, TabsObjectList, ELEMENTS(TabsObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, TabsObjectList, ELEMENTS(TabsObjectList));
 
 return sizeof(tabs_object);
 }
 
-        void tabs_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void tabs_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ============================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, TabsObjectList, ELEMENTS(TabsObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, TabsObjectList, ELEMENTS(TabsObjectList), 2);
 }
 
 
@@ -771,16 +771,16 @@ static const OBJECTLIST TreeviewObjectList[] = {
 	{iol_WCOL,  "background:", offsetof(treeview_object, background), NULL,          0                   },
 };
 
-        int treeview_t2g(PDATA data, PSTR pszIn, int nOffset, gadget_object_base * gadget)
+        int treeview_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ==================================================================================
 {
-put_objects(data, pszIn, nOffset, (PSTR) gadget, TreeviewObjectList, ELEMENTS(TreeviewObjectList));
+put_objects(data, pszIn, nOffset, (char *) gadget, TreeviewObjectList, ELEMENTS(TreeviewObjectList));
 
 return sizeof(treeview_object);
 }
 
-        void treeview_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, PSTR pszStringTable, PSTR pszMessageTable)
+        void treeview_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (PSTR) gadget, TreeviewObjectList, ELEMENTS(TreeviewObjectList), 2);
+get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, TreeviewObjectList, ELEMENTS(TreeviewObjectList), 2);
 }
