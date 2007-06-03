@@ -16,7 +16,7 @@ wimp_window {
   highlight_bg:wimp_COLOUR_CREAM
   extra_flags:
   extent:0,-1024,1280,0
-  title_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_ICON_INDIRECTED
+  title_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_ICON_INDIRECTED | 0x27000000
   work_flags:wimp_BUTTON_CLICK
   sprite_area:&1
   xmin:0
