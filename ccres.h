@@ -36,7 +36,7 @@
 #include <oslib/toolbox.h>
 #include <oslib/wimp.h>
 
-#define VERSION "1.13 (xx-xxx-2007) - development"
+#define VERSION "1.13 (03-Jun-2007)"
 #define APPNAME	"CCres"
 
 #define RESF	0x46534552
