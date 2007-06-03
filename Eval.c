@@ -137,13 +137,8 @@ int Eval(DATA *data, char ** ppstr)
 Eval_SyntaxError:
 
 	report(data, *ppstr, "Expression syntax error");
-fprintf(stderr, "Start error at %p (buf %p, len 0x%x, offset %d)\n", pstr, data->pszIn, data->cbIn, pstr - data->pszIn);
 	while (*pstr != '\n' && pstr >= data->pszIn && (pstr - data->pszIn) < data->cbIn)
 	  ++pstr;
-fprintf(stderr, "  skipped until %p\n", pstr);
-static int jo;
-++jo;
-if (jo == 10) abort();
 	*ppstr = pstr;
 	return 0;
 }
