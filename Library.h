@@ -1,7 +1,6 @@
-/* Menu.c
+/* Library.h
 
-   Copyright (c) 2003-2003 Dave Appleby
-   Copyright (c) 2003-2007 John Tytgat
+   Copyright (c) 2007 John Tytgat
 
    This file is part of CCres.
 
@@ -20,10 +19,20 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-#include "Menu.h"
+#ifndef LIBRARY_HEADER_INCLUDED
+#define LIBRARY_HEADER_INCLUDED
 
-void menu_quit(DATA *data)
-{
-data->fRunning = false;
-}
+#include <stdlib.h>
+
+int my_strcpy(char *to, const char *from);
+int my_strcpy0d(char *to, const char *from);
+void my_strncpy0d(char *to, const char *from, int max);
+int my_atoi(char **inPP);
+#ifndef HAVE_STRCASECMP
+int strcasecmp(const char *s1, const char *s2);
+#endif
+#ifndef HAVE_STRNCASECMP
+int strncasecmp(const char *s1, const char *s2, size_t n);
+#endif
+
+#endif

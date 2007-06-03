@@ -25,6 +25,7 @@
 
 #include "ccres.h"
 #include "Error.h"
+#include "Filer.h"
 #include "Utils.h"
 
 static const char achScrapFile[] = "<Wimp$Scrap>";

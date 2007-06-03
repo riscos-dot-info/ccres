@@ -28,6 +28,7 @@
 #include "ccres.h"
 #include "Error.h"
 #include "Eval.h"
+#include "Library.h"
 #include "Utils.h"
 #include "_Object.h"
 

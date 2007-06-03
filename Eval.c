@@ -25,6 +25,7 @@
 #include "ccres.h"
 #include "Error.h"
 #include "Eval.h"
+#include "Library.h"
 #include "Utils.h"
 
 // hi nybble = precedence, added to lo nybble to make unique id

@@ -38,6 +38,8 @@
 #include "ccres.h"
 #include "Convert.h"
 #include "Error.h"
+#include "Filer.h"
+#include "Menu.h"
 #include "Utils.h"
 
 #define APPDIR	"<"APPNAME"$Dir>"

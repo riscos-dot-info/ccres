@@ -25,6 +25,7 @@
 #endif
 
 #include "ccres.h"
+#include "Library.h"
 
 /* DESC. | Same as strcpy() @ string.h, but returns strlen()
  * EXIT  | strlen (excluding term)

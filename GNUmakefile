@@ -17,6 +17,8 @@ CC = $(CROSS_CC)
 CCFLAGS = $(CROSS_CCFLAGS)
 endif
 
+CCFLAGS += -std=c99
+
 COPY = copy
 COPYFLAGS = A ~C ~D F ~L ~N ~P Q ~R ~S ~T V
 
@@ -36,7 +38,7 @@ USRLIBS = -L${GCCSDK_INSTALL_ENV}/lib -lOSLib32
 endif
 
 # Object files
-CCRES_APPOBJS = o.Filer o.Main o.Menu o.Misc o.SaveAs
+CCRES_APPOBJS = Filer.o Main.o Menu.o SaveAs.o
 
 CCRES_CMDOBJS = CMD.o
 
@@ -45,8 +47,6 @@ CCRES_LIBOBJS = Eval.o Convert.o Utils.o Library.o Error.o \
 	_FileInfo.o _FontDbox.o _FontMenu.o _Gadgets.o \
 	_Icon.o _Iconbar.o _Menu.o _Object.o _PrintDbox.o \
 	_ProgInfo.o _Quit.o _SaveAs.o _Scale.o _Window.o
-
-CCRES_LIB.o = o.CCResLib
 
 DOBJS = Release/ccres
 

@@ -40,6 +40,7 @@
 #include "ccres.h"
 #include "Convert.h"
 #include "Error.h"
+#include "Library.h"
 #include "Utils.h"
 
 #include "_ColourDbox.h"

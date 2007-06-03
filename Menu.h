@@ -1,7 +1,6 @@
-/* Menu.c
+/* Menu.h
 
-   Copyright (c) 2003-2003 Dave Appleby
-   Copyright (c) 2003-2007 John Tytgat
+   Copyright (c) 2007 John Tytgat
 
    This file is part of CCres.
 
@@ -20,10 +19,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
-#include "Menu.h"
+#ifndef APP_MENU_HEADER_INCLUDED
+#define APP_MENU_HEADER_INCLUDED
 
-void menu_quit(DATA *data)
-{
-data->fRunning = false;
-}
+#include "ccres.h"
+
+void menu_quit(DATA *data);
+
+#endif

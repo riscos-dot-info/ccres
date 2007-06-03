@@ -166,33 +166,4 @@ typedef struct {
 	char *pstr;
 } FLAGS;
 
-
-// library.c
-
-int my_strcpy(char *to, const char *from);
-int my_strcpy0d(char *to, const char *from);
-void my_strncpy0d(char *to, const char *from, int max);
-int my_atoi(char **inPP);
-#ifndef HAVE_STRCASECMP
-int strcasecmp(const char *s1, const char *s2);
-#endif
-#ifndef HAVE_STRNCASECMP
-int strncasecmp(const char *s1, const char *s2, size_t n);
-#endif
-
-// filer.c
-
-void message_data_save(DATA *data);
-void message_data_load(DATA *data);
-
-// menu.c
-
-void menu_quit(DATA *data);
-
-
-// saveas.c
-
-void action_save_to_file(DATA *data);
-void action_save_completed(DATA *data);
-
 #endif

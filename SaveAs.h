@@ -1,7 +1,6 @@
-/* Misc.c
+/* SaveAs.h
 
-   Copyright (c) 2003-2003 Dave Appleby
-   Copyright (c) 2003-2007 John Tytgat
+   Copyright (c) 2007 John Tytgat
 
    This file is part of CCres.
 
@@ -19,3 +18,13 @@
    along with CCres; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+#ifndef APP_SAVEAS_HEADER_INCLUDED
+#define APP_SAVEAS_HEADER_INCLUDED
+
+#include "ccres.h"
+
+void action_save_to_file(DATA *data);
+void action_save_completed(DATA *data);
+
+#endif
