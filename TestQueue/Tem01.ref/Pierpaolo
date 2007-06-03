@@ -1,8 +1,7 @@
 Template:
 
 wimp_window {
-  template_name:"typestyle
-å"
+  template_name:"typestyle"
   visible:342,280,1244,848
   xscroll:0
   yscroll:-32
@@ -101,8 +100,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Height
-ÿ"
+    text_only:"Height"
   }
   wimp_icon {
     extent:764,-284,796,-252
@@ -130,8 +128,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Aspect
-ÿ"
+    text_only:"Aspect"
   }
   wimp_icon {
     extent:832,-356,860,-316
@@ -139,8 +136,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"%
-"
+    text_only:"%"
   }
   wimp_icon {
     extent:694,-362,760,-310
@@ -188,9 +184,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_WHITE
-    text_only:"
-Deleted>
-"
+    text_only:""
   }
   wimp_icon {
     extent:146,-258,468,-206
@@ -198,9 +192,7 @@ Deleted>
     icon_esg:0
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_WHITE
-    text_only:"
-Deleted>
-"
+    text_only:""
   }
   wimp_icon {
     extent:40,-336,142,-296
@@ -208,8 +200,7 @@ Deleted>
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Style
-ÿÿ"
+    text_only:"Style"
   }
   wimp_icon {
     extent:40,-168,142,-128
@@ -217,8 +208,7 @@ Deleted>
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Font
-ÿÿÿ"
+    text_only:"Font"
   }
   wimp_icon {
     extent:482,-254,526,-210
@@ -256,9 +246,7 @@ Deleted>
     icon_esg:0
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_WHITE
-    text_only:"
-Deleted>
-"
+    text_only:""
   }
   wimp_icon {
     extent:180,-576,374,-524
@@ -276,9 +264,7 @@ Deleted>
     icon_esg:0
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_WHITE
-    text_only:"
-Deleted>
-"
+    text_only:""
   }
   wimp_icon {
     extent:266,-430,524,-386
@@ -286,9 +272,7 @@ Deleted>
     icon_esg:0
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_WHITE
-    text_only:"
-Deleted>
-"
+    text_only:""
   }
   wimp_icon {
     extent:482,-170,526,-126
@@ -366,8 +350,7 @@ Deleted>
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Weight
-ÿ"
+    text_only:"Weight"
   }
   wimp_icon {
     extent:706,-213,754,-167
@@ -432,8 +415,7 @@ Deleted>
 }
 
 wimp_window {
-  template_name:"pickcolour
-â"
+  template_name:"pickcolour"
   visible:294,336,774,776
   xscroll:0
   yscroll:0
@@ -489,8 +471,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"%
-"
+    text_only:"%"
   }
   wimp_icon {
     extent:112,-56,144,-24
@@ -508,8 +489,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_GREEN
-    text_only:"B
-"
+    text_only:"B"
   }
   wimp_icon {
     extent:410,-56,442,-24
@@ -527,8 +507,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"%
-"
+    text_only:"%"
   }
   wimp_icon {
     extent:162,-168,390,-152
@@ -573,8 +552,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_GREEN
-    text_only:"R
-"
+    text_only:"R"
   }
   wimp_icon {
     extent:150,-60,402,-20
@@ -772,8 +750,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"%
-"
+    text_only:"%"
   }
   wimp_icon {
     extent:446,-120,474,-80
@@ -781,8 +758,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_GREEN
-    text_only:"G
-"
+    text_only:"G"
   }
   wimp_icon {
     extent:16,-66,78,-14
@@ -817,8 +793,7 @@ wimp_window {
 }
 
 wimp_window {
-  template_name:"print_xtra
-ã"
+  template_name:"print_xtra"
   visible:494,326,968,722
   xscroll:0
   yscroll:0
@@ -857,8 +832,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"to
-"
+    text_only:"to"
   }
   wimp_icon {
     extent:370,-174,398,-134
@@ -866,8 +840,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"%
-"
+    text_only:"%"
   }
   wimp_icon {
     extent:12,-230,188,-186
@@ -905,8 +878,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Copies
-ÿ"
+    text_only:"Copies"
   }
   wimp_icon {
     extent:302,-110,334,-78
@@ -944,8 +916,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Scale
-ÿÿ"
+    text_only:"Scale"
   }
   wimp_icon {
     extent:302,-170,334,-138
@@ -1023,9 +994,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_WHITE
-    text_only:"
-Deleted>
-"
+    text_only:""
   }
   wimp_icon {
     extent:128,-54,250,-10
@@ -1040,8 +1009,7 @@ Deleted>
 }
 
 wimp_window {
-  template_name:"print
-ˆ"
+  template_name:"print"
   visible:466,452,918,628
   xscroll:0
   yscroll:-44
@@ -1080,8 +1048,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Copies
-ÿ"
+    text_only:"Copies"
   }
   wimp_icon {
     extent:286,-108,318,-76
@@ -1129,15 +1096,12 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_WHITE
-    text_only:"
-Deleted>
-"
+    text_only:""
   }
 }
 
 wimp_window {
-  template_name:"scaleview
-Uã"
+  template_name:"scaleview"
   visible:176,280,674,526
   xscroll:0
   yscroll:0
@@ -1166,8 +1130,7 @@ Uã"
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"Scale
-ÿÿ"
+    text_only:"Scale"
   }
   wimp_icon {
     extent:276,-220,470,-152
@@ -1215,8 +1178,7 @@ Uã"
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_only:"%
-"
+    text_only:"%"
   }
   wimp_icon {
     extent:398,-64,480,-8
@@ -1271,8 +1233,7 @@ Uã"
 }
 
 wimp_window {
-  template_name:"saveas
-ð«[é"
+  template_name:"saveas"
   visible:392,282,702,534
   xscroll:0
   yscroll:0
@@ -1331,9 +1292,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_WHITE
-    text_only:"
-Deleted>
-"
+    text_only:""
   }
   wimp_icon {
     extent:38,-152,278,-100
@@ -1348,8 +1307,7 @@ Deleted>
 }
 
 wimp_window {
-  template_name:"saveas_sel
-á"
+  template_name:"saveas_sel"
   visible:396,586,706,882
   xscroll:0
   yscroll:0
