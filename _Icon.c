@@ -103,7 +103,7 @@ static const OBJECTLIST IconIndirectSpriteObjectList[] = {
   };
 
 static const OBJECTLIST IconIndirectTextAndSpriteObjectList[] = {
-  {iol_TSTRING, "text_and_sprite.text",        offsetof(wimp_icon_data, indirected_text_and_sprite.text),       NULL, 0},
+  {iol_TSTRING, "text_and_sprite.text:",        offsetof(wimp_icon_data, indirected_text_and_sprite.text),       NULL, 0},
   {iol_TSTRING, "text_and_sprite.validation:", offsetof(wimp_icon_data, indirected_text_and_sprite.validation), NULL, 0},
   {iol_BITS,    "text_and_sprite.size:",       offsetof(wimp_icon_data, indirected_text_and_sprite.size),       NULL, 0}
   };

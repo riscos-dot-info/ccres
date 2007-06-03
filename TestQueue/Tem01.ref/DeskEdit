@@ -254,7 +254,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Case sensitive"
+    text_and_sprite.text:"Case sensitive"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -264,7 +264,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Magic characters"
+    text_and_sprite.text:"Magic characters"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&12
   }
@@ -274,7 +274,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Wildcarded expressions"
+    text_and_sprite.text:"Wildcarded expressions"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&17
   }
@@ -1840,7 +1840,7 @@ wimp_window {
     icon_esg:1
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Statistics"
+    text_and_sprite.text:"Statistics"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -1850,7 +1850,7 @@ wimp_window {
     icon_esg:1
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Preview"
+    text_and_sprite.text:"Preview"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -1860,7 +1860,7 @@ wimp_window {
     icon_esg:1
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Literal print"
+    text_and_sprite.text:"Literal print"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&e
   }
@@ -1870,7 +1870,7 @@ wimp_window {
     icon_esg:1
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Full feature print"
+    text_and_sprite.text:"Full feature print"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&13
   }
@@ -1944,7 +1944,7 @@ wimp_window {
     icon_esg:3
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Use"
+    text_and_sprite.text:"Use"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -1954,7 +1954,7 @@ wimp_window {
     icon_esg:3
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Show"
+    text_and_sprite.text:"Show"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -1964,7 +1964,7 @@ wimp_window {
     icon_esg:3
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Ignore"
+    text_and_sprite.text:"Ignore"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -2150,7 +2150,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Sound on:"
+    text_and_sprite.text:"Sound on:"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2224,7 +2224,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -2234,7 +2234,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -2244,7 +2244,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -2254,7 +2254,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2264,7 +2264,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2274,7 +2274,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2284,7 +2284,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2294,7 +2294,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2304,7 +2304,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2364,7 +2364,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2374,7 +2374,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2384,7 +2384,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2436,7 +2436,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -2446,7 +2446,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Short printer codes:"
+    text_and_sprite.text:"Short printer codes:"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&15
   }
@@ -2456,7 +2456,7 @@ wimp_window {
     icon_esg:3
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Full"
+    text_and_sprite.text:"Full"
     text_and_sprite.validation:"sRadiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -2466,7 +2466,7 @@ wimp_window {
     icon_esg:3
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Brief"
+    text_and_sprite.text:"Brief"
     text_and_sprite.validation:"sRadiooff,radioon"
     text_and_sprite.size:&13
   }
@@ -2476,7 +2476,7 @@ wimp_window {
     icon_esg:3
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Off"
+    text_and_sprite.text:"Off"
     text_and_sprite.validation:"sRadiooff,radioon"
     text_and_sprite.size:&13
   }
@@ -2506,7 +2506,7 @@ wimp_window {
     icon_esg:4
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Full"
+    text_and_sprite.text:"Full"
     text_and_sprite.validation:"sRadiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -2516,7 +2516,7 @@ wimp_window {
     icon_esg:4
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Brief"
+    text_and_sprite.text:"Brief"
     text_and_sprite.validation:"sRadiooff,radioon"
     text_and_sprite.size:&13
   }
@@ -2526,7 +2526,7 @@ wimp_window {
     icon_esg:4
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Off"
+    text_and_sprite.text:"Off"
     text_and_sprite.validation:"sRadiooff,radioon"
     text_and_sprite.size:&13
   }

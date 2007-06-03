@@ -424,7 +424,7 @@ wimp_window {
     icon_esg:1
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Breaks after every"
+    text_and_sprite.text:"Breaks after every"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&13
   }
@@ -444,7 +444,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -454,7 +454,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -474,7 +474,7 @@ wimp_window {
     icon_esg:1
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"No paragraph breaks"
+    text_and_sprite.text:"No paragraph breaks"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&14
   }
@@ -504,7 +504,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Allow"
+    text_and_sprite.text:"Allow"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -534,7 +534,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Use fonts and sizes, add images"
+    text_and_sprite.text:"Use fonts and sizes, add images"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&21
   }
@@ -544,7 +544,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Use fonts and sizes, but no images"
+    text_and_sprite.text:"Use fonts and sizes, but no images"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&23
   }
@@ -554,7 +554,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"One font, one size, no images"
+    text_and_sprite.text:"One font, one size, no images"
     text_and_sprite.validation:"Sradiooff,radioon"
     text_and_sprite.size:&1f
   }
@@ -584,7 +584,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Hide hidden text"
+    text_and_sprite.text:"Hide hidden text"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&11
   }
@@ -624,7 +624,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -634,7 +634,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }

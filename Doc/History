@@ -6,6 +6,8 @@ v1.13 ?? ??? 2007
   which could result in memory corruption.
 - Added Unix based test queue comparing result bin2txt with v1.11 reference
   and with an additional txt2bin + bin2txt result.
+- IconIndirectTextAndSpriteObjectList(text_and_sprite.text): had missing
+  column.  Bug reported by David Thomas <dave@davespace.co.uk>.
 
 v1.12 28 Jan 2006
 ~~~~~~~~~~~~~~~~~

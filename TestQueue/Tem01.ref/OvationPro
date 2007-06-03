@@ -38,7 +38,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Border"
+    text_and_sprite.text:"Border"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -48,7 +48,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Shadow"
+    text_and_sprite.text:"Shadow"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -58,7 +58,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&1
   }
@@ -68,7 +68,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&1
   }
@@ -78,7 +78,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&1
   }
@@ -88,7 +88,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&1
   }
@@ -180,7 +180,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -238,7 +238,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -298,7 +298,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -308,7 +308,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -336,7 +336,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Repeat"
+    text_and_sprite.text:"Repeat"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -346,7 +346,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Stretch"
+    text_and_sprite.text:"Stretch"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&8
   }
@@ -356,7 +356,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Use design size for border"
+    text_and_sprite.text:"Use design size for border"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1b
   }
@@ -426,7 +426,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Bullet"
+    text_and_sprite.text:"Bullet"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -436,7 +436,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Number"
+    text_and_sprite.text:"Number"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -456,7 +456,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Bullet "
+    text_and_sprite.text:" Bullet "
     text_and_sprite.validation:""
     text_and_sprite.size:&9
   }
@@ -486,7 +486,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -516,7 +516,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -526,7 +526,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Number "
+    text_and_sprite.text:" Number "
     text_and_sprite.validation:""
     text_and_sprite.size:&9
   }
@@ -556,7 +556,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -646,7 +646,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Tab after"
+    text_and_sprite.text:"Tab after"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -664,7 +664,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -698,7 +698,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"help"
+    text_and_sprite.text:"help"
     text_and_sprite.validation:"s"
     text_and_sprite.size:&c
   }
@@ -742,7 +742,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_ORANGE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -752,7 +752,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Bold"
+    text_and_sprite.text:"Bold"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -762,7 +762,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Italic"
+    text_and_sprite.text:"Italic"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -920,7 +920,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sblank"
     text_and_sprite.size:&1
   }
@@ -930,7 +930,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"General"
+    text_and_sprite.text:"General"
     text_and_sprite.validation:"s"
     text_and_sprite.size:&8
   }
@@ -1002,7 +1002,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Save buffer"
+    text_and_sprite.text:"Save buffer"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -1038,7 +1038,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Load interactive help"
+    text_and_sprite.text:"Load interactive help"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&16
   }
@@ -1048,7 +1048,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Give warnings"
+    text_and_sprite.text:"Give warnings"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -1076,7 +1076,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Global clipboard"
+    text_and_sprite.text:"Global clipboard"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&11
   }
@@ -1106,7 +1106,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Check documents after loading"
+    text_and_sprite.text:"Check documents after loading"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1e
   }
@@ -1116,7 +1116,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Check documents before saving"
+    text_and_sprite.text:"Check documents before saving"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1e
   }
@@ -1180,7 +1180,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_ORANGE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -1220,7 +1220,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_ORANGE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -1240,7 +1240,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_ORANGE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -1350,7 +1350,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Centre lock"
+    text_and_sprite.text:"Centre lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -1360,7 +1360,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Aspect lock"
+    text_and_sprite.text:"Aspect lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -1370,7 +1370,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto scale"
+    text_and_sprite.text:"Auto scale"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -1400,7 +1400,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_ORANGE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"rSelwyn"
     text_and_sprite.size:&1
   }
@@ -1448,7 +1448,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -1458,7 +1458,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -1468,7 +1468,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Reference if over"
+    text_and_sprite.text:"Reference if over"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&16
   }
@@ -1488,7 +1488,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -1498,7 +1498,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -1508,7 +1508,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Proxy if over"
+    text_and_sprite.text:"Proxy if over"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&16
   }
@@ -1528,7 +1528,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -1538,7 +1538,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -1548,7 +1548,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -1558,7 +1558,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Check for missing fonts"
+    text_and_sprite.text:"Check for missing fonts"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&18
   }
@@ -1622,7 +1622,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Background"
+    text_and_sprite.text:"Background"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -1632,7 +1632,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Merge"
+    text_and_sprite.text:"Merge"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -1642,7 +1642,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_ORANGE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"rSelwyn"
     text_and_sprite.size:&1
   }
@@ -1652,7 +1652,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -1662,7 +1662,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -1672,7 +1672,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Crop check"
+    text_and_sprite.text:"Crop check"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -1912,7 +1912,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Preprint pass"
+    text_and_sprite.text:"Preprint pass"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -1976,7 +1976,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_ORANGE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -1996,7 +1996,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Rename styles"
+    text_and_sprite.text:"Rename styles"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -2006,7 +2006,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Rename colours"
+    text_and_sprite.text:"Rename colours"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -2016,7 +2016,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Smart quotes"
+    text_and_sprite.text:"Smart quotes"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -2026,7 +2026,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"PC-style delete"
+    text_and_sprite.text:"PC-style delete"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&10
   }
@@ -2036,7 +2036,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Overtype"
+    text_and_sprite.text:"Overtype"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&9
   }
@@ -2066,7 +2066,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Save ignored words"
+    text_and_sprite.text:"Save ignored words"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&13
   }
@@ -2076,7 +2076,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Check repeated words"
+    text_and_sprite.text:"Check repeated words"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&15
   }
@@ -2106,7 +2106,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -2116,7 +2116,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -2178,7 +2178,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Attach toolbox"
+    text_and_sprite.text:"Attach toolbox"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -2188,7 +2188,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Attach info palette"
+    text_and_sprite.text:"Attach info palette"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&14
   }
@@ -2198,7 +2198,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Instant updates on path edit"
+    text_and_sprite.text:"Instant updates on path edit"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1d
   }
@@ -2208,7 +2208,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"True fonts on font menu"
+    text_and_sprite.text:"True fonts on font menu"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&18
   }
@@ -2218,7 +2218,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Flashing caret"
+    text_and_sprite.text:"Flashing caret"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -2238,7 +2238,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Crosshairs when moving selection"
+    text_and_sprite.text:"Crosshairs when moving selection"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&25
   }
@@ -2310,7 +2310,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -2320,7 +2320,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -2330,7 +2330,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -2376,7 +2376,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Overprint"
+    text_and_sprite.text:"Overprint"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -2440,7 +2440,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -2564,7 +2564,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Gutter width"
+    text_and_sprite.text:"Gutter width"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -2584,7 +2584,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Column width"
+    text_and_sprite.text:"Column width"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -2614,7 +2614,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Column guide "
+    text_and_sprite.text:" Column guide "
     text_and_sprite.validation:""
     text_and_sprite.size:&f
   }
@@ -2624,7 +2624,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Display column guides"
+    text_and_sprite.text:"Display column guides"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&16
   }
@@ -2654,7 +2654,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -2684,7 +2684,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -3171,7 +3171,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -3181,7 +3181,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -3353,7 +3353,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Spot colour"
+    text_and_sprite.text:"Spot colour"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -3391,7 +3391,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Non-printing"
+    text_and_sprite.text:"Non-printing"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -3597,7 +3597,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -4187,7 +4187,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright"
     text_and_sprite.size:&c
   }
@@ -4217,7 +4217,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright"
     text_and_sprite.size:&c
   }
@@ -4227,7 +4227,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Case sensitive"
+    text_and_sprite.text:"Case sensitive"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -4237,7 +4237,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Whole word"
+    text_and_sprite.text:"Whole word"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -4247,7 +4247,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"All stories"
+    text_and_sprite.text:"All stories"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -4257,7 +4257,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Find from start"
+    text_and_sprite.text:"Find from start"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&10
   }
@@ -4267,7 +4267,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Wildcards"
+    text_and_sprite.text:"Wildcards"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -4501,7 +4501,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright"
     text_and_sprite.size:&c
   }
@@ -4511,7 +4511,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Case sensitive"
+    text_and_sprite.text:"Case sensitive"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -4521,7 +4521,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Whole word"
+    text_and_sprite.text:"Whole word"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -4531,7 +4531,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"All stories"
+    text_and_sprite.text:"All stories"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -4541,7 +4541,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Find from start"
+    text_and_sprite.text:"Find from start"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&10
   }
@@ -4551,7 +4551,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Wildcards"
+    text_and_sprite.text:"Wildcards"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -4589,7 +4589,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright"
     text_and_sprite.size:&c
   }
@@ -4723,7 +4723,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -4733,7 +4733,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -4789,7 +4789,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1
   }
@@ -4809,7 +4809,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -4819,7 +4819,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1
   }
@@ -4839,7 +4839,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto hyphenation"
+    text_and_sprite.text:"Auto hyphenation"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&11
   }
@@ -4849,7 +4849,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -4859,7 +4859,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto kerning"
+    text_and_sprite.text:"Auto kerning"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -4869,7 +4869,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock to grid"
+    text_and_sprite.text:"Lock to grid"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -4879,7 +4879,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Keep lines together"
+    text_and_sprite.text:"Keep lines together"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&14
   }
@@ -4899,7 +4899,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Keep para together"
+    text_and_sprite.text:"Keep para together"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&13
   }
@@ -4909,7 +4909,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Keep with next para"
+    text_and_sprite.text:"Keep with next para"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&14
   }
@@ -4939,7 +4939,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Contents"
+    text_and_sprite.text:"Contents"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&9
   }
@@ -4959,7 +4959,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Enhanced justification"
+    text_and_sprite.text:"Enhanced justification"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&17
   }
@@ -5127,7 +5127,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -5137,7 +5137,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -5217,7 +5217,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -5227,7 +5227,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1
   }
@@ -5247,7 +5247,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto hyphenation"
+    text_and_sprite.text:"Auto hyphenation"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&11
   }
@@ -5257,7 +5257,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -5267,7 +5267,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto kerning"
+    text_and_sprite.text:"Auto kerning"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -5277,7 +5277,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock to grid"
+    text_and_sprite.text:"Lock to grid"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -5287,7 +5287,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Keep lines together"
+    text_and_sprite.text:"Keep lines together"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&14
   }
@@ -5307,7 +5307,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Keep para together"
+    text_and_sprite.text:"Keep para together"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&13
   }
@@ -5317,7 +5317,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Keep with next para"
+    text_and_sprite.text:"Keep with next para"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&14
   }
@@ -5347,7 +5347,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5357,7 +5357,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5367,7 +5367,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5377,7 +5377,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5387,7 +5387,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5397,7 +5397,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5407,7 +5407,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5417,7 +5417,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5427,7 +5427,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Contents"
+    text_and_sprite.text:"Contents"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&9
   }
@@ -5447,7 +5447,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Enhanced justification"
+    text_and_sprite.text:"Enhanced justification"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&17
   }
@@ -5465,7 +5465,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -5721,7 +5721,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Show object"
+    text_and_sprite.text:"Show object"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -5731,7 +5731,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock"
+    text_and_sprite.text:"Lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -5935,7 +5935,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Show baseline"
+    text_and_sprite.text:"Show baseline"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&19
   }
@@ -6083,7 +6083,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock"
+    text_and_sprite.text:"Lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -6225,7 +6225,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -6271,7 +6271,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Sideways"
+    text_and_sprite.text:"Sideways"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&9
   }
@@ -6299,7 +6299,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -6317,7 +6317,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Default master frame "
+    text_and_sprite.text:"Default master frame "
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&16
   }
@@ -6345,7 +6345,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -6355,7 +6355,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -6365,7 +6365,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -6483,7 +6483,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Double sided"
+    text_and_sprite.text:"Double sided"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -6493,7 +6493,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Left"
+    text_and_sprite.text:"Left"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -6503,7 +6503,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Right"
+    text_and_sprite.text:"Right"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -6513,7 +6513,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Mirror"
+    text_and_sprite.text:"Mirror"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -6623,7 +6623,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;s"
     text_and_sprite.size:&1
   }
@@ -6803,7 +6803,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Break last word of paragraph"
+    text_and_sprite.text:"Break last word of paragraph"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1d
   }
@@ -6813,7 +6813,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Break capitalised words"
+    text_and_sprite.text:"Break capitalised words"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&18
   }
@@ -7086,7 +7086,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"before"
+    text_and_sprite.text:"before"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -7096,7 +7096,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"after"
+    text_and_sprite.text:"after"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -7166,7 +7166,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Non-breaking"
+    text_and_sprite.text:"Non-breaking"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -7214,7 +7214,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Units em/1000"
+    text_and_sprite.text:"Units em/1000"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&14
   }
@@ -7224,7 +7224,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Delimiter"
+    text_and_sprite.text:"Delimiter"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -7336,7 +7336,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Letter spacing "
+    text_and_sprite.text:" Letter spacing "
     text_and_sprite.validation:""
     text_and_sprite.size:&11
   }
@@ -7346,7 +7346,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Word spacing "
+    text_and_sprite.text:" Word spacing "
     text_and_sprite.validation:""
     text_and_sprite.size:&11
   }
@@ -7364,7 +7364,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Single words"
+    text_and_sprite.text:"Single words"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -7592,7 +7592,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -7602,7 +7602,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -7612,7 +7612,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock"
+    text_and_sprite.text:"Lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -7622,7 +7622,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Spread"
+    text_and_sprite.text:"Spread"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -7650,7 +7650,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -7678,7 +7678,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -7706,7 +7706,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -7734,7 +7734,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -7762,7 +7762,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -7790,7 +7790,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -7838,7 +7838,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -7874,7 +7874,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -7884,7 +7884,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -7949,7 +7949,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -8047,7 +8047,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r"
     text_and_sprite.size:&1
   }
@@ -8245,7 +8245,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Record"
+    text_and_sprite.text:"Record"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -8255,7 +8255,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Button"
+    text_and_sprite.text:"Button"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -8265,7 +8265,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Key"
+    text_and_sprite.text:"Key"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&4
   }
@@ -8275,7 +8275,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"User"
+    text_and_sprite.text:"User"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -8447,7 +8447,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;s"
     text_and_sprite.size:&1
   }
@@ -8467,7 +8467,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1
   }
@@ -8517,7 +8517,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmdown,psmdown"
     text_and_sprite.size:&1
   }
@@ -8527,7 +8527,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmup,psmup"
     text_and_sprite.size:&1
   }
@@ -8877,7 +8877,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Ignore headings record"
+    text_and_sprite.text:"Ignore headings record"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&17
   }
@@ -8965,7 +8965,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Left + right"
+    text_and_sprite.text:"Left + right"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -8975,7 +8975,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Top + bottom"
+    text_and_sprite.text:"Top + bottom"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -8985,7 +8985,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Crop marks "
+    text_and_sprite.text:" Crop marks "
     text_and_sprite.validation:""
     text_and_sprite.size:&d
   }
@@ -9025,7 +9025,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Left + right"
+    text_and_sprite.text:"Left + right"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -9035,7 +9035,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Top + bottom"
+    text_and_sprite.text:"Top + bottom"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -9045,7 +9045,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Registration marks "
+    text_and_sprite.text:" Registration marks "
     text_and_sprite.validation:""
     text_and_sprite.size:&15
   }
@@ -9081,7 +9081,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -9457,7 +9457,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Start on left"
+    text_and_sprite.text:"Start on left"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&e
   }
@@ -9467,7 +9467,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Start on right"
+    text_and_sprite.text:"Start on right"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&f
   }
@@ -9477,7 +9477,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Page number "
+    text_and_sprite.text:" Page number "
     text_and_sprite.validation:""
     text_and_sprite.size:&10
   }
@@ -9507,7 +9507,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Numeric"
+    text_and_sprite.text:"Numeric"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -9517,7 +9517,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Roman upper"
+    text_and_sprite.text:"Roman upper"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -9527,7 +9527,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Roman lower"
+    text_and_sprite.text:"Roman lower"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -9537,7 +9537,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Omit header on first page"
+    text_and_sprite.text:"Omit header on first page"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1a
   }
@@ -9547,7 +9547,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Omit footer on first page"
+    text_and_sprite.text:"Omit footer on first page"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1a
   }
@@ -9597,7 +9597,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Count preceding blank pages"
+    text_and_sprite.text:"Count preceding blank pages"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1c
   }
@@ -9641,7 +9641,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&1
   }
@@ -9681,7 +9681,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&b
   }
@@ -9793,7 +9793,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -10125,7 +10125,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -10155,7 +10155,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&1
   }
@@ -10313,7 +10313,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -10323,7 +10323,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -10333,7 +10333,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock"
+    text_and_sprite.text:"Lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -10343,7 +10343,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Spread"
+    text_and_sprite.text:"Spread"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -10399,7 +10399,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -10409,7 +10409,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -10451,7 +10451,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Overprint this colour"
+    text_and_sprite.text:"Overprint this colour"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&16
   }
@@ -10573,7 +10573,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_straight"
     text_and_sprite.size:&1
   }
@@ -10583,7 +10583,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_addpoint"
     text_and_sprite.size:&1
   }
@@ -10593,7 +10593,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_delseg"
     text_and_sprite.size:&1
   }
@@ -10603,7 +10603,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_flatten"
     text_and_sprite.size:&1
   }
@@ -10613,7 +10613,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_openclose"
     text_and_sprite.size:&1
   }
@@ -10623,7 +10623,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_snap"
     text_and_sprite.size:&1
   }
@@ -10640,7 +10640,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_frame"
     text_and_sprite.size:&1
   }
@@ -10650,7 +10650,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_move"
     text_and_sprite.size:&1
   }
@@ -10660,7 +10660,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_horiz"
     text_and_sprite.size:&1
   }
@@ -10670,7 +10670,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_vert"
     text_and_sprite.size:&1
   }
@@ -10680,7 +10680,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sip_curved"
     text_and_sprite.size:&1
   }
@@ -10814,7 +10814,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -10824,7 +10824,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -10834,7 +10834,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock"
+    text_and_sprite.text:"Lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -10844,7 +10844,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Spread"
+    text_and_sprite.text:"Spread"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -10910,7 +10910,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -10976,7 +10976,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -10986,7 +10986,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -11208,7 +11208,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -11218,7 +11218,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -11254,7 +11254,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -11264,7 +11264,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -11300,7 +11300,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -11310,7 +11310,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -11338,7 +11338,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -11348,7 +11348,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -11376,7 +11376,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -11386,7 +11386,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -11396,7 +11396,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"No lock"
+    text_and_sprite.text:"No lock"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -11406,7 +11406,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Centre lock"
+    text_and_sprite.text:"Centre lock"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -11416,7 +11416,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock"
+    text_and_sprite.text:"Lock"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -11426,7 +11426,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Aspect lock"
+    text_and_sprite.text:"Aspect lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -11436,7 +11436,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto scale"
+    text_and_sprite.text:"Auto scale"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -11446,7 +11446,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Hide picture"
+    text_and_sprite.text:"Hide picture"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -11514,7 +11514,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -11524,7 +11524,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -11542,7 +11542,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"X & Y from bottom left"
+    text_and_sprite.text:"X & Y from bottom left"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&18
   }
@@ -11560,7 +11560,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Tile "
+    text_and_sprite.text:"Tile "
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -11658,7 +11658,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmdown,psmdown"
     text_and_sprite.size:&1
   }
@@ -11668,7 +11668,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmup,psmup"
     text_and_sprite.size:&1
   }
@@ -11694,7 +11694,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmdown,psmdown"
     text_and_sprite.size:&1
   }
@@ -11704,7 +11704,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmup,psmup"
     text_and_sprite.size:&1
   }
@@ -11730,7 +11730,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmdown,psmdown"
     text_and_sprite.size:&1
   }
@@ -11740,7 +11740,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmup,psmup"
     text_and_sprite.size:&1
   }
@@ -11766,7 +11766,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmdown,psmdown"
     text_and_sprite.size:&1
   }
@@ -11776,7 +11776,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmup,psmup"
     text_and_sprite.size:&1
   }
@@ -11802,7 +11802,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmdown,psmdown"
     text_and_sprite.size:&1
   }
@@ -11812,7 +11812,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmup,psmup"
     text_and_sprite.size:&1
   }
@@ -11903,7 +11903,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Reference"
+    text_and_sprite.text:"Reference"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -11923,7 +11923,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Proxy"
+    text_and_sprite.text:"Proxy"
     text_and_sprite.validation:"Soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -11943,7 +11943,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sgright,pgright"
     text_and_sprite.size:&1
   }
@@ -12057,7 +12057,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"R5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1f
   }
@@ -12241,7 +12241,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"All pages"
+    text_and_sprite.text:"All pages"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&a
   }
@@ -12251,7 +12251,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Range"
+    text_and_sprite.text:"Range"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -12289,7 +12289,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"All sides"
+    text_and_sprite.text:"All sides"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&a
   }
@@ -12299,7 +12299,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Front"
+    text_and_sprite.text:"Front"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -12309,7 +12309,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Back"
+    text_and_sprite.text:"Back"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -12319,7 +12319,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Pause"
+    text_and_sprite.text:"Pause"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -12329,7 +12329,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Reverse"
+    text_and_sprite.text:"Reverse"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&8
   }
@@ -12339,7 +12339,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Collate"
+    text_and_sprite.text:"Collate"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&8
   }
@@ -12349,7 +12349,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"No pictures"
+    text_and_sprite.text:"No pictures"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -12379,7 +12379,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -12419,7 +12419,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Print setup"
+    text_and_sprite.text:"Print setup"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -12429,7 +12429,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Fit"
+    text_and_sprite.text:"Fit"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&4
   }
@@ -12479,7 +12479,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Centre"
+    text_and_sprite.text:"Centre"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -12529,7 +12529,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Sideways"
+    text_and_sprite.text:"Sideways"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&9
   }
@@ -12539,7 +12539,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Bleed"
+    text_and_sprite.text:"Bleed"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -12549,7 +12549,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Printers marks"
+    text_and_sprite.text:"Printers marks"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -12609,7 +12609,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Reflect"
+    text_and_sprite.text:"Reflect"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -12619,7 +12619,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -12645,7 +12645,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -12655,7 +12655,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -12665,7 +12665,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Tumble"
+    text_and_sprite.text:"Tumble"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -12858,7 +12858,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Front"
+    text_and_sprite.text:"Front"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -12868,7 +12868,7 @@ wimp_window {
     icon_esg:2
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Back"
+    text_and_sprite.text:"Back"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -12896,7 +12896,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -12906,7 +12906,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -13040,7 +13040,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base/8"
+    text_and_sprite.text:"Base/8"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -13050,7 +13050,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base/4"
+    text_and_sprite.text:"Base/4"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -13060,7 +13060,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base/2"
+    text_and_sprite.text:"Base/2"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -13070,7 +13070,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base"
+    text_and_sprite.text:"Base"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -13080,7 +13080,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base*2"
+    text_and_sprite.text:"Base*2"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -13090,7 +13090,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base*4"
+    text_and_sprite.text:"Base*4"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -13100,7 +13100,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"2 bpp"
+    text_and_sprite.text:"2 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -13110,7 +13110,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"4 bpp"
+    text_and_sprite.text:"4 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -13120,7 +13120,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"8 bpp"
+    text_and_sprite.text:"8 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -13130,7 +13130,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"16 bpp"
+    text_and_sprite.text:"16 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -13140,7 +13140,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"32 bpp"
+    text_and_sprite.text:"32 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -13150,7 +13150,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Dithering"
+    text_and_sprite.text:"Dithering"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -13248,7 +13248,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Size "
+    text_and_sprite.text:" Size "
     text_and_sprite.validation:""
     text_and_sprite.size:&7
   }
@@ -13258,7 +13258,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Colour depth "
+    text_and_sprite.text:" Colour depth "
     text_and_sprite.validation:""
     text_and_sprite.size:&f
   }
@@ -13314,7 +13314,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base/8"
+    text_and_sprite.text:"Base/8"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -13324,7 +13324,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base/4"
+    text_and_sprite.text:"Base/4"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -13334,7 +13334,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base/2"
+    text_and_sprite.text:"Base/2"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -13344,7 +13344,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base"
+    text_and_sprite.text:"Base"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -13354,7 +13354,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base*2"
+    text_and_sprite.text:"Base*2"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -13364,7 +13364,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Base*4"
+    text_and_sprite.text:"Base*4"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -13374,7 +13374,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"2 bpp"
+    text_and_sprite.text:"2 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -13384,7 +13384,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"4 bpp"
+    text_and_sprite.text:"4 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -13394,7 +13394,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"8 bpp"
+    text_and_sprite.text:"8 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -13404,7 +13404,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"16 bpp"
+    text_and_sprite.text:"16 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -13414,7 +13414,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"32 bpp"
+    text_and_sprite.text:"32 bpp"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -13424,7 +13424,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Dithering"
+    text_and_sprite.text:"Dithering"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -13462,7 +13462,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Size "
+    text_and_sprite.text:" Size "
     text_and_sprite.validation:""
     text_and_sprite.size:&7
   }
@@ -13472,7 +13472,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Colour depth "
+    text_and_sprite.text:" Colour depth "
     text_and_sprite.validation:""
     text_and_sprite.size:&f
   }
@@ -13542,7 +13542,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Prompt for auto save"
+    text_and_sprite.text:"Prompt for auto save"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&15
   }
@@ -13572,7 +13572,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -13622,7 +13622,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto save"
+    text_and_sprite.text:"Auto save"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -13642,7 +13642,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto page insert"
+    text_and_sprite.text:"Auto page insert"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&11
   }
@@ -13652,7 +13652,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Auto page delete"
+    text_and_sprite.text:"Auto page delete"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&11
   }
@@ -13954,7 +13954,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Snap to ruler guidelines"
+    text_and_sprite.text:"Snap to ruler guidelines"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&19
   }
@@ -13964,7 +13964,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Snap to objects"
+    text_and_sprite.text:"Snap to objects"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&10
   }
@@ -13984,7 +13984,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Guidelines to front"
+    text_and_sprite.text:"Guidelines to front"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&14
   }
@@ -13994,7 +13994,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"to back"
+    text_and_sprite.text:"to back"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -14244,7 +14244,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmup,psmup"
     text_and_sprite.size:&1
   }
@@ -14254,7 +14254,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;ssmdown,psmdown"
     text_and_sprite.size:&1
   }
@@ -14263,7 +14263,7 @@ wimp_window {
     icon_flags:wimp_ICON_TEXT | wimp_ICON_SPRITE | wimp_ICON_VCENTRED | wimp_ICON_ANTI_ALIASED | wimp_ICON_INDIRECTED | wimp_BUTTON_CLICK
     icon_esg:0
     font_handle:1
-    text_and_sprite.text"Crosshair"
+    text_and_sprite.text:"Crosshair"
     text_and_sprite.validation:"soptoff,opton;f17"
     text_and_sprite.size:&a
   }
@@ -14273,7 +14273,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14283,7 +14283,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14293,7 +14293,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14303,7 +14303,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14313,7 +14313,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14323,7 +14323,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14333,7 +14333,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14343,7 +14343,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14353,7 +14353,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5,3;sblank"
     text_and_sprite.size:&1
   }
@@ -14522,7 +14522,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -14532,7 +14532,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -14568,7 +14568,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Horizontal rules"
+    text_and_sprite.text:"Horizontal rules"
     text_and_sprite.validation:"sno,opton"
     text_and_sprite.size:&11
   }
@@ -14578,7 +14578,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Above"
+    text_and_sprite.text:"Above"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -14606,7 +14606,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Below"
+    text_and_sprite.text:"Below"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -14652,7 +14652,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -14680,7 +14680,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -14690,7 +14690,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Vertical rules"
+    text_and_sprite.text:"Vertical rules"
     text_and_sprite.validation:"sno,opton"
     text_and_sprite.size:&f
   }
@@ -14700,7 +14700,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Left"
+    text_and_sprite.text:"Left"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -14728,7 +14728,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Right"
+    text_and_sprite.text:"Right"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -14774,7 +14774,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -14802,7 +14802,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -14892,7 +14892,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14902,7 +14902,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14912,7 +14912,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14922,7 +14922,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14932,7 +14932,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14942,7 +14942,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14952,7 +14952,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14962,7 +14962,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14972,7 +14972,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14982,7 +14982,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -14992,7 +14992,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"012345678901"
+    text_and_sprite.text:"012345678901"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -15028,7 +15028,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"50%"
+    text_and_sprite.text:"50%"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&4
   }
@@ -15038,7 +15038,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"100%"
+    text_and_sprite.text:"100%"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -15048,7 +15048,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"200%"
+    text_and_sprite.text:"200%"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -15058,7 +15058,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Variable"
+    text_and_sprite.text:"Variable"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&9
   }
@@ -15086,7 +15086,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -15096,7 +15096,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -15136,7 +15136,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"75%"
+    text_and_sprite.text:"75%"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&4
   }
@@ -15146,7 +15146,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"150%"
+    text_and_sprite.text:"150%"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -15156,7 +15156,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"400%"
+    text_and_sprite.text:"400%"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -15323,7 +15323,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Rectangle"
+    text_and_sprite.text:"Rectangle"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&a
   }
@@ -15333,7 +15333,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Ellipse"
+    text_and_sprite.text:"Ellipse"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -15343,7 +15343,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Polygon"
+    text_and_sprite.text:"Polygon"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -15353,7 +15353,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Regular polygon"
+    text_and_sprite.text:"Regular polygon"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&10
   }
@@ -15381,7 +15381,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -15391,7 +15391,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -15421,7 +15421,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Star"
+    text_and_sprite.text:"Star"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&10
   }
@@ -15473,7 +15473,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Guess"
+    text_and_sprite.text:"Guess"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -15483,7 +15483,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Browse"
+    text_and_sprite.text:"Browse"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&7
   }
@@ -15511,7 +15511,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -15539,7 +15539,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -15685,7 +15685,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -15713,7 +15713,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -15799,7 +15799,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Left tab"
+    text_and_sprite.text:"Left tab"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&9
   }
@@ -15809,7 +15809,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Centre tab"
+    text_and_sprite.text:"Centre tab"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&b
   }
@@ -15819,7 +15819,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Right tab"
+    text_and_sprite.text:"Right tab"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&a
   }
@@ -15829,7 +15829,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Decimal tab"
+    text_and_sprite.text:"Decimal tab"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -15897,7 +15897,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Vertical rule"
+    text_and_sprite.text:"Vertical rule"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&e
   }
@@ -15969,7 +15969,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Left tab"
+    text_and_sprite.text:"Left tab"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&9
   }
@@ -15979,7 +15979,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Centre tab"
+    text_and_sprite.text:"Centre tab"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&b
   }
@@ -15989,7 +15989,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Right tab"
+    text_and_sprite.text:"Right tab"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&a
   }
@@ -15999,7 +15999,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Decimal tab"
+    text_and_sprite.text:"Decimal tab"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&c
   }
@@ -16065,7 +16065,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Vertical rule"
+    text_and_sprite.text:"Vertical rule"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&e
   }
@@ -16085,7 +16085,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Apply ruler"
+    text_and_sprite.text:"Apply ruler"
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&c
   }
@@ -16155,7 +16155,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -16183,7 +16183,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -16211,7 +16211,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -16239,7 +16239,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -16267,7 +16267,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -16359,7 +16359,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Bold"
+    text_and_sprite.text:"Bold"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -16369,7 +16369,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Italic"
+    text_and_sprite.text:"Italic"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -16379,7 +16379,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Underline"
+    text_and_sprite.text:"Underline"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -16389,7 +16389,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -16399,7 +16399,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Strikeout"
+    text_and_sprite.text:"Strikeout"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -16409,7 +16409,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -16419,7 +16419,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Small caps"
+    text_and_sprite.text:"Small caps"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -16429,7 +16429,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Superscript"
+    text_and_sprite.text:"Superscript"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -16439,7 +16439,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Subscript"
+    text_and_sprite.text:"Subscript"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -16449,7 +16449,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Index"
+    text_and_sprite.text:"Index"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -16495,7 +16495,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Reverse"
+    text_and_sprite.text:"Reverse"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&9
   }
@@ -16571,7 +16571,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Runaround "
+    text_and_sprite.text:" Runaround "
     text_and_sprite.validation:""
     text_and_sprite.size:&c
   }
@@ -16581,7 +16581,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Picture"
+    text_and_sprite.text:"Picture"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&8
   }
@@ -16591,7 +16591,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Frame"
+    text_and_sprite.text:"Frame"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&6
   }
@@ -16601,7 +16601,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"None"
+    text_and_sprite.text:"None"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&5
   }
@@ -16639,7 +16639,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text" Text flow "
+    text_and_sprite.text:" Text flow "
     text_and_sprite.validation:""
     text_and_sprite.size:&c
   }
@@ -16649,7 +16649,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Wider side"
+    text_and_sprite.text:"Wider side"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&b
   }
@@ -16659,7 +16659,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Left side"
+    text_and_sprite.text:"Left side"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&a
   }
@@ -16669,7 +16669,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Right side"
+    text_and_sprite.text:"Right side"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&b
   }
@@ -16679,7 +16679,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Both sides"
+    text_and_sprite.text:"Both sides"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&b
   }
@@ -16709,7 +16709,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Neither side"
+    text_and_sprite.text:"Neither side"
     text_and_sprite.validation:"sradiooff,radioon"
     text_and_sprite.size:&d
   }
@@ -16851,7 +16851,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -16861,7 +16861,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -16871,7 +16871,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Lock"
+    text_and_sprite.text:"Lock"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -16881,7 +16881,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Spread"
+    text_and_sprite.text:"Spread"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -16947,7 +16947,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -16975,7 +16975,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17003,7 +17003,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -17013,7 +17013,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -17023,7 +17023,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17089,7 +17089,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sdown,pdown"
     text_and_sprite.size:&1
   }
@@ -17099,7 +17099,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sup,pup"
     text_and_sprite.size:&1
   }
@@ -17135,7 +17135,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17187,7 +17187,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17215,7 +17215,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17243,7 +17243,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17271,7 +17271,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17299,7 +17299,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17391,7 +17391,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Bold"
+    text_and_sprite.text:"Bold"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -17401,7 +17401,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Italic"
+    text_and_sprite.text:"Italic"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -17411,7 +17411,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Underline"
+    text_and_sprite.text:"Underline"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -17421,7 +17421,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17431,7 +17431,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Strikeout"
+    text_and_sprite.text:"Strikeout"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -17441,7 +17441,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17451,7 +17451,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Small caps"
+    text_and_sprite.text:"Small caps"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -17461,7 +17461,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Superscript"
+    text_and_sprite.text:"Superscript"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
@@ -17471,7 +17471,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Subscript"
+    text_and_sprite.text:"Subscript"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -17481,7 +17481,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Index"
+    text_and_sprite.text:"Index"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&6
   }
@@ -17527,7 +17527,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17537,7 +17537,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17547,7 +17547,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17557,7 +17557,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17567,7 +17567,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17577,7 +17577,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17587,7 +17587,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17597,7 +17597,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17607,7 +17607,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Reverse"
+    text_and_sprite.text:"Reverse"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&9
   }
@@ -17617,7 +17617,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17627,7 +17627,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"soptno,opton"
     text_and_sprite.size:&1
   }
@@ -17700,7 +17700,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17719,7 +17719,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17729,7 +17729,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_normal,ip_pnormal"
     text_and_sprite.size:&1
   }
@@ -17739,7 +17739,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_bold,ip_pbold"
     text_and_sprite.size:&1
   }
@@ -17749,7 +17749,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_italic,ip_pitalic"
     text_and_sprite.size:&1
   }
@@ -17759,7 +17759,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_uline,ip_puline"
     text_and_sprite.size:&1
   }
@@ -17769,7 +17769,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_reverse,ip_preverse"
     text_and_sprite.size:&1
   }
@@ -17779,7 +17779,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_super,ip_psuper"
     text_and_sprite.size:&1
   }
@@ -17789,7 +17789,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_sub,ip_psub"
     text_and_sprite.size:&1
   }
@@ -17799,7 +17799,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_left,ip_pleft"
     text_and_sprite.size:&1
   }
@@ -17809,7 +17809,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_centre,ip_pcentre"
     text_and_sprite.size:&1
   }
@@ -17819,7 +17819,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_right,ip_pright"
     text_and_sprite.size:&1
   }
@@ -17829,7 +17829,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"sip_justify,ip_pjustify"
     text_and_sprite.size:&1
   }
@@ -17898,7 +17898,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Word"
+    text_and_sprite.text:"Word"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&5
   }
@@ -17908,7 +17908,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Double"
+    text_and_sprite.text:"Double"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&7
   }
@@ -17936,7 +17936,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -17964,7 +17964,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
-    text_and_sprite.text""
+    text_and_sprite.text:""
     text_and_sprite.validation:"r5;sgright,pgright;pptr_menu"
     text_and_sprite.size:&1
   }
@@ -18028,7 +18028,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Toolbox"
+    text_and_sprite.text:"Toolbox"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&8
   }
@@ -18038,7 +18038,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Button bar"
+    text_and_sprite.text:"Button bar"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -18048,7 +18048,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Rulers"
+    text_and_sprite.text:"Rulers"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -18058,7 +18058,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Tab ruler"
+    text_and_sprite.text:"Tab ruler"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&a
   }
@@ -18068,7 +18068,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Info palette"
+    text_and_sprite.text:"Info palette"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&d
   }
@@ -18078,7 +18078,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Spelling errors"
+    text_and_sprite.text:"Spelling errors"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&15
   }
@@ -18088,7 +18088,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Pictures"
+    text_and_sprite.text:"Pictures"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -18098,7 +18098,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Guidelines"
+    text_and_sprite.text:"Guidelines"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -18108,7 +18108,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Print margins"
+    text_and_sprite.text:"Print margins"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -18118,7 +18118,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Facing pages"
+    text_and_sprite.text:"Facing pages"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&e
   }
@@ -18128,7 +18128,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Invisibles"
+    text_and_sprite.text:"Invisibles"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&b
   }
@@ -18148,7 +18148,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Pasteboard"
+    text_and_sprite.text:"Pasteboard"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&f
   }
@@ -18158,7 +18158,7 @@ wimp_window {
     icon_esg:0
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
-    text_and_sprite.text"Use proxies"
+    text_and_sprite.text:"Use proxies"
     text_and_sprite.validation:"soptoff,opton"
     text_and_sprite.size:&c
   }
