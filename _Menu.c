@@ -69,7 +69,7 @@ static OBJECTLIST MenuEntryObjectList[] = {
 };
 
 
-int menu_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object)
+int menu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
 {
 	menu_object_base * menu;
 	menu_entry_object * entry;
@@ -97,7 +97,7 @@ int menu_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object)
 }
 
 
-        void menu_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void menu_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
 //      ===========================================================================================================================
 {
 menu_object_base * menu;

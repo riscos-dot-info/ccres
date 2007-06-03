@@ -70,7 +70,7 @@ static const OBJECTLIST IconbarObjectList[] = {
 };
 
 
-        int iconbar_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object)
+        int iconbar_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
 //      =================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList));
@@ -79,7 +79,7 @@ return sizeof(iconbar_object);
 }
 
 
-        void iconbar_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void iconbar_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
 //      ==============================================================================================================================
 {
 get_objects(data, hf, pszStringTable, pszMessageTable, (const char *) (object + 1), IconbarObjectList, ELEMENTS(IconbarObjectList), 1);

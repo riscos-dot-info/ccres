@@ -30,7 +30,7 @@
 static const char achScrapFile[] = "<Wimp$Scrap>";
 
 // user has dragged something to us from another app...
-void message_data_save(PDATA data)
+void message_data_save(DATA *data)
 {
 	wimp_message * msg;
 
@@ -41,12 +41,12 @@ void message_data_save(PDATA data)
 	strcpy(msg->data.data_xfer.file_name, achScrapFile);
 	msg->size = (offsetof(wimp_message, data.data_xfer.file_name) + sizeof(achScrapFile) + 3) & ~3;
 	wimp_send_message(wimp_USER_MESSAGE, msg, msg->sender);
-	data->fUnsafeLoad = TRUE;
+	data->fUnsafeLoad = true;
 }
 
 
 // user has dragged something to us from a filer window...
-void message_data_load(PDATA data)
+void message_data_load(DATA *data)
 {
 	wimp_message * msg;
 	bits file_type;
@@ -65,7 +65,7 @@ void message_data_load(PDATA data)
 	}
 	if (data->fUnsafeLoad) {
 		remove(achScrapFile);
-		data->fUnsafeLoad = FALSE;
+		data->fUnsafeLoad = false;
 	}
 	msg = &data->poll.wb.message;
 	msg->your_ref = msg->my_ref;

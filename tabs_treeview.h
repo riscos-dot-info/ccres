@@ -25,6 +25,7 @@
 /* Based on Tabs.h and TreeView.h headers written by Rik Griffin
    dated Nov 2004, release 0.08. */
 
+#include <stdint.h>
 #include <oslib/gadget.h>
 
 /* Tabs */
@@ -37,9 +38,9 @@ typedef struct tabs_object tabs_object;
 struct tabs_object
   {  gadget_OBJECT_MEMBERS
      wimp_colour foreground;
-     byte unused1[3];
+     uint8_t unused1[3];
      wimp_colour background;
-     byte unused2[3];
+     uint8_t unused2[3];
      toolbox_msg_reference text;
   };
 
@@ -73,9 +74,9 @@ typedef struct treeview_object treeview_object;
 struct treeview_object
   {  gadget_OBJECT_MEMBERS
      wimp_colour foreground;
-     byte unused1[3];
+     uint8_t unused1[3];
      wimp_colour background;
-     byte unused2[3];
+     uint8_t unused2[3];
   };
 
 #endif

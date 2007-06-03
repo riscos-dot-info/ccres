@@ -26,11 +26,11 @@
 
 #include "ccres.h"
 
-int button_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget);
-void button_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable);
-void put_icon_data(PDATA data, char *pszIn, int nOffset, wimp_icon_data * icon_data, bits flags);
-void get_icon_data(PDATA data, FILE * hf, char *pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent);
-void icon_text2template(PDATA data, char *pszIn, int nOffset, wimp_icon * icon);
-void icon_template2text(PDATA data, FILE * hf, char *pszStringTable, wimp_icon * icon);
+int button_t2g(DATA *data, char *pszIn, int nOffset, gadget_object_base * gadget);
+void button_g2t(DATA *data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable);
+void put_icon_data(DATA *data, char *pszIn, int nOffset, wimp_icon_data * icon_data, bits flags);
+void get_icon_data(DATA *data, FILE * hf, char *pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent);
+void icon_text2template(DATA *data, char *pszIn, int nOffset, wimp_icon * icon);
+void icon_template2text(DATA *data, FILE * hf, char *pszStringTable, wimp_icon * icon);
 
 #endif

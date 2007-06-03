@@ -45,7 +45,7 @@ static const OBJECTLIST ButtonObjectList[] = {
   {iol_STRING, "validation:",   offsetof(button_object, validation),   "validation_limit:", offsetof(button_object, validation_limit)}
   };
 
-        int button_t2g(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget)
+        int button_t2g(DATA *data, char *pszIn, int nOffset, gadget_object_base * gadget)
 //      ================================================================================
 {
 put_objects(data, pszIn, nOffset, (char *) gadget, ButtonObjectList, ELEMENTS(ButtonObjectList));
@@ -54,7 +54,7 @@ return sizeof(button_object);
 }
 
 
-        void button_g2t(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
+        void button_g2t(DATA *data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable)
 //      ==============================================================================================================
 {
 get_objects(data, hf, pszStringTable, pszMessageTable, (char *) gadget, ButtonObjectList, ELEMENTS(ButtonObjectList), 2);
@@ -109,7 +109,7 @@ static const OBJECTLIST IconIndirectTextAndSpriteObjectList[] = {
   };
 
 
-        void put_icon_data(PDATA data, char *pszIn, int nOffset, wimp_icon_data * icon_data, bits flags)
+        void put_icon_data(DATA *data, char *pszIn, int nOffset, wimp_icon_data * icon_data, bits flags)
 //      ===============================================================================================
 {
 switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
@@ -141,7 +141,7 @@ switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
 }
 
 
-        void get_icon_data(PDATA data, FILE * hf, char *pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent)
+        void get_icon_data(DATA *data, FILE * hf, char *pszStringTable, wimp_icon_data * icon_data, bits flags, int nIndent)
 //      ===================================================================================================================
 {
 switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
@@ -173,7 +173,7 @@ switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
 }
 
 
-        void icon_text2template(PDATA data, char *pszIn, int nOffset, wimp_icon * icon)
+        void icon_text2template(DATA *data, char *pszIn, int nOffset, wimp_icon * icon)
 //      ==============================================================================
 {
 put_objects(data, pszIn, nOffset, (char *) icon, IconObjectList, ELEMENTS(IconObjectList));
@@ -186,7 +186,7 @@ put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &icon->data, icon->flags)
 }
 
 
-        void icon_template2text(PDATA data, FILE * hf, char *pszStringTable, wimp_icon * icon)
+        void icon_template2text(DATA *data, FILE * hf, char *pszStringTable, wimp_icon * icon)
 //      =====================================================================================
 {
 get_objects(data, hf, pszStringTable, NULL, (char *) icon, IconObjectList, ELEMENTS(IconObjectList), 2);

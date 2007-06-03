@@ -26,7 +26,7 @@
 
 #include "ccres.h"
 
-int fontmenu_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object);
-void fontmenu_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable);
+int fontmenu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object);
+void fontmenu_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable);
 
 #endif

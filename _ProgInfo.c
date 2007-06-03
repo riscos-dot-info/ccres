@@ -63,7 +63,7 @@ static const OBJECTLIST ProgInfoObjectList101[] = {
 };
 
 
-        int proginfo_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object)
+        int proginfo_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
 //      ==================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), ProgInfoObjectList, ELEMENTS(ProgInfoObjectList));
@@ -76,7 +76,7 @@ return offsetof(proginfo_object, uri);
 }
 
 
-        void proginfo_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void proginfo_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
 //      ===============================================================================================================================
 {
 get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)(object + 1), ProgInfoObjectList, ELEMENTS(ProgInfoObjectList), 1);

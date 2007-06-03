@@ -28,7 +28,7 @@
 #include "ccres.h"
 #include "Convert.h"
 
-        void action_save_to_file(PDATA data)
+        void action_save_to_file(DATA *data)
 //      ====================================
 {
 bits fSaved;
@@ -40,7 +40,7 @@ if (fSaved == saveas_SAVE_SUCCESSFUL)
 }
 
 
-        void action_save_completed(PDATA data)
+        void action_save_completed(DATA *data)
 //      ======================================
 {
 if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL)

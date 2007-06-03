@@ -20,6 +20,10 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#if !defined(HAVE_STRCASECMP) || !defined(HAVE_STRNCASECMP)
+#  include <ctype.h>
+#endif
+
 #include "ccres.h"
 
 /* DESC. | Same as strcpy() @ string.h, but returns strlen()
@@ -81,13 +85,13 @@ while (--max && *from >= ' ')
 {
 char *inP = *inPP;
 // Negative ?
-BOOL neg;
+bool neg;
 if (*inP == '-')
   {
-  neg = TRUE; inP += 1;
+  neg = true; inP += 1;
   }
 else
-  neg = FALSE;
+  neg = false;
 // Determine 'base':
 int base;
 if (*inP == '&')

@@ -28,7 +28,7 @@
 #include "ccres.h"
 #include "Error.h"
 
-void report(PDATA data, const char *ptrP, char *pszFmt, ...)
+void report(DATA *data, const char *ptrP, char *pszFmt, ...)
 {
 	va_list list;
 	const char *pP;
@@ -47,7 +47,7 @@ void report(PDATA data, const char *ptrP, char *pszFmt, ...)
 #ifdef __riscos__
 //FIXME:		ddeutils_throwback_start();
 #endif
-		data->fThrowback = TRUE;
+		data->fThrowback = true;
 	}
 #ifdef __riscos__
 //FIXME:	ddeutils_throwback_send(ddeutils_THROWBACK_INFO_DETAILS, data->achTextFile, nRow, ddeutils_SEVERITY_ERROR, achError);
@@ -58,7 +58,7 @@ void report(PDATA data, const char *ptrP, char *pszFmt, ...)
 }
 
 
-void report_end(PDATA data)
+void report_end(DATA *data)
 {
 #ifdef __riscos__
 //FIXME:ddeutils_throwback_end();

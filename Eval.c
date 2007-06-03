@@ -31,7 +31,7 @@
 enum {LBRACKET=0x11,ADD=0x21,SUB=0x22,MUL=0x31,DIV=0x32};
 #define Precedence(op) ((op)&0xf0)
 
-static BOOL Eval2(PINT sop, PINT sn, PINT piop, PINT pin)
+static bool Eval2(int * sop, int * sn, int * piop, int * pin)
 {
 	int lnum, op, rnum;
 	int iop, in, res;
@@ -46,7 +46,7 @@ static BOOL Eval2(PINT sop, PINT sn, PINT piop, PINT pin)
 		res = lnum * rnum;
 	} else if (op ==  DIV) {
 		if (rnum == 0) {
-			return FALSE;
+			return false;
 		} else {
 			res = lnum / rnum;
 		}
@@ -55,27 +55,27 @@ static BOOL Eval2(PINT sop, PINT sn, PINT piop, PINT pin)
 	} else if (op ==  SUB) {
 		res = lnum - rnum;
 	} else {
-		return FALSE;
+		return false;
 	}
 	sn[in++] = res;
 
 	*piop = iop;
 	*pin = in;
-	return TRUE;
+	return true;
 }
 
 
-int Eval(PDATA data, char ** ppstr)
+int Eval(DATA *data, char ** ppstr)
 {
 	char *pstr;
 	int sop[16], sn[16];
 	int iop, in, op;
-	BOOL fOp;
+	bool fOp;
 	char ch;
 
 	pstr = *ppstr;
 	iop = in = 0;
-	fOp = TRUE;
+	fOp = true;
 	for (;;) {
 		if ((ch = *pstr++) == ' ' || ch == '\t' ) {
 			// do nothing
@@ -84,7 +84,7 @@ int Eval(PDATA data, char ** ppstr)
 				goto Eval_SyntaxError;
 			}
 			sop[iop++] = LBRACKET;
-			fOp = TRUE;
+			fOp = true;
 		} else if (ch == ')') {
 			if (iop == 0) {
 				goto Eval_SyntaxError;
@@ -96,7 +96,7 @@ int Eval(PDATA data, char ** ppstr)
 				}
 				iop--;		// pop LBRACKET
 			}
-			fOp = FALSE;
+			fOp = false;
 		} else if ((ch == '-' && !fOp) || ch == '+' || ch == '/' || ch == '*') {
 			op = (ch == '+') ? ADD :
 				 (ch == '-') ? SUB :
@@ -110,14 +110,14 @@ int Eval(PDATA data, char ** ppstr)
 				goto Eval_SyntaxError;
 			}
 			sop[iop++] = op;
-			fOp = TRUE;
+			fOp = true;
 		} else if (isdigit(ch) || (ch == '-' && fOp) || ch == '&') {
 			if (in >= ELEMENTS(sn)) {
 				goto Eval_SyntaxError;
 			}
 			pstr--;
 			sn[in++] = my_atoi(&pstr);
-			fOp = FALSE;
+			fOp = false;
 		} else {
 			pstr--;
 			break;

@@ -31,10 +31,10 @@
 #define reset_string_table(pTable) (pTable)->ref=0
 #define reset_reloc_table(pTable) (pTable)->ref=0
 
-void HexToUInt(PDATA data, const char *strP, unsigned int len, unsigned int *resultP);
+void HexToUInt(DATA *data, const char *strP, unsigned int len, unsigned int *resultP);
 
-bits get_filetype(PDATA sessionP, const char *filenameP);
-BOOL load_file(PDATA data, char *pszPath, bits nFiletype);
+bits get_filetype(DATA *sessionP, const char *filenameP);
+bool load_file(DATA *data, char *pszPath, bits nFiletype);
 
 void * My_Alloc(int cb, char *pszFile, int nLine);
 #define MyAlloc(v) My_Alloc(v, __FILE__, __LINE__)

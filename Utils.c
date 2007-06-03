@@ -27,7 +27,7 @@
 
 #define MAX_FILE	48
 
-        void HexToUInt(PDATA data, const char *strP, unsigned int len, unsigned int *resultP)
+        void HexToUInt(DATA *data, const char *strP, unsigned int len, unsigned int *resultP)
 //      =====================================================================================
 {
 unsigned int result;
@@ -71,7 +71,7 @@ for (cpStrP = strP + 2, len -= 2; len-- > 0; ++cpStrP)
 }
 
 
-        bits get_filetype(PDATA sessionP, const char *filenameP)
+        bits get_filetype(DATA *sessionP, const char *filenameP)
 //      ========================================================
 {
 FILE *fhandle;
@@ -108,8 +108,8 @@ return osfile_TYPE_TEXT;
 }
 
 
-// Returns 'FALSE' in case of an error.
-        BOOL load_file(PDATA sessionP, char *pszPath, bits nFiletype)
+// Returns 'false' in case of an error.
+        bool load_file(DATA *sessionP, char *pszPath, bits nFiletype)
 //      ============================================================
 {
 sessionP->nFiletypeIn = nFiletype;
@@ -120,7 +120,7 @@ FILE *fhandle;
 if ((fhandle = fopen(pszPath, "rb")) == NULL)
   {
   error(sessionP, "Can not open file <%s> for input", pszPath);
-  return FALSE;
+  return false;
   }
 fseek(fhandle, 0, SEEK_END);
 int cbIn = (int)ftell(fhandle);
@@ -128,13 +128,13 @@ fseek(fhandle, 0, SEEK_SET);
 
 char *pszIn;
 if ((pszIn = (char *) MyAlloc(cbIn)) == NULL)
-  return FALSE;
+  return false;
 
 if (fread(pszIn, cbIn, 1, fhandle) != 1)
   {
   error(sessionP, "Can not read file <%s>", pszPath);
   MyFree(pszIn);
-  return FALSE;
+  return false;
   }
 fclose(fhandle); fhandle = NULL;
 
@@ -156,13 +156,13 @@ if (nFiletype == osfile_TYPE_TEXT)
   else
     {
     error(sessionP, "Unrecognized input file type for %s", pszPath);
-    return FALSE;
+    return false;
     }
   }
 else
   sessionP->nFiletypeOut = osfile_TYPE_TEXT;
 
-return TRUE;
+return true;
 }
 
 

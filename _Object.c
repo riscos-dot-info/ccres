@@ -20,6 +20,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <stdint.h>
 #include <string.h>
 
 #include <oslib/ddeutils.h>
@@ -132,7 +133,7 @@ static const FLAGS CmpFlags[] = {
 };
 
 
-static char *parse(PDATA data, char *pszIn, const char *pszEntry)
+static char *parse(DATA *data, char *pszIn, const char *pszEntry)
 {
 	char *p, *pszEnd;
 	int cb;
@@ -155,9 +156,9 @@ static char *parse(PDATA data, char *pszIn, const char *pszEntry)
 }
 
 
-static BOOL add_to_reloc_table(PRELOCTABLE pRelocTable, int nEntry, int nTable)
+static bool add_to_reloc_table(RELOCTABLE *pRelocTable, int nEntry, int nTable)
 {
-	PRELOC pReloc;
+	RELOC *pReloc;
 	int nReloc;
 
 	nReloc = pRelocTable->ref++;
@@ -167,21 +168,21 @@ static BOOL add_to_reloc_table(PRELOCTABLE pRelocTable, int nEntry, int nTable)
 	if (pRelocTable->ref >= (pRelocTable->max - sizeof(RELOC))) {
 		nReloc = pRelocTable->max * 3 / 2;
 		if ((pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL) {
-			return FALSE;
+			return false;
 		}
 		memcpy(pReloc, pRelocTable->pReloc, pRelocTable->max * sizeof(RELOC));
 		MyFree(pRelocTable->pReloc);
 		pRelocTable->pReloc = pReloc;
 		pRelocTable->max = nReloc;
 	}
-	return TRUE;
+	return true;
 }
 
 
 // may be trailing spaces after closing quote
 // may be no quotes at all
 // report imbalance
-static char *remove_quotes(PDATA data, char *pszEntry)
+static char *remove_quotes(DATA *data, char *pszEntry)
 {
 	int cb, cbTerm;
 	char ch;
@@ -207,10 +208,10 @@ static char *remove_quotes(PDATA data, char *pszEntry)
 }
 
 
-static BOOL put_string(PDATA data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
+static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
 {
 	STRINGTABLE *pTable;
-	PINT pInt;
+	int * pInt;
 	char *pszEntry, *pszLimit, *pstr;
 	int cb, cbEntry, cbLimit, nTable;
 
@@ -222,7 +223,7 @@ static BOOL put_string(PDATA data, char *pszIn, int nOffset, char *object, STRIN
 		nTable = toolbox_RELOCATE_MSG_REFERENCE;
 	} else {
 		error(data, "Unexpected string table type (%d)", StringList->nTable);
-		return FALSE;
+		return false;
 	}
 	cbEntry = 0;
 	if ((pszEntry = parse(data, pszIn, StringList->pszEntry)) != NULL) {
@@ -237,11 +238,11 @@ static BOOL put_string(PDATA data, char *pszIn, int nOffset, char *object, STRIN
 			cbLimit = (cbLimit > 0 && cbLimit <= cbEntry) ? (cbEntry + 1) : cbLimit;
 		}
 	}
-	pInt = (PINT) &object[StringList->nEntry];
+	pInt = (int *) &object[StringList->nEntry];
 	*pInt = (cbEntry > 0 || cbLimit > 0) ? pTable->ref : -1;
 	add_to_reloc_table(&data->RelocTable, StringList->nEntry + nOffset, nTable);
 	if (StringList->pszLimit != NULL) {
-		pInt = (PINT) &object[StringList->nLimit];
+		pInt = (int *) &object[StringList->nLimit];
 		*pInt = cbLimit;
 	}
 	if (cbEntry > 0 || cbLimit > 0) {
@@ -249,7 +250,7 @@ static BOOL put_string(PDATA data, char *pszIn, int nOffset, char *object, STRIN
 		if (pTable->ref > (pTable->max - 256)) {
 			cb = pTable->max * 3 / 2;
 			if ((pstr = MyAlloc(cb)) == NULL) {
-				return FALSE;
+				return false;
 			}
 			memcpy(pstr, pTable->pstr, pTable->max);
 			MyFree(pTable->pstr);
@@ -257,14 +258,14 @@ static BOOL put_string(PDATA data, char *pszIn, int nOffset, char *object, STRIN
 			pTable->max = cb;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 
-static BOOL put_tstring(PDATA data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
+static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
 {
 	STRINGTABLE *pTable;
-	PINT pInt;
+	int * pInt;
 	char *pszEntry, *pszLimit, *pstr;
 	int cb, cbEntry, cbLimit, nTable;
 
@@ -286,10 +287,10 @@ static BOOL put_tstring(PDATA data, char *pszIn, int nOffset, char *object, STRI
 			cbLimit = (cbLimit > 0 && cbLimit <= cbEntry) ? (cbEntry + 1) : cbLimit;
 		}
 	}
-	pInt = (PINT) &object[StringList->nEntry];
+	pInt = (int *) &object[StringList->nEntry];
 	*pInt = (cbEntry > 0 || cbLimit > 0) ? (pTable->ref - nOffset) : -1;
 	if (StringList->pszLimit != NULL) {
-		pInt = (PINT) &object[StringList->nLimit];
+		pInt = (int *) &object[StringList->nLimit];
 		*pInt = cbLimit;
 	}
 	if (cbEntry > 0) {
@@ -297,7 +298,7 @@ static BOOL put_tstring(PDATA data, char *pszIn, int nOffset, char *object, STRI
 		if (pTable->ref > (pTable->max - 256)) {
 			cb = pTable->max * 3 / 2;
 			if ((pstr = MyAlloc(cb)) == NULL) {
-				return FALSE;
+				return false;
 			}
 			memcpy(pstr, pTable->pstr, pTable->max);
 			MyFree(pTable->pstr);
@@ -305,7 +306,7 @@ static BOOL put_tstring(PDATA data, char *pszIn, int nOffset, char *object, STRI
 			pTable->max = cb;
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 
@@ -329,7 +330,7 @@ static  char *string_from_table(char *pszTable, int ref)
 }
 
 
-static  void get_string(PDATA data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
+static  void get_string(DATA *data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
 //      ==============================================================================================================================================
 {
 const int *pInt;
@@ -396,7 +397,7 @@ if (StringList->pszLimit != NULL)
 }
 
 
-static  bits put_flags(PDATA data, char *pstrFlags, PFLAGS pFlags, int nFlags)
+static  bits put_flags(DATA *data, char *pstrFlags, FLAGS *pFlags, int nFlags)
 //      =====================================================================
 {
 char *p;
@@ -440,7 +441,7 @@ return f;
 }
 
 
-static  void get_flags(PDATA data, FILE * hf, char *pszFlags, bits fFlags, PFLAGS pFlags, int nFlags)
+static  void get_flags(DATA *data, FILE * hf, char *pszFlags, bits fFlags, FLAGS *pFlags, int nFlags)
 //      ============================================================================================
 {
 const char *pszOr;
@@ -466,7 +467,7 @@ fwrite(achBuff, cb, 1, hf);
 
 
 // fInt - value may be a #defined variable or a nunber (hex or decimal)
-static int put_enum(PDATA data, char *pstrFlags, const FLAGS *pFlags, int nFlags, BOOL fInt)
+static int put_enum(DATA *data, char *pstrFlags, const FLAGS *pFlags, int nFlags, bool fInt)
 {
 	int n;
 
@@ -487,7 +488,7 @@ static int put_enum(PDATA data, char *pstrFlags, const FLAGS *pFlags, int nFlags
 
 
 // fInt - value may be a #defined variable or a nunber (hex or decimal)
-static void get_enum(FILE * hf, const char *pszFlags, int fFlags, const FLAGS *pFlags, int nFlags, BOOL fInt)
+static void get_enum(FILE * hf, const char *pszFlags, int fFlags, const FLAGS *pFlags, int nFlags, bool fInt)
 {
 	int cb, n;
 	char achBuff[64];		// = 32 + 32 character flags
@@ -510,7 +511,7 @@ get_enum_found:
 }
 
 
-static bits put_iflags(PDATA data, char *pstrFlags)
+static bits put_iflags(DATA *data, char *pstrFlags)
 {
 char *p;
 bits f;
@@ -569,7 +570,7 @@ return f;
 
 
 // Output the bits 0xFFF | 0xE00000 and wimp_ICON_BUTTON_TYPE
-static  void get_iflags(PDATA data, FILE * hf, char *pszFlags, bits fFlags)
+static  void get_iflags(DATA *data, FILE * hf, char *pszFlags, bits fFlags)
 //      ==================================================================
 {
 const FLAGS *pFlags;
@@ -614,12 +615,12 @@ fwrite(achBuff, cb, 1, hf);
 }
 
 
-static void put_box(PDATA data, char *pstr, os_box * box)
+static void put_box(DATA *data, char *pstr, os_box * box)
 {
-	PINT pi;
+	int * pi;
 	int n;
 
-	pi = (PINT) box;
+	pi = (int *) box;
 	for (n = 0; n < 4; n++) {
 		pi[n] = Eval(data, &pstr);
 		pstr++;
@@ -634,12 +635,12 @@ fprintf(hf, "%s%d,%d,%d,%d\n", pszBox, bbox->x0, bbox->y0, bbox->x1, bbox->y1);
 }
 
 
-static void put_coord(PDATA data, char *pstr, os_coord * coord)
+static void put_coord(DATA *data, char *pstr, os_coord * coord)
 {
-	PINT pi;
+	int * pi;
 	int n;
 
-	pi = (PINT) coord;
+	pi = (int *) coord;
 	for (n = 0; n < 2; n++) {
 		pi[n] = Eval(data, &pstr);
 		pstr++;
@@ -654,7 +655,7 @@ fprintf(hf, "%s%d,%d\n", pszCoord, coord->x, coord->y);
 }
 
 
-static  void put_pstr(PDATA data, char *pstr, char *pszEntry, int nChars)
+static  void put_pstr(DATA *data, char *pstr, char *pszEntry, int nChars)
 //      ===============================================================
 {
 pszEntry = remove_quotes(data, pszEntry);
@@ -673,7 +674,7 @@ else
 }
 
 
-static  void get_pstr(PDATA data, FILE * hf, char *pszEntry, const char *objectP, int nEntry, int nChars)
+static  void get_pstr(DATA *data, FILE * hf, char *pszEntry, const char *objectP, int nEntry, int nChars)
 //      ================================================================================================
 {
 char *pszBuff;
@@ -695,12 +696,12 @@ else
 }
 
 
-void put_objects(PDATA data, char *pszIn, int nOffset, char *Object, const OBJECTLIST *ObjectList, int nObjects)
+void put_objects(DATA *data, char *pszIn, int nOffset, char *Object, const OBJECTLIST *ObjectList, int nObjects)
 {
-PBITS pBits;
-PINT pInt;
-PSHORT pShort;
-PBYTE pByte;
+bits *pBits;
+int * pInt;
+uint16_t *pShort;
+uint8_t *pByte;
 char *pszEntry;
 int n;
 
@@ -724,56 +725,56 @@ for (n = 0; n < nObjects; n++, ObjectList++)
         switch (ObjectList->nTable)
           {
           case iol_FLAGS:
-            pBits = (PBITS) &Object[ObjectList->nEntry];
-            *pBits = put_flags(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData);
+            pBits = (bits *) &Object[ObjectList->nEntry];
+            *pBits = put_flags(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData);
             break;
           case iol_IFLAGS:
-            pBits = (PBITS) &Object[ObjectList->nEntry];
+            pBits = (bits *) &Object[ObjectList->nEntry];
             *pBits = put_iflags(data, pszEntry);
             break;
           case iol_BFLAGS:
-            pByte = (PBYTE) &Object[ObjectList->nEntry];
-            *pByte = (byte) put_flags(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData);
+            pByte = (uint8_t *) &Object[ObjectList->nEntry];
+            *pByte = (uint8_t) put_flags(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData);
             break;
           case iol_ENUM:
-            pInt = (PINT) &Object[ObjectList->nEntry];
-            *pInt = put_enum(data, pszEntry, (PFLAGS) ObjectList->pData, ObjectList->nData, FALSE);
+            pInt = (int *) &Object[ObjectList->nEntry];
+            *pInt = put_enum(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData, false);
             break;
           case iol_CMP:
-            pInt = (PINT) &Object[ObjectList->nEntry];
-            *pInt = put_enum(data, pszEntry, CmpFlags, ELEMENTS(CmpFlags), TRUE);
+            pInt = (int *) &Object[ObjectList->nEntry];
+            *pInt = put_enum(data, pszEntry, CmpFlags, ELEMENTS(CmpFlags), true);
             break;
           case iol_OSCOL:
-            pInt = (PINT) &Object[ObjectList->nEntry];
-            *pInt = put_enum(data, pszEntry, OsColours, ELEMENTS(OsColours), FALSE);
+            pInt = (int *) &Object[ObjectList->nEntry];
+            *pInt = put_enum(data, pszEntry, OsColours, ELEMENTS(OsColours), false);
             break;
           case iol_BOX:
             put_box(data, pszEntry, (os_box *) &Object[ObjectList->nEntry]);
             break;
           case iol_BITS:
-            pBits = (PBITS) &Object[ObjectList->nEntry];
+            pBits = (bits *) &Object[ObjectList->nEntry];
             if (*pszEntry < ' ')
               *pBits = (ObjectList->nData == bits_ACTION) ? ~0 : 0;
             else
               *pBits = (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : my_atoi(&pszEntry);
             break;
           case iol_INT:
-            pInt = (PINT) &Object[ObjectList->nEntry];
+            pInt = (int *) &Object[ObjectList->nEntry];
             *pInt = my_atoi(&pszEntry);
             break;
           case iol_SHORT:
-            pShort = (PSHORT) &Object[ObjectList->nEntry];
-            *pShort = (short) my_atoi(&pszEntry);
+            pShort = (uint16_t *) &Object[ObjectList->nEntry];
+            *pShort = (uint16_t) my_atoi(&pszEntry);
             break;
           case iol_BYTE:
-            pByte = (PBYTE) &Object[ObjectList->nEntry];
-            *pByte = (byte) my_atoi(&pszEntry);
+            pByte = (uint8_t *) &Object[ObjectList->nEntry];
+            *pByte = (uint8_t) my_atoi(&pszEntry);
             break;
           case iol_COORD:
             put_coord(data, pszEntry, (os_coord *) &Object[ObjectList->nEntry]);
             break;
           case iol_SPRITE:
-            pBits = (PBITS) &Object[ObjectList->nEntry];
+            pBits = (bits *) &Object[ObjectList->nEntry];
             *pBits = my_atoi(&pszEntry);
             add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE);
             break;
@@ -781,18 +782,18 @@ for (n = 0; n < nObjects; n++, ObjectList++)
             put_pstr(data, &Object[ObjectList->nEntry], pszEntry, ObjectList->nData);
             break;
           case iol_ESG:
-            pBits = (PBITS) &Object[ObjectList->nEntry];
+            pBits = (bits *) &Object[ObjectList->nEntry];
             *pBits |= (my_atoi(&pszEntry) << wimp_ICON_ESG_SHIFT);
             break;
           case iol_WCOL:
-            pByte = (PBYTE) &Object[ObjectList->nEntry];
-            *pByte = (byte) put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE);
+            pByte = (uint8_t *) &Object[ObjectList->nEntry];
+            *pByte = (uint8_t) put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false);
             break;
           case iol_BCOLS:
-            pBits = (PBITS) &Object[ObjectList->nEntry];
-            *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE) << wimp_ICON_FG_COLOUR_SHIFT;
+            pBits = (bits *) &Object[ObjectList->nEntry];
+            *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false) << wimp_ICON_FG_COLOUR_SHIFT;
             if ((pszEntry = parse(data, pszIn, ObjectList->pData)) != NULL)
-              *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), FALSE) << wimp_ICON_BG_COLOUR_SHIFT;
+              *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false) << wimp_ICON_BG_COLOUR_SHIFT;
             break;
           default:
             error(data, "Unknown iol_ value (%d)", ObjectList->nTable);
@@ -805,7 +806,7 @@ for (n = 0; n < nObjects; n++, ObjectList++)
 }
 
 
-void get_objects(PDATA data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
+void get_objects(DATA *data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
 {
 char *pszIndent;
 int i, n;
@@ -828,7 +829,7 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
       case iol_FLAGS:
         {
         const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
-        get_flags(data, hf, ObjectList->pszEntry, *pBits, (PFLAGS) ObjectList->pData, ObjectList->nData);
+        get_flags(data, hf, ObjectList->pszEntry, *pBits, (FLAGS *) ObjectList->pData, ObjectList->nData);
         break;
         }
       case iol_IFLAGS:
@@ -840,25 +841,25 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
       case iol_BFLAGS:
         {
         const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
-        get_flags(data, hf, ObjectList->pszEntry, *pByte, (PFLAGS) ObjectList->pData, ObjectList->nData);
+        get_flags(data, hf, ObjectList->pszEntry, *pByte, (FLAGS *) ObjectList->pData, ObjectList->nData);
         break;
         }
       case iol_ENUM:
         {
         const int *pInt = (const int *)&objectP[ObjectList->nEntry];
-        get_enum(hf, ObjectList->pszEntry, *pInt, (PFLAGS) ObjectList->pData, ObjectList->nData, FALSE);
+        get_enum(hf, ObjectList->pszEntry, *pInt, (FLAGS *) ObjectList->pData, ObjectList->nData, false);
         break;
         }
       case iol_CMP:
         {
         const int *pInt = (const int *)&objectP[ObjectList->nEntry];
-        get_enum(hf, ObjectList->pszEntry, *pInt, CmpFlags, ELEMENTS(CmpFlags), TRUE);
+        get_enum(hf, ObjectList->pszEntry, *pInt, CmpFlags, ELEMENTS(CmpFlags), true);
         break;
         }
       case iol_OSCOL:
         {
         const int *pInt = (const int *)&objectP[ObjectList->nEntry];
-        get_enum(hf, ObjectList->pszEntry, *pInt, OsColours, ELEMENTS(OsColours), FALSE);
+        get_enum(hf, ObjectList->pszEntry, *pInt, OsColours, ELEMENTS(OsColours), false);
         break;
         }
       case iol_BOX:
@@ -912,17 +913,17 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
       case iol_WCOL:
         {
         const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
-        get_enum(hf, ObjectList->pszEntry, *pByte, WimpColour, ELEMENTS(WimpColour), FALSE);
+        get_enum(hf, ObjectList->pszEntry, *pByte, WimpColour, ELEMENTS(WimpColour), false);
         break;
         }
       case iol_BCOLS:
         {
         const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
         i = (*pBits & wimp_ICON_FG_COLOUR) >> wimp_ICON_FG_COLOUR_SHIFT;
-        get_enum(hf, ObjectList->pszEntry, i, WimpColour, ELEMENTS(WimpColour), FALSE);
+        get_enum(hf, ObjectList->pszEntry, i, WimpColour, ELEMENTS(WimpColour), false);
         fputs(pszIndent, hf);
         i = (*pBits & wimp_ICON_BG_COLOUR) >> wimp_ICON_BG_COLOUR_SHIFT;
-        get_enum(hf, ObjectList->pData, i, WimpColour, ELEMENTS(WimpColour), FALSE);
+        get_enum(hf, ObjectList->pData, i, WimpColour, ELEMENTS(WimpColour), false);
         break;
         }
       default:
@@ -966,7 +967,7 @@ char *next_object(char ** pszIn, char *pszEnd)
 }
 
 
-char *object_end(PDATA data, char *pszIn, char *pszEnd)
+char *object_end(DATA *data, char *pszIn, char *pszEnd)
 {
 	char *p;
 	int nDepth;
@@ -998,10 +999,10 @@ char *object_end(PDATA data, char *pszIn, char *pszEnd)
 }
 
 
-void object_text2resource(PDATA data, FILE * hf, char *pszIn, char *pszOut, const CLASSES *pClass)
+void object_text2resource(DATA *data, FILE * hf, char *pszIn, char *pszOut, const CLASSES *pClass)
 {
 	toolbox_relocatable_object_base * object;
-	PINT pReloc;
+	int * pReloc;
 	char *strings;
 	int cb, ref;
 
@@ -1029,7 +1030,7 @@ void object_text2resource(PDATA data, FILE * hf, char *pszIn, char *pszOut, cons
 		object->relocation_table_offset = -1;
 	} else {
 		object->relocation_table_offset = (int) ((char *) strings - (char *) object);
-		pReloc = (PINT) strings;
+		pReloc = (int *) strings;
 		*pReloc++ = data->RelocTable.ref;
 		cb = data->RelocTable.ref * sizeof(RELOC);
 		memcpy(pReloc, data->RelocTable.pReloc, cb);
@@ -1045,7 +1046,7 @@ void object_text2resource(PDATA data, FILE * hf, char *pszIn, char *pszOut, cons
 }
 
 
-void object_resource2text(PDATA data, FILE * hf, toolbox_relocatable_object_base * object, object2text o2t)
+void object_resource2text(DATA *data, FILE * hf, toolbox_relocatable_object_base * object, object2text o2t)
 {
 	char *pszStringTable, *pszMessageTable;
 

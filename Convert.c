@@ -76,31 +76,31 @@ static const CLASSES Classes[] = {
 };
 
 
-static BOOL alloc_string_table(STRINGTABLE *pTable)
+static bool alloc_string_table(STRINGTABLE *pTable)
 {
 	int cb;
 
 	pTable->ref = pTable->max = 0;
 	cb = 2 * 256 * 256;		// 256 gadgets, 256 chars each, 2 strings per gadget
 	if ((pTable->pstr = MyAlloc(cb)) == NULL) {
-		return FALSE;
+		return false;
 	}
 	pTable->max = cb;
-	return TRUE;
+	return true;
 }
 
 
-static BOOL alloc_reloc_table(PRELOCTABLE pTable)
+static bool alloc_reloc_table(RELOCTABLE *pTable)
 {
 	int nReloc;
 
 	pTable->ref = pTable->max = 0;
 	nReloc = 2 * 256;		// 256 gadgets, 2 strings per gadget
 	if ((pTable->pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL) {
-		return FALSE;
+		return false;
 	}
 	pTable->max = nReloc;
-	return TRUE;
+	return true;
 }
 
 
@@ -114,7 +114,7 @@ static void free_string_table(STRINGTABLE *pTable)
 }
 
 
-static void free_reloc_table(PRELOCTABLE pTable)
+static void free_reloc_table(RELOCTABLE *pTable)
 {
 	if (pTable->pReloc != NULL) {
 		MyFree(pTable->pReloc);
@@ -124,42 +124,42 @@ static void free_reloc_table(PRELOCTABLE pTable)
 }
 
 
-static BOOL text2res(PDATA data, char *pszOutFile)
+static bool text2res(DATA *data, char *pszOutFile)
 {
 	toolbox_resource_file_base Hdr;
 	FILE * hf;
 	char *pszIn, *pszOut, *pszEnd, *pszObject;
 	int m;
-	BOOL fHeader;
+	bool fHeader;
 
 	pszIn = data->pszIn;
 	pszEnd = data->pszIn + data->cbIn;
 	if (memcmp(pszIn, "RESF:1.01", 8) != 0) {
 		error(data, "File is not RESF v1.01");
-		return FALSE;
+		return false;
 	}
 	if ((pszOut = MyAlloc(296 * 268 * 3)) == NULL ||		// approx = window with 256 gadgets, 3 strings each
 				!alloc_string_table(&data->StringTable) ||
 				!alloc_string_table(&data->MessageTable) ||
 				!alloc_reloc_table(&data->RelocTable)) {
 		error(data, "Unable to allocate necessary memory");
-		return FALSE;
+		return false;
 	} else if ((hf = fopen(pszOutFile, "wb")) == NULL) {
 		error(data, "Unable to create output file '%s'", pszOutFile);
-		return FALSE;
+		return false;
 	} else {
-		data->fThrowback = FALSE;
+		data->fThrowback = false;
 		Hdr.file_id = RESF;
 		Hdr.version = 101;
 		Hdr.header_size = -1;
-		fHeader = FALSE;
+		fHeader = false;
 		while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
 			for (m = 0; m < ELEMENTS(Classes); m++) {
 				if (strcasecmp(Classes[m].name, pszObject) == 0 && Classes[m].t2o != NULL) {
 					if (!fHeader) {
 						Hdr.header_size = sizeof(Hdr);
 						fwrite(&Hdr, sizeof(Hdr), 1, hf);
-						fHeader = TRUE;
+						fHeader = true;
 					}
 					reset_string_table(&data->StringTable);
 					reset_string_table(&data->MessageTable);
@@ -186,45 +186,45 @@ text2res_added:
 		if (data->fThrowback)
 		  {
 		  report_end(data);
-		  data->fThrowback = FALSE;
+		  data->fThrowback = false;
 		  }
 		free_string_table(&data->StringTable);
 		free_string_table(&data->MessageTable);
 		free_reloc_table(&data->RelocTable);
 		MyFree(pszOut);
 	}
-	return TRUE;
+	return true;
 }
 
 
-static  BOOL res2text(PDATA data, char *pszOutFile)
+static  bool res2text(DATA *data, char *pszOutFile)
 //      ==========================================
 {
-PINT relocation_table;
+int * relocation_table;
 toolbox_resource_file_base * file_hdr;
 FILE * hf;
 int cb, m;
-BOOL fConverted;
+bool fConverted;
 
 file_hdr = (toolbox_resource_file_base *) data->pszIn;
 if (file_hdr->file_id != RESF)
   {
   error(data, "Invalid Resource File Header (%x)", file_hdr->file_id);
-  return FALSE;
+  return false;
   }
 if (file_hdr->version != 101)
   {
   error(data, "Unknown Resource File Version (%x)", file_hdr->version);
-  return FALSE;
+  return false;
   }
 
 if ((hf = fopen(pszOutFile, "wb")) == NULL)
   {
   error(data, "Unable to create output file '%s'", pszOutFile);
-  return FALSE;
+  return false;
   }
 
-fConverted = FALSE;
+fConverted = false;
 fprintf(hf, "RESF:%d.%02d\n", file_hdr->version / 100, file_hdr->version % 100);
 if (file_hdr->header_size > 0)
   {
@@ -250,7 +250,7 @@ if (file_hdr->header_size > 0)
     cb = sizeof(toolbox_relocatable_object_base) - sizeof(obj->rf_obj) + obj->rf_obj.size;
     if (obj->relocation_table_offset != -1)
       {
-      relocation_table = (PINT) (((char *) obj) + obj->relocation_table_offset);
+      relocation_table = (int *) (((char *) obj) + obj->relocation_table_offset);
       cb += sizeof(int) * (1 + 2 * relocation_table[0]);
       }
     obj = (toolbox_relocatable_object_base *) (((char *) obj) + cb);
@@ -260,7 +260,7 @@ fclose(hf);
 #ifdef __riscos__
 osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
 #endif
-fConverted = TRUE;
+fConverted = true;
 
 return fConverted;
 }
@@ -318,7 +318,7 @@ static int window_count(const char *pszIn, const char *pszEnd, int *pi)
 	return w;
 }
 
-static int icon_count(char *pszIn, char *pszEnd)
+static int icon_count(const char *pszIn, const char *pszEnd)
 {
 	int d, i;
 	char ch, ch0;
@@ -349,7 +349,7 @@ static const OBJECTLIST TemplateFontDataList[] = {
 };
 
 
-static void get_template_fonts(PDATA data, FILE * hf, template_font_data * font_data, template_font_data * end)
+static void get_template_fonts(DATA *data, FILE * hf, template_font_data * font_data, template_font_data * end)
 {
 	template_font_data temp;
 	char *pszFrom;
@@ -369,20 +369,20 @@ static const OBJECTLIST TemplateHeaderList[] = {
 	{iol_CHARPTR,  "template_name:",  offsetof(template_index, name), NULL, 12}
 };
 
-static BOOL text2template(PDATA data, char *pszOutFile)
+static bool text2template(DATA *data, char *pszOutFile)
 {
 	template_font_data font_data;
 	template_header * header;
 	template_index * index, * i;
 	FILE * hf;
-	PINT pTerm;
+	int * pTerm;
 	char *pszIn, *pszTemplate, *pszOut, *pszEnd, *pszObject, *pszBuff;
 	int cb, cbBuff, nWindows, nIcons;
-	BOOL fConverted;
+	bool fConverted;
 
 	pszIn = data->pszIn;
 	pszEnd = data->pszIn + data->cbIn;
-	fConverted = FALSE;
+	fConverted = false;
 	if ((nWindows = window_count(pszIn, pszEnd, &nIcons)) > 0) {
 		if ((pszTemplate = MyAlloc(sizeof(template_header) + sizeof(int) +
 							   nWindows * (sizeof(template_index) + sizeof(wimp_window) + (nIcons * (256 + sizeof(wimp_icon)))))) == NULL ||
@@ -392,11 +392,11 @@ static BOOL text2template(PDATA data, char *pszOutFile)
 			if ((hf = fopen(pszOutFile, "wb")) == NULL) {
 				error(data, "Unable to create output file '%s'", pszOutFile);
 			} else {
-				data->fThrowback = FALSE;
+				data->fThrowback = false;
 				header = (template_header *) pszTemplate;
 				header->font_offset = template_NO_FONTS;
 				index = (template_index *) (header + 1);
-				pTerm = (PINT) (index + nWindows);
+				pTerm = (int *) (index + nWindows);
 				pszOut = (char *) (pTerm + 1);
 				pszBuff = NULL;
 				cbBuff = 0;
@@ -458,12 +458,12 @@ static BOOL text2template(PDATA data, char *pszOutFile)
 				if (data->fThrowback)
 				  {
 				  report_end(data);
-				  data->fThrowback = FALSE;
+				  data->fThrowback = false;
 				  }
 				if (pszBuff != NULL) {
 					MyFree(pszBuff);
 				}
-				fConverted = TRUE;
+				fConverted = true;
 			}
 			MyFree(pszTemplate);
 			free_string_table(&data->StringTable);
@@ -473,7 +473,7 @@ static BOOL text2template(PDATA data, char *pszOutFile)
 }
 
 
-static BOOL template2text(PDATA data, char *pszOutFile)
+static bool template2text(DATA *data, char *pszOutFile)
 {
 template_header * template_hdr;
 template_index * obj;
@@ -484,7 +484,7 @@ int cbBuff;
 if ((hf = fopen(pszOutFile, "wb")) == NULL)
   {
   error(data, "Unable to create output file '%s'", pszOutFile);
-  return FALSE;
+  return false;
   }
 fputs("Template:\n", hf);
 
@@ -522,7 +522,7 @@ osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
 if (pszBuff != NULL)
   MyFree(pszBuff);
 
-return TRUE;
+return true;
 }
 
 
@@ -532,7 +532,7 @@ return TRUE;
 memset(sessionP, 0, sizeof(DATA));
 sessionP->returnStatus = EXIT_SUCCESS;
 
-return TRUE;
+return true;
 }
 
 
@@ -540,11 +540,11 @@ return TRUE;
 //      ======================
 {
 
-return TRUE;
+return true;
 }
 
 
-        BOOL ccres_convert(PDATA data, char *pszOutFile)
+        bool ccres_convert(DATA *data, char *pszOutFile)
 //      ===============================================
 {
 switch (data->nFiletypeIn)
@@ -564,5 +564,5 @@ switch (data->nFiletypeIn)
     return template2text(data, pszOutFile);
   }
 
-return FALSE;
+return false;
 }

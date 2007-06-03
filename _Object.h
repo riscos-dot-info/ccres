@@ -26,11 +26,11 @@
 
 #include "ccres.h"
 
-void put_objects(PDATA data, char *pszIn, int nOffset, char *object, const OBJECTLIST *Objectlist, int nObjects);
-void get_objects(PDATA data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent);
+void put_objects(DATA *data, char *pszIn, int nOffset, char *object, const OBJECTLIST *Objectlist, int nObjects);
+void get_objects(DATA *data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent);
 char *next_object(char ** pszIn, char *pszEnd);
-char *object_end(PDATA data, char *pszIn, char *pszEnd);
-void object_text2resource(PDATA data, FILE * hf, char *pszIn, char *pszOut, const CLASSES *pClass);
-void object_resource2text(PDATA data, FILE * hf, toolbox_relocatable_object_base * object, object2text o2t);
+char *object_end(DATA *data, char *pszIn, char *pszEnd);
+void object_text2resource(DATA *data, FILE * hf, char *pszIn, char *pszOut, const CLASSES *pClass);
+void object_resource2text(DATA *data, FILE * hf, toolbox_relocatable_object_base * object, object2text o2t);
 
 #endif

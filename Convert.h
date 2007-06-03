@@ -29,6 +29,6 @@ int ccres_initialise(DATA *sessionP);
 // Returns 0 for error, 1 otherwise.
 int ccres_finish(void);
 // Returns 0 for error, 1 otherwise.
-BOOL ccres_convert(PDATA data, char *pszOutFile);
+bool ccres_convert(DATA *data, char *pszOutFile);
 
 #endif

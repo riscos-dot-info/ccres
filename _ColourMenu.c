@@ -48,7 +48,7 @@ static const OBJECTLIST ColourMenuObjectList[] = {
 };
 
 
-        int colourmenu_t2g(PDATA data, char *pszIn, toolbox_relocatable_object_base * object)
+        int colourmenu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
 //      ====================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList));
@@ -57,7 +57,7 @@ return sizeof(colourmenu_object);
 }
 
 
-        void colourmenu_g2t(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void colourmenu_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
 //      =================================================================================================================================
 {
 get_objects(data, hf, pszStringTable, pszMessageTable, (char *) (object + 1), ColourMenuObjectList, ELEMENTS(ColourMenuObjectList), 1);

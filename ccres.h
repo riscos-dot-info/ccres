@@ -27,6 +27,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include <oslib/fileswitch.h>
 #include <oslib/gadget.h>
@@ -35,7 +36,7 @@
 #include <oslib/toolbox.h>
 #include <oslib/wimp.h>
 
-#define VERSION "1.12 (28-Jan-2006)"
+#define VERSION "1.13 (xx-xxx-2007) - development"
 #define APPNAME	"CCres"
 
 #define RESF	0x46534552
@@ -87,13 +88,6 @@ struct toolbox_relocatable_object_base
       toolbox_resource_file_object_base rf_obj;
    };
 
-typedef int BOOL;
-typedef int * PINT;
-typedef bits * PBITS;
-typedef short * PSHORT;
-typedef unsigned char * PBYTE;
-typedef void * PVOID;
-
 typedef struct {
 	char *pstr;
 	int ref, max;
@@ -102,13 +96,11 @@ typedef struct {
 typedef struct {
 	int offset, type;
 } RELOC;
-typedef RELOC * PRELOC;
 
 typedef struct {
-	PRELOC pReloc;
+	RELOC *pReloc;
 	int ref, max;
 } RELOCTABLE;
-typedef RELOCTABLE * PRELOCTABLE;
 
 typedef struct {
 	int nTable;
@@ -125,12 +117,11 @@ typedef struct {
 	const void *pData;
 	int nData;
 } OBJECTLIST;
-typedef OBJECTLIST * POBJECTLIST;
 
 typedef struct {
-	BOOL fRunning;			// see check_quit()
-	BOOL fThrowback;
-	BOOL fUnsafeLoad;
+	bool fRunning;			// see check_quit()
+	bool fThrowback;
+	bool fUnsafeLoad;
 	int returnStatus;
 	wimp_t task;
 	char *pszIn;
@@ -149,13 +140,12 @@ typedef struct {
 	} poll;
 	char achTextFile[MAX_PATH];
 } DATA;
-typedef DATA * PDATA;
 
-typedef void (* action_handler)(PDATA data);
-typedef int  (* text2object)(PDATA data, char *pszIn, toolbox_relocatable_object_base * object);
-typedef void (* object2text)(PDATA data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable);
-typedef int  (* text2gadget)(PDATA data, char *pszIn, int nOffset, gadget_object_base * gadget);
-typedef void (* gadget2text)(PDATA data, FILE * hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable);
+typedef void (* action_handler)(DATA *data);
+typedef int  (* text2object)(DATA *data, char *pszIn, toolbox_relocatable_object_base *object);
+typedef void (* object2text)(DATA *data, FILE * hf, toolbox_resource_file_object_base *object, char *pszStringTable, char *pszMessageTable);
+typedef int  (* text2gadget)(DATA *data, char *pszIn, int nOffset, gadget_object_base *gadget);
+typedef void (* gadget2text)(DATA *data, FILE *hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable);
 
 typedef struct {
 	toolbox_class class_no;
@@ -170,13 +160,11 @@ typedef struct {
 	text2gadget t2g;
 	char *name;
 } GADGETS;
-typedef GADGETS * PGADEGET;
 
 typedef struct {
 	bits flag;
 	char *pstr;
 } FLAGS;
-typedef FLAGS * PFLAGS;
 
 
 // library.c
@@ -194,17 +182,17 @@ int strncasecmp(const char *s1, const char *s2, size_t n);
 
 // filer.c
 
-void message_data_save(PDATA data);
-void message_data_load(PDATA data);
+void message_data_save(DATA *data);
+void message_data_load(DATA *data);
 
 // menu.c
 
-void menu_quit(PDATA data);
+void menu_quit(DATA *data);
 
 
 // saveas.c
 
-void action_save_to_file(PDATA data);
-void action_save_completed(PDATA data);
+void action_save_to_file(DATA *data);
+void action_save_completed(DATA *data);
 
 #endif

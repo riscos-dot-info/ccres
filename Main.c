@@ -44,9 +44,9 @@
 
 #define action_MENU_QUIT	0x01
 
-static BOOL ccres_appl_initialise(PDATA data);
-static void ccres_appl_pollloop(PDATA data);
-static void toolbox_error(PDATA data);
+static bool ccres_appl_initialise(DATA *data);
+static void ccres_appl_pollloop(DATA *data);
+static void toolbox_error(DATA *data);
 static int question(char *pszKeys, bits nErr, char *pszFmt, ...);
 
 
@@ -77,18 +77,18 @@ static const wimp_message_list Message[] =
   {{0}}
   };
 
-static  BOOL ccres_appl_initialise(PDATA data)
+static  bool ccres_appl_initialise(DATA *data)
 //      ======================================
 {
 data->idBaricon = toolbox_create_object(0, (toolbox_id) "Iconbar");
 data->idSaveAs  = toolbox_create_object(0, (toolbox_id) "SaveAs");
 proginfo_set_version(0, toolbox_create_object(0, (toolbox_id) "ProgInfo"), VERSION);
 
-return TRUE;
+return true;
 }
 
 
-static  void ccres_appl_pollloop(PDATA data)
+static  void ccres_appl_pollloop(DATA *data)
 //      ====================================
 {
   wimp_event_no e;
@@ -113,7 +113,7 @@ do {
   else if (e == wimp_USER_MESSAGE || e == wimp_USER_MESSAGE_RECORDED)
     {
     if ((nAction = data->poll.wb.message.action) == message_QUIT || nAction == message_SHUTDOWN)
-      data->fRunning = FALSE;
+      data->fRunning = false;
     else if (nAction == message_DATA_SAVE)
       message_data_save(data);
     else if (nAction == message_DATA_LOAD)
@@ -150,12 +150,12 @@ return data.returnStatus;
 }
 
 
-static  void toolbox_error(PDATA data)
+static  void toolbox_error(DATA *data)
 //      ==============================
 {
 if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.data.error.errmess) == 1)
   {
-  data->fRunning = FALSE;
+  data->fRunning = false;
   data->returnStatus = EXIT_FAILURE;
   }
 }
