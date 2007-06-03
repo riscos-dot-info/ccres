@@ -355,11 +355,9 @@ static const OBJECTLIST TemplateFontDataList[] = {
 static void get_template_fonts(DATA *data, FILE *hf, template_font_data *font_data, template_font_data *end)
 {
 	template_font_data temp;
-	char *pszFrom;
 
 	while (font_data < end) {
-		pszFrom = (char *) font_data;			// bug in memcpy? without this it does a word-aligned copy
-		memcpy(&temp, pszFrom, sizeof(temp));
+		memcpy(&temp, font_data, sizeof(temp));
 		fputs("\ntemplate_font_data {\n", hf);
 		get_objects(data, hf, NULL, NULL, (const char *) &temp, TemplateFontDataList, ELEMENTS(TemplateFontDataList), 1);
 		fputs("}\n", hf);

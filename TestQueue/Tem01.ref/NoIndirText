@@ -22,7 +22,7 @@ wimp_window {
   xmin:0
   ymin:0
   text.text:"About this image"
-  text.size:17
+  text.size:*
   text.validation:""
   wimp_icon {
     extent:596,-120,708,-8
@@ -31,7 +31,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text_and_sprite.text:""
-    text_and_sprite.size:1
+    text_and_sprite.size:*
     text_and_sprite.validation:"Nd_icon;Sfile_xxx;R2"
   }
 }
@@ -58,6 +58,6 @@ wimp_window {
   xmin:0
   ymin:0
   text.text:"About this program"
-  text.size:19
+  text.size:*
   text.validation:""
 }

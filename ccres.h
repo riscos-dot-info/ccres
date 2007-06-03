@@ -36,7 +36,7 @@
 #include <oslib/toolbox.h>
 #include <oslib/wimp.h>
 
-#define VERSION "1.13 (03-Jun-2007)"
+#define VERSION "1.14 (xx-xxx-2007) - development"
 #define APPNAME	"CCres"
 
 #define RESF	0x46534552
@@ -112,7 +112,7 @@ typedef struct {
 
 typedef struct {
 	int nTable;
-	char *pszEntry;
+	const char *pszEntry;
 	int nEntry;
 	const void *pData;
 	int nData;
@@ -141,29 +141,29 @@ typedef struct {
 	char achTextFile[MAX_PATH];
 } DATA;
 
-typedef void (* action_handler)(DATA *data);
-typedef int  (* text2object)(DATA *data, char *pszIn, toolbox_relocatable_object_base *object);
-typedef void (* object2text)(DATA *data, FILE * hf, toolbox_resource_file_object_base *object, char *pszStringTable, char *pszMessageTable);
-typedef int  (* text2gadget)(DATA *data, char *pszIn, int nOffset, gadget_object_base *gadget);
-typedef void (* gadget2text)(DATA *data, FILE *hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable);
+typedef void (*action_handler)(DATA *data);
+typedef int  (*text2object)(DATA *data, char *pszIn, toolbox_relocatable_object_base *object);
+typedef void (*object2text)(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, char *pszStringTable, char *pszMessageTable);
+typedef int  (*text2gadget)(DATA *data, char *pszIn, int nOffset, gadget_object_base *gadget);
+typedef void (*gadget2text)(DATA *data, FILE *hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable);
 
 typedef struct {
 	toolbox_class class_no;
 	object2text o2t;
 	text2object t2o;
-	char *name;
+	const char *name;
 } CLASSES;
 
 typedef struct {
 	toolbox_class class_no;
 	gadget2text g2t;
 	text2gadget t2g;
-	char *name;
+	const char *name;
 } GADGETS;
 
 typedef struct {
 	bits flag;
-	char *pstr;
+	const char *pstr;
 } FLAGS;
 
 #endif

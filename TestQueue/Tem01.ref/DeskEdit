@@ -123,7 +123,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"number -> insert spaces"
-    text.size:24
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -133,7 +133,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"-number -> strip characters"
-    text.size:28
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -143,7 +143,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"other -> insert at each line"
-    text.size:29
+    text.size:*
     text.validation:""
   }
 }
@@ -255,7 +255,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text_and_sprite.text:"Case sensitive"
-    text_and_sprite.size:15
+    text_and_sprite.size:*
     text_and_sprite.validation:"soptoff,opton"
   }
   wimp_icon {
@@ -275,7 +275,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text_and_sprite.text:"Wildcarded expressions"
-    text_and_sprite.size:23
+    text_and_sprite.size:*
     text_and_sprite.validation:"sradiooff,radioon"
   }
   wimp_icon {
@@ -375,7 +375,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"0 or more  *"
-    text.size:13
+    text.size:*
     text.validation:"R5,3"
   }
   wimp_icon {
@@ -385,7 +385,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"1 or more  ^"
-    text.size:13
+    text.size:*
     text.validation:"R5,3"
   }
   wimp_icon {
@@ -461,7 +461,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"\a=any letter or digit"
-    text.size:23
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -471,7 +471,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"\d=any digit"
-    text.size:13
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -481,7 +481,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"\xXX=hex char"
-    text.size:14
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -515,7 +515,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"\*=any string"
-    text.size:14
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -525,7 +525,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"\&=found string"
-    text.size:16
+    text.size:*
     text.validation:""
   }
 }
@@ -606,7 +606,7 @@ wimp_window {
   xmin:0
   ymin:0
   text.text:"About this file"
-  text.size:16
+  text.size:*
   text.validation:""
   wimp_icon {
     extent:626,-252,802,-204
@@ -736,7 +736,7 @@ wimp_window {
   xmin:0
   ymin:0
   text.text:"About this program"
-  text.size:19
+  text.size:*
   text.validation:""
   wimp_icon {
     extent:6,-224,644,12
@@ -844,7 +844,7 @@ wimp_window {
   xmin:0
   ymin:0
   text.text:"Goto text line"
-  text.size:15
+  text.size:*
   text.validation:""
   wimp_icon {
     extent:406,-188,522,-120
@@ -983,7 +983,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Last Replace"
-    text.size:13
+    text.size:*
     text.validation:"R5,3"
   }
   wimp_icon {
@@ -993,7 +993,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"End of file replace"
-    text.size:20
+    text.size:*
     text.validation:"R5,3"
   }
   wimp_icon {
@@ -1199,7 +1199,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Text height:"
-    text.size:13
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -1259,7 +1259,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Text margins:"
-    text.size:14
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -1627,7 +1627,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Macro number:"
-    text.size:14
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -1861,7 +1861,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text_and_sprite.text:"Literal print"
-    text_and_sprite.size:14
+    text_and_sprite.size:*
     text_and_sprite.validation:"Sradiooff,radioon"
   }
   wimp_icon {
@@ -1871,7 +1871,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text_and_sprite.text:"Full feature print"
-    text_and_sprite.size:19
+    text_and_sprite.size:*
     text_and_sprite.validation:"Sradiooff,radioon"
   }
   wimp_icon {
@@ -1881,7 +1881,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Set up file:"
-    text.size:13
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -1992,7 +1992,7 @@ wimp_window {
   xmin:20
   ymin:20
   text.text:"Format width"
-  text.size:13
+  text.size:*
   text.validation:""
   wimp_icon {
     extent:138,-72,240,-8
@@ -2121,7 +2121,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Update, save & exit"
-    text.size:20
+    text.size:*
     text.validation:"r6,3"
   }
   wimp_icon {
@@ -2131,7 +2131,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Update & exit"
-    text.size:14
+    text.size:*
     text.validation:"r5,3"
   }
   wimp_icon {
@@ -2161,7 +2161,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
     text.text:"Default lang:"
-    text.size:14
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -2205,7 +2205,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
     text.text:"Import line strip:"
-    text.size:19
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -2215,7 +2215,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_CREAM
     text.text:"Syntax check:"
-    text.size:14
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -2447,7 +2447,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text_and_sprite.text:"Short printer codes:"
-    text_and_sprite.size:21
+    text_and_sprite.size:*
     text_and_sprite.validation:"Soptoff,opton"
   }
   wimp_icon {
@@ -2637,7 +2637,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Update, save & exit"
-    text.size:20
+    text.size:*
     text.validation:"r6,3"
   }
   wimp_icon {
@@ -2947,7 +2947,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_RED
     icon_bg:wimp_COLOUR_ORANGE
     text.text:"Ctrl+keypad"
-    text.size:12
+    text.size:*
     text.validation:"R2"
   }
 }

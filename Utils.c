@@ -43,22 +43,18 @@ result = 0;
 for (cpStrP = strP + 2, len -= 2; len-- > 0; ++cpStrP)
   {
   unsigned int nextResult;
-  if (*cpStrP < '0'
-      || *cpStrP > '9' && *cpStrP < 'A'
-      || *cpStrP > 'F' && *cpStrP < 'a'
-      || *cpStrP > 'f')
+  if (*cpStrP >= '0' && *cpStrP <= '9')
+    nextResult = (result << 4) + *cpStrP - '0';
+  else if (*cpStrP >= 'A' && *cpStrP <= 'F')
+    nextResult = (result << 4) + *cpStrP - 'A' + 10;
+  else if (*cpStrP >= 'a' && *cpStrP <= 'f')
+    nextResult = (result << 4) + *cpStrP - 'a' + 10;
+  else
     {
     report(data, strP, "Unknown hex construction '%.*s'", len, strP);
     *resultP = 0;
     return;
     }
-  nextResult = result << 4;
-  if (*cpStrP <= '9')
-    nextResult += *cpStrP - '0';
-  else if (*cpStrP <= 'F')
-    nextResult += *cpStrP - 'A' + 10;
-  else
-    nextResult += *cpStrP - 'a' + 10;
   if (nextResult < result)
     {
     report(data, strP, "Hex overflow '%.*s'", len, strP);
@@ -166,11 +162,12 @@ return true;
 }
 
 
-void * My_Alloc(int cb, char *pszFile, int nLine)
+        void *My_Alloc(int cb, const char *pszFile, int nLine)
+//      ======================================================
 {
-char *p;
+void *p;
 
-if ((p = (char *) calloc(1, cb)) == NULL)
+if ((p = calloc(1, cb)) == NULL)
   fprintf(stderr, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine);
 return p;
 }

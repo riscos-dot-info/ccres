@@ -36,7 +36,7 @@ void HexToUInt(DATA *data, const char *strP, unsigned int len, unsigned int *res
 bits get_filetype(DATA *sessionP, const char *filenameP);
 bool load_file(DATA *data, char *pszPath, bits nFiletype);
 
-void * My_Alloc(int cb, char *pszFile, int nLine);
+void *My_Alloc(int cb, const char *pszFile, int nLine);
 #define MyAlloc(v) My_Alloc(v, __FILE__, __LINE__)
 #define MyFree(v) free(v)
 

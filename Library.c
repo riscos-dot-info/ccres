@@ -23,6 +23,7 @@
 #if !defined(HAVE_STRCASECMP) || !defined(HAVE_STRNCASECMP)
 #  include <ctype.h>
 #endif
+#include <stdint.h>
 
 #include "ccres.h"
 #include "Library.h"
@@ -136,11 +137,17 @@ switch (base)
       }
     break;
   case 16:
-    while (*inP >= '0' && *inP <= '9' || *inP >= 'A' && *inP <= 'F' || *inP >= 'a' && *inP <= 'f')
-      {
-      result = result*16 + ((*inP <= '9') ? *inP - '0' : (*inP | 0x20) - 'a' + 10);
+    do {
+      if (*inP >= '0' && *inP <= '9')
+        result = result*16 + *inP - '0';
+      else if (*inP >= 'A' && *inP <= 'F')
+        result = result*16 + *inP - 'A' + 10;
+      else if (*inP >= 'a' && *inP <= 'f')
+        result = result*16 + *inP - 'a' + 10;
+      else
+        break;
       ++inP;
-      }
+      } while (1);
     break;
   }
 
@@ -180,3 +187,30 @@ while (n != 0 && *s1 && toupper(*s1) == toupper(*s2))
 return n && toupper(*s1) - toupper(*s2);
 }
 #endif
+
+
+        void write_le_int32(void *memP, int32_t value)
+//      ==============================================
+{
+uint8_t *imemP = (uint8_t *)memP;
+imemP[0] = value & 0xFF;
+imemP[1] = (value >> 8) & 0xFF;
+imemP[2] = (value >> 16) & 0xFF;
+imemP[3] = (value >> 24) & 0xFF;
+}
+
+
+        int32_t read_le_int32(const void *memP)
+//      =======================================
+{
+const uint8_t *imemP = (const uint8_t *)memP;
+return imemP[0] | (imemP[1]<<8) | (imemP[2]<<16) | (imemP[3]<<24);
+}
+
+
+        int16_t read_le_int16(const void *memP)
+//      =======================================
+{
+const uint8_t *imemP = (const uint8_t *)memP;
+return imemP[0] | (imemP[1]<<8);
+}

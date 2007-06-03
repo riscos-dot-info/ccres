@@ -30,7 +30,7 @@ wimp_window {
     icon_esg:0
     font_handle:1
     text.text:"Homerton.Bold 20"
-    text.size:17
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -46,7 +46,7 @@ wimp_window {
     icon_esg:0
     font_handle:3
     text.text:"Trinity.Medium.Italic 14"
-    text.size:25
+    text.size:*
     text.validation:""
   }
   wimp_icon {
@@ -64,7 +64,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_DARK_BLUE
     text.text:"White on dark blue"
-    text.size:19
+    text.size:*
     text.validation:""
   }
 }

@@ -22,6 +22,7 @@
 #ifndef LIBRARY_HEADER_INCLUDED
 #define LIBRARY_HEADER_INCLUDED
 
+#include <stdint.h>
 #include <stdlib.h>
 
 int my_strcpy(char *to, const char *from);
@@ -34,5 +35,12 @@ int strcasecmp(const char *s1, const char *s2);
 #ifndef HAVE_STRNCASECMP
 int strncasecmp(const char *s1, const char *s2, size_t n);
 #endif
+
+/* Write integer value 'value' to memory at 'memP' as little endian 4 byte
+   integer.  */
+void write_le_int32(void *memP, int32_t value);
+/* Read little endian integer value at memory 'memP'.  */
+int32_t read_le_int32(const void *memP);
+int16_t read_le_int16(const void *memP);
 
 #endif

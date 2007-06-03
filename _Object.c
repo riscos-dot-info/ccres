@@ -20,6 +20,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <limits.h>
 #include <stdint.h>
 #include <string.h>
 #include <strings.h>
@@ -213,7 +214,6 @@ static char *remove_quotes(DATA *data, char *pszEntry)
 static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
 {
 	STRINGTABLE *pTable;
-	int * pInt;
 	char *pszEntry, *pszLimit, *pstr;
 	int cb, cbEntry, cbLimit, nTable;
 
@@ -240,13 +240,10 @@ static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, STRIN
 			cbLimit = (cbLimit > 0 && cbLimit <= cbEntry) ? (cbEntry + 1) : cbLimit;
 		}
 	}
-	pInt = (int *) &object[StringList->nEntry];
-	*pInt = (cbEntry > 0 || cbLimit > 0) ? pTable->ref : -1;
+	write_le_int32(&object[StringList->nEntry], (cbEntry > 0 || cbLimit > 0) ? pTable->ref : -1);
 	add_to_reloc_table(&data->RelocTable, StringList->nEntry + nOffset, nTable);
-	if (StringList->pszLimit != NULL) {
-		pInt = (int *) &object[StringList->nLimit];
-		*pInt = cbLimit;
-	}
+	if (StringList->pszLimit != NULL)
+		write_le_int32(&object[StringList->nLimit], cbLimit);
 	if (cbEntry > 0 || cbLimit > 0) {
 		pTable->ref += cbEntry + 1;
 		if (pTable->ref > (pTable->max - 256)) {
@@ -267,7 +264,6 @@ static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, STRIN
 static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
 {
 	STRINGTABLE *pTable;
-	int * pInt;
 	char *pszEntry, *pszLimit, *pstr;
 	int cbEntry, cbLimit, nTable;
 
@@ -288,7 +284,7 @@ static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRI
 	if (StringList->pszLimit != NULL && (pszLimit = parse(data, pszIn, StringList->pszLimit)) != NULL) {
 		if (pszLimit[0] == '*') {
 			/* The limit is as long as the cbEntry is atm.  */
-			cbLimit = cbEntry == 1 ? 0 : cbEntry;
+			cbLimit = cbEntry;
 		} else {
 			cbLimit = my_atoi(&pszLimit);
 			if (cbLimit == 0 && cbEntry == 1)
@@ -302,12 +298,9 @@ static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRI
 	else
 		cbLimit = cbEntry; /* No limit/size, we do NOT optimize string "\r" to a 0 offset.  */
 
-	pInt = (int *) &object[StringList->nEntry];
-	*pInt = (cbLimit > 0) ? (pTable->ref - nOffset) : 0;
-	if (StringList->pszLimit != NULL) {
-		pInt = (int *) &object[StringList->nLimit];
-		*pInt = cbLimit;
-	}
+	write_le_int32(&object[StringList->nEntry], (cbLimit > 0) ? (pTable->ref - nOffset) : 0);
+	if (StringList->pszLimit != NULL)
+		write_le_int32(&object[StringList->nLimit], cbLimit);
 	if (cbEntry > 0) {
 		pTable->ref += cbLimit;
 		if (pTable->ref > pTable->max - 256) {
@@ -325,32 +318,35 @@ static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRI
 }
 
 
-static  char *string_from_table(char *pszTable, int ref)
-//      ==============================================
+// Given strings (with either \0, \n or \r delimitered) and an offset, return
+// string at offset 'ref' and its length in *outSizeP.
+static  const char *string_from_table(const char *pszTable, int ref, int maxSize, int *outSizeP)
+//      ========================================================================================
 {
-	static char *pszNull = "";
-	char *pstr, *p;
-	char ch;
+const char *pstr, *p;
+char ch;
 
-	if (pszTable == NULL || ref < 0) {
-		return pszNull;
-	}
-// modified to handle Template \n terminated strings
-//	return &pszTable[ref];
-	pstr = p = &pszTable[ref];
-	while ((ch = *p++) != '\0' && ch != '\n' && ch != '\r')
-		/* */;
-	*(p - 1) = '\0';
-	return pstr;
+if (pszTable == NULL || ref < 0)
+  {
+    *outSizeP = 0;
+    return "";
+  }
+
+if (maxSize < 0)
+  maxSize = INT_MAX;
+pstr = p = &pszTable[ref];
+while ((ch = *p++) != '\0' && ch != '\n' && ch != '\r' && maxSize-- >= 0)
+  /* */;
+*outSizeP = p - 1 - pstr;
+return pstr;
 }
 
 
 static  void get_string(DATA *data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
 //      ==============================================================================================================================================
 {
-const int *pInt;
-char *pstr, *qstr, *string_table;
-int cbLimit, ref;
+const char *pstr, *string_table;
+int ref, strSize;
 
 switch (StringList->nTable)
   {
@@ -365,19 +361,20 @@ switch (StringList->nTable)
     return;
   }
 
-pInt = (const int *)&objectP[StringList->nEntry];
-if ((ref = *pInt) >= 0 && (qstr = string_from_table(string_table, ref)) != NULL)
-  pstr = qstr;
-else
-  pstr = "";
+ref = read_le_int32(&objectP[StringList->nEntry]);
+pstr = string_from_table(string_table, ref, -1, &strSize);
 
-fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
+fprintf(hf, "%s\"%.*s\"\n", StringList->pszEntry, strSize, pstr);
 if (StringList->pszLimit != NULL)
   {
-  pInt = (const int *)&objectP[StringList->nLimit];
-  cbLimit = *pInt;
+  int cbLimit;
   fputs(pszIndent, hf);
-  if (cbLimit > strlen(pstr) + 1)
+  cbLimit = read_le_int32(&objectP[StringList->nLimit]);
+  // cbLimit = 0 for an empty string is ok (different than get_tstring() !)
+  if (cbLimit == 0 && cbLimit < strSize
+      || cbLimit != 0 && cbLimit < strSize + 1)
+    error(data, "Warning: string <%.*s> is longer than its given limit value %d", strSize, pstr, cbLimit);
+  if (cbLimit > strSize + 1)
     fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
   else
     fprintf(hf, "%s*\n", StringList->pszLimit);
@@ -385,30 +382,27 @@ if (StringList->pszLimit != NULL)
 }
 
 
-static  void get_tstring(FILE * hf, char *pszStringTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
+static  void get_tstring(DATA *data, FILE * hf, char *pszStringTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
 //      =============================================================================================================
 {
-const int *pInt;
-char *pstr, *qstr;
-int cbLimit, ref;
+const char *pstr;
+int ref, strSize;
 
-pInt = (const int *) &objectP[StringList->nEntry];
-pstr = "";
-if ((ref = *pInt) >= 0 && (qstr = string_from_table(pszStringTable, ref)) != NULL)
-  pstr = qstr;
+ref = read_le_int32(&objectP[StringList->nEntry]);
+pstr = string_from_table(pszStringTable, ref, -1, &strSize);
 
-fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
+fprintf(hf, "%s\"%.*s\"\n", StringList->pszEntry, strSize, pstr);
 if (StringList->pszLimit != NULL)
   {
-  pInt = (const int *) &objectP[StringList->nLimit];
-  cbLimit = *pInt;
+  int cbLimit;
   fputs(pszIndent, hf);
-  if (cbLimit >= strlen(pstr))
+  cbLimit = read_le_int32(&objectP[StringList->nLimit]);
+  if (cbLimit < strSize + 1)
+    error(data, "Warning: string <%.*s> is longer than its given limit value %d", strSize, pstr, cbLimit);
+  if (cbLimit > strSize + 1)
     fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
-  else if (cbLimit > 0)
-    fprintf(hf, "%s*\n", StringList->pszLimit);
   else
-    fprintf(hf, "%s\n", StringList->pszLimit);
+    fprintf(hf, "%s*\n", StringList->pszLimit);
   }
 }
 
@@ -690,32 +684,18 @@ else
 }
 
 
-static  void get_pstr(DATA *data, FILE * hf, char *pszEntry, const char *objectP, int nEntry, int nChars)
+static  void get_pstr(DATA *data, FILE *hf, char *pszEntry, const char *objectP, int nEntry, int nChars)
 //      ================================================================================================
 {
-char *pszBuff;
-
-pszBuff = NULL;
-if (nChars == 0)
-  fprintf(hf, "%s\"%s\"\n", pszEntry, string_from_table((char * /* yucky; any better solution ? */)objectP, nEntry));
-else
-  {
-  if ((pszBuff = MyAlloc(nChars + 1)) == NULL)
-    error(data, "Not enough memory to get %s", pszEntry);
-  else
-    {
-    my_strncpy0d(pszBuff, &objectP[nEntry], nChars);
-    fprintf(hf, "%s\"%s\"\n", pszEntry, pszBuff);
-    MyFree(pszBuff);
-    }
-  }
+int strSize;
+const char *strP = string_from_table(objectP, nEntry, nChars == 0 ? -1 : nChars, &strSize);
+fprintf(hf, "%s\"%.*s\"\n", pszEntry, strSize, strP);
 }
 
 
 void put_objects(DATA *data, char *pszIn, int nOffset, char *Object, const OBJECTLIST *ObjectList, int nObjects)
 {
 bits *pBits;
-int * pInt;
 uint16_t *pShort;
 uint8_t *pByte;
 char *pszEntry;
@@ -753,16 +733,13 @@ for (n = 0; n < nObjects; n++, ObjectList++)
             *pByte = (uint8_t) put_flags(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData);
             break;
           case iol_ENUM:
-            pInt = (int *) &Object[ObjectList->nEntry];
-            *pInt = put_enum(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData, false);
+            write_le_int32(&Object[ObjectList->nEntry], put_enum(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData, false));
             break;
           case iol_CMP:
-            pInt = (int *) &Object[ObjectList->nEntry];
-            *pInt = put_enum(data, pszEntry, CmpFlags, ELEMENTS(CmpFlags), true);
+            write_le_int32(&Object[ObjectList->nEntry], put_enum(data, pszEntry, CmpFlags, ELEMENTS(CmpFlags), true));
             break;
           case iol_OSCOL:
-            pInt = (int *) &Object[ObjectList->nEntry];
-            *pInt = put_enum(data, pszEntry, OsColours, ELEMENTS(OsColours), false);
+            write_le_int32(&Object[ObjectList->nEntry], put_enum(data, pszEntry, OsColours, ELEMENTS(OsColours), false));
             break;
           case iol_BOX:
             put_box(data, pszEntry, (os_box *) &Object[ObjectList->nEntry]);
@@ -775,8 +752,7 @@ for (n = 0; n < nObjects; n++, ObjectList++)
               *pBits = (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : my_atoi(&pszEntry);
             break;
           case iol_INT:
-            pInt = (int *) &Object[ObjectList->nEntry];
-            *pInt = my_atoi(&pszEntry);
+            write_le_int32(&Object[ObjectList->nEntry], my_atoi(&pszEntry));
             break;
           case iol_SHORT:
             pShort = (uint16_t *) &Object[ObjectList->nEntry];
@@ -840,7 +816,7 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
         get_string(data, hf, pszStringTable, pszMessageTable, objectP, (STRINGLIST *)ObjectList, pszIndent);
         break;
       case iol_TSTRING:
-        get_tstring(hf, pszStringTable, objectP, (STRINGLIST *)ObjectList, pszIndent);
+        get_tstring(data, hf, pszStringTable, objectP, (STRINGLIST *)ObjectList, pszIndent);
         break;
       case iol_FLAGS:
         {
@@ -861,23 +837,14 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
         break;
         }
       case iol_ENUM:
-        {
-        const int *pInt = (const int *)&objectP[ObjectList->nEntry];
-        get_enum(hf, ObjectList->pszEntry, *pInt, (FLAGS *) ObjectList->pData, ObjectList->nData, false);
+        get_enum(hf, ObjectList->pszEntry, read_le_int32(&objectP[ObjectList->nEntry]), (FLAGS *) ObjectList->pData, ObjectList->nData, false);
         break;
-        }
       case iol_CMP:
-        {
-        const int *pInt = (const int *)&objectP[ObjectList->nEntry];
-        get_enum(hf, ObjectList->pszEntry, *pInt, CmpFlags, ELEMENTS(CmpFlags), true);
+        get_enum(hf, ObjectList->pszEntry, read_le_int32(&objectP[ObjectList->nEntry]), CmpFlags, ELEMENTS(CmpFlags), true);
         break;
-        }
       case iol_OSCOL:
-        {
-        const int *pInt = (const int *)&objectP[ObjectList->nEntry];
-        get_enum(hf, ObjectList->pszEntry, *pInt, OsColours, ELEMENTS(OsColours), false);
+        get_enum(hf, ObjectList->pszEntry, read_le_int32(&objectP[ObjectList->nEntry]), OsColours, ELEMENTS(OsColours), false);
         break;
-        }
       case iol_BOX:
         get_box(hf, ObjectList->pszEntry, (const os_box *) &objectP[ObjectList->nEntry]);
         break;
@@ -891,17 +858,11 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
         break;
         }
       case iol_INT:
-        {
-        const int *pInt = (const int *)&objectP[ObjectList->nEntry];
-        fprintf(hf, "%s%d\n", ObjectList->pszEntry, *pInt);
+        fprintf(hf, "%s%d\n", ObjectList->pszEntry, read_le_int32(&objectP[ObjectList->nEntry]));
         break;
-        }
       case iol_SHORT:
-        {
-        const short *pShort = (const short *)&objectP[ObjectList->nEntry];
-        fprintf(hf, "%s%d\n", ObjectList->pszEntry, (int) *pShort);
+        fprintf(hf, "%s%d\n", ObjectList->pszEntry, read_le_int16(&objectP[ObjectList->nEntry]));
         break;
-        }
       case iol_BYTE:
         {
         const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
@@ -912,11 +873,8 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
         get_coord(hf, ObjectList->pszEntry, (const os_coord *)&objectP[ObjectList->nEntry]);
         break;
       case iol_SPRITE:
-        {
-        const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
-        fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
+        fprintf(hf, "%s&%x\n", ObjectList->pszEntry, read_le_int32(&objectP[ObjectList->nEntry]));
         break;
-        }
       case iol_CHARPTR:
         get_pstr(data, hf, ObjectList->pszEntry, objectP, ObjectList->nEntry, ObjectList->nData);
         break;

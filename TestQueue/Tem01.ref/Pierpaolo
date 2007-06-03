@@ -22,7 +22,7 @@ wimp_window {
   xmin:0
   ymin:0
   text.text:"Type style"
-  text.size:11
+  text.size:*
   text.validation:""
   wimp_icon {
     extent:20,-382,548,-70
@@ -41,7 +41,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Font"
-    text.size:5
+    text.size:*
     text.validation:"N/0"
   }
   wimp_icon {
@@ -61,7 +61,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Size"
-    text.size:5
+    text.size:*
     text.validation:"N/2"
   }
   wimp_icon {
@@ -145,7 +145,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_WHITE
     text.text:"100"
-    text.size:4
+    text.size:*
     text.validation:"N0/Aspect;A0-9"
   }
   wimp_icon {
@@ -175,7 +175,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Try"
-    text.size:4
+    text.size:*
     text.validation:"N1/try;R5,3"
   }
   wimp_icon {
@@ -237,7 +237,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Apply"
-    text.size:6
+    text.size:*
     text.validation:"N1/apply;R6,3"
   }
   wimp_icon {
@@ -255,7 +255,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Cancel"
-    text.size:7
+    text.size:*
     text.validation:"N1/cancel;R5,3"
   }
   wimp_icon {
@@ -301,7 +301,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"12"
-    text.size:3
+    text.size:*
     text.validation:"N1/twelve;R5,3"
   }
   wimp_icon {
@@ -311,7 +311,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"14"
-    text.size:3
+    text.size:*
     text.validation:"N1/fourteen;R5,3"
   }
   wimp_icon {
@@ -321,7 +321,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"18"
-    text.size:3
+    text.size:*
     text.validation:"N1/eighteen;R5,3"
   }
   wimp_icon {
@@ -331,7 +331,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"10"
-    text.size:3
+    text.size:*
     text.validation:"N1/ten;R5,3"
   }
   wimp_icon {
@@ -341,7 +341,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"8"
-    text.size:2
+    text.size:*
     text.validation:"N1/eight;R5,3"
   }
   wimp_icon {
@@ -359,7 +359,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"36"
-    text.size:3
+    text.size:*
     text.validation:"N1/thirtysix;R5,3"
   }
   wimp_icon {
@@ -369,7 +369,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"48"
-    text.size:3
+    text.size:*
     text.validation:"N1/fourtyeight;R5,3"
   }
   wimp_icon {
@@ -379,7 +379,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"72"
-    text.size:3
+    text.size:*
     text.validation:"N1/seventytwo;R5,3"
   }
   wimp_icon {
@@ -389,7 +389,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"28"
-    text.size:3
+    text.size:*
     text.validation:"N1/twentyeight;R5,3"
   }
   wimp_icon {
@@ -399,7 +399,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"24"
-    text.size:3
+    text.size:*
     text.validation:"N1/twentyfour;R5,3"
   }
   wimp_icon {
@@ -409,7 +409,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_WHITE
     text.text:"The quick brown fox jumped over the lazy dog."
-    text.size:46
+    text.size:*
     text.validation:"g."
   }
 }
@@ -452,7 +452,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_LIGHT_GREY
     text_and_sprite.text:""
-    text_and_sprite.size:1
+    text_and_sprite.size:*
     text_and_sprite.validation:"R5;sright,pright"
   }
   wimp_icon {
@@ -462,7 +462,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_LIGHT_GREY
     text_and_sprite.text:""
-    text_and_sprite.size:1
+    text_and_sprite.size:*
     text_and_sprite.validation:"R5;sleft,pleft"
   }
   wimp_icon {
@@ -480,7 +480,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_LIGHT_GREY
     text_and_sprite.text:""
-    text_and_sprite.size:1
+    text_and_sprite.size:*
     text_and_sprite.validation:"R5;sleft,pleft"
   }
   wimp_icon {
@@ -498,7 +498,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_LIGHT_GREY
     text_and_sprite.text:""
-    text_and_sprite.size:1
+    text_and_sprite.size:*
     text_and_sprite.validation:"R5;sright,pright"
   }
   wimp_icon {
@@ -523,7 +523,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"OK"
-    text.size:3
+    text.size:*
     text.validation:"N1/;R6,3"
   }
   wimp_icon {
@@ -533,7 +533,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Cancel"
-    text.size:7
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -543,7 +543,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text_and_sprite.text:"None"
-    text_and_sprite.size:5
+    text_and_sprite.size:*
     text_and_sprite.validation:"N7/;soptoff,opton"
   }
   wimp_icon {
@@ -731,7 +731,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_LIGHT_GREY
     text_and_sprite.text:""
-    text_and_sprite.size:1
+    text_and_sprite.size:*
     text_and_sprite.validation:"R5;sright,pright"
   }
   wimp_icon {
@@ -741,7 +741,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_LIGHT_GREY
     text_and_sprite.text:""
-    text_and_sprite.size:1
+    text_and_sprite.size:*
     text_and_sprite.validation:"R5;sleft,pleft"
   }
   wimp_icon {
@@ -955,7 +955,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text_and_sprite.text:"Draft"
-    text_and_sprite.size:6
+    text_and_sprite.size:*
     text_and_sprite.validation:"N7/;soptoff,opton"
   }
   wimp_icon {
@@ -965,7 +965,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Cancel"
-    text.size:7
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -975,7 +975,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Print"
-    text.size:6
+    text.size:*
     text.validation:"N1/;R6,3"
   }
   wimp_icon {
@@ -1077,7 +1077,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Cancel"
-    text.size:7
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -1087,7 +1087,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Print"
-    text.size:6
+    text.size:*
     text.validation:"N1/;R6,3"
   }
   wimp_icon {
@@ -1122,7 +1122,7 @@ wimp_window {
   xmin:1
   ymin:0
   text.text:"Scale view"
-  text.size:11
+  text.size:*
   text.validation:""
   wimp_icon {
     extent:28,-84,128,-44
@@ -1139,7 +1139,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Scale"
-    text.size:6
+    text.size:*
     text.validation:"N1/;R6,3"
   }
   wimp_icon {
@@ -1169,7 +1169,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"33%"
-    text.size:4
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -1187,7 +1187,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"80%"
-    text.size:4
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -1197,7 +1197,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"100%"
-    text.size:5
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -1207,7 +1207,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Cancel"
-    text.size:7
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -1217,7 +1217,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"120%"
-    text.size:5
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -1227,7 +1227,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_WHITE
     text.text:"100"
-    text.size:4
+    text.size:*
     text.validation:"A0-9;Pptr_write"
   }
 }
@@ -1254,7 +1254,7 @@ wimp_window {
   xmin:0
   ymin:0
   text.text:"Save as"
-  text.size:8
+  text.size:*
   text.validation:""
   wimp_icon {
     extent:170,-237,298,-167
@@ -1263,7 +1263,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Save"
-    text.size:5
+    text.size:*
     text.validation:"N1/;R6,3"
   }
   wimp_icon {
@@ -1283,7 +1283,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Cancel"
-    text.size:7
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
@@ -1337,7 +1337,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Save"
-    text.size:5
+    text.size:*
     text.validation:"N1/;R6,3"
   }
   wimp_icon {
@@ -1357,7 +1357,7 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_VERY_LIGHT_GREY
     text.text:"Cancel"
-    text.size:7
+    text.size:*
     text.validation:"N1/;R5,3"
   }
   wimp_icon {
