@@ -21,6 +21,7 @@
  */
 
 #include <string.h>
+#include <strings.h>
 
 #include <oslib/colourdbox.h>
 #include <oslib/colourmenu.h>

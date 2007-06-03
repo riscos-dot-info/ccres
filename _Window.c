@@ -22,6 +22,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
 
 #include <oslib/toolbox.h>
 #include <oslib/window.h>

@@ -22,6 +22,7 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <strings.h>
 
 #include <oslib/ddeutils.h>
 
