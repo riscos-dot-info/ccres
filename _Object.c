@@ -352,9 +352,10 @@ switch (StringList->nTable)
   }
 
 pInt = (const int *)&objectP[StringList->nEntry];
-pstr = "";
 if ((ref = *pInt) >= 0 && (qstr = string_from_table(string_table, ref)) != NULL)
   pstr = qstr;
+else
+  pstr = "";
 
 fprintf(hf, "%s\"%s\"\n", StringList->pszEntry, pstr);
 if (StringList->pszLimit != NULL)
@@ -362,7 +363,7 @@ if (StringList->pszLimit != NULL)
   pInt = (const int *)&objectP[StringList->nLimit];
   cbLimit = *pInt;
   fputs(pszIndent, hf);
-  if (cbLimit >= strlen(pstr))
+  if (cbLimit > strlen(pstr) + 1)
     fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
   else
     fprintf(hf, "%s*\n", StringList->pszLimit);
