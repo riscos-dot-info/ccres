@@ -40,6 +40,16 @@ window_object {
   window.title_text:"gadget test harness"
   window.title_text_limit:256
   window.title_valid:""
+  tabs_object {
+    cmp:&1
+    bbox:16,-912,984,-16
+    help_message:""
+    help_limit:*
+    flags:tabs_ALLOW_SCROLL_ARROWS
+    foreground:wimp_COLOUR_BLACK
+    background:wimp_COLOUR_VERY_LIGHT_GREY
+    text:"gadget test harness"
+  }
   actionbutton_object {
     cmp:&4
     bbox:20,-988,208,-936
@@ -119,6 +129,15 @@ window_object {
   window.title_text:"Treeview"
   window.title_text_limit:*
   window.title_valid:""
+  treeview_object {
+    cmp:&0
+    bbox:16,-436,544,-16
+    help_message:""
+    help_limit:*
+    flags:treeview_ALLOW_VSCROLL | treeview_ALLOW_HSCROLL | treeview_PLOT_LINES | treeview_ALLOW_SELECTION | treeview_ALLOW_EXPAND | treeview_EXPAND_BY_DEFAULT | treeview_ALLOW_DRAGS | treeview_NOTIFY_DRAGEND
+    foreground:wimp_COLOUR_BLACK
+    background:wimp_COLOUR_VERY_LIGHT_GREY
+  }
   actionbutton_object {
     cmp:&10
     bbox:116,-544,196,-492

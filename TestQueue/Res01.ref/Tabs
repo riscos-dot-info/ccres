@@ -40,6 +40,16 @@ window_object {
   window.title_text:"Prototype gadget type &402c"
   window.title_text_limit:*
   window.title_valid:""
+  tabs_object {
+    cmp:&1
+    bbox:4,-424,644,-4
+    help_message:""
+    help_limit:*
+    flags:tabs_ALLOW_SCROLL_ARROWS
+    foreground:wimp_COLOUR_BLACK
+    background:wimp_COLOUR_VERY_LIGHT_GREY
+    text:"type gadget type &402c"
+  }
 }
 
 window_object {
