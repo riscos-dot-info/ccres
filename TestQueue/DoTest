@@ -21,12 +21,12 @@ for RFILE in $RESFILES ; do
 
   echo Comparing test file $TRFILE >> $LOGFILE_B2T
   $CCRES $CCRESFLAGS Res01/$RFILE Res01.bin2txt/$TRFILE
-  diff Res01.ref/$TRFILE Res01.bin2txt/$TRFILE >> $LOGFILE_B2T
+  diff Res01.ref/$TRFILE Res01.bin2txt/$TRFILE >> $LOGFILE_B2T || echo "  *** resource to text result differs"
 
   echo Comparing test file $TRFILE >> $LOGFILE_T2B
   $CCRES $CCRESFLAGS Res01.bin2txt/$TRFILE Res01.bin2txt.txt2bin/$TRFILE
   $CCRES $CCRESFLAGS Res01.bin2txt.txt2bin/$TRFILE Res01.bin2txt.txt2bin.bin2txt/$TRFILE
-  diff Res01.bin2txt/$TRFILE Res01.bin2txt.txt2bin.bin2txt/$TRFILE >> $LOGFILE_T2B && echo "  *** FAILED"
+  diff Res01.bin2txt/$TRFILE Res01.bin2txt.txt2bin.bin2txt/$TRFILE >> $LOGFILE_T2B || echo "  *** text to resource result differs"
 done
 
 echo +++ Testing for Template regressions
@@ -40,10 +40,10 @@ for TFILE in $TEMFILES ; do
 
   echo Comparing test file $TTFILE >> $LOGFILE_B2T
   $CCRES $CCRESFLAGS Tem01/$TFILE Tem01.bin2txt/$TTFILE
-  diff Tem01.ref/$TTFILE Tem01.bin2txt/$TTFILE >> $LOGFILE_B2T
+  diff Tem01.ref/$TTFILE Tem01.bin2txt/$TTFILE >> $LOGFILE_B2T || echo "  *** template to text result differs"
 
   echo Comparing test file $TTFILE >> $LOGFILE_T2B
   $CCRES $CCRESFLAGS Tem01.bin2txt/$TTFILE Tem01.bin2txt.txt2bin/$TTFILE
   $CCRES $CCRESFLAGS Tem01.bin2txt.txt2bin/$TTFILE Tem01.bin2txt.txt2bin.bin2txt/$TTFILE
-  diff Tem01.bin2txt/$TTFILE Tem01.bin2txt.txt2bin.bin2txt/$TTFILE >> $LOGFILE_T2B && echo "  *** FAILED"
+  diff Tem01.bin2txt/$TTFILE Tem01.bin2txt.txt2bin.bin2txt/$TTFILE >> $LOGFILE_T2B || echo "  *** text to template result differs"
 done
