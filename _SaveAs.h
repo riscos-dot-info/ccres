@@ -1,6 +1,6 @@
 /* _SaveAs.h
 
-   Copyright (c) 2005-2006 John Tytgat
+   Copyright (c) 2005-2007 John Tytgat
 
    This file is part of CCres.
 

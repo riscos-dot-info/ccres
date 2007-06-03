@@ -1,6 +1,6 @@
 /* Error.h
 
-   Copyright (c) 2004-2006 John Tytgat
+   Copyright (c) 2004-2007 John Tytgat
 
    This file is part of CCres.
 
