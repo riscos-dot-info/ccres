@@ -29,8 +29,8 @@ wimp_window {
     icon_fg:wimp_COLOUR_BLACK
     icon_bg:wimp_COLOUR_DARK_BLUE
     text.text:"<Untitled> by a very long way"
+    text.size:30
     text.validation:""
-    text.size:&1e
   }
   wimp_icon {
     extent:160,-348,364,-300

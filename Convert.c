@@ -345,13 +345,13 @@ static int icon_count(const char *pszIn, const char *pszEnd)
 
 
 static const OBJECTLIST TemplateFontDataList[] = {
-	{iol_BITS,  "x_point_size:",  offsetof(template_font_data, x_point_size), NULL,  0},
-	{iol_BITS,  "y_point_size:",  offsetof(template_font_data, y_point_size), NULL,  0},
-	{iol_CHARPTR,  "font_name:",     offsetof(template_font_data, font_name),    NULL, 40}
+	{iol_BITS,    "x_point_size:", offsetof(template_font_data, x_point_size), NULL,  0},
+	{iol_BITS,    "y_point_size:", offsetof(template_font_data, y_point_size), NULL,  0},
+	{iol_CHARPTR, "font_name:",    offsetof(template_font_data, font_name),    NULL, 40}
 };
 
 
-static void get_template_fonts(DATA *data, FILE * hf, template_font_data * font_data, template_font_data * end)
+static void get_template_fonts(DATA *data, FILE *hf, template_font_data *font_data, template_font_data *end)
 {
 	template_font_data temp;
 	char *pszFrom;

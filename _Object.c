@@ -268,36 +268,49 @@ static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRI
 	STRINGTABLE *pTable;
 	int * pInt;
 	char *pszEntry, *pszLimit, *pstr;
-	int cb, cbEntry, cbLimit, nTable;
+	int cbEntry, cbLimit, nTable;
 
 	pTable = &data->StringTable;
 	nTable = toolbox_RELOCATE_STRING_REFERENCE;
 
-	cbEntry = 0;
+	/* A template string is terminated with "\r". */
 	if ((pszEntry = parse(data, pszIn, StringList->pszEntry)) != NULL) {
 		pstr = &pTable->pstr[pTable->ref];
 		cbEntry = my_strcpy(pstr, remove_quotes(data, pszEntry));
-		pstr[cbEntry] = '\r';
+		pstr[cbEntry++] = '\r';
 	}
-	cbLimit = 0;
+	else
+		cbEntry = 0;
+
+	/* If the limit/size is 0, then we won't allocate any space for Entry,
+           even not its terminating character "\r".  */
 	if (StringList->pszLimit != NULL && (pszLimit = parse(data, pszIn, StringList->pszLimit)) != NULL) {
 		if (pszLimit[0] == '*') {
-			cbLimit = (cbEntry == 0) ? 0 : (cbEntry + 1);
+			/* The limit is as long as the cbEntry is atm.  */
+			cbLimit = cbEntry == 1 ? 0 : cbEntry;
 		} else {
 			cbLimit = my_atoi(&pszLimit);
-			cbLimit = (cbLimit > 0 && cbLimit <= cbEntry) ? (cbEntry + 1) : cbLimit;
+			if (cbLimit == 0 && cbEntry == 1)
+				cbEntry = 0;
+			else if (cbLimit < cbEntry) {
+				error(data, "Warning: increased size value for %s from %d to %d to fully include string <%.*s>", StringList->pszEntry, cbLimit, cbEntry, cbEntry ? cbEntry - 1 : cbEntry, pstr);
+				cbLimit = cbEntry;
+			}
 		}
 	}
+	else
+		cbLimit = cbEntry; /* No limit/size, we do NOT optimize string "\r" to a 0 offset.  */
+
 	pInt = (int *) &object[StringList->nEntry];
-	*pInt = (cbEntry > 0 || cbLimit > 0) ? (pTable->ref - nOffset) : -1;
+	*pInt = (cbLimit > 0) ? (pTable->ref - nOffset) : 0;
 	if (StringList->pszLimit != NULL) {
 		pInt = (int *) &object[StringList->nLimit];
 		*pInt = cbLimit;
 	}
 	if (cbEntry > 0) {
-		pTable->ref += cbEntry + 1;
-		if (pTable->ref > (pTable->max - 256)) {
-			cb = pTable->max * 3 / 2;
+		pTable->ref += cbLimit;
+		if (pTable->ref > pTable->max - 256) {
+			int cb = pTable->max * 3 / 2;
 			if ((pstr = MyAlloc(cb)) == NULL) {
 				return false;
 			}

@@ -1,4 +1,4 @@
-v1.13 ?? ??? 2007
+v1.13 03 Jun 2007
 ~~~~~~~~~~~~~~~~~
 
 - Simplified source code a bit by removing the pointer typedefs.
@@ -8,6 +8,17 @@ v1.13 ?? ??? 2007
   and with an additional txt2bin + bin2txt result.
 - IconIndirectTextAndSpriteObjectList(text_and_sprite.text): had missing
   column.  Bug reported by David Thomas <dave@davespace.co.uk>.
+  After this fix the text to template conversion can give the error
+  "Line 27: Missing entry 'text_and_sprite.text:'" which can be avoided and
+  fixed by adding the missing column after "text_and_sprite.text" in your
+  template text.
+- IconIndirectTextObjectList, IconIndirectSpriteObjectList,
+  IconIndirectTextAndSpriteObjectList: link the .size entry with the allocated
+  sprite/text buffer.
+  _Object(put_tstring): allocate always the size given in the limit entry when
+  given and make sure the string in it is '\r' char terminated.  Also added
+  warning when the limit is smaller than given sprite/text string.
+  Bug reported by David Thomas <dave@davespace.co.uk>.
 
 v1.12 28 Jan 2006
 ~~~~~~~~~~~~~~~~~

@@ -22,16 +22,16 @@ wimp_window {
   xmin:0
   ymin:0
   text.text:"<Untitled>"
+  text.size:28
   text.validation:""
-  text.size:&1c
   wimp_icon {
     extent:38,-156,536,-46
     icon_flags:wimp_ICON_TEXT | wimp_ICON_BORDER | wimp_ICON_HCENTRED | wimp_ICON_VCENTRED | wimp_ICON_FILLED | wimp_ICON_ANTI_ALIASED | wimp_ICON_INDIRECTED | wimp_BUTTON_CLICK_DRAG
     icon_esg:0
     font_handle:1
     text.text:"Homerton.Bold 20"
+    text.size:17
     text.validation:""
-    text.size:&11
   }
   wimp_icon {
     extent:208,-552,566,-414
@@ -46,8 +46,8 @@ wimp_window {
     icon_esg:0
     font_handle:3
     text.text:"Trinity.Medium.Italic 14"
+    text.size:25
     text.validation:""
-    text.size:&19
   }
   wimp_icon {
     extent:594,-166,782,-118
@@ -64,8 +64,8 @@ wimp_window {
     icon_fg:wimp_COLOUR_WHITE
     icon_bg:wimp_COLOUR_DARK_BLUE
     text.text:"White on dark blue"
+    text.size:19
     text.validation:""
-    text.size:&13
   }
 }
 

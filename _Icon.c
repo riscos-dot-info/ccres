@@ -91,21 +91,18 @@ static const OBJECTLIST IconTextAndSpriteObjectList[] = {
   };
 
 static const OBJECTLIST IconIndirectTextObjectList[] = {
-  {iol_TSTRING, "text.text:",       offsetof(wimp_icon_data, indirected_text.text),       NULL, 0},
-  {iol_TSTRING, "text.validation:", offsetof(wimp_icon_data, indirected_text.validation), NULL, 0},
-  {iol_BITS,    "text.size:",       offsetof(wimp_icon_data, indirected_text.size),       NULL, 0}
+  {iol_TSTRING, "text.text:",       offsetof(wimp_icon_data, indirected_text.text),       "text.size:", offsetof(wimp_icon_data, indirected_text.size)},
+  {iol_TSTRING, "text.validation:", offsetof(wimp_icon_data, indirected_text.validation), NULL, 0}
   };
 
 static const OBJECTLIST IconIndirectSpriteObjectList[] = {
-  {iol_TSTRING, "sprite.id:",   offsetof(wimp_icon_data, indirected_sprite.id),   NULL, 0},
-  {iol_BITS,    "sprite.area:", offsetof(wimp_icon_data, indirected_sprite.area), NULL, 0},
-  {iol_BITS,    "sprite.size:", offsetof(wimp_icon_data, indirected_sprite.size), NULL, 0}
+  {iol_TSTRING, "sprite.id:",   offsetof(wimp_icon_data, indirected_sprite.id),   "sprite.size:", offsetof(wimp_icon_data, indirected_sprite.size)},
+  {iol_BITS,    "sprite.area:", offsetof(wimp_icon_data, indirected_sprite.area), NULL, 0}
   };
 
 static const OBJECTLIST IconIndirectTextAndSpriteObjectList[] = {
-  {iol_TSTRING, "text_and_sprite.text:",        offsetof(wimp_icon_data, indirected_text_and_sprite.text),       NULL, 0},
-  {iol_TSTRING, "text_and_sprite.validation:", offsetof(wimp_icon_data, indirected_text_and_sprite.validation), NULL, 0},
-  {iol_BITS,    "text_and_sprite.size:",       offsetof(wimp_icon_data, indirected_text_and_sprite.size),       NULL, 0}
+  {iol_TSTRING, "text_and_sprite.text:",       offsetof(wimp_icon_data, indirected_text_and_sprite.text),       "text_and_sprite.size:", offsetof(wimp_icon_data, indirected_text_and_sprite.size)},
+  {iol_TSTRING, "text_and_sprite.validation:", offsetof(wimp_icon_data, indirected_text_and_sprite.validation), NULL, 0}
   };
 
 
