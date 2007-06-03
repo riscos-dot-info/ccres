@@ -302,11 +302,11 @@ static int window_count(PSTR pszIn, PSTR pszEnd, PINT pi)
 			if (ch == '{') {
 				if (d == 0) {
 					w++;
-					if (i > maxi)
-					  maxi = i;
 					i = 0;
 				} else {
 					i++;
+					if (i > maxi)
+					  maxi = i;
 				}
 				d++;
 			} else if (ch == '}') {
