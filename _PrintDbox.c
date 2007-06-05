@@ -54,7 +54,7 @@ static const OBJECTLIST PrintDboxObjectList[] = {
 	{iol_STRING,  "alternative_window_name:", offsetof(printdbox_object, alternative_window_name), NULL,           0                       }
 };
 
-        int printdbox_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
+        int printdbox_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
 //      ===================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList));
@@ -63,8 +63,8 @@ return sizeof(printdbox_object);
 }
 
 
-        void printdbox_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void printdbox_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ================================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)(object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList), 1);
+get_objects(data, hf, strMsgTableP, (const char *)(object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList), 1);
 }

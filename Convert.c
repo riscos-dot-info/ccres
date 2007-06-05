@@ -126,7 +126,7 @@ static void free_reloc_table(RELOCTABLE *pTable)
 }
 
 
-static bool text2res(DATA *data, char *pszOutFile)
+static bool text2res(DATA *data, const char *pszOutFile)
 {
 	toolbox_resource_file_base Hdr;
 	FILE * hf;
@@ -200,8 +200,8 @@ text2res_added:
 }
 
 
-static  bool res2text(DATA *data, char *pszOutFile)
-//      ==========================================
+static  bool res2text(DATA *data, const char *pszOutFile)
+//      =================================================
 {
 int * relocation_table;
 toolbox_resource_file_base * file_hdr;
@@ -359,7 +359,7 @@ static void get_template_fonts(DATA *data, FILE *hf, template_font_data *font_da
 	while (font_data < end) {
 		memcpy(&temp, font_data, sizeof(temp));
 		fputs("\ntemplate_font_data {\n", hf);
-		get_objects(data, hf, NULL, NULL, (const char *) &temp, TemplateFontDataList, ELEMENTS(TemplateFontDataList), 1);
+		get_objects(data, hf, NULL, (const char *)&temp, TemplateFontDataList, ELEMENTS(TemplateFontDataList), 1);
 		fputs("}\n", hf);
 		font_data++;
 	}
@@ -370,7 +370,7 @@ static const OBJECTLIST TemplateHeaderList[] = {
 	{iol_CHARPTR,  "template_name:",  offsetof(template_index, name), NULL, 12}
 };
 
-static bool text2template(DATA *data, char *pszOutFile)
+static bool text2template(DATA *data, const char *pszOutFile)
 {
 	template_font_data font_data;
 	template_header * header;
@@ -474,7 +474,7 @@ static bool text2template(DATA *data, char *pszOutFile)
 }
 
 
-static bool template2text(DATA *data, char *pszOutFile)
+static bool template2text(DATA *data, const char *pszOutFile)
 {
 template_header * template_hdr;
 template_index * obj;
@@ -494,6 +494,11 @@ cbBuff = 0;
 template_hdr = (template_header *) data->pszIn;
 for (obj = (template_index *) (template_hdr + 1); obj->offset != 0; ++obj)
   {
+  if (obj->type != template_TYPE_WINDOW)
+    {
+      error(data, "Template file contains a non window entry (type %d)", obj->type);
+      continue;
+    }
   if (cbBuff < obj->size)
     {
     if (pszBuff != NULL)
@@ -506,8 +511,8 @@ for (obj = (template_index *) (template_hdr + 1); obj->offset != 0; ++obj)
     }
   memcpy(pszBuff, data->pszIn + obj->offset, obj->size);
   fputs("\nwimp_window {\n", hf);
-  get_objects(data, hf, NULL, NULL, (const char *) obj, TemplateHeaderList, ELEMENTS(TemplateHeaderList), 1);
-  window_template2text(data, hf, pszBuff);
+  get_objects(data, hf, NULL, (const char *)obj, TemplateHeaderList, ELEMENTS(TemplateHeaderList), 1);
+  window_template2text(data, hf, pszBuff, obj->size);
   fputs("}\n", hf);
   }
 if (template_hdr->font_offset != template_NO_FONTS)
@@ -545,8 +550,8 @@ return true;
 }
 
 
-        bool ccres_convert(DATA *data, char *pszOutFile)
-//      ===============================================
+        bool ccres_convert(DATA *data, const char *pszOutFile)
+//      ======================================================
 {
 switch (data->nFiletypeIn)
   {

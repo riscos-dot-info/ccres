@@ -45,7 +45,7 @@ static const OBJECTLIST SaveAsObjectList[] = {
 	{iol_STRING, "alternative_window_name:", offsetof(saveas_object, alternative_window_name), NULL,           0                                  }
 };
 
-        int saveas_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
+        int saveas_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
 //      ================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList));
@@ -54,8 +54,8 @@ return sizeof(saveas_object);
 }
 
 
-        void saveas_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void saveas_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      =============================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)(object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList), 1);
+get_objects(data, hf, strMsgTableP, (const char *)(object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList), 1);
 }

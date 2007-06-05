@@ -42,6 +42,7 @@
 #include "Menu.h"
 #include "Utils.h"
 
+#define APPNAME	"CCres"
 #define APPDIR	"<"APPNAME"$Dir>"
 
 #define action_MENU_QUIT	0x01

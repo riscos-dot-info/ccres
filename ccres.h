@@ -37,7 +37,6 @@
 #include <oslib/wimp.h>
 
 #define VERSION "1.14 (xx-xxx-2007) - development"
-#define APPNAME	"CCres"
 
 #define RESF	0x46534552
 
@@ -78,15 +77,21 @@ enum {
 	bits_EVAL		// use Eval rather than atoi()
 };
 
-// The following should in fact be defined in OSLib but aren't in 6.50
+// The following should in fact be defined in OSLib but isn't in the 6.50
 // release :
-typedef struct toolbox_relocatable_object_base toolbox_relocatable_object_base;
-struct toolbox_relocatable_object_base
+typedef struct
    {  int string_table_offset;
       int message_table_offset;
       int relocation_table_offset;
       toolbox_resource_file_object_base rf_obj;
-   };
+   } toolbox_relocatable_object_base;
+
+typedef struct {
+  const char *stringTableP;
+  size_t stringTableSize;
+  const char *messageTableP;
+  size_t messageTableSize;
+} TOOLBOXSMTABLE;
 
 typedef struct {
 	char *pstr;
@@ -104,9 +109,9 @@ typedef struct {
 
 typedef struct {
 	int nTable;
-	char *pszEntry;
+	const char *pszEntry;
 	int nEntry;
-	char *pszLimit;
+	const char *pszLimit;
 	int nLimit;
 } STRINGLIST;
 
@@ -143,9 +148,9 @@ typedef struct {
 
 typedef void (*action_handler)(DATA *data);
 typedef int  (*text2object)(DATA *data, char *pszIn, toolbox_relocatable_object_base *object);
-typedef void (*object2text)(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, char *pszStringTable, char *pszMessageTable);
+typedef void (*object2text)(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
 typedef int  (*text2gadget)(DATA *data, char *pszIn, int nOffset, gadget_object_base *gadget);
-typedef void (*gadget2text)(DATA *data, FILE *hf, gadget_object_base * gadget, char *pszStringTable, char *pszMessageTable);
+typedef void (*gadget2text)(DATA *data, FILE *hf, gadget_object_base * gadget, const TOOLBOXSMTABLE *strMsgTableP);
 
 typedef struct {
 	toolbox_class class_no;

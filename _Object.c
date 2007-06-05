@@ -182,40 +182,47 @@ static bool add_to_reloc_table(RELOCTABLE *pRelocTable, int nEntry, int nTable)
 }
 
 
-// may be trailing spaces after closing quote
-// may be no quotes at all
-// report imbalance
-static char *remove_quotes(DATA *data, char *pszEntry)
+// Copies string at inP terminated by any control character up to maxSize characters.
+// When maxSize < 0, it is considered to be INT_MAX.
+// If maxSize != 0, the result is always terminated.
+// Input string maybe quoted and this will be checked for consistency.
+// Returns the number of characters copied *including* termination character.
+static int copy_quoted_string(DATA *data, char *outP, const char *inP, int maxSize)
 {
-	int cb, cbTerm;
-	char ch;
-
-	cbTerm = strlen(pszEntry);
-	if (pszEntry[0] == '\"') {
-		for (cb = cbTerm - 1; cb > 0; cb--) {
-			if ((ch = pszEntry[cb]) == '\"') {
-				pszEntry[cbTerm] = ' ';		// keep line numbering correct for report()
-				pszEntry[cb] = '\0';
-				return pszEntry + 1;
-			} else if (ch != ' ') {
-				break;						// unmatched quotes
-			}
-		}
-	} else if (pszEntry[cbTerm - 1] != '\"') {
-// if there are no quotes, how do we know if there are supposed to be trailing spaces or not?
-// on balance probably best to leave them in?
-		return pszEntry;
-	}
-	report(data, pszEntry, "Unmatched quotes '%s'", pszEntry);
-	return pszEntry;
+const char * const fixOutP = outP;
+const char * const fixInP = inP;
+char c;
+const bool isQuoted = (*inP == '"');
+if (isQuoted)
+  ++inP;
+if (maxSize < 0)
+  maxSize = INT_MAX;
+const int fixMaxSize = maxSize;
+while ((c = *inP++) >= ' '
+       && (!isQuoted || c != '"' || *inP >= ' ')
+       && maxSize > 1)
+  {
+    *outP++ = c;
+    --maxSize;
+  }
+if (c >= ' ' && c != '"')
+  report(data, inP, "Can only store first %d characters of string '%s'", fixMaxSize, fixInP);
+else if (isQuoted)
+  {
+    if (c != '"')
+      report(data, inP, "Incorrect quoted string '%s'", fixInP);
+  }
+if (maxSize >= 1)
+  *outP++ = '\0';
+return outP - fixOutP;
 }
 
 
-static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
+static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, const STRINGLIST *StringList)
 {
 	STRINGTABLE *pTable;
-	char *pszEntry, *pszLimit, *pstr;
-	int cb, cbEntry, cbLimit, nTable;
+	char *pszEntry, *pszLimit;
+	int cbEntry, cbLimit, nTable;
 
 	if (StringList->nTable == iol_STRING) {
 		pTable = &data->StringTable;
@@ -227,27 +234,37 @@ static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, STRIN
 		error(data, "Unexpected string table type (%d)", StringList->nTable);
 		return false;
 	}
-	cbEntry = 0;
-	if ((pszEntry = parse(data, pszIn, StringList->pszEntry)) != NULL) {
-		cbEntry = my_strcpy(&pTable->pstr[pTable->ref], remove_quotes(data, pszEntry));
-	}
-	cbLimit = 0;
+	// cbEntry includes terminating character.
+	if ((pszEntry = parse(data, pszIn, StringList->pszEntry)) != NULL)
+		cbEntry = copy_quoted_string(data, &pTable->pstr[pTable->ref], pszEntry, -1);
+	else
+		cbEntry = 0;
+
 	if (StringList->pszLimit != NULL && (pszLimit = parse(data, pszIn, StringList->pszLimit)) != NULL) {
 		if (pszLimit[0] == '*') {
-			cbLimit = (cbEntry == 0) ? 0 : (cbEntry + 1);
+			cbLimit = cbEntry;
 		} else {
 			cbLimit = my_atoi(&pszLimit);
-			cbLimit = (cbLimit > 0 && cbLimit <= cbEntry) ? (cbEntry + 1) : cbLimit;
+			if (cbLimit == 0 && cbEntry <= 1)
+				cbEntry = 0;
+			else if (cbLimit < cbEntry) {
+				error(data, "Warning: increased size value for %s from %d to %d to fully include string <%.*s>", StringList->pszEntry, cbLimit, cbEntry, cbEntry ? cbEntry - 1 : cbEntry, &pTable->pstr[pTable->ref]);
+				cbLimit = cbEntry;
+			}
 		}
 	}
-	write_le_int32(&object[StringList->nEntry], (cbEntry > 0 || cbLimit > 0) ? pTable->ref : -1);
+	else
+		cbLimit = cbEntry;
+
+	write_le_int32(&object[StringList->nEntry], (cbEntry > 1) ? pTable->ref : -1);
 	add_to_reloc_table(&data->RelocTable, StringList->nEntry + nOffset, nTable);
 	if (StringList->pszLimit != NULL)
 		write_le_int32(&object[StringList->nLimit], cbLimit);
-	if (cbEntry > 0 || cbLimit > 0) {
-		pTable->ref += cbEntry + 1;
+	if (cbEntry > 1) {
+		pTable->ref += cbEntry;
 		if (pTable->ref > (pTable->max - 256)) {
-			cb = pTable->max * 3 / 2;
+			char *pstr;
+			int cb = pTable->max * 3 / 2;
 			if ((pstr = MyAlloc(cb)) == NULL) {
 				return false;
 			}
@@ -261,10 +278,10 @@ static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, STRIN
 }
 
 
-static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRINGLIST *StringList)
+static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, const STRINGLIST *StringList)
 {
 	STRINGTABLE *pTable;
-	char *pszEntry, *pszLimit, *pstr;
+	char *pszEntry, *pszLimit;
 	int cbEntry, cbLimit, nTable;
 
 	pTable = &data->StringTable;
@@ -272,9 +289,9 @@ static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRI
 
 	/* A template string is terminated with "\r". */
 	if ((pszEntry = parse(data, pszIn, StringList->pszEntry)) != NULL) {
-		pstr = &pTable->pstr[pTable->ref];
-		cbEntry = my_strcpy(pstr, remove_quotes(data, pszEntry));
-		pstr[cbEntry++] = '\r';
+		cbEntry = copy_quoted_string(data, &pTable->pstr[pTable->ref], pszEntry, -1);
+		// Convert terminating \0 char into \r:
+		pTable->pstr[pTable->ref + cbEntry - 1] = '\r';
 	}
 	else
 		cbEntry = 0;
@@ -290,7 +307,7 @@ static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRI
 			if (cbLimit == 0 && cbEntry == 1)
 				cbEntry = 0;
 			else if (cbLimit < cbEntry) {
-				error(data, "Warning: increased size value for %s from %d to %d to fully include string <%.*s>", StringList->pszEntry, cbLimit, cbEntry, cbEntry ? cbEntry - 1 : cbEntry, pstr);
+				error(data, "Warning: increased size value for %s from %d to %d to fully include string <%.*s>", StringList->pszEntry, cbLimit, cbEntry, cbEntry ? cbEntry - 1 : cbEntry, &pTable->pstr[pTable->ref]);
 				cbLimit = cbEntry;
 			}
 		}
@@ -304,6 +321,7 @@ static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRI
 	if (cbEntry > 0) {
 		pTable->ref += cbLimit;
 		if (pTable->ref > pTable->max - 256) {
+			char *pstr;
 			int cb = pTable->max * 3 / 2;
 			if ((pstr = MyAlloc(cb)) == NULL) {
 				return false;
@@ -320,14 +338,21 @@ static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, STRI
 
 // Given strings (with either \0, \n or \r delimitered) and an offset, return
 // string at offset 'ref' and its length in *outSizeP.
-static  const char *string_from_table(const char *pszTable, int ref, int maxSize, int *outSizeP)
+static  const char *string_from_table(DATA *data, const char *pszTable, size_t tableSize, int ref, int maxSize, int *outSizeP)
 //      ========================================================================================
 {
 const char *pstr, *p;
 char ch;
 
-if (pszTable == NULL || ref < 0)
+// ref == -1 is valid Toolbox reference meaning the empty string.
+if (pszTable == NULL || ref == -1)
   {
+    *outSizeP = 0;
+    return "";
+  }
+else if (ref < 0 || ref >= tableSize)
+  {
+    error(data, "Error: string index %d is out-of-bounds (string table size is %d)", ref, tableSize);
     *outSizeP = 0;
     return "";
   }
@@ -342,19 +367,22 @@ return pstr;
 }
 
 
-static  void get_string(DATA *data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
+static  void get_string(DATA *data, FILE * hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const STRINGLIST *StringList, const char *pszIndent)
 //      ==============================================================================================================================================
 {
 const char *pstr, *string_table;
+size_t string_table_size;
 int ref, strSize;
 
 switch (StringList->nTable)
   {
   case iol_STRING:
-    string_table = pszStringTable;
+    string_table = strMsgTableP->stringTableP;
+    string_table_size = strMsgTableP->stringTableSize;
     break;
   case iol_MSG:
-    string_table = pszMessageTable;
+    string_table = strMsgTableP->messageTableP;
+    string_table_size = strMsgTableP->messageTableSize;
     break;
   default:
     error(data, "Unexpected string table type (%d)", StringList->nTable);
@@ -362,7 +390,7 @@ switch (StringList->nTable)
   }
 
 ref = read_le_int32(&objectP[StringList->nEntry]);
-pstr = string_from_table(string_table, ref, -1, &strSize);
+pstr = string_from_table(data, string_table, string_table_size, ref, -1, &strSize);
 
 fprintf(hf, "%s\"%.*s\"\n", StringList->pszEntry, strSize, pstr);
 if (StringList->pszLimit != NULL)
@@ -382,14 +410,14 @@ if (StringList->pszLimit != NULL)
 }
 
 
-static  void get_tstring(DATA *data, FILE * hf, char *pszStringTable, const char *objectP, STRINGLIST *StringList, char *pszIndent)
+static  void get_tstring(DATA *data, FILE * hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const STRINGLIST *StringList, const char *pszIndent)
 //      =============================================================================================================
 {
 const char *pstr;
 int ref, strSize;
 
 ref = read_le_int32(&objectP[StringList->nEntry]);
-pstr = string_from_table(pszStringTable, ref, -1, &strSize);
+pstr = string_from_table(data, strMsgTableP->stringTableP, strMsgTableP->stringTableSize, ref, -1, &strSize);
 
 fprintf(hf, "%s\"%.*s\"\n", StringList->pszEntry, strSize, pstr);
 if (StringList->pszLimit != NULL)
@@ -407,8 +435,8 @@ if (StringList->pszLimit != NULL)
 }
 
 
-static  bits put_flags(DATA *data, char *pstrFlags, FLAGS *pFlags, int nFlags)
-//      =====================================================================
+static  bits put_flags(DATA *data, char *pstrFlags, const FLAGS *pFlags, int nFlags)
+//      ============================================================================
 {
 char *p;
 bits f;
@@ -451,8 +479,8 @@ return f;
 }
 
 
-static  void get_flags(DATA *data, FILE * hf, char *pszFlags, bits fFlags, FLAGS *pFlags, int nFlags)
-//      ============================================================================================
+static  void get_flags(DATA *data, FILE * hf, const char *pszFlags, bits fFlags, const FLAGS *pFlags, int nFlags)
+//      =========================================================================================================
 {
 const char *pszOr;
 int cb, n;
@@ -580,8 +608,8 @@ return f;
 
 
 // Output the bits 0xFFF | 0xE00000 and wimp_ICON_BUTTON_TYPE
-static  void get_iflags(DATA *data, FILE * hf, char *pszFlags, bits fFlags)
-//      ==================================================================
+static  void get_iflags(DATA *data, FILE * hf, const char *pszFlags, bits fFlags)
+//      =========================================================================
 {
 const FLAGS *pFlags;
 const char *pszOr;
@@ -638,8 +666,8 @@ static void put_box(DATA *data, char *pstr, os_box * box)
 }
 
 
-static  void get_box(FILE * hf, char *pszBox, const os_box * bbox)
-//      =========================================================
+static  void get_box(FILE * hf, const char *pszBox, const os_box * bbox)
+//      ================================================================
 {
 fprintf(hf, "%s%d,%d,%d,%d\n", pszBox, bbox->x0, bbox->y0, bbox->x1, bbox->y1);
 }
@@ -658,37 +686,29 @@ static void put_coord(DATA *data, char *pstr, os_coord * coord)
 }
 
 
-static  void get_coord(FILE * hf, char *pszCoord, const os_coord * coord)
-//      ================================================================
+static  void get_coord(FILE * hf, const char *pszCoord, const os_coord * coord)
+//      =======================================================================
 {
 fprintf(hf, "%s%d,%d\n", pszCoord, coord->x, coord->y);
 }
 
 
-static  void put_pstr(DATA *data, char *pstr, char *pszEntry, int nChars)
-//      ===============================================================
+static  void put_pstr(DATA *data, char *pstr, const char *pszEntry, int nChars)
+//      =======================================================================
 {
-pszEntry = remove_quotes(data, pszEntry);
-if (nChars != 0 && strlen(pszEntry) == nChars)
-  memcpy(pstr, pszEntry, nChars);
-else
-  {
-  if (data->nFiletypeOut == osfile_TYPE_TEMPLATE)
-    {
-    int cb = my_strcpy0d(pstr, pszEntry);
-    pstr[cb] = '\r';
-    }
-  else
-    strcpy(pstr, pszEntry);
-  }
+if (nChars == 0)
+  nChars = -1;
+int cb = copy_quoted_string(data, pstr, pszEntry, nChars);
+if (data->nFiletypeOut == osfile_TYPE_TEMPLATE)
+  pstr[cb - 1] = '\r';
 }
 
 
-static  void get_pstr(DATA *data, FILE *hf, char *pszEntry, const char *objectP, int nEntry, int nChars)
-//      ================================================================================================
+static  void get_pstr(DATA *data, FILE *hf, const char *pszEntry, const char *objectP, int nEntry, int nChars)
+//      ======================================================================================================
 {
 int strSize;
-const char *strP = string_from_table(objectP, nEntry, nChars == 0 ? -1 : nChars, &strSize);
+const char *strP = string_from_table(data, objectP, INT_MAX, nEntry, nChars == 0 ? -1 : nChars, &strSize);
 fprintf(hf, "%s\"%.*s\"\n", pszEntry, strSize, strP);
 }
 
@@ -707,10 +727,10 @@ for (n = 0; n < nObjects; n++, ObjectList++)
     {
     case iol_MSG:
     case iol_STRING:
-      put_string(data, pszIn, nOffset, Object, (STRINGLIST *)ObjectList);
+      put_string(data, pszIn, nOffset, Object, (const STRINGLIST *)ObjectList);
       break;
     case iol_TSTRING:
-      put_tstring(data, pszIn, nOffset, Object, (STRINGLIST *)ObjectList);
+      put_tstring(data, pszIn, nOffset, Object, (const STRINGLIST *)ObjectList);
       break;
     case iol_OBJECT:
       add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_OBJECT_OFFSET);
@@ -722,7 +742,7 @@ for (n = 0; n < nObjects; n++, ObjectList++)
           {
           case iol_FLAGS:
             pBits = (bits *) &Object[ObjectList->nEntry];
-            *pBits = put_flags(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData);
+            *pBits = put_flags(data, pszEntry, (const FLAGS *) ObjectList->pData, ObjectList->nData);
             break;
           case iol_IFLAGS:
             pBits = (bits *) &Object[ObjectList->nEntry];
@@ -730,10 +750,10 @@ for (n = 0; n < nObjects; n++, ObjectList++)
             break;
           case iol_BFLAGS:
             pByte = (uint8_t *) &Object[ObjectList->nEntry];
-            *pByte = (uint8_t) put_flags(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData);
+            *pByte = (uint8_t) put_flags(data, pszEntry, (const FLAGS *) ObjectList->pData, ObjectList->nData);
             break;
           case iol_ENUM:
-            write_le_int32(&Object[ObjectList->nEntry], put_enum(data, pszEntry, (FLAGS *) ObjectList->pData, ObjectList->nData, false));
+            write_le_int32(&Object[ObjectList->nEntry], put_enum(data, pszEntry, (const FLAGS *) ObjectList->pData, ObjectList->nData, false));
             break;
           case iol_CMP:
             write_le_int32(&Object[ObjectList->nEntry], put_enum(data, pszEntry, CmpFlags, ELEMENTS(CmpFlags), true));
@@ -798,12 +818,11 @@ for (n = 0; n < nObjects; n++, ObjectList++)
 }
 
 
-void get_objects(DATA *data, FILE * hf, char *pszStringTable, char *pszMessageTable, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
+void get_objects(DATA *data, FILE * hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
 {
-char *pszIndent;
+const char * const pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
 int i, n;
 
-pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
 for (n = 0; n < nObjects; n++, ++ObjectList)
   {
   if (ObjectList->nTable != iol_OBJECT)
@@ -813,15 +832,15 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
       {
       case iol_MSG:
       case iol_STRING:
-        get_string(data, hf, pszStringTable, pszMessageTable, objectP, (STRINGLIST *)ObjectList, pszIndent);
+        get_string(data, hf, strMsgTableP, objectP, (const STRINGLIST *)ObjectList, pszIndent);
         break;
       case iol_TSTRING:
-        get_tstring(data, hf, pszStringTable, objectP, (STRINGLIST *)ObjectList, pszIndent);
+        get_tstring(data, hf, strMsgTableP, objectP, (const STRINGLIST *)ObjectList, pszIndent);
         break;
       case iol_FLAGS:
         {
         const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
-        get_flags(data, hf, ObjectList->pszEntry, *pBits, (FLAGS *) ObjectList->pData, ObjectList->nData);
+        get_flags(data, hf, ObjectList->pszEntry, *pBits, (const FLAGS *) ObjectList->pData, ObjectList->nData);
         break;
         }
       case iol_IFLAGS:
@@ -833,11 +852,11 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
       case iol_BFLAGS:
         {
         const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
-        get_flags(data, hf, ObjectList->pszEntry, *pByte, (FLAGS *) ObjectList->pData, ObjectList->nData);
+        get_flags(data, hf, ObjectList->pszEntry, *pByte, (const FLAGS *) ObjectList->pData, ObjectList->nData);
         break;
         }
       case iol_ENUM:
-        get_enum(hf, ObjectList->pszEntry, read_le_int32(&objectP[ObjectList->nEntry]), (FLAGS *) ObjectList->pData, ObjectList->nData, false);
+        get_enum(hf, ObjectList->pszEntry, read_le_int32(&objectP[ObjectList->nEntry]), (const FLAGS *) ObjectList->pData, ObjectList->nData, false);
         break;
       case iol_CMP:
         get_enum(hf, ObjectList->pszEntry, read_le_int32(&objectP[ObjectList->nEntry]), CmpFlags, ELEMENTS(CmpFlags), true);
@@ -975,7 +994,7 @@ char *object_end(DATA *data, char *pszIn, char *pszEnd)
 
 void object_text2resource(DATA *data, FILE * hf, char *pszIn, char *pszOut, const CLASSES *pClass)
 {
-	toolbox_relocatable_object_base * object;
+	toolbox_relocatable_object_base *object;
 	int * pReloc;
 	char *strings;
 	int cb, ref;
@@ -1020,18 +1039,67 @@ void object_text2resource(DATA *data, FILE * hf, char *pszIn, char *pszOut, cons
 }
 
 
-void object_resource2text(DATA *data, FILE * hf, toolbox_relocatable_object_base * object, object2text o2t)
+void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base *object, object2text o2t)
 {
-	char *pszStringTable, *pszMessageTable;
+  // Check string, message and relocation table are in this order:
+  int nextMinOffset = offsetof(toolbox_relocatable_object_base, rf_obj)
+                        + object->rf_obj.header_size
+                        + object->rf_obj.body_size;
+  if (object->string_table_offset != -1)
+    {
+      if (object->string_table_offset != nextMinOffset)
+        {
+          error(data, "Unexpected string table offset (is 0x%x, expected 0x%x)", object->string_table_offset, nextMinOffset);
+          return;
+        }
+    }
+  if (object->message_table_offset != -1)
+    {
+      if (object->message_table_offset < nextMinOffset)
+        {
+          error(data, "Unexpected message table offset (is 0x%x, expected to be bigger or equal than 0x%x)", object->message_table_offset, nextMinOffset);
+          return;
+        }
+      nextMinOffset = object->message_table_offset;
+    }
+  if (object->relocation_table_offset != -1)
+    {
+      if (object->relocation_table_offset < nextMinOffset)
+        {
+          error(data, "Unexpected relocation table offset (is 0x%x, expected to be bigger or equal than 0x%x)", object->relocation_table_offset, nextMinOffset);
+          return;
+        }
+      if (object->relocation_table_offset != offsetof(toolbox_relocatable_object_base, rf_obj)
+                                               + object->rf_obj.size)
+        {
+          error(data, "Unexpected relocation table offset (is 0x%x, expected to be 0x%x)", object->relocation_table_offset, offsetof(toolbox_relocatable_object_base, rf_obj) + object->rf_obj.size);
+          return;
+        }
+    }
+  nextMinOffset = offsetof(toolbox_relocatable_object_base, rf_obj) + object->rf_obj.size;
 
-	pszStringTable = pszMessageTable = NULL;
-	if (object->string_table_offset != -1) {
-		pszStringTable = ((char *) object) + object->string_table_offset;
-	}
-	if (object->message_table_offset != -1) {
-		pszMessageTable = ((char *) object) + object->message_table_offset;
-	}
+  TOOLBOXSMTABLE stringMessageTable;
+  if (object->string_table_offset == -1)
+    {
+      stringMessageTable.stringTableP = NULL;
+      stringMessageTable.stringTableSize = 0;
+    }
+  else
+    {
+      stringMessageTable.stringTableP = (const char *)object + object->string_table_offset;
+      stringMessageTable.stringTableSize = ((object->message_table_offset == -1) ? nextMinOffset : object->message_table_offset) - object->string_table_offset;
+    }
+  if (object->message_table_offset == -1)
+    {
+      stringMessageTable.messageTableP = NULL;
+      stringMessageTable.messageTableSize = 0;
+    }
+  else
+    {
+      stringMessageTable.messageTableP = (const char *)object + object->message_table_offset;
+      stringMessageTable.messageTableSize = nextMinOffset - object->message_table_offset;
+    }
 
-	get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)&object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);
-	o2t(data, hf, (toolbox_resource_file_object_base *) &object->rf_obj, pszStringTable, pszMessageTable);
+  get_objects(data, hf, &stringMessageTable, (const char *)&object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);
+  o2t(data, hf, &object->rf_obj, &stringMessageTable);
 }

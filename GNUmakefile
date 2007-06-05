@@ -6,10 +6,10 @@ GCCSDK_INSTALL_ENV ?= /home/riscos/env
 
 # Using the native host compiler:
 HOST_CC = /usr/bin/gcc
-HOST_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -g -DHAVE_STRCASECMP -DHAVE_STRNCASECMP
+HOST_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -DHAVE_STRCASECMP -DHAVE_STRNCASECMP
 # Using the GCCSDK cross-compiler:
 CROSS_CC = ${GCCSDK_INSTALL_CROSSBIN}/gcc
-CROSS_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -O3 -mlibscl
+CROSS_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -mpoke-function-name -mlibscl
 
 ifeq ($(CROSS_COMPILE),)
 CC=$(HOST_CC)
@@ -19,7 +19,12 @@ CC = $(CROSS_CC)
 CCFLAGS = $(CROSS_CCFLAGS)
 endif
 
-CCFLAGS += -std=c99
+#CCFLAGS += -O3
+CCFLAGS += -g -O0
+CCFLAGS += -std=c99 -W -Wall -Wundef -Wpointer-arith -Wcast-qual \
+        -Wcast-align -Wwrite-strings -Wstrict-prototypes \
+        -Wmissing-prototypes -Wmissing-declarations \
+        -Wnested-externs -Winline -Wno-unused-parameter
 
 COPY = copy
 COPYFLAGS = A ~C ~D F ~L ~N ~P Q ~R ~S ~T V

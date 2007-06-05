@@ -42,7 +42,7 @@ static const OBJECTLIST FontMenuObjectList[] = {
 };
 
 
-        int fontmenu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
+        int fontmenu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
 //      ==================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList));
@@ -51,8 +51,8 @@ return sizeof(fontmenu_object);
 }
 
 
-        void fontmenu_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void fontmenu_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===============================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (char *) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList), 1);
+get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList), 1);
 }

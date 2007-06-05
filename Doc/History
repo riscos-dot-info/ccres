@@ -5,6 +5,8 @@ v1.14 ?? ??? 2007
 - When size of a template string exactly matches the given string length +
   its terminating character, '*' is outputed as length instead of the size
   value.
+- Added sanity checks that binary text offsets are reasonable and do not
+  overflow the text pool (both templates as for resources).
 
 v1.13 03 Jun 2007
 ~~~~~~~~~~~~~~~~~

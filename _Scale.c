@@ -44,7 +44,7 @@ static const OBJECTLIST ScaleObjectList[] = {
 	{iol_BOX,     "std_value:",               offsetof(scale_object, std_value),               NULL,           0                                  }
 };
 
-        int scale_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
+        int scale_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
 //      ===============================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), ScaleObjectList, ELEMENTS(ScaleObjectList));
@@ -53,8 +53,8 @@ return sizeof(scale_object);
 }
 
 
-        void scale_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void scale_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ============================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)(object + 1), ScaleObjectList, ELEMENTS(ScaleObjectList), 1);
+get_objects(data, hf, strMsgTableP, (const char *)(object + 1), ScaleObjectList, ELEMENTS(ScaleObjectList), 1);
 }

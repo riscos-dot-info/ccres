@@ -43,7 +43,7 @@ static const OBJECTLIST FileInfoObjectList[] = {
 };
 
 
-        int fileinfo_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
+        int fileinfo_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
 //      ==================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList));
@@ -52,8 +52,8 @@ return sizeof(fileinfo_object);
 }
 
 
-        void fileinfo_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void fileinfo_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===============================================================================================================================
 {
-get_objects(data, hf, pszStringTable, pszMessageTable, (char *) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);
+get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);
 }

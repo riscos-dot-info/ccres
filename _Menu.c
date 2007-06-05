@@ -69,7 +69,7 @@ static OBJECTLIST MenuEntryObjectList[] = {
 };
 
 
-int menu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
+int menu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
 {
 	menu_object_base * menu;
 	menu_entry_object * entry;
@@ -97,7 +97,7 @@ int menu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base * object)
 }
 
 
-        void menu_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base * object, char *pszStringTable, char *pszMessageTable)
+        void menu_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===========================================================================================================================
 {
 menu_object_base * menu;
@@ -105,14 +105,14 @@ menu_entry_object * entry;
 int n;
 
 menu = (menu_object_base *) (object + 1);
-get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)menu, MenuObjectList, ELEMENTS(MenuObjectList), 1);
+get_objects(data, hf, strMsgTableP, (const char *)menu, MenuObjectList, ELEMENTS(MenuObjectList), 1);
 
 for (n = 0, entry = (menu_entry_object *) (menu + 1); n < menu->entry_count; n++, entry++)
   {
   fprintf(hf, "  Entry {\n    cmp:%d\n", (int) entry->cmp);
   MenuEntryObjectList[0].nTable = (entry->flags & menu_ENTRY_IS_SPRITE) ? iol_STRING : iol_MSG;		// text or sprite?
-  get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)entry, MenuEntryObjectListFlags, ELEMENTS(MenuEntryObjectListFlags), 2);
-  get_objects(data, hf, pszStringTable, pszMessageTable, (const char *)entry, MenuEntryObjectList, ELEMENTS(MenuEntryObjectList), 2);
+  get_objects(data, hf, strMsgTableP, (const char *)entry, MenuEntryObjectListFlags, ELEMENTS(MenuEntryObjectListFlags), 2);
+  get_objects(data, hf, strMsgTableP, (const char *)entry, MenuEntryObjectList, ELEMENTS(MenuEntryObjectList), 2);
   fputs("  }\n", hf);
   }
 }
