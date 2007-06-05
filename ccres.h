@@ -136,7 +136,7 @@ typedef struct {
 	STRINGTABLE StringTable, MessageTable;
 	RELOCTABLE RelocTable;
 	toolbox_o idBaricon, idSaveAs;		// toolbox objects created from res file
-	osspriteop_area * pSprites;		// ...and sprite area
+	osspriteop_area *pSprites;		// ...and sprite area
 	toolbox_block tb;			// ...easy-access toolbox block
 	union {
 		saveas_action_save_to_file_block sa;
@@ -150,7 +150,7 @@ typedef void (*action_handler)(DATA *data);
 typedef int  (*text2object)(DATA *data, char *pszIn, toolbox_relocatable_object_base *object);
 typedef void (*object2text)(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
 typedef int  (*text2gadget)(DATA *data, char *pszIn, int nOffset, gadget_object_base *gadget);
-typedef void (*gadget2text)(DATA *data, FILE *hf, gadget_object_base * gadget, const TOOLBOXSMTABLE *strMsgTableP);
+typedef void (*gadget2text)(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 
 typedef struct {
 	toolbox_class class_no;

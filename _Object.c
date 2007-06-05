@@ -367,7 +367,7 @@ return pstr;
 }
 
 
-static  void get_string(DATA *data, FILE * hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const STRINGLIST *StringList, const char *pszIndent)
+static  void get_string(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const STRINGLIST *StringList, const char *pszIndent)
 //      ==============================================================================================================================================
 {
 const char *pstr, *string_table;
@@ -410,7 +410,7 @@ if (StringList->pszLimit != NULL)
 }
 
 
-static  void get_tstring(DATA *data, FILE * hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const STRINGLIST *StringList, const char *pszIndent)
+static  void get_tstring(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const STRINGLIST *StringList, const char *pszIndent)
 //      =============================================================================================================
 {
 const char *pstr;
@@ -479,7 +479,7 @@ return f;
 }
 
 
-static  void get_flags(DATA *data, FILE * hf, const char *pszFlags, bits fFlags, const FLAGS *pFlags, int nFlags)
+static  void get_flags(DATA *data, FILE *hf, const char *pszFlags, bits fFlags, const FLAGS *pFlags, int nFlags)
 //      =========================================================================================================
 {
 const char *pszOr;
@@ -526,7 +526,7 @@ static int put_enum(DATA *data, char *pstrFlags, const FLAGS *pFlags, int nFlags
 
 
 // fInt - value may be a #defined variable or a nunber (hex or decimal)
-static void get_enum(FILE * hf, const char *pszFlags, int fFlags, const FLAGS *pFlags, int nFlags, bool fInt)
+static void get_enum(FILE *hf, const char *pszFlags, int fFlags, const FLAGS *pFlags, int nFlags, bool fInt)
 {
 	int cb, n;
 	char achBuff[64];		// = 32 + 32 character flags
@@ -608,7 +608,7 @@ return f;
 
 
 // Output the bits 0xFFF | 0xE00000 and wimp_ICON_BUTTON_TYPE
-static  void get_iflags(DATA *data, FILE * hf, const char *pszFlags, bits fFlags)
+static  void get_iflags(DATA *data, FILE *hf, const char *pszFlags, bits fFlags)
 //      =========================================================================
 {
 const FLAGS *pFlags;
@@ -653,9 +653,9 @@ fwrite(achBuff, cb, 1, hf);
 }
 
 
-static void put_box(DATA *data, char *pstr, os_box * box)
+static void put_box(DATA *data, char *pstr, os_box *box)
 {
-	int * pi;
+	int *pi;
 	int n;
 
 	pi = (int *) box;
@@ -666,16 +666,16 @@ static void put_box(DATA *data, char *pstr, os_box * box)
 }
 
 
-static  void get_box(FILE * hf, const char *pszBox, const os_box * bbox)
+static  void get_box(FILE *hf, const char *pszBox, const os_box *bbox)
 //      ================================================================
 {
 fprintf(hf, "%s%d,%d,%d,%d\n", pszBox, bbox->x0, bbox->y0, bbox->x1, bbox->y1);
 }
 
 
-static void put_coord(DATA *data, char *pstr, os_coord * coord)
+static void put_coord(DATA *data, char *pstr, os_coord *coord)
 {
-	int * pi;
+	int *pi;
 	int n;
 
 	pi = (int *) coord;
@@ -686,7 +686,7 @@ static void put_coord(DATA *data, char *pstr, os_coord * coord)
 }
 
 
-static  void get_coord(FILE * hf, const char *pszCoord, const os_coord * coord)
+static  void get_coord(FILE *hf, const char *pszCoord, const os_coord *coord)
 //      =======================================================================
 {
 fprintf(hf, "%s%d,%d\n", pszCoord, coord->x, coord->y);
@@ -818,9 +818,9 @@ for (n = 0; n < nObjects; n++, ObjectList++)
 }
 
 
-void get_objects(DATA *data, FILE * hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
+void get_objects(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
 {
-const char * const pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
+const char *const pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
 int i, n;
 
 for (n = 0; n < nObjects; n++, ++ObjectList)
@@ -992,10 +992,10 @@ char *object_end(DATA *data, char *pszIn, char *pszEnd)
 }
 
 
-void object_text2resource(DATA *data, FILE * hf, char *pszIn, char *pszOut, const CLASSES *pClass)
+void object_text2resource(DATA *data, FILE *hf, char *pszIn, char *pszOut, const CLASSES *pClass)
 {
 	toolbox_relocatable_object_base *object;
-	int * pReloc;
+	int *pReloc;
 	char *strings;
 	int cb, ref;
 
@@ -1025,7 +1025,7 @@ void object_text2resource(DATA *data, FILE * hf, char *pszIn, char *pszOut, cons
 		object->relocation_table_offset = (int) ((char *) strings - (char *) object);
 		pReloc = (int *) strings;
 		*pReloc++ = data->RelocTable.ref;
-		cb = data->RelocTable.ref * sizeof(RELOC);
+		cb = data->RelocTable.ref *sizeof(RELOC);
 		memcpy(pReloc, data->RelocTable.pReloc, cb);
 		strings = (char *) pReloc;
 		strings += cb;

@@ -27,6 +27,6 @@
 #include "ccres.h"
 
 int menu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object);
-void menu_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
+void menu_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
 
 #endif

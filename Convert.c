@@ -129,7 +129,7 @@ static void free_reloc_table(RELOCTABLE *pTable)
 static bool text2res(DATA *data, const char *pszOutFile)
 {
 	toolbox_resource_file_base Hdr;
-	FILE * hf;
+	FILE *hf;
 	char *pszIn, *pszOut, *pszEnd, *pszObject;
 	int m;
 	bool fHeader;
@@ -203,9 +203,9 @@ text2res_added:
 static  bool res2text(DATA *data, const char *pszOutFile)
 //      =================================================
 {
-int * relocation_table;
-toolbox_resource_file_base * file_hdr;
-FILE * hf;
+int *relocation_table;
+toolbox_resource_file_base *file_hdr;
+FILE *hf;
 int cb, m;
 bool fConverted;
 
@@ -231,7 +231,7 @@ fConverted = false;
 fprintf(hf, "RESF:%d.%02d\n", file_hdr->version / 100, file_hdr->version % 100);
 if (file_hdr->header_size > 0)
   {
-  toolbox_relocatable_object_base * obj, * end;
+  toolbox_relocatable_object_base *obj, *end;
   obj = (toolbox_relocatable_object_base *) (file_hdr + 1);
   end = (toolbox_relocatable_object_base *) &data->pszIn[data->cbIn];
   do
@@ -373,10 +373,10 @@ static const OBJECTLIST TemplateHeaderList[] = {
 static bool text2template(DATA *data, const char *pszOutFile)
 {
 	template_font_data font_data;
-	template_header * header;
-	template_index * index, * i;
-	FILE * hf;
-	int * pTerm;
+	template_header *header;
+	template_index *index, *i;
+	FILE *hf;
+	int *pTerm;
 	char *pszIn, *pszTemplate, *pszOut, *pszEnd, *pszObject, *pszBuff;
 	int cb, cbBuff, nWindows, nIcons;
 	bool fConverted;
@@ -415,7 +415,7 @@ static bool text2template(DATA *data, const char *pszOutFile)
 						}
 						cbBuff = cb;
 					}
-					cb = window_text2template(data, pszIn, -(sizeof(wimp_window_base) + nIcons * sizeof(wimp_icon)), (wimp_window_base *) pszBuff);
+					cb = window_text2template(data, pszIn, -(sizeof(wimp_window_base) + nIcons *sizeof(wimp_icon)), (wimp_window_base *) pszBuff);
 					memcpy(pszOut, pszBuff, cb);
 					i->size = cb;
 					i->offset = (int) (pszOut - pszTemplate);
@@ -476,10 +476,10 @@ static bool text2template(DATA *data, const char *pszOutFile)
 
 static bool template2text(DATA *data, const char *pszOutFile)
 {
-template_header * template_hdr;
-template_index * obj;
+template_header *template_hdr;
+template_index *obj;
 char *pszBuff;
-FILE * hf;
+FILE *hf;
 int cbBuff;
 
 if ((hf = fopen(pszOutFile, "wb")) == NULL)

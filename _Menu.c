@@ -71,8 +71,8 @@ static OBJECTLIST MenuEntryObjectList[] = {
 
 int menu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
 {
-	menu_object_base * menu;
-	menu_entry_object * entry;
+	menu_object_base *menu;
+	menu_entry_object *entry;
 	char *pszEnd;
 	int entry_count;
 
@@ -100,8 +100,8 @@ int menu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
         void menu_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===========================================================================================================================
 {
-menu_object_base * menu;
-menu_entry_object * entry;
+menu_object_base *menu;
+menu_entry_object *entry;
 int n;
 
 menu = (menu_object_base *) (object + 1);

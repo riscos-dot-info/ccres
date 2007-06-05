@@ -134,7 +134,7 @@ if (ccres_initialise(&data))
   {
   int nVersion;
   messagetrans_control_block cb;
-  os_error * perr;
+  os_error *perr;
   if ((perr = xtoolbox_initialise(0, 310, Message, Action, APPDIR, &cb, &data.tb, &nVersion, &data.task, &data.pSprites)) != NULL)
     error(&data, "%s", perr->errmess);
   else

@@ -32,7 +32,7 @@
 enum {LBRACKET=0x11,ADD=0x21,SUB=0x22,MUL=0x31,DIV=0x32};
 #define Precedence(op) ((op)&0xf0)
 
-static bool Eval2(int * sop, int * sn, int * piop, int * pin)
+static bool Eval2(int *sop, int *sn, int *piop, int *pin)
 {
 	int lnum, op, rnum;
 	int iop, in, res;
@@ -44,7 +44,7 @@ static bool Eval2(int * sop, int * sn, int * piop, int * pin)
 	lnum = sn[--in];
 	op = sop[--iop];
 	if (op == MUL) {
-		res = lnum * rnum;
+		res = lnum *rnum;
 	} else if (op ==  DIV) {
 		if (rnum == 0) {
 			return false;

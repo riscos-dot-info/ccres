@@ -231,9 +231,9 @@ static const OBJECTLIST ShortcutList[] = {
 
 int window_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
 {
-	window_object_base * window_object;
-	keyboardshortcut_object * shortcut;
-	gadget_object_base * gadget;
+	window_object_base *window_object;
+	keyboardshortcut_object *shortcut;
+	gadget_object_base *gadget;
 	char *pszObject, *pszShortcut, *pszEnd;
 	int shortcut_count, g, gadget_count, nOffset, nSize;
 
@@ -301,9 +301,9 @@ _window_gadget_added:
         void window_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      =============================================================================================================================
 {
-window_object_base * window_object;
-gadget_object_base * gadget;
-keyboardshortcut_object * shortcut;
+window_object_base *window_object;
+gadget_object_base *gadget;
+keyboardshortcut_object *shortcut;
 int n, g, nSize, nClass;
 
 window_object = (window_object_base *) (object + 1);
@@ -367,10 +367,10 @@ static const OBJECTLIST WimpWindowObjectList[] = {
 };
 
 
-        int window_text2template(DATA *data, char *pszIn, int nOffset, wimp_window_base * window)
+        int window_text2template(DATA *data, char *pszIn, int nOffset, wimp_window_base *window)
 //      ========================================================================================
 {
-wimp_icon * icon;
+wimp_icon *icon;
 char *pszObject, *pszEnd, *strings;
 int ref;
 
@@ -399,11 +399,11 @@ return (int) (strings - (char *) window);
 }
 
 
-        void window_template2text(DATA *data, FILE * hf, const char *pszBuff, int size)
+        void window_template2text(DATA *data, FILE *hf, const char *pszBuff, int size)
 //      ===============================================================================
 {
-wimp_window_base * window;
-wimp_icon * i;
+wimp_window_base *window;
+wimp_icon *i;
 int n;
 
 TOOLBOXSMTABLE strMsgTable;

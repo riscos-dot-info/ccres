@@ -33,7 +33,7 @@ static const char achScrapFile[] = "<Wimp$Scrap>";
 // user has dragged something to us from another app...
 void message_data_save(DATA *data)
 {
-	wimp_message * msg;
+	wimp_message *msg;
 
 	msg = &data->poll.wb.message;
 	msg->your_ref = msg->my_ref;
@@ -49,7 +49,7 @@ void message_data_save(DATA *data)
 // user has dragged something to us from a filer window...
 void message_data_load(DATA *data)
 {
-	wimp_message * msg;
+	wimp_message *msg;
 	bits file_type;
 
 	msg = &data->poll.wb.message;
