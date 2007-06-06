@@ -66,9 +66,9 @@ static bool Eval2(int *sop, int *sn, int *piop, int *pin)
 }
 
 
-int Eval(DATA *data, char ** ppstr)
+int Eval(DATA *data, const char **ppstr)
 {
-	char *pstr;
+	const char *pstr;
 	int sop[16], sn[16];
 	int iop, in, op;
 	bool fOp;

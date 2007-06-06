@@ -28,7 +28,7 @@
 int my_strcpy(char *to, const char *from);
 int my_strcpy0d(char *to, const char *from);
 void my_strncpy0d(char *to, const char *from, int max);
-int my_atoi(char **inPP);
+int my_atoi(const char **inPP);
 #ifndef HAVE_STRCASECMP
 int strcasecmp(const char *s1, const char *s2);
 #endif
@@ -41,6 +41,14 @@ int strncasecmp(const char *s1, const char *s2, size_t n);
 void write_le_int32(void *memP, int32_t value);
 /* Read little endian integer value at memory 'memP'.  */
 int32_t read_le_int32(const void *memP);
+
+void write_le_uint32(void *memP, uint32_t value);
+uint32_t read_le_uint32(const void *memP);
+
 int16_t read_le_int16(const void *memP);
+
+void write_le_uint16(void *memP, uint16_t value);
+
+void write_le_uint8(void *memP, uint8_t value);
 
 #endif

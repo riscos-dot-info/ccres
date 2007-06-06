@@ -136,9 +136,9 @@ static const FLAGS CmpFlags[] = {
 };
 
 
-static char *parse(DATA *data, char *pszIn, const char *pszEntry)
+static const char *parse(DATA *data, const char *pszIn, const char *pszEntry)
 {
-	char *p, *pszEnd;
+	const char *p, *pszEnd;
 	int cb;
 	char ch, ch0;
 
@@ -218,10 +218,10 @@ return outP - fixOutP;
 }
 
 
-static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, const STRINGLIST *StringList)
+static bool put_string(DATA *data, const char *pszIn, int nOffset, char *object, const STRINGLIST *StringList)
 {
 	STRINGTABLE *pTable;
-	char *pszEntry, *pszLimit;
+	const char *pszEntry, *pszLimit;
 	int cbEntry, cbLimit, nTable;
 
 	if (StringList->nTable == iol_STRING) {
@@ -278,10 +278,10 @@ static bool put_string(DATA *data, char *pszIn, int nOffset, char *object, const
 }
 
 
-static bool put_tstring(DATA *data, char *pszIn, int nOffset, char *object, const STRINGLIST *StringList)
+static bool put_tstring(DATA *data, const char *pszIn, int nOffset, char *object, const STRINGLIST *StringList)
 {
 	STRINGTABLE *pTable;
-	char *pszEntry, *pszLimit;
+	const char *pszEntry, *pszLimit;
 	int cbEntry, cbLimit, nTable;
 
 	pTable = &data->StringTable;
@@ -435,10 +435,10 @@ if (StringList->pszLimit != NULL)
 }
 
 
-static  bits put_flags(DATA *data, char *pstrFlags, const FLAGS *pFlags, int nFlags)
-//      ============================================================================
+static  bits put_flags(DATA *data, const char *pstrFlags, const FLAGS *pFlags, int nFlags)
+//      ==================================================================================
 {
-char *p;
+const char *p;
 bits f;
 
 f = 0;
@@ -505,7 +505,7 @@ fwrite(achBuff, cb, 1, hf);
 
 
 // fInt - value may be a #defined variable or a nunber (hex or decimal)
-static int put_enum(DATA *data, char *pstrFlags, const FLAGS *pFlags, int nFlags, bool fInt)
+static int put_enum(DATA *data, const char *pstrFlags, const FLAGS *pFlags, int nFlags, bool fInt)
 {
 	int n;
 
@@ -549,9 +549,9 @@ get_enum_found:
 }
 
 
-static bits put_iflags(DATA *data, char *pstrFlags)
+static bits put_iflags(DATA *data, const char *pstrFlags)
 {
-char *p;
+const char *p;
 bits f;
 
 f = 0;
@@ -601,7 +601,7 @@ put_iflags_next_flag:
   while ((ch = *p) == ' ' || ch == '|')
     p++;
   pstrFlags = p;
-}
+  }
 
 return f;
 }
@@ -653,7 +653,7 @@ fwrite(achBuff, cb, 1, hf);
 }
 
 
-static void put_box(DATA *data, char *pstr, os_box *box)
+static void put_box(DATA *data, const char *pstr, os_box *box)
 {
 	int *pi;
 	int n;
@@ -673,7 +673,7 @@ fprintf(hf, "%s%d,%d,%d,%d\n", pszBox, bbox->x0, bbox->y0, bbox->x1, bbox->y1);
 }
 
 
-static void put_coord(DATA *data, char *pstr, os_coord *coord)
+static void put_coord(DATA *data, const char *pstr, os_coord *coord)
 {
 	int *pi;
 	int n;
@@ -713,15 +713,9 @@ fprintf(hf, "%s\"%.*s\"\n", pszEntry, strSize, strP);
 }
 
 
-void put_objects(DATA *data, char *pszIn, int nOffset, char *Object, const OBJECTLIST *ObjectList, int nObjects)
+void put_objects(DATA *data, const char *pszIn, int nOffset, char *Object, const OBJECTLIST *ObjectList, int nObjects)
 {
-bits *pBits;
-uint16_t *pShort;
-uint8_t *pByte;
-char *pszEntry;
-int n;
-
-for (n = 0; n < nObjects; n++, ObjectList++)
+for (int n = 0; n < nObjects; n++, ObjectList++)
   {
   switch (ObjectList->nTable)
     {
@@ -729,28 +723,30 @@ for (n = 0; n < nObjects; n++, ObjectList++)
     case iol_STRING:
       put_string(data, pszIn, nOffset, Object, (const STRINGLIST *)ObjectList);
       break;
+
     case iol_TSTRING:
       put_tstring(data, pszIn, nOffset, Object, (const STRINGLIST *)ObjectList);
       break;
+
     case iol_OBJECT:
       add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_OBJECT_OFFSET);
       break;
+
     default:
+      {
+      const char *pszEntry;
       if ((pszEntry = parse(data, pszIn, ObjectList->pszEntry)) != NULL)
         {
         switch (ObjectList->nTable)
           {
           case iol_FLAGS:
-            pBits = (bits *) &Object[ObjectList->nEntry];
-            *pBits = put_flags(data, pszEntry, (const FLAGS *) ObjectList->pData, ObjectList->nData);
+            write_le_uint32(&Object[ObjectList->nEntry], put_flags(data, pszEntry, (const FLAGS *) ObjectList->pData, ObjectList->nData));
             break;
           case iol_IFLAGS:
-            pBits = (bits *) &Object[ObjectList->nEntry];
-            *pBits = put_iflags(data, pszEntry);
+            write_le_uint32(&Object[ObjectList->nEntry], put_iflags(data, pszEntry));
             break;
           case iol_BFLAGS:
-            pByte = (uint8_t *) &Object[ObjectList->nEntry];
-            *pByte = (uint8_t) put_flags(data, pszEntry, (const FLAGS *) ObjectList->pData, ObjectList->nData);
+            write_le_uint8(&Object[ObjectList->nEntry], put_flags(data, pszEntry, (const FLAGS *) ObjectList->pData, ObjectList->nData));
             break;
           case iol_ENUM:
             write_le_int32(&Object[ObjectList->nEntry], put_enum(data, pszEntry, (const FLAGS *) ObjectList->pData, ObjectList->nData, false));
@@ -762,57 +758,58 @@ for (n = 0; n < nObjects; n++, ObjectList++)
             write_le_int32(&Object[ObjectList->nEntry], put_enum(data, pszEntry, OsColours, ELEMENTS(OsColours), false));
             break;
           case iol_BOX:
-            put_box(data, pszEntry, (os_box *) &Object[ObjectList->nEntry]);
+            put_box(data, pszEntry, (os_box *)&Object[ObjectList->nEntry]);
             break;
           case iol_BITS:
-            pBits = (bits *) &Object[ObjectList->nEntry];
             if (*pszEntry < ' ')
-              *pBits = (ObjectList->nData == bits_ACTION) ? ~0 : 0;
+              write_le_uint32(&Object[ObjectList->nEntry], (ObjectList->nData == bits_ACTION) ? ~0 : 0);
             else
-              *pBits = (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : my_atoi(&pszEntry);
+              write_le_uint32(&Object[ObjectList->nEntry], (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : my_atoi(&pszEntry));
             break;
           case iol_INT:
             write_le_int32(&Object[ObjectList->nEntry], my_atoi(&pszEntry));
             break;
           case iol_SHORT:
-            pShort = (uint16_t *) &Object[ObjectList->nEntry];
-            *pShort = (uint16_t) my_atoi(&pszEntry);
+            write_le_uint16(&Object[ObjectList->nEntry], (uint16_t)my_atoi(&pszEntry));
             break;
           case iol_BYTE:
-            pByte = (uint8_t *) &Object[ObjectList->nEntry];
-            *pByte = (uint8_t) my_atoi(&pszEntry);
+            write_le_uint8(&Object[ObjectList->nEntry], (uint8_t)my_atoi(&pszEntry));
             break;
           case iol_COORD:
             put_coord(data, pszEntry, (os_coord *) &Object[ObjectList->nEntry]);
             break;
           case iol_SPRITE:
-            pBits = (bits *) &Object[ObjectList->nEntry];
-            *pBits = my_atoi(&pszEntry);
+            write_le_uint32(&Object[ObjectList->nEntry], my_atoi(&pszEntry));
             add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE);
             break;
           case iol_CHARPTR:
             put_pstr(data, &Object[ObjectList->nEntry], pszEntry, ObjectList->nData);
             break;
           case iol_ESG:
-            pBits = (bits *) &Object[ObjectList->nEntry];
-            *pBits |= (my_atoi(&pszEntry) << wimp_ICON_ESG_SHIFT);
+            {
+            uint32_t result = read_le_uint32(&Object[ObjectList->nEntry]);
+            write_le_uint32(&Object[ObjectList->nEntry], result | (my_atoi(&pszEntry) << wimp_ICON_ESG_SHIFT));
             break;
+            }
           case iol_WCOL:
-            pByte = (uint8_t *) &Object[ObjectList->nEntry];
-            *pByte = (uint8_t) put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false);
+            write_le_uint8(&Object[ObjectList->nEntry], (uint8_t)put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false));
             break;
           case iol_BCOLS:
-            pBits = (bits *) &Object[ObjectList->nEntry];
-            *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false) << wimp_ICON_FG_COLOUR_SHIFT;
+            {
+            uint32_t result = read_le_uint32(&Object[ObjectList->nEntry]);
+            result |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false) << wimp_ICON_FG_COLOUR_SHIFT;
             if ((pszEntry = parse(data, pszIn, ObjectList->pData)) != NULL)
-              *pBits |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false) << wimp_ICON_BG_COLOUR_SHIFT;
+              result |= put_enum(data, pszEntry, WimpColour, ELEMENTS(WimpColour), false) << wimp_ICON_BG_COLOUR_SHIFT;
+            write_le_uint32(&Object[ObjectList->nEntry], result);
             break;
+            }
           default:
             error(data, "Unknown iol_ value (%d)", ObjectList->nTable);
             break;
           }
         }
       break;
+      }
     }
   }
 }
@@ -820,7 +817,7 @@ for (n = 0; n < nObjects; n++, ObjectList++)
 
 void get_objects(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
 {
-const char *const pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
+const char * const pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
 int i, n;
 
 for (n = 0; n < nObjects; n++, ++ObjectList)
@@ -884,7 +881,7 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
         break;
       case iol_BYTE:
         {
-        const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
+        const uint8_t *pByte = (const uint8_t *)&objectP[ObjectList->nEntry];
         fprintf(hf, "%s%d\n", ObjectList->pszEntry, (bits) *pByte);
         break;
         }
@@ -905,7 +902,7 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
         }
       case iol_WCOL:
         {
-        const unsigned char *pByte = (const unsigned char *)&objectP[ObjectList->nEntry];
+        const uint8_t *pByte = (const uint8_t *)&objectP[ObjectList->nEntry];
         get_enum(hf, ObjectList->pszEntry, *pByte, WimpColour, ELEMENTS(WimpColour), false);
         break;
         }

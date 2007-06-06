@@ -26,7 +26,7 @@
 
 #include "ccres.h"
 
-void put_objects(DATA *data, char *pszIn, int nOffset, char *object, const OBJECTLIST *Objectlist, int nObjects);
+void put_objects(DATA *data, const char *pszIn, int nOffset, char *object, const OBJECTLIST *Objectlist, int nObjects);
 void get_objects(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent);
 char *next_object(char ** pszIn, char *pszEnd);
 char *object_end(DATA *data, char *pszIn, char *pszEnd);

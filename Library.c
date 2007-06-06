@@ -81,11 +81,11 @@ while (--max && *from >= ' ')
 
 /* DESC. | 
  */
-        int my_atoi(char **inPP)
-/*      ========================
+        int my_atoi(const char **inPP)
+/*      ==============================
  */
 {
-char *inP = *inPP;
+const char *inP = *inPP;
 // Negative ?
 bool neg;
 if (*inP == '-')
@@ -208,9 +208,44 @@ return imemP[0] | (imemP[1]<<8) | (imemP[2]<<16) | (imemP[3]<<24);
 }
 
 
+        void write_le_uint32(void *memP, uint32_t value)
+//      ================================================
+{
+uint8_t *imemP = (uint8_t *)memP;
+imemP[0] = value & 0xFF;
+imemP[1] = (value >> 8) & 0xFF;
+imemP[2] = (value >> 16) & 0xFF;
+imemP[3] = (value >> 24) & 0xFF;
+}
+
+
+        uint32_t read_le_uint32(const void *memP)
+//      =========================================
+{
+const uint8_t *imemP = (const uint8_t *)memP;
+return imemP[0] | (imemP[1]<<8) | (imemP[2]<<16) | (imemP[3]<<24);
+}
+
+
         int16_t read_le_int16(const void *memP)
 //      =======================================
 {
 const uint8_t *imemP = (const uint8_t *)memP;
 return imemP[0] | (imemP[1]<<8);
+}
+
+
+        void write_le_uint16(void *memP, uint16_t value)
+//      ================================================
+{
+uint8_t *imemP = (uint8_t *)memP;
+imemP[0] = value & 0xFF;
+imemP[1] = (value >> 8) & 0xFF;
+}
+
+
+        void write_le_uint8(void *memP, uint8_t value)
+//      ==============================================
+{
+*(uint8_t *)memP = value;
 }
