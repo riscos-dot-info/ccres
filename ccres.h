@@ -146,10 +146,9 @@ typedef struct {
 	char achTextFile[MAX_PATH];
 } DATA;
 
-typedef void (*action_handler)(DATA *data);
-typedef int  (*text2object)(DATA *data, char *pszIn, toolbox_relocatable_object_base *object);
+typedef int  (*text2object)(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object);
 typedef void (*object2text)(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
-typedef int  (*text2gadget)(DATA *data, char *pszIn, int nOffset, gadget_object_base *gadget);
+typedef int  (*text2gadget)(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
 typedef void (*gadget2text)(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 
 typedef struct {

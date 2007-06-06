@@ -45,8 +45,8 @@ static const OBJECTLIST SaveAsObjectList[] = {
 	{iol_STRING, "alternative_window_name:", offsetof(saveas_object, alternative_window_name), NULL,           0                                  }
 };
 
-        int saveas_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
-//      ================================================================================
+        int saveas_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
+//      ======================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), SaveAsObjectList, ELEMENTS(SaveAsObjectList));
 

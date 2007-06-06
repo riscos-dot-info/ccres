@@ -69,11 +69,11 @@ static OBJECTLIST MenuEntryObjectList[] = {
 };
 
 
-int menu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
+int menu_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
 	menu_object_base *menu;
 	menu_entry_object *entry;
-	char *pszEnd;
+	const char *pszEnd;
 	int entry_count;
 
 	menu = (menu_object_base *) (object + 1);

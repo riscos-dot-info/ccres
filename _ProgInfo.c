@@ -63,8 +63,8 @@ static const OBJECTLIST ProgInfoObjectList101[] = {
 };
 
 
-        int proginfo_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
-//      ==================================================================================
+        int proginfo_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
+//      ========================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), ProgInfoObjectList, ELEMENTS(ProgInfoObjectList));
 if (object->rf_obj.version == 101)

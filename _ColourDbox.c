@@ -43,8 +43,8 @@ static const OBJECTLIST ColourDboxObjectList[] = {
 };
 
 
-        int colourdbox_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
-//      ====================================================================================
+        int colourdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
+//      ==========================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList));
 

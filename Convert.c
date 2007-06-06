@@ -130,7 +130,8 @@ static bool text2res(DATA *data, const char *pszOutFile)
 {
 	toolbox_resource_file_base Hdr;
 	FILE *hf;
-	char *pszIn, *pszOut, *pszEnd, *pszObject;
+	const char *pszIn, *pszEnd, *pszObject;
+	char *pszOut;
 	int m;
 	bool fHeader;
 
@@ -147,55 +148,56 @@ static bool text2res(DATA *data, const char *pszOutFile)
 			|| !alloc_reloc_table(&data->RelocTable)) {
 		error(data, "Unable to allocate necessary memory");
 		return false;
-	} else if ((hf = fopen(pszOutFile, "wb")) == NULL) {
+	}
+
+	if ((hf = fopen(pszOutFile, "wb")) == NULL) {
 		error(data, "Unable to create output file '%s'", pszOutFile);
 		return false;
-	} else {
-		data->fThrowback = false;
-		Hdr.file_id = RESF;
-		Hdr.version = 101;
-		Hdr.header_size = -1;
-		fHeader = false;
-		while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
-			for (m = 0; m < ELEMENTS(Classes); m++) {
-				if (strcasecmp(Classes[m].name, pszObject) == 0 && Classes[m].t2o != NULL) {
-					if (!fHeader) {
-						Hdr.header_size = sizeof(Hdr);
-						fwrite(&Hdr, sizeof(Hdr), 1, hf);
-						fHeader = true;
-					}
-					reset_string_table(&data->StringTable);
-					reset_string_table(&data->MessageTable);
-					reset_reloc_table(&data->RelocTable);
-					object_text2resource(data, hf, pszIn, pszOut, &Classes[m]);
-					goto text2res_added;
+	}
+
+	data->fThrowback = false;
+	Hdr.file_id = RESF;
+	Hdr.version = 101;
+	Hdr.header_size = -1;
+	fHeader = false;
+	while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
+		for (m = 0; m < ELEMENTS(Classes); m++) {
+			if (strcasecmp(Classes[m].name, pszObject) == 0 && Classes[m].t2o != NULL) {
+				if (!fHeader) {
+					Hdr.header_size = sizeof(Hdr);
+					fwrite(&Hdr, sizeof(Hdr), 1, hf);
+					fHeader = true;
 				}
+				reset_string_table(&data->StringTable);
+				reset_string_table(&data->MessageTable);
+				reset_reloc_table(&data->RelocTable);
+				object_text2resource(data, hf, pszIn, pszOut, &Classes[m]);
+				goto text2res_added;
 			}
-			error(data, "Don't know how to handle object '%s'", pszObject);
+		}
+		error(data, "Don't know how to handle object '%s'", pszObject);
 
 text2res_added:
-
-			if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
-				break;
-			}
+		if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL) {
+			break;
 		}
-		if (!fHeader) {
-			fwrite(&Hdr, sizeof(Hdr), 1, hf);
-		}
-		fclose(hf);
-#ifdef __riscos__
-		osfile_set_type(pszOutFile, osfile_TYPE_RESOURCE);
-#endif
-		if (data->fThrowback)
-		  {
-		  report_end(data);
-		  data->fThrowback = false;
-		  }
-		free_string_table(&data->StringTable);
-		free_string_table(&data->MessageTable);
-		free_reloc_table(&data->RelocTable);
-		MyFree(pszOut);
 	}
+	if (!fHeader)
+		fwrite(&Hdr, sizeof(Hdr), 1, hf);
+	fclose(hf);
+#ifdef __riscos__
+	osfile_set_type(pszOutFile, osfile_TYPE_RESOURCE);
+#endif
+	if (data->fThrowback)
+	  {
+	  report_end(data);
+	  data->fThrowback = false;
+	  }
+	free_string_table(&data->StringTable);
+	free_string_table(&data->MessageTable);
+	free_reloc_table(&data->RelocTable);
+	MyFree(pszOut);
+
 	return true;
 }
 
@@ -377,7 +379,8 @@ static bool text2template(DATA *data, const char *pszOutFile)
 	template_index *index, *i;
 	FILE *hf;
 	int *pTerm;
-	char *pszIn, *pszTemplate, *pszOut, *pszEnd, *pszObject, *pszBuff;
+	const char *pszIn, *pszEnd, *pszObject;
+	char *pszBuff, *pszOut, *pszTemplate;
 	int cb, cbBuff, nWindows, nIcons;
 	bool fConverted;
 

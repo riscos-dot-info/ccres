@@ -43,8 +43,8 @@ static const OBJECTLIST FileInfoObjectList[] = {
 };
 
 
-        int fileinfo_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
-//      ==================================================================================
+        int fileinfo_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
+//      ========================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList));
 

@@ -42,8 +42,8 @@ static const OBJECTLIST FontMenuObjectList[] = {
 };
 
 
-        int fontmenu_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
-//      ==================================================================================
+        int fontmenu_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
+//      ========================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList));
 

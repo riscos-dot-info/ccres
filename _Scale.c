@@ -44,8 +44,8 @@ static const OBJECTLIST ScaleObjectList[] = {
 	{iol_BOX,     "std_value:",               offsetof(scale_object, std_value),               NULL,           0                                  }
 };
 
-        int scale_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object)
-//      ===============================================================================
+        int scale_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
+//      =====================================================================================
 {
 put_objects(data, pszIn, 0, (char *) (object + 1), ScaleObjectList, ELEMENTS(ScaleObjectList));
 

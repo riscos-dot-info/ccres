@@ -47,11 +47,12 @@
 
 #define action_MENU_QUIT	0x01
 
+typedef void (*action_handler)(DATA *data);
+
 static bool ccres_appl_initialise(DATA *data);
 static void ccres_appl_pollloop(DATA *data);
 static void toolbox_error(DATA *data);
 static int question(char *pszKeys, bits nErr, char *pszFmt, ...);
-
 
 // Toolbox action codes returned by WimpPoll - each action has an associated handler
 static const toolbox_action_list Action[] =

@@ -26,7 +26,7 @@
 
 #include "ccres.h"
 
-int printdbox_t2g(DATA *data, char *pszIn, toolbox_relocatable_object_base *object);
+int printdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object);
 void printdbox_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
 
 #endif

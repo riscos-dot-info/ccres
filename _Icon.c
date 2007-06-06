@@ -47,8 +47,8 @@ static const OBJECTLIST ButtonObjectList[] = {
   {iol_STRING, "validation:",   offsetof(button_object, validation),   "validation_limit:", offsetof(button_object, validation_limit)}
   };
 
-        int button_t2g(DATA *data, char *pszIn, int nOffset, gadget_object_base *gadget)
-//      ================================================================================
+        int button_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget)
+//      ======================================================================================
 {
 put_objects(data, pszIn, nOffset, (char *) gadget, ButtonObjectList, ELEMENTS(ButtonObjectList));
 
@@ -108,8 +108,8 @@ static const OBJECTLIST IconIndirectTextAndSpriteObjectList[] = {
   };
 
 
-        void put_icon_data(DATA *data, char *pszIn, int nOffset, wimp_icon_data *icon_data, bits flags)
-//      ===============================================================================================
+        void put_icon_data(DATA *data, const char *pszIn, int nOffset, wimp_icon_data *icon_data, bits flags)
+//      =====================================================================================================
 {
 switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
   {
@@ -172,8 +172,8 @@ switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
 }
 
 
-        void icon_text2template(DATA *data, char *pszIn, int nOffset, wimp_icon *icon)
-//      ==============================================================================
+        void icon_text2template(DATA *data, const char *pszIn, int nOffset, wimp_icon *icon)
+//      ====================================================================================
 {
 put_objects(data, pszIn, nOffset, (char *) icon, IconObjectList, ELEMENTS(IconObjectList));
 if (icon->flags & wimp_ICON_ANTI_ALIASED)

@@ -928,9 +928,10 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
 #define min(a,b) ((a)<(b)?(a):(b))
 // Iconbar {
 // returns "Iconbar\0" and sets pszIn to byte after '{'
-char *next_object(char ** pszIn, char *pszEnd)
+const char *next_object(const char **pszIn, const char *pszEnd)
 {
-	char *p, *q;
+	const char * const pszOrgIn = *pszIn;
+	const char *p, *q;
 	int cb;
 	char ch;
 	static char achObject[48];
@@ -941,25 +942,25 @@ char *next_object(char ** pszIn, char *pszEnd)
 			return NULL;
 		}
 	}
-// p points to char *after* the brace
+	// p points to char *after* the brace '{'
 	*pszIn = p--;
-	while (*(p - 1) <= ' ')
+	while (p != pszOrgIn && p[-1] <= ' ')
 		p--;	// skip trailing spaces
-	*p = '\0';
+
 	q = p;
-	while (*(q - 1) > ' ')
+	while (q != pszOrgIn && q[-1] > ' ')
 		q--;		// find start of name to return
-	cb = min((int) (p - q), sizeof(achObject) - 1);
+
+	cb = min((size_t) (p - q), sizeof(achObject) - 1);
 	memcpy(achObject, q, cb);
 	achObject[cb] = '\0';
-	*p = ' ';
 	return &achObject[0];
 }
 
 
-char *object_end(DATA *data, char *pszIn, char *pszEnd)
+const char *object_end(DATA *data, const char *pszIn, const char *pszEnd)
 {
-	char *p;
+	const char *p;
 	int nDepth;
 	char ch;
 
@@ -989,7 +990,7 @@ char *object_end(DATA *data, char *pszIn, char *pszEnd)
 }
 
 
-void object_text2resource(DATA *data, FILE *hf, char *pszIn, char *pszOut, const CLASSES *pClass)
+void object_text2resource(DATA *data, FILE *hf, const char *pszIn, char *pszOut, const CLASSES *pClass)
 {
 	toolbox_relocatable_object_base *object;
 	int *pReloc;

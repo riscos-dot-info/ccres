@@ -28,9 +28,9 @@
 
 void put_objects(DATA *data, const char *pszIn, int nOffset, char *object, const OBJECTLIST *Objectlist, int nObjects);
 void get_objects(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent);
-char *next_object(char ** pszIn, char *pszEnd);
-char *object_end(DATA *data, char *pszIn, char *pszEnd);
-void object_text2resource(DATA *data, FILE *hf, char *pszIn, char *pszOut, const CLASSES *pClass);
+const char *next_object(const char **pszIn, const char *pszEnd);
+const char *object_end(DATA *data, const char *pszIn, const char *pszEnd);
+void object_text2resource(DATA *data, FILE *hf, const char *pszIn, char *pszOut, const CLASSES *pClass);
 void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base *object, object2text o2t);
 
 #endif
