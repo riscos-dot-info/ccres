@@ -23,7 +23,7 @@
 #include "ccres.h"
 #include "Menu.h"
 
-void menu_quit(DATA *data)
+void menu_quit(APPDATA *data)
 {
 data->fRunning = false;
 }

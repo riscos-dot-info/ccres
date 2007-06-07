@@ -20,6 +20,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -27,11 +28,12 @@
 #include "Error.h"
 #include "Filer.h"
 #include "Utils.h"
+#include "Main.h"
 
 static const char achScrapFile[] = "<Wimp$Scrap>";
 
 // user has dragged something to us from another app...
-void message_data_save(DATA *data)
+void message_data_save(APPDATA *data)
 {
 	wimp_message *msg;
 
@@ -47,7 +49,7 @@ void message_data_save(DATA *data)
 
 
 // user has dragged something to us from a filer window...
-void message_data_load(DATA *data)
+void message_data_load(APPDATA *data)
 {
 	wimp_message *msg;
 	bits file_type;
@@ -56,13 +58,13 @@ void message_data_load(DATA *data)
 	if ((file_type = msg->data.data_xfer.file_type) == osfile_TYPE_TEXT
 	    || file_type == osfile_TYPE_RESOURCE
 	    || file_type == osfile_TYPE_TEMPLATE) {
-		if (load_file(data, msg->data.data_xfer.file_name, file_type)) {
-			saveas_set_file_type(0, data->idSaveAs, data->nFiletypeOut);
+		if (load_file(&data->libData, msg->data.data_xfer.file_name, file_type)) {
+			saveas_set_file_type(0, data->idSaveAs, data->libData.nFiletypeOut);
 			saveas_set_file_size(0, data->idSaveAs, -1);
 			toolbox_show_object(0, data->idSaveAs, toolbox_POSITION_AT_POINTER, NULL, data->idBaricon, toolbox_NULL_COMPONENT);
 		}
 	} else {
-		error(data, "Filetype must be Text (fff), Resource (fae) or Template (fec)");
+		error(&data->libData, "Filetype must be Text (fff), Resource (fae) or Template (fec)");
 	}
 	if (data->fUnsafeLoad) {
 		remove(achScrapFile);

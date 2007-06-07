@@ -23,18 +23,13 @@
 #ifndef CCRES_HEADER_INCLUDED
 #define CCRES_HEADER_INCLUDED
 
-#include <stddef.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include <oslib/fileswitch.h>
-#include <oslib/gadget.h>
 #include <oslib/osfile.h>
-#include <oslib/saveas.h>
+#include <oslib/gadget.h>
 #include <oslib/toolbox.h>
-#include <oslib/wimp.h>
 
 #define VERSION "1.14 (xx-xxx-2007) - development"
 
@@ -124,25 +119,14 @@ typedef struct {
 } OBJECTLIST;
 
 typedef struct {
-	bool fRunning;			// see check_quit()
 	bool fThrowback;
-	bool fUnsafeLoad;
 	int returnStatus;
-	wimp_t task;
 	char *pszIn;
         char *pszOut;
-	int cbIn, cbOut;
+	int cbIn;
 	bits nFiletypeIn, nFiletypeOut;
 	STRINGTABLE StringTable, MessageTable;
 	RELOCTABLE RelocTable;
-	toolbox_o idBaricon, idSaveAs;		// toolbox objects created from res file
-	osspriteop_area *pSprites;		// ...and sprite area
-	toolbox_block tb;			// ...easy-access toolbox block
-	union {
-		saveas_action_save_to_file_block sa;
-		toolbox_action ta;		// ...and action data
-		wimp_block wb;
-	} poll;
 	char achTextFile[MAX_PATH];
 } DATA;
 

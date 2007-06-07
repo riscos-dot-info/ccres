@@ -1,7 +1,6 @@
-/* _SaveAs.c
+/* Main.h
 
-   Copyright (c) 2003-2003 Dave Appleby
-   Copyright (c) 2003-2007 John Tytgat
+   Copyright (c) 2007-2007 John Tytgat
 
    This file is part of CCres.
 
@@ -20,30 +19,26 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <stdio.h>
-#include <string.h>
+#ifndef MAIN_HEADER_INCLUDED
+#define MAIN_HEADER_INCLUDED
 
 #include <oslib/saveas.h>
-
 #include "ccres.h"
-#include "Convert.h"
-#include "SaveAs.h"
 
-        void action_save_to_file(APPDATA *data)
-//      ====================================
-{
-bits fSaved;
+typedef struct {
+  DATA libData;
 
-fSaved = (ccres_convert(&data->libData, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
-saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
-if (fSaved == saveas_SAVE_SUCCESSFUL)
-  toolbox_hide_object(0, data->idSaveAs);
-}
+  bool fRunning;			// see check_quit()
+  bool fUnsafeLoad;
+  wimp_t task;
+  toolbox_o idBaricon, idSaveAs;	// toolbox objects created from res file
+  osspriteop_area *pSprites;		// ...and sprite area
+  toolbox_block tb;			// ...easy-access toolbox block
+  union {
+    saveas_action_save_to_file_block sa;
+    toolbox_action ta;			// ...and action data
+    wimp_block wb;
+  } poll;
+} APPDATA;
 
-
-        void action_save_completed(APPDATA *data)
-//      ======================================
-{
-if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL)
-  remove(data->poll.sa.file_name);
-}
+#endif

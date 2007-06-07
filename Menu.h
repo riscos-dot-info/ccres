@@ -22,8 +22,8 @@
 #ifndef APP_MENU_HEADER_INCLUDED
 #define APP_MENU_HEADER_INCLUDED
 
-#include "ccres.h"
+#include "Main.h"
 
-void menu_quit(DATA *data);
+void menu_quit(APPDATA *data);
 
 #endif

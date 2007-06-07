@@ -22,9 +22,9 @@
 #ifndef APP_SAVEAS_HEADER_INCLUDED
 #define APP_SAVEAS_HEADER_INCLUDED
 
-#include "ccres.h"
+#include "Main.h"
 
-void action_save_to_file(DATA *data);
-void action_save_completed(DATA *data);
+void action_save_to_file(APPDATA *data);
+void action_save_completed(APPDATA *data);
 
 #endif

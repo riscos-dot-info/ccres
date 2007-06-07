@@ -22,9 +22,9 @@
 #ifndef APP_FILER_HEADER_INCLUDED
 #define APP_FILER_HEADER_INCLUDED
 
-#include "ccres.h"
+#include "Main.h"
 
-void message_data_save(DATA *data);
-void message_data_load(DATA *data);
+void message_data_save(APPDATA *data);
+void message_data_load(APPDATA *data);
 
 #endif

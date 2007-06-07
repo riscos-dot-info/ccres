@@ -21,6 +21,7 @@
  */
 
 #include <limits.h>
+#include <stddef.h>
 #include <stdint.h>
 #include <string.h>
 #include <strings.h>

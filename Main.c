@@ -20,39 +20,39 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/* Std C headers :
- */
+// Std C headers :
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/* OSLib headers :
- */
+// OSLib headers :
 #include <oslib/proginfo.h>
 #include <oslib/saveas.h>
 #include <oslib/taskwindow.h>
 #include <oslib/wimpreadsysinfo.h>
 
-/* Project headers :
- */
+// Project headers :
 #include "ccres.h"
 #include "Convert.h"
 #include "Error.h"
 #include "Filer.h"
+#include "Main.h"
 #include "Menu.h"
 #include "Utils.h"
+#include "SaveAs.h"
 
 #define APPNAME	"CCres"
 #define APPDIR	"<"APPNAME"$Dir>"
 
 #define action_MENU_QUIT	0x01
 
-typedef void (*action_handler)(DATA *data);
+typedef void (*action_handler)(APPDATA *data);
 
-static bool ccres_appl_initialise(DATA *data);
-static void ccres_appl_pollloop(DATA *data);
-static void toolbox_error(DATA *data);
-static int question(char *pszKeys, bits nErr, char *pszFmt, ...);
+static bool ccres_appl_initialise(APPDATA *data);
+static void ccres_appl_pollloop(APPDATA *data);
+static void toolbox_error(APPDATA *data);
+static int question(const char *pszKeys, bits nErr, const char *pszFmt, ...);
 
 // Toolbox action codes returned by WimpPoll - each action has an associated handler
 static const toolbox_action_list Action[] =
@@ -81,7 +81,7 @@ static const wimp_message_list Message[] =
   {{0}}
   };
 
-static  bool ccres_appl_initialise(DATA *data)
+static  bool ccres_appl_initialise(APPDATA *data)
 //      ======================================
 {
 data->idBaricon = toolbox_create_object(0, (toolbox_id) "Iconbar");
@@ -92,20 +92,17 @@ return true;
 }
 
 
-static  void ccres_appl_pollloop(DATA *data)
+static  void ccres_appl_pollloop(APPDATA *data)
 //      ====================================
 {
-  wimp_event_no e;
-  int a;
-  bits nAction;
-
 do {
+  wimp_event_no e;
   if ((e = wimp_poll(wimp_MASK_NULL | wimp_MASK_LEAVING | wimp_MASK_ENTERING, &data->poll.wb, 0)) == toolbox_EVENT)
     {
     // is it a toolbox event?
     // if so, look-up the action number in the Action list, then call the associated handler
-    nAction = data->poll.ta.action_no;
-    for (a = 0; a < ELEMENTS(Handler); a++)
+    bits nAction = data->poll.ta.action_no;
+    for (unsigned int a = 0; a < ELEMENTS(Handler); a++)
       {
       if (nAction == Action[a].action_nos[0])
         {
@@ -116,6 +113,7 @@ do {
     }
   else if (e == wimp_USER_MESSAGE || e == wimp_USER_MESSAGE_RECORDED)
     {
+    bits nAction;
     if ((nAction = data->poll.wb.message.action) == message_QUIT || nAction == message_SHUTDOWN)
       data->fRunning = false;
     else if (nAction == message_DATA_SAVE)
@@ -130,14 +128,16 @@ do {
         int main(int argc, char *argv[])
 //      ===============================
 {
-DATA data;
-if (ccres_initialise(&data))
+APPDATA data;
+
+memset(&data, 0, sizeof(APPDATA)); // FIXME: perhaps too crude ?
+if (ccres_initialise(&data.libData))
   {
   int nVersion;
   messagetrans_control_block cb;
   os_error *perr;
   if ((perr = xtoolbox_initialise(0, 310, Message, Action, APPDIR, &cb, &data.tb, &nVersion, &data.task, &data.pSprites)) != NULL)
-    error(&data, "%s", perr->errmess);
+    error(&data.libData, "%s", perr->errmess);
   else
     {
     data.fRunning = ccres_appl_initialise(&data);
@@ -145,27 +145,27 @@ if (ccres_initialise(&data))
     wimp_close_down(data.task);
     }
 
-  if (data.pszIn != NULL)
-    MyFree(data.pszIn);
+  if (data.libData.pszIn != NULL) // FIXME: not the right spot to do this
+    MyFree(data.libData.pszIn);
   (void)ccres_finish();
   }
 
-return data.returnStatus;
+return data.libData.returnStatus;
 }
 
 
-static  void toolbox_error(DATA *data)
+static  void toolbox_error(APPDATA *data)
 //      ==============================
 {
 if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.data.error.errmess) == 1)
   {
   data->fRunning = false;
-  data->returnStatus = EXIT_FAILURE;
+  data->libData.returnStatus = EXIT_FAILURE;
   }
 }
 
 // return value is zero based index of keys passed in pszKeys
-static  int question(char *pszKeys, bits nErr, char *pszFmt, ...)
+static  int question(const char *pszKeys, bits nErr, const char *pszFmt, ...)
 //      =======================================================
 {
 os_error err;
