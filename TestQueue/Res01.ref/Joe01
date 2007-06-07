@@ -208,7 +208,7 @@ menu_object {
     cmp:2
     flags:menu_ENTRY_SUB_MENU
     cmp:&2
-    text:"Sprite"
+    text:"Sprite"
     text_limit:11
     click_object_name:""
     sub_menu_object_name:"ExportSprit"
@@ -221,7 +221,7 @@ menu_object {
     cmp:3
     flags:menu_ENTRY_SUB_MENU
     cmp:&3
-    text:"Draw"
+    text:"Draw"
     text_limit:11
     click_object_name:""
     sub_menu_object_name:"ExportDraw"
@@ -863,7 +863,7 @@ fontdbox_object {
   header_flags:
   version:100
   object_name:"FontDbox"
-  fontdbox_flags:
+  fontdbox_flags:fontdbox_INCLUDE_SYSTEM_FONT
   title:""
   title_limit:*
   initial_font:"Trinity.Medium"
