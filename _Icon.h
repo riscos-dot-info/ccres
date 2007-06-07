@@ -29,8 +29,8 @@
 int button_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
 void button_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 void put_icon_data(DATA *data, const char *pszIn, int nOffset, wimp_icon_data *icon_data, bits flags);
-void get_icon_data(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTable, wimp_icon_data *icon_data, bits flags, int nIndent);
+void get_icon_data(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTable, const wimp_icon_data *icon_data, bits flags, int nIndent);
 void icon_text2template(DATA *data, const char *pszIn, int nOffset, wimp_icon *icon);
-void icon_template2text(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, wimp_icon *icon);
+void icon_template2text(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const wimp_icon *icon);
 
 #endif

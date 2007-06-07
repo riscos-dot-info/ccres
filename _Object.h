@@ -33,4 +33,10 @@ const char *object_end(DATA *data, const char *pszIn, const char *pszEnd);
 void object_text2resource(DATA *data, FILE *hf, const char *pszIn, char *pszOut, const CLASSES *pClass);
 void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base *object, object2text o2t);
 
+bool alloc_string_table(STRINGTABLE *pTable);
+bool add_to_reloc_table(RELOCTABLE *pRelocTable, int nEntry, int nTable);
+void free_string_table(STRINGTABLE *pTable);
+bool alloc_reloc_table(RELOCTABLE *pTable);
+void free_reloc_table(RELOCTABLE *pTable);
+
 #endif

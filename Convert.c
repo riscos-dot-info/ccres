@@ -78,61 +78,12 @@ static const CLASSES Classes[] = {
 };
 
 
-static bool alloc_string_table(STRINGTABLE *pTable)
-{
-	int cb;
-
-	pTable->ref = pTable->max = 0;
-	cb = 2 * 256 * 256;		// 256 gadgets, 256 chars each, 2 strings per gadget
-	if ((pTable->pstr = MyAlloc(cb)) == NULL) {
-		return false;
-	}
-	pTable->max = cb;
-	return true;
-}
-
-
-static bool alloc_reloc_table(RELOCTABLE *pTable)
-{
-	int nReloc;
-
-	pTable->ref = pTable->max = 0;
-	nReloc = 2 * 256;		// 256 gadgets, 2 strings per gadget
-	if ((pTable->pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL) {
-		return false;
-	}
-	pTable->max = nReloc;
-	return true;
-}
-
-
-static void free_string_table(STRINGTABLE *pTable)
-{
-	if (pTable->pstr != NULL) {
-		MyFree(pTable->pstr);
-	}
-	pTable->pstr = NULL;
-	pTable->ref = pTable->max = 0;
-}
-
-
-static void free_reloc_table(RELOCTABLE *pTable)
-{
-	if (pTable->pReloc != NULL) {
-		MyFree(pTable->pReloc);
-	}
-	pTable->pReloc = NULL;
-	pTable->ref = pTable->max = 0;
-}
-
-
 static bool text2res(DATA *data, const char *pszOutFile)
 {
 	toolbox_resource_file_base Hdr;
 	FILE *hf;
 	const char *pszIn, *pszEnd, *pszObject;
 	char *pszOut;
-	int m;
 	bool fHeader;
 
 	pszIn = data->pszIn;
@@ -161,7 +112,7 @@ static bool text2res(DATA *data, const char *pszOutFile)
 	Hdr.header_size = -1;
 	fHeader = false;
 	while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
-		for (m = 0; m < ELEMENTS(Classes); m++) {
+		for (unsigned int m = 0; m < ELEMENTS(Classes); m++) {
 			if (strcasecmp(Classes[m].name, pszObject) == 0 && Classes[m].t2o != NULL) {
 				if (!fHeader) {
 					Hdr.header_size = sizeof(Hdr);
@@ -208,7 +159,7 @@ static  bool res2text(DATA *data, const char *pszOutFile)
 int *relocation_table;
 toolbox_resource_file_base *file_hdr;
 FILE *hf;
-int cb, m;
+int cb;
 bool fConverted;
 
 file_hdr = (toolbox_resource_file_base *) data->pszIn;
@@ -239,6 +190,7 @@ if (file_hdr->header_size > 0)
   do
     {
     fputs("\n", hf);
+    unsigned int m;
     for (m = 0; m < ELEMENTS(Classes); m++)
       {
       if (Classes[m].class_no == obj->rf_obj.class_no)
@@ -483,7 +435,7 @@ template_header *template_hdr;
 template_index *obj;
 char *pszBuff;
 FILE *hf;
-int cbBuff;
+unsigned int cbBuff;
 
 if ((hf = fopen(pszOutFile, "wb")) == NULL)
   {
@@ -511,6 +463,7 @@ for (obj = (template_index *) (template_hdr + 1); obj->offset != 0; ++obj)
       error(data, "Unable to allocate %d bytes", obj->size);
       break;
       }
+    cbBuff = obj->size;
     }
   memcpy(pszBuff, data->pszIn + obj->offset, obj->size);
   fputs("\nwimp_window {\n", hf);

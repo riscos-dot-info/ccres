@@ -32,10 +32,11 @@
 enum {LBRACKET=0x11,ADD=0x21,SUB=0x22,MUL=0x31,DIV=0x32};
 #define Precedence(op) ((op)&0xf0)
 
-static bool Eval2(int *sop, int *sn, int *piop, int *pin)
+static bool Eval2(int *sop, int *sn, unsigned int *piop, unsigned int *pin)
 {
 	int lnum, op, rnum;
-	int iop, in, res;
+	unsigned int iop, in;
+	int res;
 
 	iop = *piop;
 	in = *pin;
@@ -70,7 +71,8 @@ int Eval(DATA *data, const char **ppstr)
 {
 	const char *pstr;
 	int sop[16], sn[16];
-	int iop, in, op;
+	unsigned int iop, in;
+	int op;
 	bool fOp;
 	char ch;
 

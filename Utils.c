@@ -25,8 +25,6 @@
 #include "Error.h"
 #include "Utils.h"
 
-#define MAX_FILE	48
-
         void HexToUInt(DATA *data, const char *strP, unsigned int len, unsigned int *resultP)
 //      =====================================================================================
 {
@@ -95,8 +93,7 @@ if (temFileHdrP[1] == 0 && temFileHdrP[2] == 0 && temFileHdrP[3] == 0)
   return osfile_TYPE_TEMPLATE;
 
 // Text file (check for control chars) ?
-int i;
-for (i = 0; i < sizeof(buffer); ++i)
+for (unsigned int i = 0; i < sizeof(buffer); ++i)
   if (buffer[i] < 32 && buffer[i] != 10)
     return 0;
 

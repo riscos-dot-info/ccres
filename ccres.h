@@ -104,23 +104,23 @@ typedef struct {
 
 typedef struct {
 	RELOC *pReloc;
-	int ref, max;
+	unsigned int ref, max;
 } RELOCTABLE;
 
 typedef struct {
 	int nTable;
 	const char *pszEntry;
-	int nEntry;
+	size_t nEntry;
 	const char *pszLimit;
-	int nLimit;
+	size_t nLimit;
 } STRINGLIST;
 
 typedef struct {
 	int nTable;
 	const char *pszEntry;
-	int nEntry;
+	size_t nEntry;         // Byte offset
 	const void *pData;
-	int nData;
+	size_t nData;
 } OBJECTLIST;
 
 typedef struct {

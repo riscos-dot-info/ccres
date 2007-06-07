@@ -235,7 +235,7 @@ int window_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *o
 	keyboardshortcut_object *shortcut;
 	gadget_object_base *gadget;
 	const char *pszObject, *pszShortcut, *pszEnd;
-	int shortcut_count, g, gadget_count, nOffset, nSize;
+	int shortcut_count, gadget_count, nOffset, nSize;
 
 	window_object = (window_object_base *) (object + 1);
 	put_objects(data, pszIn, 0, (char *) window_object, WindowObjectList, ELEMENTS(WindowObjectList));
@@ -265,7 +265,7 @@ int window_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *o
 	gadget = (gadget_object_base *) shortcut;
 	gadget_count = 0;
 	while ((pszObject = next_object(&pszIn, pszEnd)) != NULL) {
-		for (g = 0; g < ELEMENTS(Gadgets); g++) {
+		for (unsigned int g = 0; g < ELEMENTS(Gadgets); g++) {
 			if (strcasecmp(Gadgets[g].name, pszObject) == 0) {
 				nOffset = (int) ((char *) gadget - (char *) window_object);
 				put_objects(data, pszIn, nOffset, (char *) gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList));
@@ -304,13 +304,12 @@ _window_gadget_added:
 window_object_base *window_object;
 gadget_object_base *gadget;
 keyboardshortcut_object *shortcut;
-int n, g, nSize, nClass;
 
 window_object = (window_object_base *) (object + 1);
 get_objects(data, hf, strMsgTableP, (const char *)window_object, WindowObjectList, ELEMENTS(WindowObjectList), 1);
 
 shortcut = (keyboardshortcut_object *) ((char *) window_object + (int) window_object->shortcuts);
-for (n = 0; n < window_object->shortcut_count; n++, shortcut++)
+for (int n = 0; n < window_object->shortcut_count; n++, shortcut++)
   {
   fprintf(hf, "  %s {\n", pszShortcutObject);
   get_objects(data, hf, strMsgTableP, (const char *)shortcut, ShortcutList, ELEMENTS(ShortcutList), 2);
@@ -318,10 +317,10 @@ for (n = 0; n < window_object->shortcut_count; n++, shortcut++)
   }
 
 gadget = (gadget_object_base *) ((char *) window_object + (int) window_object->gadgets);
-for (n = 0; n < window_object->gadget_count; n++) {
-  nSize = (gadget->class_no_and_size >> 16);
-  nClass = (gadget->class_no_and_size & 0xffff);
-  for (g = 0; g < ELEMENTS(Gadgets); g++)
+for (int n = 0; n < window_object->gadget_count; n++) {
+  unsigned int nSize = (gadget->class_no_and_size >> 16);
+  unsigned int nClass = (gadget->class_no_and_size & 0xffff);
+  for (unsigned int g = 0; g < ELEMENTS(Gadgets); g++)
     {
     if (Gadgets[g].class_no == nClass)
       {
@@ -403,9 +402,8 @@ return (int) (strings - (char *) window);
         void window_template2text(DATA *data, FILE *hf, const char *pszBuff, int size)
 //      ===============================================================================
 {
-wimp_window_base *window;
-wimp_icon *i;
-int n;
+const wimp_window_base *window;
+const wimp_icon *i;
 
 TOOLBOXSMTABLE strMsgTable;
 strMsgTable.stringTableP = pszBuff;
@@ -413,12 +411,12 @@ strMsgTable.stringTableSize = size;
 strMsgTable.messageTableP = NULL;
 strMsgTable.messageTableSize = 0;
 
-window = (wimp_window_base *) pszBuff;
+window = (const wimp_window_base *) pszBuff;
 get_objects(data, hf, &strMsgTable, (const char *)window, WimpWindowObjectList, ELEMENTS(WimpWindowObjectList), 1);
-get_icon_data(data, hf, &strMsgTable, (wimp_icon_data *)&window->title_data, window->title_flags, 1);
+get_icon_data(data, hf, &strMsgTable, (const wimp_icon_data *)&window->title_data, window->title_flags, 1);
 
-i = (wimp_icon *) (window + 1);
-for (n = 0; n < window->icon_count; n++, i++)
+i = (const wimp_icon *) (window + 1);
+for (int n = 0; n < window->icon_count; n++, i++)
   {
   fputs("  wimp_icon {\n", hf);
   icon_template2text(data, hf, &strMsgTable, i);

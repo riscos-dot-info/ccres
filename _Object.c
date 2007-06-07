@@ -159,29 +159,6 @@ static const char *parse(DATA *data, const char *pszIn, const char *pszEntry)
 }
 
 
-static bool add_to_reloc_table(RELOCTABLE *pRelocTable, int nEntry, int nTable)
-{
-	RELOC *pReloc;
-	int nReloc;
-
-	nReloc = pRelocTable->ref++;
-	pRelocTable->pReloc[nReloc].offset = nEntry;
-	pRelocTable->pReloc[nReloc].type = nTable;
-
-	if (pRelocTable->ref >= (pRelocTable->max - sizeof(RELOC))) {
-		nReloc = pRelocTable->max * 3 / 2;
-		if ((pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL) {
-			return false;
-		}
-		memcpy(pReloc, pRelocTable->pReloc, pRelocTable->max * sizeof(RELOC));
-		MyFree(pRelocTable->pReloc);
-		pRelocTable->pReloc = pReloc;
-		pRelocTable->max = nReloc;
-	}
-	return true;
-}
-
-
 // Copies string at inP terminated by any control character up to maxSize characters.
 // When maxSize < 0, it is considered to be INT_MAX.
 // If maxSize != 0, the result is always terminated.
@@ -257,7 +234,8 @@ static bool put_string(DATA *data, const char *pszIn, int nOffset, char *object,
 		cbLimit = cbEntry;
 
 	write_le_int32(&object[StringList->nEntry], (cbEntry > 1) ? pTable->ref : -1);
-	add_to_reloc_table(&data->RelocTable, StringList->nEntry + nOffset, nTable);
+	if (!add_to_reloc_table(&data->RelocTable, StringList->nEntry + nOffset, nTable))
+		error(data, "Failed to add relocation because of lack of free memory");
 	if (StringList->pszLimit != NULL)
 		write_le_int32(&object[StringList->nLimit], cbLimit);
 	if (cbEntry > 1) {
@@ -350,7 +328,7 @@ if (pszTable == NULL || ref == -1)
     *outSizeP = 0;
     return "";
   }
-else if (ref < 0 || ref >= tableSize)
+else if (ref < 0 || ref >= (int)tableSize)
   {
     error(data, "Error: string index %d is out-of-bounds (string table size is %d)", ref, tableSize);
     *outSizeP = 0;
@@ -399,8 +377,8 @@ if (StringList->pszLimit != NULL)
   fputs(pszIndent, hf);
   cbLimit = read_le_int32(&objectP[StringList->nLimit]);
   // cbLimit = 0 for an empty string is ok (different than get_tstring() !)
-  if (cbLimit == 0 && cbLimit < strSize
-      || cbLimit != 0 && cbLimit < strSize + 1)
+  if ((cbLimit == 0 && cbLimit < strSize)
+      || (cbLimit != 0 && cbLimit < strSize + 1))
     error(data, "Warning: string <%.*s> is longer than its given limit value %d", strSize, pstr, cbLimit);
   if (cbLimit > strSize + 1)
     fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
@@ -444,8 +422,9 @@ bits f;
 f = 0;
 for (p = pstrFlags; *p != '\0'; /* */)
   {
-  int n, cb;
+  int n;
   char ch;
+  unsigned int cb;
 
   while ((ch = *p) > ' ' && ch != '|')
     p++;
@@ -526,7 +505,7 @@ static int put_enum(DATA *data, const char *pstrFlags, const FLAGS *pFlags, int 
 
 
 // fInt - value may be a #defined variable or a nunber (hex or decimal)
-static void get_enum(FILE *hf, const char *pszFlags, int fFlags, const FLAGS *pFlags, int nFlags, bool fInt)
+static void get_enum(FILE *hf, const char *pszFlags, bits fFlags, const FLAGS *pFlags, int nFlags, bool fInt)
 {
 	int cb, n;
 	char achBuff[64];		// = 32 + 32 character flags
@@ -555,12 +534,12 @@ const char *p;
 bits f;
 
 f = 0;
-p = pstrFlags;
-while (*p != '\0')
+for (p = pstrFlags; *p != '\0'; /* */)
   {
   const FLAGS *pFlags;
-  int n, cb, nFlags;
+  int n, nFlags;
   char ch;
+  unsigned int cb;
 
   while ((ch = *p) > ' ' && ch != '|')
     p++;
@@ -729,7 +708,8 @@ for (int n = 0; n < nObjects; n++, ObjectList++)
       break;
 
     case iol_OBJECT:
-      add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_OBJECT_OFFSET);
+      if (!add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_OBJECT_OFFSET))
+        error(data, "Failed to add relocation because of lack of free memory");
       break;
 
     default:
@@ -780,7 +760,8 @@ for (int n = 0; n < nObjects; n++, ObjectList++)
             break;
           case iol_SPRITE:
             write_le_uint32(&Object[ObjectList->nEntry], my_atoi(&pszEntry));
-            add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE);
+            if (!add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE))
+              error(data, "Failed to add relocation because of lack of free memory");
             break;
           case iol_CHARPTR:
             put_pstr(data, &Object[ObjectList->nEntry], pszEntry, ObjectList->nData);
@@ -867,7 +848,7 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
       case iol_BITS:
         {
         const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
-        if (*pBits == ~0 && ObjectList->nData == bits_ACTION)
+        if (*pBits == (bits)~0 && ObjectList->nData == bits_ACTION)
           fprintf(hf, "%s\n", ObjectList->pszEntry);
         else
           fprintf(hf, "%s&%x\n", ObjectList->pszEntry, *pBits);
@@ -1023,7 +1004,7 @@ void object_text2resource(DATA *data, FILE *hf, const char *pszIn, char *pszOut,
 		object->relocation_table_offset = (int) ((char *) strings - (char *) object);
 		pReloc = (int *) strings;
 		*pReloc++ = data->RelocTable.ref;
-		cb = data->RelocTable.ref *sizeof(RELOC);
+		cb = data->RelocTable.ref * sizeof(RELOC);
 		memcpy(pReloc, data->RelocTable.pReloc, cb);
 		strings = (char *) pReloc;
 		strings += cb;
@@ -1067,7 +1048,7 @@ void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base 
           error(data, "Unexpected relocation table offset (is 0x%x, expected to be bigger or equal than 0x%x)", object->relocation_table_offset, nextMinOffset);
           return;
         }
-      if (object->relocation_table_offset != offsetof(toolbox_relocatable_object_base, rf_obj)
+      if ((unsigned int)object->relocation_table_offset != offsetof(toolbox_relocatable_object_base, rf_obj)
                                                + object->rf_obj.size)
         {
           error(data, "Unexpected relocation table offset (is 0x%x, expected to be 0x%x)", object->relocation_table_offset, offsetof(toolbox_relocatable_object_base, rf_obj) + object->rf_obj.size);
@@ -1100,4 +1081,70 @@ void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base 
 
   get_objects(data, hf, &stringMessageTable, (const char *)&object->rf_obj, ObjectHeaderList, ELEMENTS(ObjectHeaderList), 1);
   o2t(data, hf, &object->rf_obj, &stringMessageTable);
+}
+
+
+bool alloc_string_table(STRINGTABLE *pTable)
+{
+  int cb;
+
+  pTable->ref = pTable->max = 0;
+  cb = 2 * 256 * 256;		// 256 gadgets, 256 chars each, 2 strings per gadget
+  if ((pTable->pstr = MyAlloc(cb)) == NULL)
+    return false;
+  pTable->max = cb;
+  return true;
+}
+
+
+void free_string_table(STRINGTABLE *pTable)
+{
+  MyFree(pTable->pstr);
+  pTable->pstr = NULL;
+  pTable->ref = pTable->max = 0;
+}
+
+
+bool alloc_reloc_table(RELOCTABLE *pTable)
+{
+  int nReloc;
+
+  pTable->ref = pTable->max = 0;
+  nReloc = 2 * 256;		// 256 gadgets, 2 strings per gadget
+  if ((pTable->pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL)
+    return false;
+  pTable->max = nReloc;
+  return true;
+}
+
+
+bool add_to_reloc_table(RELOCTABLE *pRelocTable, int nEntry, int nTable)
+{
+  unsigned int nReloc;
+
+  if (pRelocTable->ref == pRelocTable->max)
+    {
+      RELOC *pReloc;
+      nReloc = pRelocTable->max * 3 / 2;
+      if ((pReloc = MyAlloc(nReloc * sizeof(RELOC))) == NULL)
+        return false;
+      memcpy(pReloc, pRelocTable->pReloc, pRelocTable->max * sizeof(RELOC));
+      MyFree(pRelocTable->pReloc);
+      pRelocTable->pReloc = pReloc;
+      pRelocTable->max = nReloc;
+    }
+
+  nReloc = pRelocTable->ref++;
+  pRelocTable->pReloc[nReloc].offset = nEntry;
+  pRelocTable->pReloc[nReloc].type = nTable;
+
+  return true;
+}
+
+
+void free_reloc_table(RELOCTABLE *pTable)
+{
+  MyFree(pTable->pReloc);
+  pTable->pReloc = NULL;
+  pTable->ref = pTable->max = 0;
 }

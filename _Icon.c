@@ -140,7 +140,7 @@ switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
 }
 
 
-        void get_icon_data(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTable, wimp_icon_data *icon_data, bits flags, int nIndent)
+        void get_icon_data(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTable, const wimp_icon_data *icon_data, bits flags, int nIndent)
 //      ===================================================================================================================
 {
 switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
@@ -185,7 +185,7 @@ put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &icon->data, icon->flags)
 }
 
 
-        void icon_template2text(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, wimp_icon *icon)
+        void icon_template2text(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const wimp_icon *icon)
 //      ===================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)icon, IconObjectList, ELEMENTS(IconObjectList), 2);
@@ -194,5 +194,5 @@ if (icon->flags & wimp_ICON_ANTI_ALIASED)
 else
   get_objects(data, hf, strMsgTableP, (const char *)icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList), 2);
 
-get_icon_data(data, hf, strMsgTableP, (wimp_icon_data *)&icon->data, icon->flags, 2);
+get_icon_data(data, hf, strMsgTableP, (const wimp_icon_data *)&icon->data, icon->flags, 2);
 }
