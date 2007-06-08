@@ -20,7 +20,6 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "ccres.h"
 #include "Menu.h"
 
 void menu_quit(APPDATA *data)

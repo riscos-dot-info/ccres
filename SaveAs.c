@@ -25,7 +25,6 @@
 
 #include <oslib/saveas.h>
 
-#include "ccres.h"
 #include "Convert.h"
 #include "SaveAs.h"
 
@@ -34,7 +33,7 @@
 {
 bits fSaved;
 
-fSaved = (ccres_convert(&data->libData, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
+fSaved = (ccres_convert(data->sessionP, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
 saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
 if (fSaved == saveas_SAVE_SUCCESSFUL)
   toolbox_hide_object(0, data->idSaveAs);

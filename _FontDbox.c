@@ -56,7 +56,7 @@ return sizeof(fontdbox_object);
 }
 
 
-        void fontdbox_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
+        void fontdbox_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===============================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList), 1);

@@ -27,6 +27,6 @@
 #include "ccres.h"
 
 int saveas_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object);
-void saveas_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
+void saveas_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
 
 #endif

@@ -33,7 +33,6 @@
 #include <oslib/wimpreadsysinfo.h>
 
 // Project headers :
-#include "ccres.h"
 #include "Convert.h"
 #include "Error.h"
 #include "Filer.h"
@@ -53,6 +52,9 @@ static bool ccres_appl_initialise(APPDATA *data);
 static void ccres_appl_pollloop(APPDATA *data);
 static void toolbox_error(APPDATA *data);
 static int question(const char *pszKeys, bits nErr, const char *pszFmt, ...);
+
+static void report_wimp(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);
+static void report_end_wimp(DATA *sessionP);
 
 // Toolbox action codes returned by WimpPoll - each action has an associated handler
 static const toolbox_action_list Action[] =
@@ -128,16 +130,22 @@ do {
         int main(int argc, char *argv[])
 //      ===============================
 {
-APPDATA data;
+  APPDATA data;
 
-memset(&data, 0, sizeof(APPDATA)); // FIXME: perhaps too crude ?
-if (ccres_initialise(&data.libData))
-  {
+  memset(&data, 0, sizeof(APPDATA)); // FIXME: perhaps too crude ?
+  if ((data.sessionP = ccres_initialise()) == NULL)
+    {
+      report_wimp(NULL, report_error, 0, "%s", "Failed to initialise ccres\n");
+      return EXIT_FAILURE;
+    }
+
+  ccres_install_report_routine(data.sessionP, report_wimp, report_end_wimp);
+
   int nVersion;
   messagetrans_control_block cb;
   os_error *perr;
   if ((perr = xtoolbox_initialise(0, 310, Message, Action, APPDIR, &cb, &data.tb, &nVersion, &data.task, &data.pSprites)) != NULL)
-    error(&data.libData, "%s", perr->errmess);
+    data.sessionP->report(data.sessionP, report_error, 0, "%s", perr->errmess);
   else
     {
     data.fRunning = ccres_appl_initialise(&data);
@@ -145,12 +153,9 @@ if (ccres_initialise(&data.libData))
     wimp_close_down(data.task);
     }
 
-  if (data.libData.pszIn != NULL) // FIXME: not the right spot to do this
-    MyFree(data.libData.pszIn);
-  (void)ccres_finish();
-  }
+  (void)ccres_finish(data.sessionP);
 
-return data.libData.returnStatus;
+  return EXIT_SUCCESS;
 }
 
 
@@ -160,7 +165,7 @@ static  void toolbox_error(APPDATA *data)
 if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.data.error.errmess) == 1)
   {
   data->fRunning = false;
-  data->libData.returnStatus = EXIT_FAILURE;
+// FIXME:  data->libData.returnStatus = EXIT_FAILURE;
   }
 }
 
@@ -173,7 +178,7 @@ va_list list;
 
 err.errnum = nErr;
 va_start(list, pszFmt);
-vsprintf(err.errmess, pszFmt, list);
+vsnprintf(err.errmess, sizeof(err.errmess), pszFmt, list);
 va_end(list);
 return wimp_report_error_by_category(
 	&err,
@@ -185,4 +190,26 @@ return wimp_report_error_by_category(
 	"!"APPNAME,
 	(osspriteop_area *) 1,		// wimp pool
 	pszKeys) - 3;			// ignore standard buttons
+}
+
+static void report_wimp(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...)
+{
+  va_list list;
+  va_start(list, pszFmt);
+  if (level == report_error)
+    {
+      os_error err;
+      err.errnum = 0;
+      vsnprintf(err.errmess, sizeof(err.errmess), pszFmt, list);
+      wimp_report_error(&err, wimp_ERROR_BOX_OK_ICON | wimp_ERROR_BOX_NO_PROMPT, APPNAME);
+    }
+
+  if (sessionP != NULL)
+    report_varg_throwback(sessionP, level, linenr, pszFmt, list);
+  va_end(list);
+}
+
+static void report_end_wimp(DATA *sessionP)
+{
+  report_end_throwback(sessionP);
 }

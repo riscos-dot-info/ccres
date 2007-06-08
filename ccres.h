@@ -31,6 +31,8 @@
 #include <oslib/gadget.h>
 #include <oslib/toolbox.h>
 
+#include "Convert.h"
+
 #define VERSION "1.14 (xx-xxx-2007) - development"
 
 #define RESF	0x46534552
@@ -118,22 +120,23 @@ typedef struct {
 	size_t nData;
 } OBJECTLIST;
 
-typedef struct {
-	bool fThrowback;
-	int returnStatus;
-	char *pszIn;
-        char *pszOut;
-	int cbIn;
-	bits nFiletypeIn, nFiletypeOut;
-	STRINGTABLE StringTable, MessageTable;
-	RELOCTABLE RelocTable;
-	char achTextFile[MAX_PATH];
-} DATA;
+struct session_s {
+  bool fThrowback;
+  int returnStatus;
+  const char *pszIn;
+  size_t cbIn;
+  bits nFiletypeIn, nFiletypeOut;
+  STRINGTABLE StringTable, MessageTable;
+  RELOCTABLE RelocTable;
+  report_cb report;
+  report_end_cb report_end;
+  char achFileIn[MAX_PATH];
+};
 
-typedef int  (*text2object)(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object);
-typedef void (*object2text)(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
-typedef int  (*text2gadget)(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-typedef void (*gadget2text)(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+typedef int (*text2object)(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object);
+typedef void (*object2text)(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
+typedef int (*text2gadget)(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
+typedef void (*gadget2text)(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 
 typedef struct {
 	toolbox_class class_no;

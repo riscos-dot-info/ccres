@@ -29,61 +29,109 @@
 #include "ccres.h"
 #include "Error.h"
 
-void report(DATA *data, const char *ptrP, const char *pszFmt, ...)
+unsigned int report_getlinenr(const DATA *sessionP, const char *ptrP)
 {
-	va_list list;
-	const char *pP;
-	int nRow;
-	char achError[1024];
+  const char *pP;
+  unsigned int nRow;
+  for (nRow = 1, pP = sessionP->pszIn; pP < sessionP->pszIn + sessionP->cbIn && pP < ptrP; pP++)
+    {
+      if (*pP < ' ')
+        nRow++;
+    }
+  if (pP == sessionP->pszIn + sessionP->cbIn)
+    return 0;
 
-	va_start(list, pszFmt);
-	vsprintf(achError, pszFmt, list);
-	va_end(list);
-	for (nRow = 1, pP = data->pszIn; pP < ptrP; pP++) {
-		if (*pP < ' ') {
-			nRow++;
-		}
-	}
-	if (!data->fThrowback) {
-#ifdef __riscos__
-//FIXME:		ddeutils_throwback_start();
-#endif
-		data->fThrowback = true;
-	}
-#ifdef __riscos__
-//FIXME:	ddeutils_throwback_send(ddeutils_THROWBACK_INFO_DETAILS, data->achTextFile, nRow, ddeutils_SEVERITY_ERROR, achError);
-	fprintf(stderr, "Line %d: %s\n", nRow, achError);
-#else
-	fprintf(stderr, "Line %d: %s\n", nRow, achError);
-#endif
+  return nRow;
 }
 
-
-void report_end(DATA *data)
+void report_stderr(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...)
 {
+  va_list list;
+  va_start(list, pszFmt);
+  report_varg_stderr(sessionP, level, linenr, pszFmt, list);
+  va_end(list);
+}
+
+void report_varg_stderr(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list)
+{
+  char achError[1024];
+  vsnprintf(achError, sizeof(achError), pszFmt, list);
+
+  const char *severityStrP;
+  switch (level)
+    {
+      case report_info:
+        severityStrP = "info";
+        break;
+      case report_warning:
+        severityStrP = "warning";
+        break;
+      case report_error:
+      default:
+        severityStrP = "error";
+        break;
+    }
+  fprintf(stderr, "%s:%d:%s: %s\n", sessionP->achFileIn, linenr, severityStrP, achError);
+}
+
+void report_end_stderr(DATA *sessionP)
+{
+// Nothing to do.
+}
+
 #ifdef __riscos__
-//FIXME:ddeutils_throwback_end();
-#endif
-}
-
-
-void error(DATA *sessionP, const char *pszFmt, ...)
+void report_throwback(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...)
 {
-//FIXME:#ifdef __riscos__
-#if 0
-os_error err;
-va_list list;
-err.errnum = 0;
-va_start(list, pszFmt);
-vsprintf(err.errmess, pszFmt, list);
-va_end(list);
-wimp_report_error(&err, wimp_ERROR_BOX_OK_ICON | wimp_ERROR_BOX_NO_PROMPT, APPNAME);
-#else
-va_list list;
-va_start(list, pszFmt);
-vfprintf(stderr, pszFmt, list);
-va_end(list);
-fputc('\n', stderr);
-#endif
-sessionP->returnStatus = EXIT_FAILURE;
+  va_list list;
+  va_start(list, pszFmt);
+  report_varg_throwback(sessionP, level, linenr, pszFmt, list);
+  va_end(list);
 }
+
+void report_varg_throwback(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list)
+{
+  char achError[1024];
+  vsnprintf(achError, sizeof(achError), pszFmt, list);
+
+  if (!sessionP->fThrowback && xddeutils_throwback_start() == NULL)
+    {
+      sessionP->fThrowback = true;
+      xddeutils_throwback_send(ddeutils_THROWBACK_PROCESSING, sessionP->achFileIn, 0, 0, NULL);
+    }
+  int reason;
+  int severity;
+  const char *severityStrP;
+  switch (level)
+    {
+      case report_info:
+        reason = ddeutils_THROWBACK_INFO_DETAILS;
+        severity = 0;
+        severityStrP = "info";
+        break;
+      case report_warning:
+        reason = ddeutils_THROWBACK_ERROR_DETAILS;
+        severity = ddeutils_SEVERITY_WARNING;
+        severityStrP = "warning";
+        break;
+      case report_error:
+      default:
+        reason = ddeutils_THROWBACK_ERROR_DETAILS;
+        severity = ddeutils_SEVERITY_ERROR;
+        severityStrP = "error";
+        break;
+    }
+
+  fprintf(stderr, "%s:%d:%s: %s\n", sessionP->achFileIn, linenr, severityStrP, achError);
+  if (sessionP->fThrowback)
+    xddeutils_throwback_send(reason, sessionP->achFileIn, linenr, severity, achError);
+}
+
+void report_end_throwback(DATA *sessionP)
+{
+  if (sessionP->fThrowback)
+    {
+      xddeutils_throwback_end();
+      sessionP->fThrowback = false;
+    }
+}
+#endif

@@ -22,13 +22,30 @@
 #ifndef CONVERT_HEADER_INCLUDED
 #define CONVERT_HEADER_INCLUDED
 
-#include "ccres.h"
+#include <stdbool.h>
 
-// Returns 0 for error, 1 otherwise.
-int ccres_initialise(DATA *sessionP);
-// Returns 0 for error, 1 otherwise.
-int ccres_finish(void);
-// Returns 0 for error, 1 otherwise.
-bool ccres_convert(DATA *data, const char *pszOutFile);
+#include <oslib/osfile.h>
+
+typedef struct session_s DATA;
+typedef enum {
+  report_info,
+  report_warning,
+  report_error
+} report_level;
+typedef void (*report_cb)(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);
+typedef void (*report_end_cb)(DATA *sessionP);
+
+// Returns NULL in case of failure.
+DATA *ccres_initialise(void);
+// Returns false for error, true otherwise.
+bool ccres_finish(DATA *sessionP);
+// Returns false for error, true otherwise.
+bool ccres_convert(DATA *sessionP, const char *pszOutFile);
+
+// The routine 'report_routine' gets called in case of info, warning or error reporting.
+// The routine 'report_end' will be called when all the reporting has been done.
+void ccres_install_report_routine(DATA *sessionP, report_cb report_routine, report_end_cb report_end_routine);
+
+bits ccres_get_filetype_out(DATA *sessionP);
 
 #endif

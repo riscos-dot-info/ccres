@@ -27,7 +27,7 @@
 #include "ccres.h"
 
 int window_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object);
-void window_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
+void window_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
 int window_text2template(DATA *data, const char *pszIn, int nOffset, wimp_window_base *object);
 void window_template2text(DATA *data, FILE *hf, const char *pszBuff, int size);
 

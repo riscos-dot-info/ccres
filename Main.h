@@ -26,7 +26,7 @@
 #include "ccres.h"
 
 typedef struct {
-  DATA libData;
+  DATA *sessionP;
 
   bool fRunning;			// see check_quit()
   bool fUnsafeLoad;

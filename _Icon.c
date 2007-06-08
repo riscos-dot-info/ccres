@@ -57,7 +57,7 @@ return sizeof(button_object);
 }
 
 
-        void button_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void button_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      =============================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, ButtonObjectList, ELEMENTS(ButtonObjectList), 2);

@@ -77,7 +77,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, ActionbuttonObjectList, ELEMEN
 return sizeof(actionbutton_object);
 }
 
-        void actionbutton_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void actionbutton_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ====================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, ActionbuttonObjectList, ELEMENTS(ActionbuttonObjectList), 2);
@@ -107,7 +107,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, AdjusterObjectList, ELEMENTS(A
 return sizeof(adjuster_object);
 }
 
-        void adjuster_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void adjuster_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, AdjusterObjectList, ELEMENTS(AdjusterObjectList), 2);
@@ -136,7 +136,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, DisplayFieldObjectList, ELEMEN
 return sizeof(displayfield_object);
 }
 
-        void displayfield_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void displayfield_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ====================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, DisplayFieldObjectList, ELEMENTS(DisplayFieldObjectList), 2);
@@ -172,7 +172,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, DraggableObjectList, ELEMENTS(
 return sizeof(draggable_object);
 }
 
-        void draggable_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void draggable_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      =================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, DraggableObjectList, ELEMENTS(DraggableObjectList), 2);
@@ -202,7 +202,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, LabelObjectList, ELEMENTS(Labe
 return sizeof(label_object);
 }
 
-        void label_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void label_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      =============================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, LabelObjectList, ELEMENTS(LabelObjectList), 2);
@@ -231,7 +231,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, LabelledBoxObjectList, ELEMENT
 return sizeof(labelledbox_object);
 }
 
-        void labelledbox_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void labelledbox_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, LabelledBoxObjectList, ELEMENTS(LabelledBoxObjectList), 2);
@@ -336,7 +336,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, NumberRangeObjectList, ELEMENT
 return sizeof(numberrange_object);
 }
 
-        void numberrange_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void numberrange_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===================================================================================================================
 {
 	get_objects(data, hf, strMsgTableP, (const char *)gadget, NumberRangeObjectList, ELEMENTS(NumberRangeObjectList), 2);
@@ -366,7 +366,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, OptionButtonObjectList, ELEMEN
 return sizeof(optionbutton_object);
 }
 
-        void optionbutton_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void optionbutton_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ====================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, OptionButtonObjectList, ELEMENTS(OptionButtonObjectList), 2);
@@ -394,7 +394,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, PopupObjectList, ELEMENTS(Popu
 return sizeof(popup_object);
 }
 
-        void popup_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void popup_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      =============================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, PopupObjectList, ELEMENTS(PopupObjectList), 2);
@@ -426,7 +426,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, RadioButtonObjectList, ELEMENT
 return sizeof(radiobutton_object);
 }
 
-        void radiobutton_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void radiobutton_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, RadioButtonObjectList, ELEMENTS(RadioButtonObjectList), 2);
@@ -456,7 +456,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, ScrolllistObjectList, ELEMENTS
 return sizeof(scrolllist_object);
 }
 
-        void scrolllist_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void scrolllist_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ==================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, ScrolllistObjectList, ELEMENTS(ScrolllistObjectList), 2);
@@ -549,7 +549,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, SliderObjectList, ELEMENTS(Sli
 return sizeof(slider_object);
 }
 
-        void slider_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void slider_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ==============================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, SliderObjectList, ELEMENTS(SliderObjectList), 2);
@@ -591,7 +591,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, StringsetObjectList, ELEMENTS(
 return sizeof(stringset_object);
 }
 
-        void stringset_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void stringset_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      =================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, StringsetObjectList, ELEMENTS(StringsetObjectList), 2);
@@ -629,7 +629,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, TextAreaObjectList, ELEMENTS(T
 return sizeof(textarea_object);
 }
 
-        void textarea_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void textarea_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, TextAreaObjectList, ELEMENTS(TextAreaObjectList), 2);
@@ -671,7 +671,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, ToolActionObjectList, ELEMENTS
 return sizeof(toolaction_object);
 }
 
-        void toolaction_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void toolaction_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ==================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, ToolActionObjectList, ELEMENTS(ToolActionObjectList), 2);
@@ -706,7 +706,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, WritableFieldObjectList, ELEME
 return sizeof(writablefield_object);
 }
 
-        void writablefield_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void writablefield_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      =====================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, WritableFieldObjectList, ELEMENTS(WritableFieldObjectList), 2);
@@ -736,7 +736,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, TabsObjectList, ELEMENTS(TabsO
 return sizeof(tabs_object);
 }
 
-        void tabs_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void tabs_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, TabsObjectList, ELEMENTS(TabsObjectList), 2);
@@ -780,7 +780,7 @@ put_objects(data, pszIn, nOffset, (char *)gadget, TreeviewObjectList, ELEMENTS(T
 return sizeof(treeview_object);
 }
 
-        void treeview_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
+        void treeview_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 //      ================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)gadget, TreeviewObjectList, ELEMENTS(TreeviewObjectList), 2);

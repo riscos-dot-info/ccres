@@ -9,7 +9,8 @@ HOST_CC = /usr/bin/gcc
 HOST_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -DHAVE_STRCASECMP -DHAVE_STRNCASECMP
 # Using the GCCSDK cross-compiler:
 CROSS_CC = ${GCCSDK_INSTALL_CROSSBIN}/gcc
-CROSS_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -mpoke-function-name -mlibscl
+CROSS_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -mpoke-function-name
+# -mlibscl
 
 ifeq ($(CROSS_COMPILE),)
 CC=$(HOST_CC)

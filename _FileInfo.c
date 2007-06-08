@@ -53,7 +53,7 @@ return sizeof(fileinfo_object);
 }
 
 
-        void fileinfo_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
+        void fileinfo_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===============================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);

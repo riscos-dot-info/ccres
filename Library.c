@@ -23,9 +23,9 @@
 #if !defined(HAVE_STRCASECMP) || !defined(HAVE_STRNCASECMP)
 #  include <ctype.h>
 #endif
+#include <stdbool.h>
 #include <stdint.h>
 
-#include "ccres.h"
 #include "Library.h"
 
 /* DESC. | Same as strcpy() @ string.h, but returns strlen()

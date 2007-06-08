@@ -33,7 +33,7 @@ const char *cpStrP;
 
 if (len < 2 || strP[0] != '0' || strP[1] != 'x')
   {
-  report(data, strP, "Unknown hex construction '%.*s'", len, strP);
+  data->report(data, report_error, report_getlinenr(data, strP), "Unknown hex construction '%.*s'", len, strP);
   *resultP = 0;
   return;
   }
@@ -49,13 +49,13 @@ for (cpStrP = strP + 2, len -= 2; len-- > 0; ++cpStrP)
     nextResult = (result << 4) + *cpStrP - 'a' + 10;
   else
     {
-    report(data, strP, "Unknown hex construction '%.*s'", len, strP);
+    data->report(data, report_error, report_getlinenr(data, strP), "Unknown hex construction '%.*s'", len, strP);
     *resultP = 0;
     return;
     }
   if (nextResult < result)
     {
-    report(data, strP, "Hex overflow '%.*s'", len, strP);
+    data->report(data, report_error, report_getlinenr(data, strP), "Hex overflow '%.*s'", len, strP);
     *resultP = 0;
     return;
     }
@@ -71,13 +71,13 @@ for (cpStrP = strP + 2, len -= 2; len-- > 0; ++cpStrP)
 FILE *fhandle;
 if ((fhandle = fopen(filenameP, "rb")) == NULL)
   {
-  error(sessionP, "Can not open file <%s> for input", filenameP);
+  sessionP->report(sessionP, report_error, 0, "Can not open file <%s> for input", filenameP);
   return 0;
   }
 char buffer[16];
 if (fread(buffer, sizeof(buffer), 1, fhandle) != 1)
   {
-  error(sessionP, "Can't read the file contents <%s>", filenameP);
+  sessionP->report(sessionP, report_error, 0, "Can't read the file contents <%s>", filenameP);
   return 0;
   }
 fclose(fhandle);
@@ -112,7 +112,7 @@ if (sessionP->pszIn != NULL)
 FILE *fhandle;
 if ((fhandle = fopen(pszPath, "rb")) == NULL)
   {
-  error(sessionP, "Can not open file <%s> for input", pszPath);
+  sessionP->report(sessionP, report_error, 0, "Can not open file <%s> for input", pszPath);
   return false;
   }
 fseek(fhandle, 0, SEEK_END);
@@ -125,7 +125,7 @@ if ((pszIn = (char *) MyAlloc(cbIn)) == NULL)
 
 if (fread(pszIn, cbIn, 1, fhandle) != 1)
   {
-  error(sessionP, "Can not read file <%s>", pszPath);
+  sessionP->report(sessionP, report_error, 0, "Can not read file <%s>", pszPath);
   MyFree(pszIn);
   return false;
   }
@@ -133,9 +133,9 @@ fclose(fhandle); fhandle = NULL;
 
 sessionP->pszIn = pszIn;
 sessionP->cbIn = cbIn;
+strcpy(sessionP->achFileIn, pszPath);	// for throwback
 if (nFiletype == osfile_TYPE_TEXT)
   {
-  strcpy(sessionP->achTextFile, pszPath);	// for throwback
   while (--cbIn >= 0)
     {
     if (pszIn[cbIn] == '\n')		// replace newlines with NULLs
@@ -148,7 +148,7 @@ if (nFiletype == osfile_TYPE_TEXT)
     sessionP->nFiletypeOut = osfile_TYPE_TEMPLATE;
   else
     {
-    error(sessionP, "Unrecognized input file type for %s", pszPath);
+    sessionP->report(sessionP, report_error, 0, "Unrecognized input file type for %s", pszPath);
     return false;
     }
   }

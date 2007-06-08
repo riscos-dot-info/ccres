@@ -22,10 +22,18 @@
 #ifndef ERROR_HEADER_INCLUDED
 #define ERROR_HEADER_INCLUDED
 
-#include "ccres.h"
+#include <stdarg.h>
+#include "Convert.h"
 
-void report(DATA *data, const char *ptrP, const char *pszFmt, ...);
-void report_end(DATA *data);
-void error(DATA *data, const char *pszFmt, ...);
+void report_stderr(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);
+void report_varg_stderr(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list);
+void report_end_stderr(DATA *sessionP);
+#ifdef __riscos__
+void report_throwback(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);
+void report_varg_throwback(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list);
+void report_end_throwback(DATA *sessionP);
+#endif
+
+unsigned int report_getlinenr(const DATA *sessionP, const char *ptrP);
 
 #endif

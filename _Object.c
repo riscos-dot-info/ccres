@@ -155,7 +155,7 @@ static const char *parse(DATA *data, const char *pszIn, const char *pszEntry)
 			return p + cb;
 		}
 	}
-	report(data, pszIn, "Missing entry '%s'", --pszEntry);
+	data->report(data, report_error, report_getlinenr(data, pszIn), "Missing entry '%s'", --pszEntry);
 	return NULL;
 }
 
@@ -184,11 +184,11 @@ while ((c = *inP++) >= ' '
     --maxSize;
   }
 if (c >= ' ' && c != '"')
-  report(data, inP, "Can only store first %d characters of string '%s'", fixMaxSize, fixInP);
+  data->report(data, report_error, report_getlinenr(data, inP), "Can only store first %d characters of string '%s'", fixMaxSize, fixInP);
 else if (isQuoted)
   {
     if (c != '"')
-      report(data, inP, "Incorrect quoted string '%s'", fixInP);
+      data->report(data, report_error, report_getlinenr(data, inP), "Incorrect quoted string '%s'", fixInP);
   }
 if (maxSize >= 1)
   *outP++ = '\0';
@@ -209,7 +209,7 @@ static bool put_string(DATA *data, const char *pszIn, int nOffset, char *object,
 		pTable = &data->MessageTable;
 		nTable = toolbox_RELOCATE_MSG_REFERENCE;
 	} else {
-		error(data, "Unexpected string table type (%d)", StringList->nTable);
+		data->report(data, report_error, report_getlinenr(data, pszIn), "Unexpected string table type (%d)", StringList->nTable);
 		return false;
 	}
 	// cbEntry includes terminating character.
@@ -226,7 +226,7 @@ static bool put_string(DATA *data, const char *pszIn, int nOffset, char *object,
 			if (cbLimit == 0 && cbEntry <= 1)
 				cbEntry = 0;
 			else if (cbLimit < cbEntry) {
-				error(data, "Warning: increased size value for %s from %d to %d to fully include string <%.*s>", StringList->pszEntry, cbLimit, cbEntry, cbEntry ? cbEntry - 1 : cbEntry, &pTable->pstr[pTable->ref]);
+				data->report(data, report_warning, report_getlinenr(data, pszIn), "increased size value for %s from %d to %d to fully include string <%.*s>", StringList->pszEntry, cbLimit, cbEntry, cbEntry ? cbEntry - 1 : cbEntry, &pTable->pstr[pTable->ref]);
 				cbLimit = cbEntry;
 			}
 		}
@@ -236,7 +236,7 @@ static bool put_string(DATA *data, const char *pszIn, int nOffset, char *object,
 
 	write_le_int32(&object[StringList->nEntry], (cbEntry > 1) ? pTable->ref : -1);
 	if (!add_to_reloc_table(&data->RelocTable, StringList->nEntry + nOffset, nTable))
-		error(data, "Failed to add relocation because of lack of free memory");
+		data->report(data, report_error, report_getlinenr(data, pszIn), "Failed to add relocation because of lack of free memory");
 	if (StringList->pszLimit != NULL)
 		write_le_int32(&object[StringList->nLimit], cbLimit);
 	if (cbEntry > 1) {
@@ -286,7 +286,7 @@ static bool put_tstring(DATA *data, const char *pszIn, int nOffset, char *object
 			if (cbLimit == 0 && cbEntry == 1)
 				cbEntry = 0;
 			else if (cbLimit < cbEntry) {
-				error(data, "Warning: increased size value for %s from %d to %d to fully include string <%.*s>", StringList->pszEntry, cbLimit, cbEntry, cbEntry ? cbEntry - 1 : cbEntry, &pTable->pstr[pTable->ref]);
+				data->report(data, report_warning, report_getlinenr(data, pszIn), "increased size value for %s from %d to %d to fully include string <%.*s>", StringList->pszEntry, cbLimit, cbEntry, cbEntry ? cbEntry - 1 : cbEntry, &pTable->pstr[pTable->ref]);
 				cbLimit = cbEntry;
 			}
 		}
@@ -331,7 +331,7 @@ if (pszTable == NULL || ref == -1)
   }
 else if (ref < 0 || ref >= (int)tableSize)
   {
-    error(data, "Error: string index %d is out-of-bounds (string table size is %d)", ref, tableSize);
+    data->report(data, report_error, 0, "string index %d is out-of-bounds (string table size is %d)", ref, tableSize);
     *outSizeP = 0;
     return "";
   }
@@ -364,7 +364,7 @@ switch (StringList->nTable)
     string_table_size = strMsgTableP->messageTableSize;
     break;
   default:
-    error(data, "Unexpected string table type (%d)", StringList->nTable);
+    data->report(data, report_error, 0, "Unexpected string table type (%d)", StringList->nTable);
     return;
   }
 
@@ -380,7 +380,7 @@ if (StringList->pszLimit != NULL)
   // cbLimit = 0 for an empty string is ok (different than get_tstring() !)
   if ((cbLimit == 0 && cbLimit < strSize)
       || (cbLimit != 0 && cbLimit < strSize + 1))
-    error(data, "Warning: string <%.*s> is longer than its given limit value %d", strSize, pstr, cbLimit);
+    data->report(data, report_warning, 0, "string <%.*s> is longer than its given limit value %d", strSize, pstr, cbLimit);
   if (cbLimit > strSize + 1)
     fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
   else
@@ -405,7 +405,7 @@ if (StringList->pszLimit != NULL)
   fputs(pszIndent, hf);
   cbLimit = read_le_int32(&objectP[StringList->nLimit]);
   if (cbLimit < strSize + 1)
-    error(data, "Warning: string <%.*s> is longer than its given limit value %d", strSize, pstr, cbLimit);
+    data->report(data, report_warning, 0, "string <%.*s> is longer than its given limit value %d", strSize, pstr, cbLimit);
   if (cbLimit > strSize + 1)
     fprintf(hf, "%s%d\n", StringList->pszLimit, cbLimit);
   else
@@ -447,7 +447,7 @@ for (p = pstrFlags; *p != '\0'; /* */)
       f |= result;
       }
     else
-      report(data, pstrFlags, "Unknown flag '%.*s'", cb, pstrFlags);
+      data->report(data, report_error, report_getlinenr(data, pstrFlags), "Unknown flag '%.*s'", cb, pstrFlags);
     }
 
   while ((ch = *p) == ' ' || ch == '|')
@@ -498,7 +498,7 @@ static int put_enum(DATA *data, const char *pstrFlags, const FLAGS *pFlags, int 
 		if (fInt) {
 			return my_atoi(&pstrFlags);
 		}
-		report(data, pstrFlags, "Unknown variable '%s'", pstrFlags);
+		data->report(data, report_error, report_getlinenr(data, pstrFlags), "Unknown variable '%s'", pstrFlags);
 	}
 
 	return 0;
@@ -574,7 +574,7 @@ for (p = pstrFlags; *p != '\0'; /* */)
     f |= result;
     }
   else
-    report(data, pstrFlags, "Unknown flag '%.*s'", cb, pstrFlags);
+    data->report(data, report_error, report_getlinenr(data, pstrFlags), "Unknown flag '%.*s'", cb, pstrFlags);
 
 put_iflags_next_flag:
 
@@ -710,7 +710,7 @@ for (int n = 0; n < nObjects; n++, ObjectList++)
 
     case iol_OBJECT:
       if (!add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_OBJECT_OFFSET))
-        error(data, "Failed to add relocation because of lack of free memory");
+        data->report(data, report_error, report_getlinenr(data, pszIn), "Failed to add relocation because of lack of free memory");
       break;
 
     default:
@@ -762,7 +762,7 @@ for (int n = 0; n < nObjects; n++, ObjectList++)
           case iol_SPRITE:
             write_le_uint32(&Object[ObjectList->nEntry], my_atoi(&pszEntry));
             if (!add_to_reloc_table(&data->RelocTable, ObjectList->nEntry, toolbox_RELOCATE_SPRITE_AREA_REFERENCE))
-              error(data, "Failed to add relocation because of lack of free memory");
+              data->report(data, report_error, report_getlinenr(data, pszIn), "Failed to add relocation because of lack of free memory");
             break;
           case iol_CHARPTR:
             put_pstr(data, &Object[ObjectList->nEntry], pszEntry, ObjectList->nData);
@@ -786,7 +786,7 @@ for (int n = 0; n < nObjects; n++, ObjectList++)
             break;
             }
           default:
-            error(data, "Unknown iol_ value (%d)", ObjectList->nTable);
+            data->report(data, report_error, report_getlinenr(data, pszIn), "Unknown iol_ value (%d)", ObjectList->nTable);
             break;
           }
         }
@@ -899,7 +899,7 @@ for (n = 0; n < nObjects; n++, ++ObjectList)
         break;
         }
       default:
-        error(data, "Unknown iol_ value (%d)", ObjectList->nTable);
+        data->report(data, report_error, 0, "Unknown iol_ value (%d)", ObjectList->nTable);
         break;
       }
     }
@@ -952,7 +952,7 @@ const char *object_end(DATA *data, const char *pszIn, const char *pszEnd)
 		if ((ch = *p++) == ':' || ch == '#') {  // skip values and comments
 			while (*p++ >= ' ') {
 				if (p >= pszEnd) {
-					report(data, pszIn, "Missing brace }");
+					data->report(data, report_error, report_getlinenr(data, pszIn), "Missing brace }");
 					return NULL;
 				}
 			}
@@ -963,7 +963,7 @@ const char *object_end(DATA *data, const char *pszIn, const char *pszEnd)
 				nDepth--;
 			}
 			if (p >= pszEnd) {
-				report(data, pszIn, "Missing brace }");
+				data->report(data, report_error, report_getlinenr(data, pszIn), "Missing brace }");
 				return NULL;
 			}
 		}
@@ -1019,7 +1019,7 @@ void object_text2resource(DATA *data, FILE *hf, const char *pszIn, char *pszOut,
 }
 
 
-void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base *object, object2text o2t)
+void object_resource2text(DATA *data, FILE *hf, const toolbox_relocatable_object_base *object, object2text o2t)
 {
   // Check string, message and relocation table are in this order:
   int nextMinOffset = offsetof(toolbox_relocatable_object_base, rf_obj)
@@ -1029,7 +1029,7 @@ void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base 
     {
       if (object->string_table_offset != nextMinOffset)
         {
-          error(data, "Unexpected string table offset (is 0x%x, expected 0x%x)", object->string_table_offset, nextMinOffset);
+          data->report(data, report_error, 0, "Unexpected string table offset (is 0x%x, expected 0x%x)", object->string_table_offset, nextMinOffset);
           return;
         }
     }
@@ -1037,7 +1037,7 @@ void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base 
     {
       if (object->message_table_offset < nextMinOffset)
         {
-          error(data, "Unexpected message table offset (is 0x%x, expected to be bigger or equal than 0x%x)", object->message_table_offset, nextMinOffset);
+          data->report(data, report_error, 0, "Unexpected message table offset (is 0x%x, expected to be bigger or equal than 0x%x)", object->message_table_offset, nextMinOffset);
           return;
         }
       nextMinOffset = object->message_table_offset;
@@ -1046,13 +1046,13 @@ void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base 
     {
       if (object->relocation_table_offset < nextMinOffset)
         {
-          error(data, "Unexpected relocation table offset (is 0x%x, expected to be bigger or equal than 0x%x)", object->relocation_table_offset, nextMinOffset);
+          data->report(data, report_error, 0, "Unexpected relocation table offset (is 0x%x, expected to be bigger or equal than 0x%x)", object->relocation_table_offset, nextMinOffset);
           return;
         }
       if ((unsigned int)object->relocation_table_offset != offsetof(toolbox_relocatable_object_base, rf_obj)
                                                + object->rf_obj.size)
         {
-          error(data, "Unexpected relocation table offset (is 0x%x, expected to be 0x%x)", object->relocation_table_offset, offsetof(toolbox_relocatable_object_base, rf_obj) + object->rf_obj.size);
+          data->report(data, report_error, 0, "Unexpected relocation table offset (is 0x%x, expected to be 0x%x)", object->relocation_table_offset, offsetof(toolbox_relocatable_object_base, rf_obj) + object->rf_obj.size);
           return;
         }
     }

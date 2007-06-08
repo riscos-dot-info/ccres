@@ -31,7 +31,7 @@ void get_objects(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const
 const char *next_object(const char **pszIn, const char *pszEnd);
 const char *object_end(DATA *data, const char *pszIn, const char *pszEnd);
 void object_text2resource(DATA *data, FILE *hf, const char *pszIn, char *pszOut, const CLASSES *pClass);
-void object_resource2text(DATA *data, FILE *hf, toolbox_relocatable_object_base *object, object2text o2t);
+void object_resource2text(DATA *data, FILE *hf, const toolbox_relocatable_object_base *object, object2text o2t);
 
 bool alloc_string_table(STRINGTABLE *pTable);
 bool add_to_reloc_table(RELOCTABLE *pRelocTable, int nEntry, int nTable);

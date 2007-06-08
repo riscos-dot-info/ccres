@@ -24,7 +24,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "ccres.h"
 #include "Error.h"
 #include "Filer.h"
 #include "Utils.h"
@@ -58,13 +57,13 @@ void message_data_load(APPDATA *data)
 	if ((file_type = msg->data.data_xfer.file_type) == osfile_TYPE_TEXT
 	    || file_type == osfile_TYPE_RESOURCE
 	    || file_type == osfile_TYPE_TEMPLATE) {
-		if (load_file(&data->libData, msg->data.data_xfer.file_name, file_type)) {
-			saveas_set_file_type(0, data->idSaveAs, data->libData.nFiletypeOut);
+		if (load_file(data->sessionP, msg->data.data_xfer.file_name, file_type)) {
+			saveas_set_file_type(0, data->idSaveAs, ccres_get_filetype_out(data->sessionP));
 			saveas_set_file_size(0, data->idSaveAs, -1);
 			toolbox_show_object(0, data->idSaveAs, toolbox_POSITION_AT_POINTER, NULL, data->idBaricon, toolbox_NULL_COMPONENT);
 		}
 	} else {
-		error(&data->libData, "Filetype must be Text (fff), Resource (fae) or Template (fec)");
+		data->sessionP->report(data->sessionP, report_error, 0, "Filetype must be Text (fff), Resource (fae) or Template (fec)");
 	}
 	if (data->fUnsafeLoad) {
 		remove(achScrapFile);

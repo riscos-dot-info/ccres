@@ -27,40 +27,40 @@
 #include "ccres.h"
 
 int actionbutton_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void actionbutton_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void actionbutton_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int adjuster_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void adjuster_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void adjuster_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int displayfield_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void displayfield_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void displayfield_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int draggable_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void draggable_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void draggable_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int labelledbox_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void labelledbox_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void labelledbox_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int label_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void label_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void label_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int numberrange_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void numberrange_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void numberrange_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int optionbutton_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void optionbutton_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void optionbutton_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int popup_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void popup_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void popup_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int radiobutton_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void radiobutton_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void radiobutton_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int scrolllist_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void scrolllist_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void scrolllist_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int slider_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void slider_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void slider_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int stringset_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void stringset_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void stringset_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int textarea_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void textarea_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void textarea_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int toolaction_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void toolaction_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void toolaction_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int writablefield_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void writablefield_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void writablefield_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int tabs_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void tabs_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void tabs_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 int treeview_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);
-void treeview_g2t(DATA *data, FILE *hf, gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
+void treeview_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP);
 
 #endif

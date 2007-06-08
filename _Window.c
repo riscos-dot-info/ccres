@@ -272,7 +272,7 @@ int window_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *o
 				put_objects(data, pszIn, nOffset, (char *) gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList));
 				nSize = Gadgets[g].t2g(data, pszIn, nOffset, gadget);
 				if (nSize & 0x3)
-					error(data, "Gadget class '%s' has non aligned size %d", pszObject, nSize);
+					data->report(data, report_error, report_getlinenr(data, pszIn), "Gadget class '%s' has non aligned size %d", pszObject, nSize);
 				gadget->class_no_and_size = (nSize << 16) | Gadgets[g].class_no;
 				gadget = (gadget_object_base *) ((char *) gadget + nSize);
 				gadget_count++;
@@ -280,7 +280,7 @@ int window_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *o
 			}
 		}
 		if (strcasecmp(pszShortcutObject, pszObject) != 0) {
-			error(data, "Unhandled gadget class '%s'", pszObject);
+			data->report(data, report_error, report_getlinenr(data, pszIn), "Unhandled gadget class '%s'", pszObject);
 		}
 
 _window_gadget_added:
@@ -299,17 +299,13 @@ _window_gadget_added:
 }
 
 
-        void window_g2t(DATA *data, FILE * hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
+        void window_g2t(DATA *data, FILE * hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      =============================================================================================================================
 {
-window_object_base *window_object;
-gadget_object_base *gadget;
-keyboardshortcut_object *shortcut;
-
-window_object = (window_object_base *) (object + 1);
+const window_object_base *window_object = (const window_object_base *)(object + 1);
 get_objects(data, hf, strMsgTableP, (const char *)window_object, WindowObjectList, ELEMENTS(WindowObjectList), 1);
 
-shortcut = (keyboardshortcut_object *) ((char *) window_object + (int) window_object->shortcuts);
+const keyboardshortcut_object *shortcut = (const keyboardshortcut_object *)((const char *)window_object + (int) window_object->shortcuts);
 for (int n = 0; n < window_object->shortcut_count; n++, shortcut++)
   {
   fprintf(hf, "  %s {\n", pszShortcutObject);
@@ -317,7 +313,7 @@ for (int n = 0; n < window_object->shortcut_count; n++, shortcut++)
   fputs("  }\n", hf);
   }
 
-gadget = (gadget_object_base *) ((char *) window_object + (int) window_object->gadgets);
+const gadget_object_base *gadget = (const gadget_object_base *)((const char *)window_object + (int) window_object->gadgets);
 for (int n = 0; n < window_object->gadget_count; n++) {
   unsigned int nSize = (gadget->class_no_and_size >> 16);
   unsigned int nClass = (gadget->class_no_and_size & 0xffff);
@@ -332,7 +328,7 @@ for (int n = 0; n < window_object->gadget_count; n++) {
       goto window_gadget_added;
       }
     }
-  error(data, "Unhandled gadget class &%x size %d", nClass, nSize);
+  data->report(data, report_error, 0, "Unhandled gadget class &%x size %d", nClass, nSize);
 
   window_gadget_added:
 

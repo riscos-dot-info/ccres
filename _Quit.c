@@ -50,7 +50,7 @@ return sizeof(quit_object);
 }
 
 
-        void quit_g2t(DATA *data, FILE *hf, toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
+        void quit_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===========================================================================================================================
 {
 get_objects(data, hf, strMsgTableP, (const char *)(object + 1), QuitObjectList, ELEMENTS(QuitObjectList), 1);
