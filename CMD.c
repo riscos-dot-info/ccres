@@ -23,17 +23,19 @@
 /* Standalone command line version of ccres */
 
 // Std C headers :
+#include <stdarg.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "ccres.h"
-#include "Convert.h"
-#include "Error.h"
+// Those are the two only public headers for the core CCRes routines.
+#include "CCRes_Convert.h"
+#include "CCRes_Report.h"
 
 static void give_help(void);
 static void report_cmd(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);
+static void report_varg_cmd(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list);
 static void report_end_cmd(DATA *sessionP);
 
 static int ReturnStatus = EXIT_SUCCESS;
@@ -95,7 +97,7 @@ int main(int argc, char *argv[])
       return EXIT_FAILURE;
     }
 
-  ccres_install_report_routine(sessionP, report_cmd, report_end_cmd);
+  ccres_install_report_routine(sessionP, report_varg_cmd, report_end_cmd);
 
   bits nFileType = ccres_get_filetype_in(sessionP, argv[carg]);
 
@@ -119,18 +121,23 @@ int main(int argc, char *argv[])
 
 static void report_cmd(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...)
 {
+  va_list list;
+  va_start(list, pszFmt);
+  report_varg_cmd(sessionP, level, linenr, pszFmt, list);
+  va_end(list);
+}
+
+static void report_varg_cmd(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list)
+{
   if (level == report_error)
     ReturnStatus = EXIT_FAILURE;
 
-  va_list list;
-  va_start(list, pszFmt);
 #ifdef __riscos__
   if (OptionThrowback)
     report_varg_throwback(sessionP, level, linenr, pszFmt, list);
   else
 #endif
     report_varg_stderr(sessionP, level, linenr, pszFmt, list);
-  va_end(list);
 }
 
 static void report_end_cmd(DATA *sessionP)

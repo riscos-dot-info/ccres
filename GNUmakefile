@@ -50,11 +50,11 @@ CCRES_APPOBJS = Filer.o Main.o Menu.o SaveAs.o
 
 CCRES_CMDOBJS = CMD.o
 
-CCRES_LIBOBJS = Eval.o Convert.o Library.o Error.o \
-	_ColourDbox.o _ColourMenu.o _DCS.o \
-	_FileInfo.o _FontDbox.o _FontMenu.o _Gadgets.o \
-	_Icon.o _Iconbar.o _Menu.o _Object.o _PrintDbox.o \
-	_ProgInfo.o _Quit.o _SaveAs.o _Scale.o _Window.o
+CCRES_LIBOBJS = CCRes_Eval.o CCRes_Convert.o CCRes_Utils.o CCRes_Report.o \
+	CCRes_ColourDbox.o CCRes_ColourMenu.o CCRes_DCS.o \
+	CCRes_FileInfo.o CCRes_FontDbox.o CCRes_FontMenu.o CCRes_Gadgets.o \
+	CCRes_Icon.o CCRes_Iconbar.o CCRes_Menu.o CCRes_Object.o CCRes_PrintDbox.o \
+	CCRes_ProgInfo.o CCRes_Quit.o CCRes_SaveAs.o CCRes_Scale.o CCRes_Window.o
 
 ifeq ($(CROSS_COMPILE),)
 CCRES_APPDATA = 

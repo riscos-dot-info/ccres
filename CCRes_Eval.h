@@ -1,6 +1,6 @@
-/* Main.h
+/* CCRes_Eval.h
 
-   Copyright (c) 2007-2007 John Tytgat
+   Copyright (c) 2005-2007 John Tytgat
 
    This file is part of CCres.
 
@@ -19,29 +19,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef MAIN_HEADER_INCLUDED
-#define MAIN_HEADER_INCLUDED
+#ifndef CCRES_EVAL_HEADER_INCLUDED
+#define CCRES_EVAL_HEADER_INCLUDED
 
-#include <oslib/saveas.h>
+#include "CCRes_Internal.h"
 
-#include "CCRes_Convert.h"
-
-typedef struct
-  {
-    DATA *sessionP;
-
-    bool fRunning;			// see check_quit()
-    bool fUnsafeLoad;
-    wimp_t task;
-    toolbox_o idBaricon, idSaveAs;	// toolbox objects created from res file
-    osspriteop_area *pSprites;		// ...and sprite area
-    toolbox_block tb;			// ...easy-access toolbox block
-    union {
-        saveas_action_save_to_file_block sa;
-        toolbox_action ta;			// ...and action data
-        wimp_block wb;
-      } poll;
-  }
-APPDATA;
+int Eval(DATA *data, const char **pstr);
 
 #endif

@@ -24,7 +24,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "Error.h"
 #include "Filer.h"
 #include "Main.h"
 
@@ -66,7 +65,7 @@ void message_data_load(APPDATA *data)
     }
   else
     {
-      data->sessionP->report(data->sessionP, report_error, 0, "Filetype must be Text (fff), Resource (fae) or Template (fec)");
+      ccres_report(data->sessionP, report_error, 0, "Filetype must be Text (fff), Resource (fae) or Template (fec)");
     }
   if (data->fUnsafeLoad)
     {

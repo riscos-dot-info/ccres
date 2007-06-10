@@ -25,7 +25,7 @@
 
 #include <oslib/saveas.h>
 
-#include "Convert.h"
+#include "CCRes_Convert.h"
 #include "SaveAs.h"
 
 void action_save_to_file(APPDATA *data)

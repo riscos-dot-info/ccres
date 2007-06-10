@@ -32,9 +32,10 @@
 #include <oslib/taskwindow.h>
 #include <oslib/wimpreadsysinfo.h>
 
-// Project headers :
-#include "Convert.h"
-#include "Error.h"
+// Core CCRes headers :
+#include "CCRes_Convert.h"
+#include "CCRes_Report.h"
+// Application CCRes headers:
 #include "Filer.h"
 #include "Main.h"
 #include "Menu.h"
@@ -42,6 +43,7 @@
 
 #define APPNAME	"CCres"
 #define APPDIR	"<"APPNAME"$Dir>"
+#define ELEMENTS(a) (sizeof(a)/sizeof(a[0]))
 
 #define action_MENU_QUIT	0x01
 
@@ -53,6 +55,7 @@ static void toolbox_error(APPDATA *data);
 static int question(const char *pszKeys, bits nErr, const char *pszFmt, ...);
 
 static void report_wimp(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);
+static void report_varg_wimp(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list);
 static void report_end_wimp(DATA *sessionP);
 
 // Toolbox action codes returned by WimpPoll - each action has an associated handler
@@ -137,13 +140,13 @@ int main(int argc, char *argv[])
       return EXIT_FAILURE;
     }
 
-  ccres_install_report_routine(data.sessionP, report_wimp, report_end_wimp);
+  ccres_install_report_routine(data.sessionP, report_varg_wimp, report_end_wimp);
 
   int nVersion;
   messagetrans_control_block cb;
   os_error *perr;
   if ((perr = xtoolbox_initialise(0, 310, Message, Action, APPDIR, &cb, &data.tb, &nVersion, &data.task, &data.pSprites)) != NULL)
-    data.sessionP->report(data.sessionP, report_error, 0, "%s", perr->errmess);
+    ccres_report(data.sessionP, report_error, 0, "%s", perr->errmess);
   else
     {
       data.fRunning = ccres_appl_initialise(&data);
@@ -189,6 +192,12 @@ static void report_wimp(DATA *sessionP, report_level level, unsigned int linenr,
 {
   va_list list;
   va_start(list, pszFmt);
+  report_varg_wimp(sessionP, level, linenr, pszFmt, list);
+  va_end(list);
+}
+
+static void report_varg_wimp(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list)
+{
   if (level == report_error)
     {
       os_error err;
@@ -199,7 +208,6 @@ static void report_wimp(DATA *sessionP, report_level level, unsigned int linenr,
 
   if (sessionP != NULL)
     report_varg_throwback(sessionP, level, linenr, pszFmt, list);
-  va_end(list);
 }
 
 static void report_end_wimp(DATA *sessionP)
