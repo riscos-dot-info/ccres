@@ -29,7 +29,6 @@
 // OSLib headers :
 #include <oslib/proginfo.h>
 #include <oslib/saveas.h>
-#include <oslib/taskwindow.h>
 #include <oslib/wimpreadsysinfo.h>
 
 // Core CCRes headers :
