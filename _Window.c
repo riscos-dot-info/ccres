@@ -332,7 +332,7 @@ for (int n = 0; n < window_object->gadget_count; n++) {
 
   window_gadget_added:
 
-  gadget = (gadget_object_base *) ((char *) gadget + nSize);
+  gadget = (const gadget_object_base *) ((const char *) gadget + nSize);
   }
 }
 

@@ -300,7 +300,7 @@ static const OBJECTLIST TemplateFontDataList[] = {
 };
 
 
-static void get_template_fonts(DATA *data, FILE *hf, const template_font_data *font_data, template_font_data *end)
+static void get_template_fonts(DATA *data, FILE *hf, const template_font_data *font_data, const template_font_data *end)
 {
 	template_font_data temp;
 
@@ -460,7 +460,7 @@ for (obj = (const template_index *)(template_hdr + 1); obj->offset != 0; ++obj)
 if (template_hdr->font_offset != template_NO_FONTS)
   {
   const template_index *end = (const template_index *)&data->pszIn[data->cbIn];
-  get_template_fonts(data, hf, (const template_font_data *)(data->pszIn + template_hdr->font_offset), (template_font_data *) end);
+  get_template_fonts(data, hf, (const template_font_data *)(data->pszIn + template_hdr->font_offset), (const template_font_data *) end);
   }
 fclose(hf);
 #ifdef __riscos__
@@ -485,8 +485,6 @@ return true;
 
   // Setup default stderr reporting:
   ccres_install_report_routine(sessionP, report_stderr, report_end_stderr);
-
-  sessionP->returnStatus = EXIT_SUCCESS;
 
   return sessionP;
 }

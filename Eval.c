@@ -139,7 +139,7 @@ int Eval(DATA *data, const char **ppstr)
 Eval_SyntaxError:
 
 	data->report(data, report_error, report_getlinenr(data, *ppstr), "Expression syntax error");
-	while (*pstr != '\n' && pstr >= data->pszIn && (pstr - data->pszIn) < data->cbIn)
+	while (*pstr != '\n' && pstr >= data->pszIn && pstr < data->pszIn + data->cbIn)
 	  ++pstr;
 	*ppstr = pstr;
 	return 0;

@@ -121,8 +121,7 @@ typedef struct {
 } OBJECTLIST;
 
 struct session_s {
-  bool fThrowback;
-  int returnStatus;
+  bool fThrowback;		// Throwback has been initialised and must be used.
   const char *pszIn;
   size_t cbIn;
   bits nFiletypeIn, nFiletypeOut;

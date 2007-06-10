@@ -101,14 +101,12 @@ int menu_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *obj
         void menu_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 //      ===========================================================================================================================
 {
-menu_object_base *menu;
-menu_entry_object *entry;
-int n;
-
-menu = (menu_object_base *) (object + 1);
+const menu_object_base *menu = (const menu_object_base *) (object + 1);
 get_objects(data, hf, strMsgTableP, (const char *)menu, MenuObjectList, ELEMENTS(MenuObjectList), 1);
 
-for (n = 0, entry = (menu_entry_object *) (menu + 1); n < menu->entry_count; n++, entry++)
+int n;
+const menu_entry_object *entry;
+for (n = 0, entry = (const menu_entry_object *)(menu + 1); n < menu->entry_count; n++, entry++)
   {
   fprintf(hf, "  Entry {\n    cmp:%d\n", (int) entry->cmp);
   MenuEntryObjectList[0].nTable = (entry->flags & menu_ENTRY_IS_SPRITE) ? iol_STRING : iol_MSG;		// text or sprite?

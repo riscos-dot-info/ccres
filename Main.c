@@ -86,9 +86,9 @@ static const wimp_message_list Message[] =
 static  bool ccres_appl_initialise(APPDATA *data)
 //      ======================================
 {
-data->idBaricon = toolbox_create_object(0, (toolbox_id) "Iconbar");
-data->idSaveAs  = toolbox_create_object(0, (toolbox_id) "SaveAs");
-proginfo_set_version(0, toolbox_create_object(0, (toolbox_id) "ProgInfo"), VERSION);
+data->idBaricon = toolbox_create_object(0, (const toolbox_id) "Iconbar");
+data->idSaveAs  = toolbox_create_object(0, (const toolbox_id) "SaveAs");
+proginfo_set_version(0, toolbox_create_object(0, (const toolbox_id) "ProgInfo"), VERSION);
 
 return true;
 }
@@ -163,10 +163,7 @@ static  void toolbox_error(APPDATA *data)
 //      ==============================
 {
 if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.data.error.errmess) == 1)
-  {
   data->fRunning = false;
-// FIXME:  data->libData.returnStatus = EXIT_FAILURE;
-  }
 }
 
 // return value is zero based index of keys passed in pszKeys
