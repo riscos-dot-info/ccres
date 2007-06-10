@@ -46,8 +46,6 @@ USRLIBS = -L${GCCSDK_INSTALL_ENV}/lib -lOSLib32
 endif
 
 # Object files
-CCRES_APPOBJS = Filer.o Main.o Menu.o SaveAs.o
-
 CCRES_CMDOBJS = CMD.o
 
 CCRES_LIBOBJS = CCRes_Eval.o CCRes_Convert.o CCRes_Utils.o CCRes_Report.o \
@@ -57,9 +55,11 @@ CCRES_LIBOBJS = CCRes_Eval.o CCRes_Convert.o CCRes_Utils.o CCRes_Report.o \
 	CCRes_ProgInfo.o CCRes_Quit.o CCRes_SaveAs.o CCRes_Scale.o CCRes_Window.o
 
 ifeq ($(CROSS_COMPILE),)
+CCRES_APPOBJS =
 CCRES_APPDATA = 
 APPEXT =
 else
+CCRES_APPOBJS = Filer.o Main.o Menu.o SaveAs.o
 CCRES_APPDATA = Release/\!CCres/Res,fae \
 	Release/\!CCres/\!Run,feb \
 	Release/\!CCres/\!Sprites,ff9 \
@@ -73,7 +73,6 @@ APPEXT = ,ff8
 endif
 
 DOBJS = Release/ccres$(APPEXT) $(CCRES_APPDATA)
-	
 
 .PHONY: all clean
 
