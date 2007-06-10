@@ -46,6 +46,9 @@ bool ccres_convert(DATA *sessionP, const char *pszOutFile);
 // The routine 'report_end' will be called when all the reporting has been done.
 void ccres_install_report_routine(DATA *sessionP, report_cb report_routine, report_end_cb report_end_routine);
 
+bool ccres_load_file(DATA *data, const char *pszPath, bits nFiletype);
+
+bits ccres_get_filetype_in(DATA *sessionP, const char *filenameP);
 bits ccres_get_filetype_out(DATA *sessionP);
 
 #endif

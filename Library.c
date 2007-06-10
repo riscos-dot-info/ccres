@@ -26,6 +26,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "Error.h"
 #include "Library.h"
 
 // DESC. | Same as strcpy() @ string.h, but returns strlen()
@@ -181,6 +182,50 @@ int strncasecmp(const char *s1, const char *s2, size_t n)
 }
 #endif
 
+
+void *My_Alloc(int cb, const char *pszFile, int nLine)
+{
+  void *p;
+
+  if ((p = calloc(1, cb)) == NULL)
+    fprintf(stderr, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine);
+  return p;
+}
+
+unsigned int HexToUInt(DATA *data, const char *strP, unsigned int len)
+{
+  unsigned int result;
+  const char *cpStrP;
+
+  if (len < 2 || strP[0] != '0' || strP[1] != 'x')
+    {
+      data->report(data, report_error, report_getlinenr(data, strP), "Unknown hex construction '%.*s'", len, strP);
+      return 0;
+    }
+  result = 0;
+  for (cpStrP = strP + 2, len -= 2; len-- > 0; ++cpStrP)
+    {
+      unsigned int nextResult;
+      if (*cpStrP >= '0' && *cpStrP <= '9')
+        nextResult = (result << 4) + *cpStrP - '0';
+      else if (*cpStrP >= 'A' && *cpStrP <= 'F')
+        nextResult = (result << 4) + *cpStrP - 'A' + 10;
+      else if (*cpStrP >= 'a' && *cpStrP <= 'f')
+        nextResult = (result << 4) + *cpStrP - 'a' + 10;
+      else
+        {
+          data->report(data, report_error, report_getlinenr(data, strP), "Unknown hex construction '%.*s'", len, strP);
+          return 0;
+        }
+      if (nextResult < result)
+        {
+          data->report(data, report_error, report_getlinenr(data, strP), "Hex overflow '%.*s'", len, strP);
+          return 0;
+        }
+      result = nextResult;
+    }
+  return result;
+}
 
 void write_le_int32(void *memP, int32_t value)
 {

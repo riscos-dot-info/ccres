@@ -52,7 +52,6 @@
 #include "ccres.h"
 #include "Error.h"
 #include "Library.h"
-#include "Utils.h"
 #include "tabs_treeview.h"
 #include "_Gadgets.h"
 #include "_Icon.h"

@@ -31,7 +31,6 @@
 #include "ccres.h"
 #include "Convert.h"
 #include "Error.h"
-#include "Utils.h"
 
 static void give_help(void);
 static void report_cmd(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);
@@ -98,14 +97,14 @@ int main(int argc, char *argv[])
 
   ccres_install_report_routine(sessionP, report_cmd, report_end_cmd);
 
-  bits nFileType = get_filetype(sessionP, argv[carg]);
+  bits nFileType = ccres_get_filetype_in(sessionP, argv[carg]);
 
   switch (nFileType)
     {
     case osfile_TYPE_TEXT:
     case osfile_TYPE_RESOURCE:
     case osfile_TYPE_TEMPLATE:
-      if (load_file(sessionP, argv[carg], nFileType))
+      if (ccres_load_file(sessionP, argv[carg], nFileType))
         ccres_convert(sessionP, argv[carg + 1]);
       break;
     default:

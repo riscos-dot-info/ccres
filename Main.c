@@ -38,7 +38,6 @@
 #include "Filer.h"
 #include "Main.h"
 #include "Menu.h"
-#include "Utils.h"
 #include "SaveAs.h"
 
 #define APPNAME	"CCres"

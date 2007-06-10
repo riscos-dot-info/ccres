@@ -50,7 +50,7 @@ CCRES_APPOBJS = Filer.o Main.o Menu.o SaveAs.o
 
 CCRES_CMDOBJS = CMD.o
 
-CCRES_LIBOBJS = Eval.o Convert.o Utils.o Library.o Error.o \
+CCRES_LIBOBJS = Eval.o Convert.o Library.o Error.o \
 	_ColourDbox.o _ColourMenu.o _DCS.o \
 	_FileInfo.o _FontDbox.o _FontMenu.o _Gadgets.o \
 	_Icon.o _Iconbar.o _Menu.o _Object.o _PrintDbox.o \

@@ -26,7 +26,6 @@
 #include "Error.h"
 #include "Eval.h"
 #include "Library.h"
-#include "Utils.h"
 
 // hi nybble = precedence, added to lo nybble to make unique id
 enum {LBRACKET=0x11,ADD=0x21,SUB=0x22,MUL=0x31,DIV=0x32};

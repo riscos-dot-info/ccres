@@ -32,7 +32,6 @@
 #include "Error.h"
 #include "Eval.h"
 #include "Library.h"
-#include "Utils.h"
 #include "_Object.h"
 
 static const FLAGS ObjectHeaderFlags[] =
@@ -470,11 +469,7 @@ static bits put_flags(DATA *data, const char *pstrFlags, const FLAGS *pFlags, in
       if (n == nFlags)
         {
           if (pstrFlags[0] == '0' && pstrFlags[1] == 'x')
-            {
-              unsigned int result;
-              (void)HexToUInt(data, pstrFlags, cb, &result);
-              f |= result;
-            }
+            f |= HexToUInt(data, pstrFlags, cb);
           else
             data->report(data, report_error, report_getlinenr(data, pstrFlags), "Unknown flag '%.*s'", cb, pstrFlags);
         }
@@ -597,11 +592,7 @@ static bits put_iflags(DATA *data, const char *pstrFlags)
             }
         }
       if (pstrFlags[0] == '0' && pstrFlags[1] == 'x')
-        {
-          unsigned int result;
-          (void)HexToUInt(data, pstrFlags, cb, &result);
-          f |= result;
-        }
+        f |= HexToUInt(data, pstrFlags, cb);
       else
         data->report(data, report_error, report_getlinenr(data, pstrFlags), "Unknown flag '%.*s'", cb, pstrFlags);
 

@@ -25,6 +25,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "ccres.h"
+
 int my_strcpy(char *to, const char *from);
 int my_strcpy0d(char *to, const char *from);
 void my_strncpy0d(char *to, const char *from, int max);
@@ -35,6 +37,12 @@ int strcasecmp(const char *s1, const char *s2);
 #ifndef HAVE_STRNCASECMP
 int strncasecmp(const char *s1, const char *s2, size_t n);
 #endif
+
+unsigned int HexToUInt(DATA *data, const char *strP, unsigned int len);
+
+void *My_Alloc(int cb, const char *pszFile, int nLine);
+#define MyAlloc(v) My_Alloc(v, __FILE__, __LINE__)
+#define MyFree(v) free(v)
 
 /* Write integer value 'value' to memory at 'memP' as little endian 4 byte
    integer.  */

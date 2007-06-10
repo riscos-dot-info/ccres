@@ -26,7 +26,6 @@
 
 #include "Error.h"
 #include "Filer.h"
-#include "Utils.h"
 #include "Main.h"
 
 static const char achScrapFile[] = "<Wimp$Scrap>";
@@ -58,7 +57,7 @@ void message_data_load(APPDATA *data)
       || file_type == osfile_TYPE_RESOURCE
       || file_type == osfile_TYPE_TEMPLATE)
     {
-      if (load_file(data->sessionP, msg->data.data_xfer.file_name, file_type))
+      if (ccres_load_file(data->sessionP, msg->data.data_xfer.file_name, file_type))
         {
           saveas_set_file_type(0, data->idSaveAs, ccres_get_filetype_out(data->sessionP));
           saveas_set_file_size(0, data->idSaveAs, -1);

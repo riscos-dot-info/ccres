@@ -147,6 +147,10 @@ struct session_s
     char achFileIn[MAX_PATH];
   };
 
+// memset is (almost certainly) not required... so macro's will do
+#define reset_string_table(pTable) (pTable)->ref=0
+#define reset_reloc_table(pTable) (pTable)->ref=0
+
 typedef int (*text2object)(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object);
 typedef void (*object2text)(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
 typedef int (*text2gadget)(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget);

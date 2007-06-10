@@ -43,7 +43,6 @@
 #include "Convert.h"
 #include "Error.h"
 #include "Library.h"
-#include "Utils.h"
 
 #include "_ColourDbox.h"
 #include "_ColourMenu.h"
@@ -581,6 +580,97 @@ void ccres_install_report_routine(DATA *sessionP, report_cb report_routine, repo
 {
   sessionP->report = report_routine;
   sessionP->report_end = report_end_routine;
+}
+
+// Returns 'false' in case of an error.
+bool ccres_load_file(DATA *sessionP, const char *pszPath, bits nFiletype)
+{
+  sessionP->nFiletypeIn = nFiletype;
+  if (sessionP->pszIn != NULL)
+    MyFree(sessionP->pszIn);
+
+  FILE *fhandle;
+  if ((fhandle = fopen(pszPath, "rb")) == NULL)
+    {
+      sessionP->report(sessionP, report_error, 0, "Can not open file <%s> for input", pszPath);
+      return false;
+    }
+  fseek(fhandle, 0, SEEK_END);
+  int cbIn = (int)ftell(fhandle);
+  fseek(fhandle, 0, SEEK_SET);
+
+  char *pszIn;
+  if ((pszIn = (char *) MyAlloc(cbIn)) == NULL)
+    return false;
+
+  if (fread(pszIn, cbIn, 1, fhandle) != 1)
+    {
+      sessionP->report(sessionP, report_error, 0, "Can not read file <%s>", pszPath);
+      MyFree(pszIn);
+      return false;
+    }
+  fclose(fhandle);
+  fhandle = NULL;
+
+  sessionP->pszIn = pszIn;
+  sessionP->cbIn = cbIn;
+  strcpy(sessionP->achFileIn, pszPath);	// for throwback
+  if (nFiletype == osfile_TYPE_TEXT)
+    {
+      while (--cbIn >= 0)
+        {
+          if (pszIn[cbIn] == '\n')		// replace newlines with NULLs
+            pszIn[cbIn] = '\0';
+        }
+
+      if (!memcmp(pszIn, "RESF:", sizeof("RESF:")-1))
+        sessionP->nFiletypeOut = osfile_TYPE_RESOURCE;
+      else if (!memcmp(pszIn, "Template:", sizeof("Template:")-1))
+        sessionP->nFiletypeOut = osfile_TYPE_TEMPLATE;
+      else
+        {
+          sessionP->report(sessionP, report_error, 0, "Unrecognized input file type for %s", pszPath);
+          return false;
+        }
+    }
+  else
+    sessionP->nFiletypeOut = osfile_TYPE_TEXT;
+
+  return true;
+}
+
+bits ccres_get_filetype_in(DATA *sessionP, const char *filenameP)
+{
+  FILE *fhandle;
+  if ((fhandle = fopen(filenameP, "rb")) == NULL)
+    {
+      sessionP->report(sessionP, report_error, 0, "Can not open file <%s> for input", filenameP);
+      return 0;
+    }
+  char buffer[16];
+  if (fread(buffer, sizeof(buffer), 1, fhandle) != 1)
+    {
+      sessionP->report(sessionP, report_error, 0, "Can't read the file contents <%s>", filenameP);
+      return 0;
+    }
+  fclose(fhandle);
+
+// Binary resource file ?
+  const toolbox_resource_file_base *resFileHdrP = (const toolbox_resource_file_base *)buffer;
+  if (resFileHdrP->file_id == RESF && resFileHdrP->version == 101)
+    return osfile_TYPE_RESOURCE;
+
+// Binary template file ?
+  const int *temFileHdrP = (const int *)buffer;
+  if (temFileHdrP[1] == 0 && temFileHdrP[2] == 0 && temFileHdrP[3] == 0)
+    return osfile_TYPE_TEMPLATE;
+
+// Text file (check for control chars) ?
+  for (unsigned int i = 0; i < sizeof(buffer); ++i)
+    if (buffer[i] < 32 && buffer[i] != 10)
+      return 0;
+
+  return osfile_TYPE_TEXT;
 }
 
 bits ccres_get_filetype_out(DATA *sessionP)
