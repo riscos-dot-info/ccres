@@ -48,7 +48,7 @@ int my_strcpy(char *to, const char *from)
 int my_strcpy0d(char *to, const char *from)
 {
   const char *d = from++;
-  while ((*to++ = *d++) >= ' ')
+  while ((unsigned char)(*to++ = *d++) >= (unsigned char)' ')
     /* */;
 
   return d - from;
@@ -65,7 +65,7 @@ void my_strncpy0d(char *to, const char *from, int max)
   if (max == 0)
     return;
 
-  while (--max && *from >= ' ')
+  while (--max && (unsigned char)*from >= (unsigned char)' ')
     *to++ = *from++;
   *to = '\0';
 }
@@ -198,7 +198,7 @@ unsigned int getlinenr(const DATA *sessionP, const char *ptrP)
   unsigned int nRow;
   for (nRow = 1, pP = sessionP->pszIn; pP < sessionP->pszIn + sessionP->cbIn && pP < ptrP; pP++)
     {
-      if (*pP < ' ')
+      if ((unsigned char)*pP < (unsigned char)' ')
         nRow++;
     }
   if (pP == sessionP->pszIn + sessionP->cbIn)

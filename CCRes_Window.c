@@ -242,32 +242,25 @@ static const OBJECTLIST ShortcutList[] =
 
 int window_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
-  window_object_base *window_object;
-  keyboardshortcut_object *shortcut;
-  gadget_object_base *gadget;
-  const char *pszObject, *pszShortcut, *pszEnd;
-  int shortcut_count, gadget_count, nOffset, nSize;
-
-  window_object = (window_object_base *) (object + 1);
+  window_object_base *window_object = (window_object_base *)(object + 1);
   put_objects(data, pszIn, 0, (char *) window_object, WindowObjectList, ELEMENTS(WindowObjectList));
 
-  pszEnd = data->pszIn + data->cbIn;
-  pszShortcut = pszIn;
-  shortcut = (keyboardshortcut_object *) ((char *) window_object + sizeof(window_object_base));
-  shortcut_count = 0;
+  const char * const pszEnd = data->pszIn + data->cbIn;
+  const char *pszShortcut = pszIn;
+  keyboardshortcut_object *shortcut = (keyboardshortcut_object *)((char *)window_object + sizeof(window_object_base));
+  int shortcut_count = 0;
+  const char *pszObject;
   while ((pszObject = next_object(&pszShortcut, pszEnd)) != NULL)
     {
       if (strcasecmp(pszShortcutObject, pszObject) == 0)
         {
-          nOffset = (int) ((char *) shortcut - (char *) window_object);
+          int nOffset = (int) ((char *) shortcut - (char *) window_object);
           put_objects(data, pszShortcut, nOffset, (char *) shortcut, ShortcutList, ELEMENTS(ShortcutList));
           shortcut++;
           shortcut_count++;
         }
       if ((pszShortcut = object_end(data, pszShortcut, pszEnd)) == NULL)
-        {
-          break;
-        }
+        break;
     }
   if (shortcut_count > 0)
     {
@@ -275,21 +268,19 @@ int window_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *o
       window_object->shortcuts = (toolbox_object_offset) sizeof(window_object_base);
     }
   else
-    {
-      window_object->shortcuts = (toolbox_object_offset) -1;
-    }
+    window_object->shortcuts = (toolbox_object_offset) -1;
 
-  gadget = (gadget_object_base *) shortcut;
-  gadget_count = 0;
+  gadget_object_base *gadget = (gadget_object_base *) shortcut;
+  int gadget_count = 0;
   while ((pszObject = next_object(&pszIn, pszEnd)) != NULL)
     {
       for (unsigned int g = 0; g < ELEMENTS(Gadgets); g++)
         {
           if (strcasecmp(Gadgets[g].name, pszObject) == 0)
             {
-              nOffset = (int) ((char *)gadget - (char *) window_object);
+              int nOffset = (int) ((char *)gadget - (char *) window_object);
               put_objects(data, pszIn, nOffset, (char *)gadget, GadgetHeaderList, ELEMENTS(GadgetHeaderList));
-              nSize = Gadgets[g].t2g(data, pszIn, nOffset, gadget);
+              int nSize = Gadgets[g].t2g(data, pszIn, nOffset, gadget);
               if (nSize & 0x3)
                 ccres_report(data, report_error, getlinenr(data, pszIn), "Gadget class '%s' has non aligned size %d", pszObject, nSize);
               gadget->class_no_and_size = (nSize << 16) | Gadgets[g].class_no;
@@ -311,13 +302,12 @@ _window_gadget_added:
   if (gadget_count > 0)
     {
       window_object->gadget_count = gadget_count;
-      window_object->gadgets = (toolbox_object_offset) ((char *) sizeof(window_object_base) + (shortcut_count * sizeof(keyboardshortcut_object)));
+      window_object->gadgets = (toolbox_object_offset) (sizeof(window_object_base) + (shortcut_count * sizeof(keyboardshortcut_object)));
     }
   else
-    {
-      window_object->gadgets = (toolbox_object_offset) -1;
-    }
-  return (int) ((char *)gadget - (char *) window_object);
+    window_object->gadgets = (toolbox_object_offset) -1;
+
+  return (int) ((char *)gadget - (char *)window_object);
 }
 
 

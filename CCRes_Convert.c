@@ -83,12 +83,11 @@ static bool text2res(DATA *data, const char *pszOutFile)
 {
   toolbox_resource_file_base Hdr;
   FILE *hf;
-  const char *pszIn, *pszEnd, *pszObject;
   char *pszOut;
   bool fHeader;
 
-  pszIn = data->pszIn;
-  pszEnd = data->pszIn + data->cbIn;
+  const char *pszIn = data->pszIn;
+  const char * const pszEnd = data->pszIn + data->cbIn;
   if (memcmp(pszIn, "RESF:1.01", sizeof("RESF:1.01")-1) != 0)
     {
       ccres_report(data, report_error, 0, "File is not RESF v1.01");
@@ -110,11 +109,11 @@ static bool text2res(DATA *data, const char *pszOutFile)
       return false;
     }
 
-  data->fThrowback = false;
   Hdr.file_id = RESF;
   Hdr.version = 101;
   Hdr.header_size = -1;
   fHeader = false;
+  const char *pszObject;
   while ((pszObject = next_object(&pszIn, pszEnd)) != NULL)
     {
       for (unsigned int m = 0; m < ELEMENTS(Classes); m++)
@@ -138,9 +137,7 @@ static bool text2res(DATA *data, const char *pszOutFile)
 
 text2res_added:
       if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL)
-        {
-          break;
-        }
+        break;
     }
   if (!fHeader)
     fwrite(&Hdr, sizeof(Hdr), 1, hf);
@@ -208,10 +205,10 @@ static bool res2text(DATA *data, const char *pszOutFile)
           cb = sizeof(toolbox_relocatable_object_base) - sizeof(obj->rf_obj) + obj->rf_obj.size;
           if (obj->relocation_table_offset != -1)
             {
-              relocation_table = (const int *) (((const char *) obj) + obj->relocation_table_offset);
+              relocation_table = (const int *)((const char *)obj + obj->relocation_table_offset);
               cb += sizeof(int) * (1 + 2 * relocation_table[0]);
             }
-          obj = (const toolbox_relocatable_object_base *) (((const char *) obj) + cb);
+          obj = (const toolbox_relocatable_object_base *)((const char *)obj + cb);
         }
       while (cb != 0 && obj < end);
     }
@@ -263,9 +260,7 @@ static int window_count(const char *pszIn, const char *pszEnd, int *pi)
   while (pszIn < pszEnd)
     {
       if ((ch = *pszIn++) == ':' || ch == '\0')
-        {
-          ch0 = ch;
-        }
+        ch0 = ch;
       else if (ch0 == '\0')
         {
           if (ch == '{')
@@ -284,10 +279,8 @@ static int window_count(const char *pszIn, const char *pszEnd, int *pi)
               d++;
             }
           else if (ch == '}')
-            {
-              d--;
-            }
-        }
+            d--;
+         }
     }
   *pi = maxi;
   return w;
@@ -304,9 +297,7 @@ static int icon_count(const char *pszIn, const char *pszEnd)
   while (pszIn < pszEnd && d > 0)
     {
       if ((ch = *pszIn++) == ':' || ch == '\0')
-        {
-          ch0 = ch;
-        }
+        ch0 = ch;
       else if (ch0 == '\0')
         {
           if (ch == '{')
@@ -315,9 +306,7 @@ static int icon_count(const char *pszIn, const char *pszEnd)
               d++;
             }
           else if (ch == '}')
-            {
-              d--;
-            }
+            d--;
         }
     }
   return i;
@@ -378,12 +367,9 @@ static bool text2template(DATA *data, const char *pszOutFile)
       else
         {
           if ((hf = fopen(pszOutFile, "wb")) == NULL)
-            {
-              ccres_report(data, report_error, 0, "Unable to create output file '%s'", pszOutFile);
-            }
+            ccres_report(data, report_error, 0, "Unable to create output file '%s'", pszOutFile);
           else
             {
-              data->fThrowback = false;
               header = (template_header *) pszTemplate;
               header->font_offset = template_NO_FONTS;
               index = (template_index *) (header + 1);
@@ -415,20 +401,17 @@ static bool text2template(DATA *data, const char *pszOutFile)
                   i->offset = (int) (pszOut - pszTemplate);
                   pszOut += cb;
                   i->type = template_TYPE_WINDOW;
-                  put_objects(data, pszIn, 0, (char *) i, TemplateHeaderList, ELEMENTS(TemplateHeaderList));
+                  put_objects(data, pszIn, 0, (char *)i, TemplateHeaderList, ELEMENTS(TemplateHeaderList));
 // template name is different to icon name because it always needs a terminator, which restricts it to 11 chars
 // to avoid having to write separate code, use the iol_char *data type then apply this bodge...
-                  if (i->name[11] >= ' ')
+                  if ((unsigned char)i->name[11] >= (unsigned char)' ')
                     {
-                      i->name[11] = '\0';
-                      ccres_report(data, report_warning, getlinenr(data, pszObject), "Template name truncated to '%s'", i->name);
+                      ccres_report(data, report_warning, getlinenr(data, pszObject), "Template name truncated to '%.*s'", 11, i->name);
                       i->name[11] = '\r';
                     }
                   i++;
                   if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL)
-                    {
-                      break;
-                    }
+                    break;
                 }
               pszIn = data->pszIn;
               while ((pszObject = next_object(&pszIn, pszEnd)) != NULL)
@@ -436,19 +419,15 @@ static bool text2template(DATA *data, const char *pszOutFile)
                   if (strcasecmp(pszObject, "template_font_data") == 0)
                     {
                       if (header->font_offset == template_NO_FONTS)
-                        {
-                          header->font_offset = (bits) (pszOut - pszTemplate);
-                        }
+                        header->font_offset = (bits) (pszOut - pszTemplate);
 // make sure we're writing to a word-aligned structure...
                       memset(&font_data, 0, sizeof(font_data));
-                      put_objects(data, pszIn, 0, (char *) &font_data, TemplateFontDataList, ELEMENTS(TemplateFontDataList));
+                      put_objects(data, pszIn, 0, (char *)&font_data, TemplateFontDataList, ELEMENTS(TemplateFontDataList));
                       memcpy(pszOut, &font_data, sizeof(font_data));
                       pszOut += sizeof(template_font_data);
                     }
                   if ((pszIn = object_end(data, pszIn, pszEnd)) == NULL)
-                    {
-                      break;
-                    }
+                    break;
 
                 }
               fwrite(pszTemplate, (int) (pszOut - pszTemplate), 1, hf);
@@ -543,6 +522,7 @@ DATA *ccres_initialise(void)
 bool ccres_finish(DATA *sessionP)
 {
   MyFree((void *)sessionP->pszIn);
+  MyFree((void *)sessionP);
 
   return true;
 }

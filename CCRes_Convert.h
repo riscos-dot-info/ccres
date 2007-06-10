@@ -52,6 +52,8 @@ bool ccres_convert(DATA *sessionP, const char *pszOutFile);
 void ccres_install_report_routine(DATA *sessionP, report_cb report_routine, report_end_cb report_end_routine);
 
 // Calls the report routine registered with ccres_install_report_routine().
+// Use for linenr the value 0 if the message to report does not have any direct connection to the
+// textual source line of the input file.
 void ccres_report(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);
 
 bool ccres_load_file(DATA *data, const char *pszPath, bits nFiletype);

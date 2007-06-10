@@ -1,0 +1,11 @@
+A couple of notes for the CCRes developer or product builder:
+
+- Building CCRes can currently only happen via cross-compilation using GCCSDK
+  (3.4.6 or upcoming 4) or using a native compiler on a Unix alike host.  Also
+  the OSLib headers need to be available at $GCCSDK_INSTALL_ENV.
+  Supported platforms can have 32-bit or 64-bit pointers.  For supporting
+  the latter ones, a copy of set of OSLib headers is taken during a non
+  cross-compile build and the pointer type in the copy of the OSLib headers
+  gets changed into a 32-bit int type.
+
+-EOF-

@@ -145,26 +145,22 @@ static const FLAGS CmpFlags[] =
 
 static const char *parse(DATA *data, const char *pszIn, const char *pszEntry)
 {
-  const char *p, *pszEnd;
-  int cb;
-  char ch, ch0;
-
-  ch0 = *pszEntry++;		// it's faster to check first char before calling strncasecmp
-  cb = strlen(pszEntry);
-  p = pszIn;
-  pszEnd = &data->pszIn[data->cbIn] - cb;
+  char ch0 = *pszEntry++;		// it's faster to check first char before calling strncasecmp
+  int cb = strlen(pszEntry);
+  const char *p = pszIn;
+  const char * const pszEnd = &data->pszIn[data->cbIn] - cb;
+  char ch;
   while ((ch = *p++) != '}' && p < pszEnd)
     {
       if (ch == ':' || ch == '#')
         {  // skip values and comments
-          while (*p++ >= ' ' && p < pszEnd)
+          while ((unsigned char)*p++ >= (unsigned char)' ' && p < pszEnd)
             /* */;
         }
       else if (ch == ch0 && strncasecmp(p, pszEntry, cb) == 0)
-        {
-          return p + cb;
-        }
+        return p + cb;
     }
+
   ccres_report(data, report_error, getlinenr(data, pszIn), "Missing entry '%s'", --pszEntry);
   return NULL;
 }
@@ -186,14 +182,14 @@ static int copy_quoted_string(DATA *data, char *outP, const char *inP, int maxSi
   if (maxSize < 0)
     maxSize = INT_MAX;
   const int fixMaxSize = maxSize;
-  while ((c = *inP++) >= ' '
-         && (!isQuoted || c != '"' || *inP >= ' ')
+  while ((unsigned char)(c = *inP++) >= (unsigned char)' '
+         && (!isQuoted || c != '"' || (unsigned char)*inP >= (unsigned char)' ')
          && maxSize > 1)
     {
       *outP++ = c;
       --maxSize;
     }
-  if (c >= ' ' && c != '"')
+  if ((unsigned char)c >= (unsigned char)' ' && c != '"')
     ccres_report(data, report_error, getlinenr(data, inP), "Can only store first %d characters of string '%s'", fixMaxSize, fixInP);
   else if (isQuoted)
     {
@@ -455,7 +451,7 @@ static bits put_flags(DATA *data, const char *pstrFlags, const FLAGS *pFlags, in
       char ch;
       unsigned int cb;
 
-      while ((ch = *p) > ' ' && ch != '|')
+      while ((unsigned char)(ch = *p) > (unsigned char)' ' && ch != '|')
         p++;
       cb = p - pstrFlags;
       for (n = 0; n < nFlags; n++)
@@ -512,7 +508,7 @@ static int put_enum(DATA *data, const char *pstrFlags, const FLAGS *pFlags, int 
 {
   int n;
 
-  if (*pstrFlags > ' ')
+  if ((unsigned char)*pstrFlags > (unsigned char)' ')
     {
       for (n = 0; n < nFlags; n++)
         {
@@ -566,7 +562,7 @@ static bits put_iflags(DATA *data, const char *pstrFlags)
       char ch;
       unsigned int cb;
 
-      while ((ch = *p) > ' ' && ch != '|')
+      while ((unsigned char)(ch = *p) > (unsigned char)' ' && ch != '|')
         p++;
       cb = p - pstrFlags;
 
@@ -759,7 +755,7 @@ void put_objects(DATA *data, const char *pszIn, int nOffset, char *Object, const
                   put_box(data, pszEntry, (os_box *)&Object[ObjectList->nEntry]);
                   break;
                 case iol_BITS:
-                  if (*pszEntry < ' ')
+                  if ((unsigned char)*pszEntry < (unsigned char)' ')
                     write_le_uint32(&Object[ObjectList->nEntry], (ObjectList->nData == bits_ACTION) ? ~0 : 0);
                   else
                     write_le_uint32(&Object[ObjectList->nEntry], (ObjectList->nData == bits_EVAL) ? Eval(data, &pszEntry) : my_atoi(&pszEntry));
@@ -817,9 +813,8 @@ void put_objects(DATA *data, const char *pszIn, int nOffset, char *Object, const
 void get_objects(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const char *objectP, const OBJECTLIST *ObjectList, int nObjects, int nIndent)
 {
   const char * const pszIndent = (nIndent == 1) ? "  " : (nIndent == 2) ? "    " : "";
-  int i, n;
 
-  for (n = 0; n < nObjects; n++, ++ObjectList)
+  for (int n = 0; n < nObjects; n++, ++ObjectList)
     {
       if (ObjectList->nTable != iol_OBJECT)
         { // do nothing for res2text
@@ -908,7 +903,7 @@ void get_objects(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const
             case iol_BCOLS:
             {
               const bits *pBits = (const bits *)&objectP[ObjectList->nEntry];
-              i = (*pBits & wimp_ICON_FG_COLOUR) >> wimp_ICON_FG_COLOUR_SHIFT;
+              int i = (*pBits & wimp_ICON_FG_COLOUR) >> wimp_ICON_FG_COLOUR_SHIFT;
               get_enum(hf, ObjectList->pszEntry, i, WimpColour, ELEMENTS(WimpColour), false);
               fputs(pszIndent, hf);
               i = (*pBits & wimp_ICON_BG_COLOUR) >> wimp_ICON_BG_COLOUR_SHIFT;
@@ -943,11 +938,11 @@ const char *next_object(const char **pszIn, const char *pszEnd)
     }
   // p points to char *after* the brace '{'
   *pszIn = p--;
-  while (p != pszOrgIn && p[-1] <= ' ')
+  while (p != pszOrgIn && (unsigned char)p[-1] <= (unsigned char)' ')
     p--;	// skip trailing spaces
 
   q = p;
-  while (q != pszOrgIn && q[-1] > ' ')
+  while (q != pszOrgIn && (unsigned char)q[-1] > (unsigned char)' ')
     q--;		// find start of name to return
 
   cb = min((size_t) (p - q), sizeof(achObject) - 1);
@@ -969,7 +964,7 @@ const char *object_end(DATA *data, const char *pszIn, const char *pszEnd)
     {
       if ((ch = *p++) == ':' || ch == '#')
         {  // skip values and comments
-          while (*p++ >= ' ')
+          while ((unsigned char)*p++ >= (unsigned char)' ')
             {
               if (p >= pszEnd)
                 {
