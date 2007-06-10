@@ -59,76 +59,75 @@ static void report_end_wimp(DATA *sessionP);
 // Toolbox action codes returned by WimpPoll - each action has an associated handler
 static const toolbox_action_list Action[] =
   {
-  {{action_MENU_QUIT}},
-  {{action_SAVE_AS_SAVE_TO_FILE}},
-  {{action_SAVE_AS_SAVE_COMPLETED}},
-  {{action_ERROR}},
-  {{0}}
+    {{action_MENU_QUIT}},
+    {{action_SAVE_AS_SAVE_TO_FILE}},
+    {{action_SAVE_AS_SAVE_COMPLETED}},
+    {{action_ERROR}},
+    {{0}}
   };
 
 // List of handler functions for the Toolbox actions - each handler corresponds to the action in the list above
 static const action_handler Handler[] =
   {
-  menu_quit,
-  action_save_to_file,
-  action_save_completed,
-  toolbox_error
+    menu_quit,
+    action_save_to_file,
+    action_save_completed,
+    toolbox_error
   };
 
 // Wimp messages (except message_QUIT) that we want to receive
 static const wimp_message_list Message[] =
   {
-  {{message_DATA_SAVE}},
-  {{message_DATA_LOAD}},
-  {{0}}
+    {{message_DATA_SAVE}},
+    {{message_DATA_LOAD}},
+    {{0}}
   };
 
-static  bool ccres_appl_initialise(APPDATA *data)
-//      ======================================
+static bool ccres_appl_initialise(APPDATA *data)
 {
-data->idBaricon = toolbox_create_object(0, (const toolbox_id) "Iconbar");
-data->idSaveAs  = toolbox_create_object(0, (const toolbox_id) "SaveAs");
-proginfo_set_version(0, toolbox_create_object(0, (const toolbox_id) "ProgInfo"), VERSION);
+  data->idBaricon = toolbox_create_object(0, (const toolbox_id) "Iconbar");
+  data->idSaveAs  = toolbox_create_object(0, (const toolbox_id) "SaveAs");
+  proginfo_set_version(0, toolbox_create_object(0, (const toolbox_id) "ProgInfo"), VERSION);
 
-return true;
+  return true;
 }
 
 
-static  void ccres_appl_pollloop(APPDATA *data)
-//      ====================================
+static void ccres_appl_pollloop(APPDATA *data)
 {
-do {
-  wimp_event_no e;
-  if ((e = wimp_poll(wimp_MASK_NULL | wimp_MASK_LEAVING | wimp_MASK_ENTERING, &data->poll.wb, 0)) == toolbox_EVENT)
+  do
     {
-    // is it a toolbox event?
-    // if so, look-up the action number in the Action list, then call the associated handler
-    bits nAction = data->poll.ta.action_no;
-    for (unsigned int a = 0; a < ELEMENTS(Handler); a++)
-      {
-      if (nAction == Action[a].action_nos[0])
+      wimp_event_no e;
+      if ((e = wimp_poll(wimp_MASK_NULL | wimp_MASK_LEAVING | wimp_MASK_ENTERING, &data->poll.wb, 0)) == toolbox_EVENT)
         {
-        Handler[a](data);
-        break;
+          // is it a toolbox event?
+          // if so, look-up the action number in the Action list, then call the associated handler
+          bits nAction = data->poll.ta.action_no;
+          for (unsigned int a = 0; a < ELEMENTS(Handler); a++)
+            {
+              if (nAction == Action[a].action_nos[0])
+                {
+                  Handler[a](data);
+                  break;
+                }
+            }
         }
-      }
+      else if (e == wimp_USER_MESSAGE || e == wimp_USER_MESSAGE_RECORDED)
+        {
+          bits nAction;
+          if ((nAction = data->poll.wb.message.action) == message_QUIT || nAction == message_SHUTDOWN)
+            data->fRunning = false;
+          else if (nAction == message_DATA_SAVE)
+            message_data_save(data);
+          else if (nAction == message_DATA_LOAD)
+            message_data_load(data);
+        }
     }
-  else if (e == wimp_USER_MESSAGE || e == wimp_USER_MESSAGE_RECORDED)
-    {
-    bits nAction;
-    if ((nAction = data->poll.wb.message.action) == message_QUIT || nAction == message_SHUTDOWN)
-      data->fRunning = false;
-    else if (nAction == message_DATA_SAVE)
-      message_data_save(data);
-    else if (nAction == message_DATA_LOAD)
-      message_data_load(data);
-    }
-  } while (data->fRunning);
+  while (data->fRunning);
 }
 
 
-        int main(int argc, char *argv[])
-//      ===============================
+int main(int argc, char *argv[])
 {
   APPDATA data;
 
@@ -148,9 +147,9 @@ do {
     data.sessionP->report(data.sessionP, report_error, 0, "%s", perr->errmess);
   else
     {
-    data.fRunning = ccres_appl_initialise(&data);
-    ccres_appl_pollloop(&data);
-    wimp_close_down(data.task);
+      data.fRunning = ccres_appl_initialise(&data);
+      ccres_appl_pollloop(&data);
+      wimp_close_down(data.task);
     }
 
   (void)ccres_finish(data.sessionP);
@@ -159,34 +158,32 @@ do {
 }
 
 
-static  void toolbox_error(APPDATA *data)
-//      ==============================
+static void toolbox_error(APPDATA *data)
 {
-if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.data.error.errmess) == 1)
-  data->fRunning = false;
+  if (question("Continue,Quit", data->poll.ta.data.error.errnum, data->poll.ta.data.error.errmess) == 1)
+    data->fRunning = false;
 }
 
 // return value is zero based index of keys passed in pszKeys
-static  int question(const char *pszKeys, bits nErr, const char *pszFmt, ...)
-//      =======================================================
+static int question(const char *pszKeys, bits nErr, const char *pszFmt, ...)
 {
-os_error err;
-va_list list;
+  os_error err;
+  va_list list;
 
-err.errnum = nErr;
-va_start(list, pszFmt);
-vsnprintf(err.errmess, sizeof(err.errmess), pszFmt, list);
-va_end(list);
-return wimp_report_error_by_category(
-	&err,
-	wimp_ERROR_BOX_NO_PROMPT |
-	wimp_ERROR_BOX_SHORT_TITLE |
-	wimp_ERROR_BOX_GIVEN_CATEGORY |
-	(wimp_ERROR_BOX_CATEGORY_QUESTION << wimp_ERROR_BOX_CATEGORY_SHIFT),
-	APPNAME,
-	"!"APPNAME,
-	(osspriteop_area *) 1,		// wimp pool
-	pszKeys) - 3;			// ignore standard buttons
+  err.errnum = nErr;
+  va_start(list, pszFmt);
+  vsnprintf(err.errmess, sizeof(err.errmess), pszFmt, list);
+  va_end(list);
+  return wimp_report_error_by_category(
+           &err,
+           wimp_ERROR_BOX_NO_PROMPT |
+           wimp_ERROR_BOX_SHORT_TITLE |
+           wimp_ERROR_BOX_GIVEN_CATEGORY |
+           (wimp_ERROR_BOX_CATEGORY_QUESTION << wimp_ERROR_BOX_CATEGORY_SHIFT),
+           APPNAME,
+           "!"APPNAME,
+           (osspriteop_area *) 1,		// wimp pool
+           pszKeys) - 3;			// ignore standard buttons
 }
 
 static void report_wimp(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...)

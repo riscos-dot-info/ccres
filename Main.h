@@ -25,20 +25,22 @@
 #include <oslib/saveas.h>
 #include "ccres.h"
 
-typedef struct {
-  DATA *sessionP;
+typedef struct
+  {
+    DATA *sessionP;
 
-  bool fRunning;			// see check_quit()
-  bool fUnsafeLoad;
-  wimp_t task;
-  toolbox_o idBaricon, idSaveAs;	// toolbox objects created from res file
-  osspriteop_area *pSprites;		// ...and sprite area
-  toolbox_block tb;			// ...easy-access toolbox block
-  union {
-    saveas_action_save_to_file_block sa;
-    toolbox_action ta;			// ...and action data
-    wimp_block wb;
-  } poll;
-} APPDATA;
+    bool fRunning;			// see check_quit()
+    bool fUnsafeLoad;
+    wimp_t task;
+    toolbox_o idBaricon, idSaveAs;	// toolbox objects created from res file
+    osspriteop_area *pSprites;		// ...and sprite area
+    toolbox_block tb;			// ...easy-access toolbox block
+    union {
+        saveas_action_save_to_file_block sa;
+        toolbox_action ta;			// ...and action data
+        wimp_block wb;
+      } poll;
+  }
+APPDATA;
 
 #endif

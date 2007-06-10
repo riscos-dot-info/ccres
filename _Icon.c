@@ -31,169 +31,174 @@
 
 // Res file button gadget
 
-static const FLAGS ButtonFlags[] = {
-  {button_TASK_SPRITE_AREA , "button_TASK_SPRITE_AREA" },
-  {button_ALLOW_MENU_CLICKS, "button_ALLOW_MENU_CLICKS"},
-  {gadget_FADED            , "gadget_FADED"            },
-  {gadget_AT_BACK          , "gadget_AT_BACK"          }
-};
-
-
-static const OBJECTLIST ButtonObjectList[] = {
-  {iol_FLAGS,  "flags:",        offsetof(button_object, flags),        ButtonFlags,         ELEMENTS(ButtonFlags)                    },
-  {iol_IFLAGS, "button_flags:", offsetof(button_object, button_flags), NULL,                0                                        },
-  {iol_ESG,    "button_esg:",   offsetof(button_object, button_flags), NULL,                0                                        },
-  {iol_BCOLS,  "button_fg:",    offsetof(button_object, button_flags), "button_bg:",        offsetof(button_object, button_flags)    },
-  {iol_MSG,    "value:",        offsetof(button_object, value),        "value_limit:",      offsetof(button_object, value_limit)     },
-  {iol_STRING, "validation:",   offsetof(button_object, validation),   "validation_limit:", offsetof(button_object, validation_limit)}
+static const FLAGS ButtonFlags[] =
+  {
+    {button_TASK_SPRITE_AREA , "button_TASK_SPRITE_AREA" },
+    {button_ALLOW_MENU_CLICKS, "button_ALLOW_MENU_CLICKS"},
+    {gadget_FADED            , "gadget_FADED"            },
+    {gadget_AT_BACK          , "gadget_AT_BACK"          }
   };
 
-        int button_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget)
-//      ======================================================================================
-{
-put_objects(data, pszIn, nOffset, (char *) gadget, ButtonObjectList, ELEMENTS(ButtonObjectList));
 
-return sizeof(button_object);
+static const OBJECTLIST ButtonObjectList[] =
+  {
+    {iol_FLAGS,  "flags:",        offsetof(button_object, flags),        ButtonFlags,         ELEMENTS(ButtonFlags)    },
+    {iol_IFLAGS, "button_flags:", offsetof(button_object, button_flags), NULL,                0                                        },
+    {iol_ESG,    "button_esg:",   offsetof(button_object, button_flags), NULL,                0                                        },
+    {iol_BCOLS,  "button_fg:",    offsetof(button_object, button_flags), "button_bg:",        offsetof(button_object, button_flags)    },
+    {iol_MSG,    "value:",        offsetof(button_object, value),        "value_limit:",      offsetof(button_object, value_limit)     },
+    {iol_STRING, "validation:",   offsetof(button_object, validation),   "validation_limit:", offsetof(button_object, validation_limit)}
+  };
+
+int button_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget)
+{
+  put_objects(data, pszIn, nOffset, (char *)gadget, ButtonObjectList, ELEMENTS(ButtonObjectList));
+
+  return sizeof(button_object);
 }
 
 
-        void button_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
-//      =============================================================================================================
+void button_g2t(DATA *data, FILE *hf, const gadget_object_base *gadget, const TOOLBOXSMTABLE *strMsgTableP)
 {
-get_objects(data, hf, strMsgTableP, (const char *)gadget, ButtonObjectList, ELEMENTS(ButtonObjectList), 2);
+  get_objects(data, hf, strMsgTableP, (const char *)gadget, ButtonObjectList, ELEMENTS(ButtonObjectList), 2);
 }
 
 
 // Template file icon
 
 
-static const OBJECTLIST IconObjectList[] = {
-  {iol_BOX,    "extent:",      offsetof(wimp_icon, extent), NULL,          0                         },
-  {iol_IFLAGS, "icon_flags:",  offsetof(wimp_icon, flags),  NULL,          0                         },
-  {iol_ESG,    "icon_esg:",    offsetof(wimp_icon, flags),  NULL,          0                         }
-  };
-
-static const OBJECTLIST IconColorsObjectList[] = {
-  {iol_BCOLS,  "icon_fg:",     offsetof(wimp_icon, flags),  "icon_bg:",    offsetof(wimp_icon, flags)}
-  };
-
-static const OBJECTLIST IconFontHandleObjectList[] = {
-  {iol_BYTE,  "font_handle:", offsetof(wimp_icon, flags) + (wimp_ICON_FONT_HANDLE_SHIFT / 8),  "icon_bg:",    offsetof(wimp_icon, flags)}
-  };
-
-static const OBJECTLIST IconTextObjectList[] = {
-  {iol_CHARPTR, "text_only:", offsetof(wimp_icon_data, text), NULL, sizeof(wimp_icon_data)}
-  };
-
-static const OBJECTLIST IconSpriteObjectList[] = {
-  {iol_CHARPTR, "sprite_only:", offsetof(wimp_icon_data, sprite), NULL, sizeof(wimp_icon_data)}
-  };
-
-static const OBJECTLIST IconTextAndSpriteObjectList[] = {
-  {iol_CHARPTR, "text_and_sprite:", offsetof(wimp_icon_data, text_and_sprite), NULL, sizeof(wimp_icon_data)}
-  };
-
-static const OBJECTLIST IconIndirectTextObjectList[] = {
-  {iol_TSTRING, "text.text:",       offsetof(wimp_icon_data, indirected_text.text),       "text.size:", offsetof(wimp_icon_data, indirected_text.size)},
-  {iol_TSTRING, "text.validation:", offsetof(wimp_icon_data, indirected_text.validation), NULL, 0}
-  };
-
-static const OBJECTLIST IconIndirectSpriteObjectList[] = {
-  {iol_TSTRING, "sprite.id:",   offsetof(wimp_icon_data, indirected_sprite.id),   "sprite.size:", offsetof(wimp_icon_data, indirected_sprite.size)},
-  {iol_BITS,    "sprite.area:", offsetof(wimp_icon_data, indirected_sprite.area), NULL, 0}
-  };
-
-static const OBJECTLIST IconIndirectTextAndSpriteObjectList[] = {
-  {iol_TSTRING, "text_and_sprite.text:",       offsetof(wimp_icon_data, indirected_text_and_sprite.text),       "text_and_sprite.size:", offsetof(wimp_icon_data, indirected_text_and_sprite.size)},
-  {iol_TSTRING, "text_and_sprite.validation:", offsetof(wimp_icon_data, indirected_text_and_sprite.validation), NULL, 0}
-  };
-
-
-        void put_icon_data(DATA *data, const char *pszIn, int nOffset, wimp_icon_data *icon_data, bits flags)
-//      =====================================================================================================
-{
-switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
+static const OBJECTLIST IconObjectList[] =
   {
-  case 0:
-  case wimp_ICON_INDIRECTED:
-    break;
+    {iol_BOX,    "extent:",      offsetof(wimp_icon, extent), NULL,          0    },
+    {iol_IFLAGS, "icon_flags:",  offsetof(wimp_icon, flags),  NULL,          0                         },
+    {iol_ESG,    "icon_esg:",    offsetof(wimp_icon, flags),  NULL,          0                         }
+  };
 
-  case wimp_ICON_TEXT:
-    put_objects(data, pszIn, nOffset, (char *) icon_data, IconTextObjectList, ELEMENTS(IconTextObjectList));
-    break;
-  case wimp_ICON_SPRITE:
-    put_objects(data, pszIn, nOffset, (char *) icon_data, IconSpriteObjectList, ELEMENTS(IconSpriteObjectList));
-    break;
-  case (wimp_ICON_TEXT | wimp_ICON_SPRITE):
-    put_objects(data, pszIn, nOffset, (char *) icon_data, IconTextAndSpriteObjectList, ELEMENTS(IconTextAndSpriteObjectList));
-    break;
-
-  case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT):
-    put_objects(data, pszIn, nOffset, (char *) icon_data, IconIndirectTextObjectList, ELEMENTS(IconIndirectTextObjectList));
-    break;
-  case (wimp_ICON_INDIRECTED | wimp_ICON_SPRITE):
-    put_objects(data, pszIn, nOffset, (char *) icon_data, IconIndirectSpriteObjectList, ELEMENTS(IconIndirectSpriteObjectList));
-    break;
-  case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE):
-    put_objects(data, pszIn, nOffset, (char *) icon_data, IconIndirectTextAndSpriteObjectList, ELEMENTS(IconIndirectTextAndSpriteObjectList));
-    break;
-  }
-}
-
-
-        void get_icon_data(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTable, const wimp_icon_data *icon_data, bits flags, int nIndent)
-//      ===================================================================================================================
-{
-switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
+static const OBJECTLIST IconColorsObjectList[] =
   {
-  case 0:
-  case wimp_ICON_INDIRECTED:
-    break;
+    {iol_BCOLS,  "icon_fg:",     offsetof(wimp_icon, flags),  "icon_bg:",    offsetof(wimp_icon, flags)    }
+  };
 
-  case wimp_ICON_TEXT:
-    get_objects(data, hf, strMsgTable, (const char *)icon_data, IconTextObjectList, ELEMENTS(IconTextObjectList), nIndent);
-    break;
-  case wimp_ICON_SPRITE:
-    get_objects(data, hf, strMsgTable, (const char *)icon_data, IconSpriteObjectList, ELEMENTS(IconSpriteObjectList), nIndent);
-    break;
-  case (wimp_ICON_TEXT | wimp_ICON_SPRITE):
-    get_objects(data, hf, strMsgTable, (const char *)icon_data, IconTextAndSpriteObjectList, ELEMENTS(IconTextAndSpriteObjectList), nIndent);
-    break;
+static const OBJECTLIST IconFontHandleObjectList[] =
+  {
+    {iol_BYTE,  "font_handle:", offsetof(wimp_icon, flags) + (wimp_ICON_FONT_HANDLE_SHIFT / 8),  "icon_bg:",    offsetof(wimp_icon, flags)    }
+  };
 
-  case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT):
-    get_objects(data, hf, strMsgTable, (const char *)icon_data, IconIndirectTextObjectList, ELEMENTS(IconIndirectTextObjectList), nIndent);
-    break;
-  case (wimp_ICON_INDIRECTED | wimp_ICON_SPRITE):
-    get_objects(data, hf, strMsgTable, (const char *)icon_data, IconIndirectSpriteObjectList, ELEMENTS(IconIndirectSpriteObjectList), nIndent);
-    break;
-  case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE):
-    get_objects(data, hf, strMsgTable, (const char *)icon_data, IconIndirectTextAndSpriteObjectList, ELEMENTS(IconIndirectTextAndSpriteObjectList), nIndent);
-    break;
-  }
+static const OBJECTLIST IconTextObjectList[] =
+  {
+    {iol_CHARPTR, "text_only:", offsetof(wimp_icon_data, text), NULL, sizeof(wimp_icon_data)    }
+  };
+
+static const OBJECTLIST IconSpriteObjectList[] =
+  {
+    {iol_CHARPTR, "sprite_only:", offsetof(wimp_icon_data, sprite), NULL, sizeof(wimp_icon_data)    }
+  };
+
+static const OBJECTLIST IconTextAndSpriteObjectList[] =
+  {
+    {iol_CHARPTR, "text_and_sprite:", offsetof(wimp_icon_data, text_and_sprite), NULL, sizeof(wimp_icon_data)    }
+  };
+
+static const OBJECTLIST IconIndirectTextObjectList[] =
+  {
+    {iol_TSTRING, "text.text:",       offsetof(wimp_icon_data, indirected_text.text),       "text.size:", offsetof(wimp_icon_data, indirected_text.size)    },
+    {iol_TSTRING, "text.validation:", offsetof(wimp_icon_data, indirected_text.validation), NULL, 0}
+  };
+
+static const OBJECTLIST IconIndirectSpriteObjectList[] =
+  {
+    {iol_TSTRING, "sprite.id:",   offsetof(wimp_icon_data, indirected_sprite.id),   "sprite.size:", offsetof(wimp_icon_data, indirected_sprite.size)    },
+    {iol_BITS,    "sprite.area:", offsetof(wimp_icon_data, indirected_sprite.area), NULL, 0}
+  };
+
+static const OBJECTLIST IconIndirectTextAndSpriteObjectList[] =
+  {
+    {iol_TSTRING, "text_and_sprite.text:",       offsetof(wimp_icon_data, indirected_text_and_sprite.text),       "text_and_sprite.size:", offsetof(wimp_icon_data, indirected_text_and_sprite.size)    },
+    {iol_TSTRING, "text_and_sprite.validation:", offsetof(wimp_icon_data, indirected_text_and_sprite.validation), NULL, 0}
+  };
+
+
+void put_icon_data(DATA *data, const char *pszIn, int nOffset, wimp_icon_data *icon_data, bits flags)
+{
+  switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
+    {
+    case 0:
+    case wimp_ICON_INDIRECTED:
+      break;
+
+    case wimp_ICON_TEXT:
+      put_objects(data, pszIn, nOffset, (char *) icon_data, IconTextObjectList, ELEMENTS(IconTextObjectList));
+      break;
+    case wimp_ICON_SPRITE:
+      put_objects(data, pszIn, nOffset, (char *) icon_data, IconSpriteObjectList, ELEMENTS(IconSpriteObjectList));
+      break;
+    case (wimp_ICON_TEXT | wimp_ICON_SPRITE):
+            put_objects(data, pszIn, nOffset, (char *) icon_data, IconTextAndSpriteObjectList, ELEMENTS(IconTextAndSpriteObjectList));
+      break;
+
+    case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT):
+            put_objects(data, pszIn, nOffset, (char *) icon_data, IconIndirectTextObjectList, ELEMENTS(IconIndirectTextObjectList));
+      break;
+    case (wimp_ICON_INDIRECTED | wimp_ICON_SPRITE):
+            put_objects(data, pszIn, nOffset, (char *) icon_data, IconIndirectSpriteObjectList, ELEMENTS(IconIndirectSpriteObjectList));
+      break;
+    case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE):
+            put_objects(data, pszIn, nOffset, (char *) icon_data, IconIndirectTextAndSpriteObjectList, ELEMENTS(IconIndirectTextAndSpriteObjectList));
+      break;
+    }
 }
 
 
-        void icon_text2template(DATA *data, const char *pszIn, int nOffset, wimp_icon *icon)
-//      ====================================================================================
+void get_icon_data(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTable, const wimp_icon_data *icon_data, bits flags, int nIndent)
 {
-put_objects(data, pszIn, nOffset, (char *) icon, IconObjectList, ELEMENTS(IconObjectList));
-if (icon->flags & wimp_ICON_ANTI_ALIASED)
-  put_objects(data, pszIn, nOffset, (char *) icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList));
-else
-  put_objects(data, pszIn, nOffset, (char *) icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList));
+  switch (flags & (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE))
+    {
+    case 0:
+    case wimp_ICON_INDIRECTED:
+      break;
 
-put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &icon->data, icon->flags);
+    case wimp_ICON_TEXT:
+      get_objects(data, hf, strMsgTable, (const char *)icon_data, IconTextObjectList, ELEMENTS(IconTextObjectList), nIndent);
+      break;
+    case wimp_ICON_SPRITE:
+      get_objects(data, hf, strMsgTable, (const char *)icon_data, IconSpriteObjectList, ELEMENTS(IconSpriteObjectList), nIndent);
+      break;
+    case (wimp_ICON_TEXT | wimp_ICON_SPRITE):
+            get_objects(data, hf, strMsgTable, (const char *)icon_data, IconTextAndSpriteObjectList, ELEMENTS(IconTextAndSpriteObjectList), nIndent);
+      break;
+
+    case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT):
+            get_objects(data, hf, strMsgTable, (const char *)icon_data, IconIndirectTextObjectList, ELEMENTS(IconIndirectTextObjectList), nIndent);
+      break;
+    case (wimp_ICON_INDIRECTED | wimp_ICON_SPRITE):
+            get_objects(data, hf, strMsgTable, (const char *)icon_data, IconIndirectSpriteObjectList, ELEMENTS(IconIndirectSpriteObjectList), nIndent);
+      break;
+    case (wimp_ICON_INDIRECTED | wimp_ICON_TEXT | wimp_ICON_SPRITE):
+            get_objects(data, hf, strMsgTable, (const char *)icon_data, IconIndirectTextAndSpriteObjectList, ELEMENTS(IconIndirectTextAndSpriteObjectList), nIndent);
+      break;
+    }
 }
 
 
-        void icon_template2text(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const wimp_icon *icon)
-//      ===================================================================================================
+void icon_text2template(DATA *data, const char *pszIn, int nOffset, wimp_icon *icon)
 {
-get_objects(data, hf, strMsgTableP, (const char *)icon, IconObjectList, ELEMENTS(IconObjectList), 2);
-if (icon->flags & wimp_ICON_ANTI_ALIASED)
-  get_objects(data, hf, strMsgTableP, (const char *)icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList), 2);
-else
-  get_objects(data, hf, strMsgTableP, (const char *)icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList), 2);
+  put_objects(data, pszIn, nOffset, (char *) icon, IconObjectList, ELEMENTS(IconObjectList));
+  if (icon->flags & wimp_ICON_ANTI_ALIASED)
+    put_objects(data, pszIn, nOffset, (char *) icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList));
+  else
+    put_objects(data, pszIn, nOffset, (char *) icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList));
 
-get_icon_data(data, hf, strMsgTableP, (const wimp_icon_data *)&icon->data, icon->flags, 2);
+  put_icon_data(data, pszIn, nOffset, (wimp_icon_data *) &icon->data, icon->flags);
+}
+
+
+void icon_template2text(DATA *data, FILE *hf, const TOOLBOXSMTABLE *strMsgTableP, const wimp_icon *icon)
+{
+  get_objects(data, hf, strMsgTableP, (const char *)icon, IconObjectList, ELEMENTS(IconObjectList), 2);
+  if (icon->flags & wimp_ICON_ANTI_ALIASED)
+    get_objects(data, hf, strMsgTableP, (const char *)icon, IconFontHandleObjectList, ELEMENTS(IconFontHandleObjectList), 2);
+  else
+    get_objects(data, hf, strMsgTableP, (const char *)icon, IconColorsObjectList, ELEMENTS(IconColorsObjectList), 2);
+
+  get_icon_data(data, hf, strMsgTableP, (const wimp_icon_data *)&icon->data, icon->flags, 2);
 }

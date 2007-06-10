@@ -36,12 +36,13 @@
 
 typedef struct tabs_object tabs_object;
 struct tabs_object
-  {  gadget_OBJECT_MEMBERS
-     wimp_colour foreground;
-     uint8_t unused1[3];
-     wimp_colour background;
-     uint8_t unused2[3];
-     toolbox_msg_reference text;
+  {
+    gadget_OBJECT_MEMBERS
+    wimp_colour foreground;
+    uint8_t unused1[3];
+    wimp_colour background;
+    uint8_t unused2[3];
+    toolbox_msg_reference text;
   };
 
 /* TreeView */
@@ -72,11 +73,12 @@ struct tabs_object
 
 typedef struct treeview_object treeview_object;
 struct treeview_object
-  {  gadget_OBJECT_MEMBERS
-     wimp_colour foreground;
-     uint8_t unused1[3];
-     wimp_colour background;
-     uint8_t unused2[3];
+  {
+    gadget_OBJECT_MEMBERS
+    wimp_colour foreground;
+    uint8_t unused1[3];
+    wimp_colour background;
+    uint8_t unused2[3];
   };
 
 #endif

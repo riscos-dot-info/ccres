@@ -29,29 +29,29 @@
 #include "_Object.h"
 #include "_Quit.h"
 
-static const FLAGS QuitFlags[] = {
-	{quit_GENERATE_ABOUT_TO_BE_SHOWN , "quit_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{quit_GENERATE_DIALOGUE_COMPLETED, "quit_GENERATE_DIALOGUE_COMPLETED"}
-};
+static const FLAGS QuitFlags[] =
+  {
+    {quit_GENERATE_ABOUT_TO_BE_SHOWN , "quit_GENERATE_ABOUT_TO_BE_SHOWN" },
+    {quit_GENERATE_DIALOGUE_COMPLETED, "quit_GENERATE_DIALOGUE_COMPLETED"}
+  };
 
-static const OBJECTLIST QuitObjectList[] = {
-	{iol_FLAGS,   "quit_flags:",              offsetof(quit_object, flags),                   QuitFlags,        ELEMENTS(QuitFlags)                 },
-	{iol_MSG,     "title:",                   offsetof(quit_object, title),                   "title_limit:",   offsetof(quit_object, title_limit)  },
-	{iol_MSG,     "message:",                 offsetof(quit_object, message),                 "message_limit:", offsetof(quit_object, message_limit)},
-	{iol_STRING,  "alternative_window_name:", offsetof(quit_object, alternative_window_name), NULL,             0                                   }
-};
+static const OBJECTLIST QuitObjectList[] =
+  {
+    {iol_FLAGS,   "quit_flags:",              offsetof(quit_object, flags),                   QuitFlags,        ELEMENTS(QuitFlags)    },
+    {iol_MSG,     "title:",                   offsetof(quit_object, title),                   "title_limit:",   offsetof(quit_object, title_limit)  },
+    {iol_MSG,     "message:",                 offsetof(quit_object, message),                 "message_limit:", offsetof(quit_object, message_limit)},
+    {iol_STRING,  "alternative_window_name:", offsetof(quit_object, alternative_window_name), NULL,             0                                   }
+  };
 
-        int quit_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
-//      ====================================================================================
+int quit_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
-put_objects(data, pszIn, 0, (char *) (object + 1), QuitObjectList, ELEMENTS(QuitObjectList));
+  put_objects(data, pszIn, 0, (char *)(object + 1), QuitObjectList, ELEMENTS(QuitObjectList));
 
-return sizeof(quit_object);
+  return sizeof(quit_object);
 }
 
 
-        void quit_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
-//      ===========================================================================================================================
+void quit_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 {
-get_objects(data, hf, strMsgTableP, (const char *)(object + 1), QuitObjectList, ELEMENTS(QuitObjectList), 1);
+  get_objects(data, hf, strMsgTableP, (const char *)(object + 1), QuitObjectList, ELEMENTS(QuitObjectList), 1);
 }

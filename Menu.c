@@ -24,5 +24,5 @@
 
 void menu_quit(APPDATA *data)
 {
-data->fRunning = false;
+  data->fRunning = false;
 }

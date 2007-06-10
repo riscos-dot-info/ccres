@@ -30,31 +30,31 @@
 #include "_Object.h"
 #include "_FileInfo.h"
 
-static const FLAGS FileInfoFlags[] = {
-	{fileinfo_GENERATE_ABOUT_TO_BE_SHOWN , "fileinfo_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{fileinfo_GENERATE_DIALOGUE_COMPLETED, "fileinfo_GENERATE_DIALOGUE_COMPLETED"}
-};
+static const FLAGS FileInfoFlags[] =
+  {
+    {fileinfo_GENERATE_ABOUT_TO_BE_SHOWN , "fileinfo_GENERATE_ABOUT_TO_BE_SHOWN" },
+    {fileinfo_GENERATE_DIALOGUE_COMPLETED, "fileinfo_GENERATE_DIALOGUE_COMPLETED"}
+  };
 
-static const OBJECTLIST FileInfoObjectList[] = {
-	{iol_FLAGS,  "fileinfo_flags:",          offsetof(fileinfo_object, flags),                   FileInfoFlags,  ELEMENTS(FileInfoFlags)               },
-	{iol_MSG,    "title:",                   offsetof(fileinfo_object, title),                   "title_limit:", offsetof(fileinfo_object, title_limit)},
-	{iol_BITS,   "file_type:",               offsetof(fileinfo_object, file_type),               NULL,           0                                     },
-	{iol_MSG,    "file_name:",               offsetof(fileinfo_object, file_name),               NULL,           0                                     },
-	{iol_STRING, "alternative_window_name:", offsetof(fileinfo_object, alternative_window_name), NULL,           0                                     }
-};
+static const OBJECTLIST FileInfoObjectList[] =
+  {
+    {iol_FLAGS,  "fileinfo_flags:",          offsetof(fileinfo_object, flags),                   FileInfoFlags, ELEMENTS(FileInfoFlags)    },
+    {iol_MSG,    "title:",                   offsetof(fileinfo_object, title),                   "title_limit:", offsetof(fileinfo_object, title_limit)},
+    {iol_BITS,   "file_type:",               offsetof(fileinfo_object, file_type),               NULL,           0                                     },
+    {iol_MSG,    "file_name:",               offsetof(fileinfo_object, file_name),               NULL,           0                                     },
+    {iol_STRING, "alternative_window_name:", offsetof(fileinfo_object, alternative_window_name), NULL,           0                                     }
+  };
 
 
-        int fileinfo_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
-//      ========================================================================================
+int fileinfo_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
-put_objects(data, pszIn, 0, (char *) (object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList));
+  put_objects(data, pszIn, 0, (char *)(object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList));
 
-return sizeof(fileinfo_object);
+  return sizeof(fileinfo_object);
 }
 
 
-        void fileinfo_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
-//      ===============================================================================================================================
+void fileinfo_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 {
-get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);
+  get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FileInfoObjectList, ELEMENTS(FileInfoObjectList), 1);
 }

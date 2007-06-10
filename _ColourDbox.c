@@ -30,31 +30,31 @@
 #include "_ColourDbox.h"
 #include "_Object.h"
 
-static const FLAGS ColourDboxFlags[] = {
-	{colourdbox_GENERATE_ABOUT_TO_BE_SHOWN , "colourdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{colourdbox_GENERATE_DIALOGUE_COMPLETED, "colourdbox_GENERATE_DIALOGUE_COMPLETED"},
-	{colourdbox_INCLUDE_NONE_BUTTON        , "colourdbox_INCLUDE_NONE_BUTTON"        },
-	{colourdbox_SELECT_NONE_BUTTON         , "colourdbox_SELECT_NONE_BUTTON"         }
-};
+static const FLAGS ColourDboxFlags[] =
+  {
+    {colourdbox_GENERATE_ABOUT_TO_BE_SHOWN , "colourdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
+    {colourdbox_GENERATE_DIALOGUE_COMPLETED, "colourdbox_GENERATE_DIALOGUE_COMPLETED"},
+    {colourdbox_INCLUDE_NONE_BUTTON        , "colourdbox_INCLUDE_NONE_BUTTON"        },
+    {colourdbox_SELECT_NONE_BUTTON         , "colourdbox_SELECT_NONE_BUTTON"         }
+  };
 
-static const OBJECTLIST ColourDboxObjectList[] = {
-	{iol_FLAGS, "colourdbox_flags:", offsetof(colourdbox_object, flags),  ColourDboxFlags, ELEMENTS(ColourDboxFlags)               },
-	{iol_MSG,   "title:",            offsetof(colourdbox_object, title),  "title_limit:",  offsetof(colourdbox_object, title_limit)},
-	{iol_OSCOL, "colour:",           offsetof(colourdbox_object, colour), NULL,            0                                       }
-};
+static const OBJECTLIST ColourDboxObjectList[] =
+  {
+    {iol_FLAGS, "colourdbox_flags:", offsetof(colourdbox_object, flags),  ColourDboxFlags, ELEMENTS(ColourDboxFlags)    },
+    {iol_MSG,   "title:",            offsetof(colourdbox_object, title),  "title_limit:",  offsetof(colourdbox_object, title_limit)},
+    {iol_OSCOL, "colour:",           offsetof(colourdbox_object, colour), NULL,            0                                       }
+  };
 
 
-        int colourdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
-//      ==========================================================================================
+int colourdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
-put_objects(data, pszIn, 0, (char *) (object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList));
+  put_objects(data, pszIn, 0, (char *)(object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList));
 
-return sizeof(colourdbox_object);
+  return sizeof(colourdbox_object);
 }
 
 
-        void colourdbox_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
-//      =================================================================================================================================
+void colourdbox_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 {
-get_objects(data, hf, strMsgTableP, (const char *)(object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList), 1);
+  get_objects(data, hf, strMsgTableP, (const char *)(object + 1), ColourDboxObjectList, ELEMENTS(ColourDboxObjectList), 1);
 }

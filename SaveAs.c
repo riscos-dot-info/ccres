@@ -28,21 +28,19 @@
 #include "Convert.h"
 #include "SaveAs.h"
 
-        void action_save_to_file(APPDATA *data)
-//      ====================================
+void action_save_to_file(APPDATA *data)
 {
-bits fSaved;
+  bits fSaved;
 
-fSaved = (ccres_convert(data->sessionP, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
-saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
-if (fSaved == saveas_SAVE_SUCCESSFUL)
-  toolbox_hide_object(0, data->idSaveAs);
+  fSaved = (ccres_convert(data->sessionP, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
+  saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
+  if (fSaved == saveas_SAVE_SUCCESSFUL)
+    toolbox_hide_object(0, data->idSaveAs);
 }
 
 
-        void action_save_completed(APPDATA *data)
-//      ======================================
+void action_save_completed(APPDATA *data)
 {
-if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL)
-  remove(data->poll.sa.file_name);
+  if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL)
+    remove(data->poll.sa.file_name);
 }

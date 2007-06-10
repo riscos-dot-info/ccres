@@ -30,34 +30,34 @@
 #include "_Object.h"
 #include "_FontDbox.h"
 
-static const FLAGS FontDboxFlags[] = {
-	{fontdbox_GENERATE_ABOUT_TO_BE_SHOWN , "fontdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{fontdbox_GENERATE_DIALOGUE_COMPLETED, "fontdbox_GENERATE_DIALOGUE_COMPLETED"},
-	{fontdbox_INCLUDE_SYSTEM_FONT        , "fontdbox_INCLUDE_SYSTEM_FONT"}
-};
+static const FLAGS FontDboxFlags[] =
+  {
+    {fontdbox_GENERATE_ABOUT_TO_BE_SHOWN , "fontdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
+    {fontdbox_GENERATE_DIALOGUE_COMPLETED, "fontdbox_GENERATE_DIALOGUE_COMPLETED"},
+    {fontdbox_INCLUDE_SYSTEM_FONT        , "fontdbox_INCLUDE_SYSTEM_FONT"}
+  };
 
-static const OBJECTLIST FontDboxObjectList[] = {
-	{iol_FLAGS,  "fontdbox_flags:",          offsetof(fontdbox_object, flags),                   FontDboxFlags,  ELEMENTS(FontDboxFlags)               },
-	{iol_MSG,    "title:",                   offsetof(fontdbox_object, title),                   "title_limit:", offsetof(fontdbox_object, title_limit)},
-	{iol_STRING, "initial_font:",            offsetof(fontdbox_object, initial.font),            NULL,           0                                     },
-	{iol_INT,    "initial_height:",          offsetof(fontdbox_object, initial.height),          NULL,           0                                     },
-	{iol_INT,    "initial_aspect:",          offsetof(fontdbox_object, initial.aspect),          NULL,           0                                     },
-	{iol_MSG,    "try_string:",              offsetof(fontdbox_object, try_string),              NULL,           0                                     },
-	{iol_STRING, "alternative_window_name:", offsetof(fontdbox_object, alternative_window_name), NULL,           0                                     }
-};
+static const OBJECTLIST FontDboxObjectList[] =
+  {
+    {iol_FLAGS,  "fontdbox_flags:",          offsetof(fontdbox_object, flags),                   FontDboxFlags, ELEMENTS(FontDboxFlags)  },
+    {iol_MSG,    "title:",                   offsetof(fontdbox_object, title),                   "title_limit:", offsetof(fontdbox_object, title_limit)},
+    {iol_STRING, "initial_font:",            offsetof(fontdbox_object, initial.font),            NULL,           0                                     },
+    {iol_INT,    "initial_height:",          offsetof(fontdbox_object, initial.height),          NULL,           0                                     },
+    {iol_INT,    "initial_aspect:",          offsetof(fontdbox_object, initial.aspect),          NULL,           0                                     },
+    {iol_MSG,    "try_string:",              offsetof(fontdbox_object, try_string),              NULL,           0                                     },
+    {iol_STRING, "alternative_window_name:", offsetof(fontdbox_object, alternative_window_name), NULL,           0                                     }
+  };
 
 
-        int fontdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
-//      ========================================================================================
+int fontdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
-put_objects(data, pszIn, 0, (char *) (object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList));
+  put_objects(data, pszIn, 0, (char *)(object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList));
 
-return sizeof(fontdbox_object);
+  return sizeof(fontdbox_object);
 }
 
 
-        void fontdbox_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
-//      ===============================================================================================================================
+void fontdbox_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 {
-get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList), 1);
+  get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FontDboxObjectList, ELEMENTS(FontDboxObjectList), 1);
 }

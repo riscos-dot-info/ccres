@@ -60,16 +60,16 @@ void report_varg_stderr(DATA *sessionP, report_level level, unsigned int linenr,
   const char *severityStrP;
   switch (level)
     {
-      case report_info:
-        severityStrP = "info";
-        break;
-      case report_warning:
-        severityStrP = "warning";
-        break;
-      case report_error:
-      default:
-        severityStrP = "error";
-        break;
+    case report_info:
+      severityStrP = "info";
+      break;
+    case report_warning:
+      severityStrP = "warning";
+      break;
+    case report_error:
+    default:
+      severityStrP = "error";
+      break;
     }
   fprintf(stderr, "%s:%d:%s: %s\n", sessionP->achFileIn, linenr, severityStrP, achError);
 }
@@ -103,22 +103,22 @@ void report_varg_throwback(DATA *sessionP, report_level level, unsigned int line
   const char *severityStrP;
   switch (level)
     {
-      case report_info:
-        reason = ddeutils_THROWBACK_INFO_DETAILS;
-        severity = 0;
-        severityStrP = "info";
-        break;
-      case report_warning:
-        reason = ddeutils_THROWBACK_ERROR_DETAILS;
-        severity = ddeutils_SEVERITY_WARNING;
-        severityStrP = "warning";
-        break;
-      case report_error:
-      default:
-        reason = ddeutils_THROWBACK_ERROR_DETAILS;
-        severity = ddeutils_SEVERITY_ERROR;
-        severityStrP = "error";
-        break;
+    case report_info:
+      reason = ddeutils_THROWBACK_INFO_DETAILS;
+      severity = 0;
+      severityStrP = "info";
+      break;
+    case report_warning:
+      reason = ddeutils_THROWBACK_ERROR_DETAILS;
+      severity = ddeutils_SEVERITY_WARNING;
+      severityStrP = "warning";
+      break;
+    case report_error:
+    default:
+      reason = ddeutils_THROWBACK_ERROR_DETAILS;
+      severity = ddeutils_SEVERITY_ERROR;
+      severityStrP = "error";
+      break;
     }
 
   fprintf(stderr, "%s:%d:%s: %s\n", sessionP->achFileIn, linenr, severityStrP, achError);

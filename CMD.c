@@ -45,16 +45,16 @@ static bool OptionThrowback = false;
 static void give_help(void)
 {
   fprintf(stderr, "CCres " VERSION "\n"
-                  "Convertor between RISC OS Toolbox Resource (filetype &FAE) & Wimp Template (filetype &FEC) files to and from text format.\n"
-                  "Syntax: CCres [options] <infile> <outfile>\n"
-                  "Options:\n"
+          "Convertor between RISC OS Toolbox Resource (filetype &FAE) & Wimp Template (filetype &FEC) files to and from text format.\n"
+          "Syntax: CCres [options] <infile> <outfile>\n"
+          "Options:\n"
 #ifdef __riscos__
-                  "  -mthrowback : use RISC OS throwback as well for reporting\n"
+          "  -mthrowback : use RISC OS throwback as well for reporting\n"
 #endif
-                  "  -help : gives this help message\n"
-                  "Input/Output file:\n"
-                  "  <infile>  : either Template, Resource or Text file\n"
-                  "  <outfile> : output Text file (case <infile> is a Template or Resource file) or output Template/Resource file (case <infile> is a Text file)\n");
+          "  -help : gives this help message\n"
+          "Input/Output file:\n"
+          "  <infile>  : either Template, Resource or Text file\n"
+          "  <outfile> : output Text file (case <infile> is a Template or Resource file) or output Template/Resource file (case <infile> is a Text file)\n");
 }
 
 int main(int argc, char *argv[])
@@ -102,15 +102,15 @@ int main(int argc, char *argv[])
 
   switch (nFileType)
     {
-      case osfile_TYPE_TEXT:
-      case osfile_TYPE_RESOURCE:
-      case osfile_TYPE_TEMPLATE:
-        if (load_file(sessionP, argv[carg], nFileType))
-          ccres_convert(sessionP, argv[carg + 1]);
-        break;
-      default:
-        report_cmd(sessionP, report_error, 0, "Unsupported input filetype");
-        break;
+    case osfile_TYPE_TEXT:
+    case osfile_TYPE_RESOURCE:
+    case osfile_TYPE_TEMPLATE:
+      if (load_file(sessionP, argv[carg], nFileType))
+        ccres_convert(sessionP, argv[carg + 1]);
+      break;
+    default:
+      report_cmd(sessionP, report_error, 0, "Unsupported input filetype");
+      break;
     }
 
   (void)ccres_finish(sessionP);

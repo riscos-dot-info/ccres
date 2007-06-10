@@ -34,113 +34,150 @@ enum {LBRACKET=0x11,ADD=0x21,SUB=0x22,MUL=0x31,DIV=0x32};
 
 static bool Eval2(int *sop, int *sn, unsigned int *piop, unsigned int *pin)
 {
-	int lnum, op, rnum;
-	unsigned int iop, in;
-	int res;
+  int lnum, op, rnum;
+  unsigned int iop, in;
+  int res;
 
-	iop = *piop;
-	in = *pin;
+  iop = *piop;
+  in = *pin;
 
-	rnum = sn[--in];
-	lnum = sn[--in];
-	op = sop[--iop];
-	if (op == MUL) {
-		res = lnum *rnum;
-	} else if (op ==  DIV) {
-		if (rnum == 0) {
-			return false;
-		} else {
-			res = lnum / rnum;
-		}
-	} else if (op ==  ADD) {
-		res = lnum + rnum;
-	} else if (op ==  SUB) {
-		res = lnum - rnum;
-	} else {
-		return false;
-	}
-	sn[in++] = res;
+  rnum = sn[--in];
+  lnum = sn[--in];
+  op = sop[--iop];
+  if (op == MUL)
+    {
+      res = lnum *rnum;
+    }
+  else if (op ==  DIV)
+    {
+      if (rnum == 0)
+        {
+          return false;
+        }
+      else
+        {
+          res = lnum / rnum;
+        }
+    }
+  else if (op ==  ADD)
+    {
+      res = lnum + rnum;
+    }
+  else if (op ==  SUB)
+    {
+      res = lnum - rnum;
+    }
+  else
+    {
+      return false;
+    }
+  sn[in++] = res;
 
-	*piop = iop;
-	*pin = in;
-	return true;
+  *piop = iop;
+  *pin = in;
+  return true;
 }
 
 
 int Eval(DATA *data, const char **ppstr)
 {
-	const char *pstr;
-	int sop[16], sn[16];
-	unsigned int iop, in;
-	int op;
-	bool fOp;
-	char ch;
+  const char *pstr;
+  int sop[16], sn[16];
+  unsigned int iop, in;
+  int op;
+  bool fOp;
+  char ch;
 
-	pstr = *ppstr;
-	iop = in = 0;
-	fOp = true;
-	for (;;) {
-		if ((ch = *pstr++) == ' ' || ch == '\t' ) {
-			// do nothing
-		} else if (ch == '(') {
-			if (iop >= ELEMENTS(sop)) {
-				goto Eval_SyntaxError;
-			}
-			sop[iop++] = LBRACKET;
-			fOp = true;
-		} else if (ch == ')') {
-			if (iop == 0) {
-				goto Eval_SyntaxError;
-			} else {
-				while (sop[iop - 1] != LBRACKET) {
-					if (!Eval2(sop, sn, &iop, &in)) {
-						goto Eval_SyntaxError;
-					}
-				}
-				iop--;		// pop LBRACKET
-			}
-			fOp = false;
-		} else if ((ch == '-' && !fOp) || ch == '+' || ch == '/' || ch == '*') {
-			op = (ch == '+') ? ADD :
-				 (ch == '-') ? SUB :
-				 (ch == '*') ? MUL : DIV;
-			while (iop > 0 && Precedence(sop[iop - 1]) >= Precedence(op)) {
-				if (!Eval2(sop, sn, &iop, &in)) {
-					goto Eval_SyntaxError;
-				}
-			}
-			if (iop >= ELEMENTS(sop)) {
-				goto Eval_SyntaxError;
-			}
-			sop[iop++] = op;
-			fOp = true;
-		} else if (isdigit(ch) || (ch == '-' && fOp) || ch == '&') {
-			if (in >= ELEMENTS(sn)) {
-				goto Eval_SyntaxError;
-			}
-			pstr--;
-			sn[in++] = my_atoi(&pstr);
-			fOp = false;
-		} else {
-			pstr--;
-			break;
-		}
-	}
-	while (iop > 0) {
-		if (!Eval2(sop, sn, &iop, &in)) {
-			goto Eval_SyntaxError;
-		}
-	}
-	if (in == 1) {
-		*ppstr = pstr;
-		return sn[0];
-	}
+  pstr = *ppstr;
+  iop = in = 0;
+  fOp = true;
+  for (;;)
+    {
+      if ((ch = *pstr++) == ' ' || ch == '\t' )
+        {
+          // do nothing
+        }
+      else if (ch == '(')
+        {
+          if (iop >= ELEMENTS(sop))
+            {
+              goto Eval_SyntaxError;
+            }
+          sop[iop++] = LBRACKET;
+          fOp = true;
+        }
+      else if (ch == ')')
+        {
+          if (iop == 0)
+            {
+              goto Eval_SyntaxError;
+            }
+          else
+            {
+              while (sop[iop - 1] != LBRACKET)
+                {
+                  if (!Eval2(sop, sn, &iop, &in))
+                    {
+                      goto Eval_SyntaxError;
+                    }
+                }
+              iop--;		// pop LBRACKET
+            }
+          fOp = false;
+        }
+      else if ((ch == '-' && !fOp) || ch == '+' || ch == '/' || ch == '*')
+        {
+          op = (ch == '+') ? ADD :
+               (ch == '-') ? SUB :
+               (ch == '*') ? MUL : DIV;
+          while (iop > 0 && Precedence(sop[iop - 1]) >= Precedence(op))
+            {
+              if (!Eval2(sop, sn, &iop, &in))
+                {
+                  goto Eval_SyntaxError;
+                }
+            }
+          if (iop >= ELEMENTS(sop))
+            {
+              goto Eval_SyntaxError;
+            }
+          sop[iop++] = op;
+          fOp = true;
+        }
+      else if (isdigit(ch) || (ch == '-' && fOp) || ch == '&')
+        {
+          if (in >= ELEMENTS(sn))
+            {
+              goto Eval_SyntaxError;
+            }
+          pstr--;
+          sn[in++] = my_atoi(&pstr);
+          fOp = false;
+        }
+      else
+        {
+          pstr--;
+          break;
+        }
+    }
+  while (iop > 0)
+    {
+      if (!Eval2(sop, sn, &iop, &in))
+        {
+          goto Eval_SyntaxError;
+        }
+    }
+  if (in == 1)
+    {
+      *ppstr = pstr;
+      return sn[0];
+    }
 
 Eval_SyntaxError:
 
-	data->report(data, report_error, report_getlinenr(data, *ppstr), "Expression syntax error");
-	while (*pstr != '\n' && pstr >= data->pszIn && pstr < data->pszIn + data->cbIn)
-	  ++pstr;
-	*ppstr = pstr;
-	return 0;
+  data->report(data, report_error, report_getlinenr(data, *ppstr), "Expression syntax error");
+  while (*pstr != '\n' && pstr >= data->pszIn && pstr < data->pszIn + data->cbIn)
+    ++pstr;
+  *ppstr = pstr;
+  return 0;
 }

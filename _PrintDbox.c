@@ -29,43 +29,43 @@
 #include "_Object.h"
 #include "_PrintDbox.h"
 
-static const FLAGS PrintDboxFlags[] = {
-	{printdbox_GENERATE_ABOUT_TO_BE_SHOWN , "printdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{printdbox_GENERATE_DIALOGUE_COMPLETED, "printdbox_GENERATE_DIALOGUE_COMPLETED"},
-	{printdbox_GENERATE_SHOW_SETUP_ACTION , "printdbox_GENERATE_SHOW_SETUP_ACTION" },
-	{printdbox_INCLUDE_ALL_FROM_TO        , "printdbox_INCLUDE_ALL_FROM_TO"        },
-	{printdbox_INCLUDE_COPIES             , "printdbox_INCLUDE_COPIES"             },
-	{printdbox_INCLUDE_SCALE              , "printdbox_INCLUDE_SCALE"              },
-	{printdbox_INCLUDE_ORIENTATION        , "printdbox_INCLUDE_ORIENTATION"        },
-	{printdbox_INCLUDE_SAVE               , "printdbox_INCLUDE_SAVE"               },
-	{printdbox_INCLUDE_SET_UP             , "printdbox_INCLUDE_SET_UP"             },
-	{printdbox_INCLUDE_DRAFT              , "printdbox_INCLUDE_DRAFT"              },
-	{printdbox_SELECT_FROM_TO             , "printdbox_SELECT_FROM_TO"             },
-	{printdbox_SELECT_SIDEWAYS            , "printdbox_SELECT_SIDEWAYS"            },
-	{printdbox_SELECT_DRAFT               , "printdbox_SELECT_DRAFT"               }
-};
+static const FLAGS PrintDboxFlags[] =
+  {
+    {printdbox_GENERATE_ABOUT_TO_BE_SHOWN , "printdbox_GENERATE_ABOUT_TO_BE_SHOWN" },
+    {printdbox_GENERATE_DIALOGUE_COMPLETED, "printdbox_GENERATE_DIALOGUE_COMPLETED"},
+    {printdbox_GENERATE_SHOW_SETUP_ACTION , "printdbox_GENERATE_SHOW_SETUP_ACTION" },
+    {printdbox_INCLUDE_ALL_FROM_TO        , "printdbox_INCLUDE_ALL_FROM_TO"        },
+    {printdbox_INCLUDE_COPIES             , "printdbox_INCLUDE_COPIES"             },
+    {printdbox_INCLUDE_SCALE              , "printdbox_INCLUDE_SCALE"              },
+    {printdbox_INCLUDE_ORIENTATION        , "printdbox_INCLUDE_ORIENTATION"        },
+    {printdbox_INCLUDE_SAVE               , "printdbox_INCLUDE_SAVE"               },
+    {printdbox_INCLUDE_SET_UP             , "printdbox_INCLUDE_SET_UP"             },
+    {printdbox_INCLUDE_DRAFT              , "printdbox_INCLUDE_DRAFT"              },
+    {printdbox_SELECT_FROM_TO             , "printdbox_SELECT_FROM_TO"             },
+    {printdbox_SELECT_SIDEWAYS            , "printdbox_SELECT_SIDEWAYS"            },
+    {printdbox_SELECT_DRAFT               , "printdbox_SELECT_DRAFT"               }
+  };
 
-static const OBJECTLIST PrintDboxObjectList[] = {
-	{iol_FLAGS,   "printdbox_flags:",         offsetof(printdbox_object, flags),                   PrintDboxFlags, ELEMENTS(PrintDboxFlags)},
-	{iol_INT,     "from:",                    offsetof(printdbox_object, from),                    NULL,           0                       },
-	{iol_INT,     "to:",                      offsetof(printdbox_object, to),                      NULL,           0                       },
-	{iol_INT,     "copies:",                  offsetof(printdbox_object, copies),                  NULL,           0                       },
-	{iol_INT,     "scale:",                   offsetof(printdbox_object, scale),                   NULL,           0                       },
-	{iol_STRING,  "further_options:",         offsetof(printdbox_object, further_options),         NULL,           0                       },
-	{iol_STRING,  "alternative_window_name:", offsetof(printdbox_object, alternative_window_name), NULL,           0                       }
-};
+static const OBJECTLIST PrintDboxObjectList[] =
+  {
+    {iol_FLAGS,   "printdbox_flags:",         offsetof(printdbox_object, flags),                   PrintDboxFlags, ELEMENTS(PrintDboxFlags)    },
+    {iol_INT,     "from:",                    offsetof(printdbox_object, from),                    NULL,           0                       },
+    {iol_INT,     "to:",                      offsetof(printdbox_object, to),                      NULL,           0                       },
+    {iol_INT,     "copies:",                  offsetof(printdbox_object, copies),                  NULL,           0                       },
+    {iol_INT,     "scale:",                   offsetof(printdbox_object, scale),                   NULL,           0                       },
+    {iol_STRING,  "further_options:",         offsetof(printdbox_object, further_options),         NULL,           0                       },
+    {iol_STRING,  "alternative_window_name:", offsetof(printdbox_object, alternative_window_name), NULL,           0                       }
+  };
 
-        int printdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
-//      =========================================================================================
+int printdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
-put_objects(data, pszIn, 0, (char *) (object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList));
+  put_objects(data, pszIn, 0, (char *)(object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList));
 
-return sizeof(printdbox_object);
+  return sizeof(printdbox_object);
 }
 
 
-        void printdbox_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
-//      ================================================================================================================================
+void printdbox_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 {
-get_objects(data, hf, strMsgTableP, (const char *)(object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList), 1);
+  get_objects(data, hf, strMsgTableP, (const char *)(object + 1), PrintDboxObjectList, ELEMENTS(PrintDboxObjectList), 1);
 }

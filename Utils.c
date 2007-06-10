@@ -25,146 +25,143 @@
 #include "Error.h"
 #include "Utils.h"
 
-        void HexToUInt(DATA *data, const char *strP, unsigned int len, unsigned int *resultP)
-//      =====================================================================================
+void HexToUInt(DATA *data, const char *strP, unsigned int len, unsigned int *resultP)
 {
-unsigned int result;
-const char *cpStrP;
+  unsigned int result;
+  const char *cpStrP;
 
-if (len < 2 || strP[0] != '0' || strP[1] != 'x')
-  {
-  data->report(data, report_error, report_getlinenr(data, strP), "Unknown hex construction '%.*s'", len, strP);
-  *resultP = 0;
-  return;
-  }
-result = 0;
-for (cpStrP = strP + 2, len -= 2; len-- > 0; ++cpStrP)
-  {
-  unsigned int nextResult;
-  if (*cpStrP >= '0' && *cpStrP <= '9')
-    nextResult = (result << 4) + *cpStrP - '0';
-  else if (*cpStrP >= 'A' && *cpStrP <= 'F')
-    nextResult = (result << 4) + *cpStrP - 'A' + 10;
-  else if (*cpStrP >= 'a' && *cpStrP <= 'f')
-    nextResult = (result << 4) + *cpStrP - 'a' + 10;
-  else
+  if (len < 2 || strP[0] != '0' || strP[1] != 'x')
     {
-    data->report(data, report_error, report_getlinenr(data, strP), "Unknown hex construction '%.*s'", len, strP);
-    *resultP = 0;
-    return;
+      data->report(data, report_error, report_getlinenr(data, strP), "Unknown hex construction '%.*s'", len, strP);
+      *resultP = 0;
+      return;
     }
-  if (nextResult < result)
+  result = 0;
+  for (cpStrP = strP + 2, len -= 2; len-- > 0; ++cpStrP)
     {
-    data->report(data, report_error, report_getlinenr(data, strP), "Hex overflow '%.*s'", len, strP);
-    *resultP = 0;
-    return;
+      unsigned int nextResult;
+      if (*cpStrP >= '0' && *cpStrP <= '9')
+        nextResult = (result << 4) + *cpStrP - '0';
+      else if (*cpStrP >= 'A' && *cpStrP <= 'F')
+        nextResult = (result << 4) + *cpStrP - 'A' + 10;
+      else if (*cpStrP >= 'a' && *cpStrP <= 'f')
+        nextResult = (result << 4) + *cpStrP - 'a' + 10;
+      else
+        {
+          data->report(data, report_error, report_getlinenr(data, strP), "Unknown hex construction '%.*s'", len, strP);
+          *resultP = 0;
+          return;
+        }
+      if (nextResult < result)
+        {
+          data->report(data, report_error, report_getlinenr(data, strP), "Hex overflow '%.*s'", len, strP);
+          *resultP = 0;
+          return;
+        }
+      result = nextResult;
     }
-  result = nextResult;
-  }
-*resultP = result;
+  *resultP = result;
 }
 
 
-        bits get_filetype(DATA *sessionP, const char *filenameP)
-//      ========================================================
+bits get_filetype(DATA *sessionP, const char *filenameP)
 {
-FILE *fhandle;
-if ((fhandle = fopen(filenameP, "rb")) == NULL)
-  {
-  sessionP->report(sessionP, report_error, 0, "Can not open file <%s> for input", filenameP);
-  return 0;
-  }
-char buffer[16];
-if (fread(buffer, sizeof(buffer), 1, fhandle) != 1)
-  {
-  sessionP->report(sessionP, report_error, 0, "Can't read the file contents <%s>", filenameP);
-  return 0;
-  }
-fclose(fhandle);
+  FILE *fhandle;
+  if ((fhandle = fopen(filenameP, "rb")) == NULL)
+    {
+      sessionP->report(sessionP, report_error, 0, "Can not open file <%s> for input", filenameP);
+      return 0;
+    }
+  char buffer[16];
+  if (fread(buffer, sizeof(buffer), 1, fhandle) != 1)
+    {
+      sessionP->report(sessionP, report_error, 0, "Can't read the file contents <%s>", filenameP);
+      return 0;
+    }
+  fclose(fhandle);
 
 // Binary resource file ?
-const toolbox_resource_file_base *resFileHdrP = (const toolbox_resource_file_base *)buffer;
-if (resFileHdrP->file_id == RESF && resFileHdrP->version == 101)
-  return osfile_TYPE_RESOURCE;
+  const toolbox_resource_file_base *resFileHdrP = (const toolbox_resource_file_base *)buffer;
+  if (resFileHdrP->file_id == RESF && resFileHdrP->version == 101)
+    return osfile_TYPE_RESOURCE;
 
 // Binary template file ?
-const int *temFileHdrP = (const int *)buffer;
-if (temFileHdrP[1] == 0 && temFileHdrP[2] == 0 && temFileHdrP[3] == 0)
-  return osfile_TYPE_TEMPLATE;
+  const int *temFileHdrP = (const int *)buffer;
+  if (temFileHdrP[1] == 0 && temFileHdrP[2] == 0 && temFileHdrP[3] == 0)
+    return osfile_TYPE_TEMPLATE;
 
 // Text file (check for control chars) ?
-for (unsigned int i = 0; i < sizeof(buffer); ++i)
-  if (buffer[i] < 32 && buffer[i] != 10)
-    return 0;
+  for (unsigned int i = 0; i < sizeof(buffer); ++i)
+    if (buffer[i] < 32 && buffer[i] != 10)
+      return 0;
 
-return osfile_TYPE_TEXT;
+  return osfile_TYPE_TEXT;
 }
 
 
 // Returns 'false' in case of an error.
-        bool load_file(DATA *sessionP, char *pszPath, bits nFiletype)
-//      ============================================================
+bool load_file(DATA *sessionP, char *pszPath, bits nFiletype)
 {
-sessionP->nFiletypeIn = nFiletype;
-if (sessionP->pszIn != NULL)
-  MyFree(sessionP->pszIn);
+  sessionP->nFiletypeIn = nFiletype;
+  if (sessionP->pszIn != NULL)
+    MyFree(sessionP->pszIn);
 
-FILE *fhandle;
-if ((fhandle = fopen(pszPath, "rb")) == NULL)
-  {
-  sessionP->report(sessionP, report_error, 0, "Can not open file <%s> for input", pszPath);
-  return false;
-  }
-fseek(fhandle, 0, SEEK_END);
-int cbIn = (int)ftell(fhandle);
-fseek(fhandle, 0, SEEK_SET);
-
-char *pszIn;
-if ((pszIn = (char *) MyAlloc(cbIn)) == NULL)
-  return false;
-
-if (fread(pszIn, cbIn, 1, fhandle) != 1)
-  {
-  sessionP->report(sessionP, report_error, 0, "Can not read file <%s>", pszPath);
-  MyFree(pszIn);
-  return false;
-  }
-fclose(fhandle); fhandle = NULL;
-
-sessionP->pszIn = pszIn;
-sessionP->cbIn = cbIn;
-strcpy(sessionP->achFileIn, pszPath);	// for throwback
-if (nFiletype == osfile_TYPE_TEXT)
-  {
-  while (--cbIn >= 0)
+  FILE *fhandle;
+  if ((fhandle = fopen(pszPath, "rb")) == NULL)
     {
-    if (pszIn[cbIn] == '\n')		// replace newlines with NULLs
-      pszIn[cbIn] = '\0';
+      sessionP->report(sessionP, report_error, 0, "Can not open file <%s> for input", pszPath);
+      return false;
     }
+  fseek(fhandle, 0, SEEK_END);
+  int cbIn = (int)ftell(fhandle);
+  fseek(fhandle, 0, SEEK_SET);
 
-  if (!memcmp(pszIn, "RESF:", sizeof("RESF:")-1))
-    sessionP->nFiletypeOut = osfile_TYPE_RESOURCE;
-  else if (!memcmp(pszIn, "Template:", sizeof("Template:")-1))
-    sessionP->nFiletypeOut = osfile_TYPE_TEMPLATE;
-  else
-    {
-    sessionP->report(sessionP, report_error, 0, "Unrecognized input file type for %s", pszPath);
+  char *pszIn;
+  if ((pszIn = (char *) MyAlloc(cbIn)) == NULL)
     return false;
-    }
-  }
-else
-  sessionP->nFiletypeOut = osfile_TYPE_TEXT;
 
-return true;
+  if (fread(pszIn, cbIn, 1, fhandle) != 1)
+    {
+      sessionP->report(sessionP, report_error, 0, "Can not read file <%s>", pszPath);
+      MyFree(pszIn);
+      return false;
+    }
+  fclose(fhandle);
+  fhandle = NULL;
+
+  sessionP->pszIn = pszIn;
+  sessionP->cbIn = cbIn;
+  strcpy(sessionP->achFileIn, pszPath);	// for throwback
+  if (nFiletype == osfile_TYPE_TEXT)
+    {
+      while (--cbIn >= 0)
+        {
+          if (pszIn[cbIn] == '\n')		// replace newlines with NULLs
+            pszIn[cbIn] = '\0';
+        }
+
+      if (!memcmp(pszIn, "RESF:", sizeof("RESF:")-1))
+        sessionP->nFiletypeOut = osfile_TYPE_RESOURCE;
+      else if (!memcmp(pszIn, "Template:", sizeof("Template:")-1))
+        sessionP->nFiletypeOut = osfile_TYPE_TEMPLATE;
+      else
+        {
+          sessionP->report(sessionP, report_error, 0, "Unrecognized input file type for %s", pszPath);
+          return false;
+        }
+    }
+  else
+    sessionP->nFiletypeOut = osfile_TYPE_TEXT;
+
+  return true;
 }
 
 
-        void *My_Alloc(int cb, const char *pszFile, int nLine)
-//      ======================================================
+void *My_Alloc(int cb, const char *pszFile, int nLine)
 {
-void *p;
+  void *p;
 
-if ((p = calloc(1, cb)) == NULL)
-  fprintf(stderr, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine);
-return p;
+  if ((p = calloc(1, cb)) == NULL)
+    fprintf(stderr, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine);
+  return p;
 }

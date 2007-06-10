@@ -30,30 +30,30 @@
 #include "_Object.h"
 #include "_FontMenu.h"
 
-static const FLAGS FontMenuFlags[] = {
-	{fontmenu_GENERATE_ABOUT_TO_BE_SHOWN , "fontmenu_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{fontmenu_GENERATE_DIALOGUE_COMPLETED, "fontmenu_GENERATE_DIALOGUE_COMPLETED"},
-	{fontmenu_GENERATE_HAS_BEEN_HIDDEN   , "fontmenu_GENERATE_HAS_BEEN_HIDDEN"   },
-	{fontmenu_INCLUDE_SYSTEM_FONT        , "fontmenu_INCLUDE_SYSTEM_FONT"        }
-};
+static const FLAGS FontMenuFlags[] =
+  {
+    {fontmenu_GENERATE_ABOUT_TO_BE_SHOWN , "fontmenu_GENERATE_ABOUT_TO_BE_SHOWN" },
+    {fontmenu_GENERATE_DIALOGUE_COMPLETED, "fontmenu_GENERATE_DIALOGUE_COMPLETED"},
+    {fontmenu_GENERATE_HAS_BEEN_HIDDEN   , "fontmenu_GENERATE_HAS_BEEN_HIDDEN"   },
+    {fontmenu_INCLUDE_SYSTEM_FONT        , "fontmenu_INCLUDE_SYSTEM_FONT"        }
+  };
 
-static const OBJECTLIST FontMenuObjectList[] = {
-	{iol_FLAGS,  "fontmenu_flags:", offsetof(fontmenu_object, flags),       FontMenuFlags, ELEMENTS(FontMenuFlags)},
-	{iol_STRING, "ticked_font:",    offsetof(fontmenu_object, ticked_font), NULL,          0                      }
-};
+static const OBJECTLIST FontMenuObjectList[] =
+  {
+    {iol_FLAGS,  "fontmenu_flags:", offsetof(fontmenu_object, flags),       FontMenuFlags, ELEMENTS(FontMenuFlags)},
+    {iol_STRING, "ticked_font:",    offsetof(fontmenu_object, ticked_font), NULL,          0                      }
+  };
 
 
-        int fontmenu_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
-//      ========================================================================================
+int fontmenu_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
-put_objects(data, pszIn, 0, (char *) (object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList));
+  put_objects(data, pszIn, 0, (char *)(object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList));
 
-return sizeof(fontmenu_object);
+  return sizeof(fontmenu_object);
 }
 
 
-        void fontmenu_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
-//      ===============================================================================================================================
+void fontmenu_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 {
-get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList), 1);
+  get_objects(data, hf, strMsgTableP, (const char *)(object + 1), FontMenuObjectList, ELEMENTS(FontMenuObjectList), 1);
 }

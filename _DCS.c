@@ -30,30 +30,30 @@
 #include "_DCS.h"
 #include "_Object.h"
 
-static const FLAGS DCSFlags[] = {
-	{dcs_GENERATE_ABOUT_TO_BE_SHOWN , "dcs_GENERATE_ABOUT_TO_BE_SHOWN" },
-	{dcs_GENERATE_DIALOGUE_COMPLETED, "dcs_GENERATE_DIALOGUE_COMPLETED"}
-};
+static const FLAGS DCSFlags[] =
+  {
+    {dcs_GENERATE_ABOUT_TO_BE_SHOWN , "dcs_GENERATE_ABOUT_TO_BE_SHOWN"},
+    {dcs_GENERATE_DIALOGUE_COMPLETED, "dcs_GENERATE_DIALOGUE_COMPLETED"}
+  };
 
-static const OBJECTLIST DCSObjectList[] = {
-	{iol_FLAGS,  "dcs_flags:",               offsetof(dcs_object, flags),                   DCSFlags,         ELEMENTS(DCSFlags)                 },
-	{iol_MSG,    "title:",                   offsetof(dcs_object, title),                   "title_limit:",   offsetof(dcs_object, title_limit)  },
-	{iol_MSG,    "message:",                 offsetof(dcs_object, message),                 "message_limit:", offsetof(dcs_object, message_limit)},
-	{iol_STRING, "alternative_window_name:", offsetof(dcs_object, alternative_window_name), NULL,             0                                  }
-};
+static const OBJECTLIST DCSObjectList[] =
+  {
+    {iol_FLAGS,  "dcs_flags:",               offsetof(dcs_object, flags),                   DCSFlags,         ELEMENTS(DCSFlags)},
+    {iol_MSG,    "title:",                   offsetof(dcs_object, title),                   "title_limit:",   offsetof(dcs_object, title_limit)  },
+    {iol_MSG,    "message:",                 offsetof(dcs_object, message),                 "message_limit:", offsetof(dcs_object, message_limit)},
+    {iol_STRING, "alternative_window_name:", offsetof(dcs_object, alternative_window_name), NULL,             0                                  }
+  };
 
 
-        int dcs_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
-//      ===================================================================================
+int dcs_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object)
 {
-put_objects(data, pszIn, 0, (char *) (object + 1), DCSObjectList, ELEMENTS(DCSObjectList));
+  put_objects(data, pszIn, 0, (char *)(object + 1), DCSObjectList, ELEMENTS(DCSObjectList));
 
-return sizeof(dcs_object);
+  return sizeof(dcs_object);
 }
 
 
-        void dcs_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
-//      ==========================================================================================================================
+void dcs_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP)
 {
-get_objects(data, hf, strMsgTableP, (const char *)(object + 1), DCSObjectList, ELEMENTS(DCSObjectList), 1);
+  get_objects(data, hf, strMsgTableP, (const char *)(object + 1), DCSObjectList, ELEMENTS(DCSObjectList), 1);
 }
