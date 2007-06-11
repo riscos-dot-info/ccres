@@ -31,10 +31,10 @@
 #include <oslib/saveas.h>
 #include <oslib/wimpreadsysinfo.h>
 
-// Core CCRes headers :
-#include "CCRes_Convert.h"
-#include "CCRes_Report.h"
-// Application CCRes headers:
+// Core CCres headers :
+#include "CCres_Convert.h"
+#include "CCres_Report.h"
+// Application CCres headers:
 #include "Filer.h"
 #include "Main.h"
 #include "Menu.h"

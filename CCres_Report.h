@@ -1,7 +1,6 @@
-/* _SaveAs.c
+/* CCres_Report.h
 
-   Copyright (c) 2003-2003 Dave Appleby
-   Copyright (c) 2003-2007 John Tytgat
+   Copyright (c) 2004-2007 John Tytgat
 
    This file is part of CCres.
 
@@ -20,27 +19,17 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <stdio.h>
-#include <string.h>
+#ifndef CCRES_REPORT_HEADER_INCLUDED
+#define CCRES_REPORT_HEADER_INCLUDED
 
-#include <oslib/saveas.h>
-
+#include <stdarg.h>
 #include "CCres_Convert.h"
-#include "SaveAs.h"
 
-void action_save_to_file(APPDATA *data)
-{
-  bits fSaved;
+void report_varg_stderr(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list);
+void report_end_stderr(DATA *sessionP);
+#ifdef __riscos__
+void report_varg_throwback(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list);
+void report_end_throwback(DATA *sessionP);
+#endif
 
-  fSaved = (ccres_convert(data->sessionP, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
-  saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
-  if (fSaved == saveas_SAVE_SUCCESSFUL)
-    toolbox_hide_object(0, data->idSaveAs);
-}
-
-
-void action_save_completed(APPDATA *data)
-{
-  if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL)
-    remove(data->poll.sa.file_name);
-}
+#endif

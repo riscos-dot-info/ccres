@@ -1,4 +1,4 @@
-# Project name: CCRes
+# Project name: CCres
 # Written by John Tytgat / BASS
 
 # Only to be used for cross-compilation with GCCSDK 3.4.6 or GCCSDK 4
@@ -54,11 +54,11 @@ endif
 # Object files
 CCRES_CMDOBJS = CMD.o
 
-CCRES_LIBOBJS = CCRes_Eval.o CCRes_Convert.o CCRes_Utils.o CCRes_Report.o \
-	CCRes_ColourDbox.o CCRes_ColourMenu.o CCRes_DCS.o \
-	CCRes_FileInfo.o CCRes_FontDbox.o CCRes_FontMenu.o CCRes_Gadgets.o \
-	CCRes_Icon.o CCRes_Iconbar.o CCRes_Menu.o CCRes_Object.o CCRes_PrintDbox.o \
-	CCRes_ProgInfo.o CCRes_Quit.o CCRes_SaveAs.o CCRes_Scale.o CCRes_Window.o
+CCRES_LIBOBJS = CCres_Eval.o CCres_Convert.o CCres_Utils.o CCres_Report.o \
+	CCres_ColourDbox.o CCres_ColourMenu.o CCres_DCS.o \
+	CCres_FileInfo.o CCres_FontDbox.o CCres_FontMenu.o CCres_Gadgets.o \
+	CCres_Icon.o CCres_Iconbar.o CCres_Menu.o CCres_Object.o CCres_PrintDbox.o \
+	CCres_ProgInfo.o CCres_Quit.o CCres_SaveAs.o CCres_Scale.o CCres_Window.o
 
 ifeq ($(CROSS_COMPILE),)
 # Only the OSLib headers which are used to read & write Resource and Template files

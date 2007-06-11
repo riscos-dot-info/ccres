@@ -1,7 +1,6 @@
-/* _SaveAs.c
+/* CCres_PrintDbox.h
 
-   Copyright (c) 2003-2003 Dave Appleby
-   Copyright (c) 2003-2007 John Tytgat
+   Copyright (c) 2005-2007 John Tytgat
 
    This file is part of CCres.
 
@@ -20,27 +19,14 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#ifndef CCRES_PRINTDBOX_HEADER_INCLUDED
+#define CCRES_PRINTDBOX_HEADER_INCLUDED
+
 #include <stdio.h>
-#include <string.h>
 
-#include <oslib/saveas.h>
+#include "CCres_Internal.h"
 
-#include "CCres_Convert.h"
-#include "SaveAs.h"
+int printdbox_t2g(DATA *data, const char *pszIn, toolbox_relocatable_object_base *object);
+void printdbox_g2t(DATA *data, FILE *hf, const toolbox_resource_file_object_base *object, const TOOLBOXSMTABLE *strMsgTableP);
 
-void action_save_to_file(APPDATA *data)
-{
-  bits fSaved;
-
-  fSaved = (ccres_convert(data->sessionP, data->poll.sa.file_name)) ? saveas_SAVE_SUCCESSFUL : 0;
-  saveas_file_save_completed(fSaved, data->idSaveAs, data->poll.sa.file_name);
-  if (fSaved == saveas_SAVE_SUCCESSFUL)
-    toolbox_hide_object(0, data->idSaveAs);
-}
-
-
-void action_save_completed(APPDATA *data)
-{
-  if (data->poll.sa.flags & saveas_SAVE_SUCCESSFUL)
-    remove(data->poll.sa.file_name);
-}
+#endif

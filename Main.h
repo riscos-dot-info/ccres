@@ -24,7 +24,7 @@
 
 #include <oslib/saveas.h>
 
-#include "CCRes_Convert.h"
+#include "CCres_Convert.h"
 
 typedef struct
   {

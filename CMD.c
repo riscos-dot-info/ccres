@@ -29,9 +29,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Those are the two only public headers for the core CCRes routines.
-#include "CCRes_Convert.h"
-#include "CCRes_Report.h"
+// Those are the two only public headers for the core CCres routines.
+#include "CCres_Convert.h"
+#include "CCres_Report.h"
 
 static void give_help(void);
 static void report_cmd(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, ...);

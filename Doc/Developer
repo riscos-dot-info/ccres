@@ -1,6 +1,6 @@
-A couple of notes for the CCRes developer or product builder:
+A couple of notes for the CCres developer or product builder:
 
-- Building CCRes can currently only happen via cross-compilation using GCCSDK
+- Building CCres can currently only happen via cross-compilation using GCCSDK
   (3.4.6 or upcoming 4) or using a native compiler on a Unix alike host.  Also
   the OSLib headers need to be available at $GCCSDK_INSTALL_ENV.
   Supported platforms can have 32-bit or 64-bit pointers.  For supporting
@@ -13,5 +13,13 @@ A couple of notes for the CCRes developer or product builder:
 - Be sure to run the testqueue after each change in order to detect regression
   problems.  It would also be good practise to have as many bug fixes as
   possible covered by additional test cases.
+- All files with name beginning with "CCres_" belong the CCres core routines
+  and can infact be a standalone library.  Only CCres_Report.h and
+  CCres_Convert.h are public header files for using those CCres core routines.
+  The standalone ccres command line is CMD.c (together with above mentioned
+  CCres core routines).
+  The !CCres Wimp application is made of the Filer.{c,h}, Main.{c,h},
+  Menu.{c,h} and SaveAs.{c,h} sources (together with the above mentioned
+  CCres core routines).
 
 -EOF-

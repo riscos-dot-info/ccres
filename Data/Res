@@ -16,7 +16,7 @@ iconbar_object {
   adjust_action:&0
   select_show:""
   adjust_show:""
-  help_message:"Welcome to CCRes - the Resource and Template decompiler.|MTo decompile a Resource or Template file, simply drag it from a filer window and drop it here.|MSimilarly you can drag a suitable format text file here to re-compile it."
+  help_message:"Welcome to CCres - the Resource and Template decompiler.|MTo decompile a Resource or Template file, simply drag it from a filer window and drop it here.|MSimilarly you can drag a suitable format text file here to re-compile it."
   help_limit:*
 }
 
