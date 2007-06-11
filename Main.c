@@ -197,6 +197,9 @@ static void report_wimp(DATA *sessionP, report_level level, unsigned int linenr,
 
 static void report_varg_wimp(DATA *sessionP, report_level level, unsigned int linenr, const char *pszFmt, va_list list)
 {
+  va_list list_cp;
+  va_copy(list_cp, list);
+
   if (level == report_error)
     {
       os_error err;
@@ -206,7 +209,8 @@ static void report_varg_wimp(DATA *sessionP, report_level level, unsigned int li
     }
 
   if (sessionP != NULL)
-    report_varg_throwback(sessionP, level, linenr, pszFmt, list);
+    report_varg_throwback(sessionP, level, linenr, pszFmt, list_cp);
+  va_end(list_cp);
 }
 
 static void report_end_wimp(DATA *sessionP)
