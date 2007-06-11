@@ -1,8 +1,15 @@
 # Project name: CCRes
 # Written by John Tytgat / BASS
 
-GCCSDK_INSTALL_CROSSBIN ?= /home/riscos/cross/bin
-GCCSDK_INSTALL_ENV ?= /home/riscos/env
+# Only to be used for cross-compilation with GCCSDK 3.4.6 or GCCSDK 4
+# or native compile on an Unix alike host.  OSLib headers need to be
+# available at $GCCSDK_INSTALL_ENV/include/oslib.
+# Variables needed:
+#   - cross-compilation (CROSS_COMPILE is non-empty):
+#     GCCSDK_INSTALL_CROSS_BIN & GCCSDK_INSTALL_ENV
+#   - native build (CROSS_COMPILE is empty/not defined):
+#     GCCSDK_INSTALL_ENV
+#   Both: COMPILE_AT_ONCE : when non-empty all C code will be compiled as one unit.
 
 # Using the native host compiler:
 HOST_CC = /usr/bin/gcc
@@ -11,8 +18,7 @@ HOST_CC = /usr/bin/gcc
 HOST_CCFLAGS = -I. -I${GCCSDK_INSTALL_ENV}/include -DHAVE_STRCASECMP -DHAVE_STRNCASECMP
 # Using the GCCSDK cross-compiler:
 CROSS_CC = ${GCCSDK_INSTALL_CROSSBIN}/gcc
-CROSS_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -mpoke-function-name
-# -mlibscl
+CROSS_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -mpoke-function-name -mlibscl
 
 ifeq ($(CROSS_COMPILE),)
 CC=$(HOST_CC)
@@ -22,8 +28,8 @@ CC = $(CROSS_CC)
 CCFLAGS = $(CROSS_CCFLAGS)
 endif
 
-#CCFLAGS += -O3
-CCFLAGS += -g -O0
+CCFLAGS += -O3
+#CCFLAGS += -g -O0
 CCFLAGS += -std=c99 -W -Wall -Wundef -Wpointer-arith -Wcast-qual \
         -Wcast-align -Wwrite-strings -Wstrict-prototypes \
         -Wmissing-prototypes -Wmissing-declarations \
@@ -38,15 +44,12 @@ MKDIRFLAGS = -p
 RM = rm
 RMFLAGS =
 
-# Dependencies
-
 # User libraries
 ifeq ($(CROSS_COMPILE),)
 USRLIBS =
 else
 USRLIBS = -L${GCCSDK_INSTALL_ENV}/lib -lOSLib32
 endif
-
 
 # Object files
 CCRES_CMDOBJS = CMD.o
@@ -98,47 +101,55 @@ DOBJS = Release/ccres$(APPEXT) $(CCRES_APPDATA)
 
 .PHONY: all clean
 
-.INIT:
-	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
-
 # Target:
 all: $(DOBJS)
 
 clean:
 	-$(RM) $(RMFLAGS) $(CCRES_APPOBJS) $(CCRES_CMDOBJS) $(CCRES_LIBOBJS) $(DOBJS) $(OSLIB_HEADERS_TOFILTER)
 
-Release/\!CCres/Res,fae: Data/Res,fae
-	$(COPY) Data/Res,fae $@ $(COPYFLAGS)
+Release/\!CCres/Res,fae: Release/ccres Data/Res
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
+	Release/ccres Data/Res $@ $(COPYFLAGS)
 
-Release/\!CCres/\!Run,feb: Data/Run,feb
-	$(COPY) Data/Run,feb $@ $(COPYFLAGS)
+Release/\!CCres/\!Run,feb: Data/!Run,feb
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
+	$(COPY) $< $@ $(COPYFLAGS)
 
-Release/\!CCres/\!Sprites,ff9: Data/Sprites,ff9
-	$(COPY) Data/Sprites,ff9 $@ $(COPYFLAGS)
+Release/\!CCres/\!Sprites,ff9: Data/!Sprites,ff9
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
+	$(COPY) $< $@ $(COPYFLAGS)
 
-Release/\!CCres/\!Sprites22,ff9: Data/Sprites22,ff9
-	$(COPY) Data/Sprites22,ff9 $@ $(COPYFLAGS)
+Release/\!CCres/\!Sprites22,ff9: Data/!Sprites22,ff9
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
+	$(COPY) $< $@ $(COPYFLAGS)
 
-Release/\!CCres/COPYING: Data/COPYING
-	$(COPY) Data/COPYING $@ $(COPYFLAGS)
+Release/\!CCres/COPYING: Doc/COPYING
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
+	$(COPY) $< $@ $(COPYFLAGS)
 
-Release/\!CCres/\!Help: Data/Help
-	$(COPY) Data/Help $@ $(COPYFLAGS)
+Release/\!CCres/\!Help: Doc/!Help
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
+	$(COPY) $< $@ $(COPYFLAGS)
 
 Release/\!CCres/Messages: Data/Messages
-	$(COPY) Data/Messages $@ $(COPYFLAGS)
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
+	$(COPY) $< $@ $(COPYFLAGS)
 
 Release/\!CCres/History: Doc/History
-	$(COPY) Doc/History $@ $(COPYFLAGS)
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
+	$(COPY) $< $@ $(COPYFLAGS)
 
 Release/\!CCres/\!RunImage$(APPEXT): $(CCRES_APPOBJS) $(CCRES_LIBOBJS)
+	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
 	$(CC) $(CCFLAGS) -o $@ $(CCRES_APPOBJS) $(CCRES_LIBOBJS) $(USRLIBS)
 
 ifeq ($(COMPILE_AT_ONCE),)
 Release/ccres$(APPEXT): $(CCRES_CMDOBJS) $(CCRES_LIBOBJS)
+	$(MKDIR) $(MKDIRFLAGS) Release/
 	$(CC) $(CCFLAGS) -o $@ $(CCRES_CMDOBJS) $(CCRES_LIBOBJS) $(USRLIBS)
 else
 Release/ccres$(APPEXT): $(CCRES_CMDOBJS:.o=.c) $(CCRES_LIBOBJS:.o=.c)
+	$(MKDIR) $(MKDIRFLAGS) Release/
 	$(CC) $(CCFLAGS) -o $@ $(CCRES_CMDOBJS:.o=.c) $(CCRES_LIBOBJS:.o=.c) $(USRLIBS)
 endif
 
@@ -146,6 +157,7 @@ $(CCRES_LIBOBJS) :  $(OSLIB_HEADERS_TOFILTER)
 # To filter the pointer type usage in OSLib headers and replace it by a 32-bit int type.
 # This is a very rough and crude hack but seems to work.
 oslib/%.h: ${GCCSDK_INSTALL_ENV}/include/oslib/%.h
+	$(MKDIR) $(MKDIRFLAGS) oslib
 	cat $< | sed -r -e 's,(struct\s+)?\w+\s*(const\s+)?\*+([^/]),int \3,g' > $@
 
 .SUFFIXES: .o .c

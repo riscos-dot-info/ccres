@@ -1,0 +1,88 @@
+RESF:1.01
+
+iconbar_object {
+  header_flags:toolbox_OBJECT_SHOW_ON_CREATE
+  version:100
+  object_name:"Iconbar"
+  iconbar_flags:iconbar_GENERATE_SELECT_CLICKED | iconbar_GENERATE_ADJUST_CLICKED
+  position:wimp_ICON_BAR_RIGHT
+  priority:0
+  sprite_name:"!ccres"
+  sprite_limit:*
+  text:""
+  text_limit:*
+  menu:"Menu"
+  select_action:&0
+  adjust_action:&0
+  select_show:""
+  adjust_show:""
+  help_message:"Welcome to CCRes - the Resource and Template decompiler.|MTo decompile a Resource or Template file, simply drag it from a filer window and drop it here.|MSimilarly you can drag a suitable format text file here to re-compile it."
+  help_limit:*
+}
+
+menu_object {
+  header_flags:toolbox_OBJECT_SHARED
+  version:102
+  object_name:"Menu"
+  menu_flags:
+  title:"CCres"
+  title_limit:*
+  help:""
+  help_limit:*
+  show_action:
+  hide_action:
+  Entry {
+    cmp:1
+    flags:menu_ENTRY_SUB_MENU
+    cmp:&1
+    text:"Info"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:"ProgInfo"
+    sub_menu_action:&0
+    click_action:&0
+    help:""
+    help_limit:*
+  }
+  Entry {
+    cmp:0
+    flags:
+    cmp:&0
+    text:"Quit"
+    text_limit:*
+    click_object_name:""
+    sub_menu_object_name:""
+    sub_menu_action:&0
+    click_action:&1
+    help:""
+    help_limit:*
+  }
+}
+
+proginfo_object {
+  header_flags:toolbox_OBJECT_SHARED
+  version:101
+  object_name:"ProgInfo"
+  proginfo_flags:proginfo_INCLUDE_WEB_PAGE_BUTTON | proginfo_GENERATE_WEB_PAGE_CLICKED
+  title:""
+  title_limit:*
+  purpose:"Resource/Template compiler/decompiler"
+  author:"Dave Appleby / John Tytgat"
+  licence_type:None
+  prog_version:"0.00 (dd-mmm-yy)"
+  alternative_window_name:""
+  visit_url:"http://www.bass-software.com/ccres/"
+  visit_url_event:&0
+}
+
+saveas_object {
+  header_flags:toolbox_OBJECT_SHARED
+  version:100
+  object_name:"SaveAs"
+  saveas_flags:saveas_NO_SELECTION_BUTTON
+  file_name:"CCres"
+  file_type:&0
+  title:""
+  title_limit:*
+  alternative_window_name:""
+}

@@ -1,6 +1,6 @@
 Purpose
 ~~~~~~~
-!CCres converts Toolbox Resource files (type FAE, RESF v1.00 or v1.01) and
+!CCres converts Toolbox Resource files (type &FAE, RESF v1.00 or v1.01) and
 Wimp Template files (type &FEC) to and from text format.
 
 Wimp application
@@ -10,19 +10,20 @@ drag the file to the Iconbar, then drag the 'Save As' icon to a filer viewer.
 
 Command line
 ~~~~~~~~~~~~
-!CCres can be run without starting it as a wimp application by specifying
-both the from and to file names on the command line, eg
+There is also a separate command line version of !CCres supplied which you can
+run as:
 
-*Run !CCres <infile> <outfile>
+*ccres <infile> <outfile>
 
 Compatibility
 ~~~~~~~~~~~~~
-CCres is 26/32bit compatible. It is now linked with the StubsG library, so
-should no longer require the updated System files from Castle.
+CCres needs a 32-bit SharedCLibrary.  Either this is builtin in your RISC OS
+version (RISC OS 5 and RISC OS 6 (Select 4i2 onwards), either you need the
+System files from Castle which can be downloaded at
+<URL:http://www.iyonix.com/32bit/system.shtml>.
 
-CCres can be run on RISC OS 3.10 or later using the latest Toolbox modules
-available from the RISC OS Web site
-<URL:http://support.riscos.com/Support/Updates/>
+CCres needs up-to-date latest Toolbox modules which are available from the
+RISC OS Web site <URL:http://support.riscos.com/Support/Updates/>.
 
 Text file format
 ~~~~~~~~~~~~~~~~
@@ -60,7 +61,7 @@ Template files created by !CCres may not be identical to !FormEd files:-
   * When a string is truncated in FormEd, text beyond the new terminator is
     sometimes still saved in the file. !CCres ignores any text after the
     terminating charcter.
-  
+
 For these reasons a simple 'binary compare' of 'before and after' files will
 almost always say they're different.
 
@@ -83,7 +84,7 @@ distributed in its original form and there must be no charge for it
 (except possibly for covering media costs).
 
 From version 1.09 onwards, the CCres license is the
-GNU General Public License of which you find a copy as !CCres.COPYING.
+GNU General Public License v2 of which you find a copy as !CCres.COPYING.
 
 Note that this software is provided in good faith and no guarantee is
 provided for suitability or reliably. The authors shall not be held

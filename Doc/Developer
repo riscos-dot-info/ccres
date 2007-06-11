@@ -7,5 +7,11 @@ A couple of notes for the CCRes developer or product builder:
   the latter ones, a copy of set of OSLib headers is taken during a non
   cross-compile build and the pointer type in the copy of the OSLib headers
   gets changed into a 32-bit int type.
+  The pointer -> int type change is a hack and it might be that more is needed
+  for platforms with have other alignment or size of builtin types different
+  than the ARM ABI.
+- Be sure to run the testqueue after each change in order to detect regression
+  problems.  It would also be good practise to have as many bug fixes as
+  possible covered by additional test cases.
 
 -EOF-
