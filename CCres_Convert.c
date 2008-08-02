@@ -20,6 +20,7 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <ctype.h>
 #include <stddef.h>
 #include <string.h>
 #include <strings.h>
@@ -103,7 +104,9 @@ static bool text2res(DATA *data, const char *pszOutFile)
       return false;
     }
 
-  if ((hf = fopen(pszOutFile, "wb")) == NULL)
+  if (pszOutFile != NULL && pszOutFile[0] == '-' && pszOutFile[1] == '\0')
+      hf = NULL;
+  else if ((hf = fopen(pszOutFile, "wb")) == NULL)
     {
       ccres_report(data, report_error, 0, "Unable to create output file '%s'", pszOutFile);
       return false;
@@ -123,13 +126,13 @@ static bool text2res(DATA *data, const char *pszOutFile)
               if (!fHeader)
                 {
                   Hdr.header_size = sizeof(Hdr);
-                  fwrite(&Hdr, sizeof(Hdr), 1, hf);
+                  fwrite(&Hdr, sizeof(Hdr), 1, hf != NULL ? hf : stdout);
                   fHeader = true;
                 }
               reset_string_table(&data->StringTable);
               reset_string_table(&data->MessageTable);
               reset_reloc_table(&data->RelocTable);
-              object_text2resource(data, hf, pszIn, pszOut, &Classes[m]);
+              object_text2resource(data, hf != NULL ? hf : stdout, pszIn, pszOut, &Classes[m]);
               goto text2res_added;
             }
         }
@@ -140,8 +143,9 @@ text2res_added:
         break;
     }
   if (!fHeader)
-    fwrite(&Hdr, sizeof(Hdr), 1, hf);
-  fclose(hf);
+    fwrite(&Hdr, sizeof(Hdr), 1, hf != NULL ? hf : stdout);
+  if (hf != NULL)
+    fclose(hf);
 #ifdef __riscos__
   osfile_set_type(pszOutFile, osfile_TYPE_RESOURCE);
 #endif
@@ -173,29 +177,31 @@ static bool res2text(DATA *data, const char *pszOutFile)
       return false;
     }
 
-  if ((hf = fopen(pszOutFile, "wb")) == NULL)
+  if (pszOutFile != NULL && pszOutFile[0] == '-' && pszOutFile[1] == '\0')
+      hf = NULL;
+  else if ((hf = fopen(pszOutFile, "wb")) == NULL)
     {
       ccres_report(data, report_error, 0, "Unable to create output file '%s'", pszOutFile);
       return false;
     }
 
   fConverted = false;
-  fprintf(hf, "RESF:%d.%02d\n", file_hdr->version / 100, file_hdr->version % 100);
+  fprintf(hf != NULL ? hf : stdout, "RESF:%d.%02d\n", file_hdr->version / 100, file_hdr->version % 100);
   if (file_hdr->header_size > 0)
     {
       const toolbox_relocatable_object_base *obj = (const toolbox_relocatable_object_base *)(file_hdr + 1);
       const toolbox_relocatable_object_base *end = (const toolbox_relocatable_object_base *)&data->pszIn[data->cbIn];
       do
         {
-          fputs("\n", hf);
+          fputs("\n", hf != NULL ? hf : stdout);
           unsigned int m;
           for (m = 0; m < ELEMENTS(Classes); m++)
             {
               if (Classes[m].class_no == obj->rf_obj.class_no)
                 {
-                  fprintf(hf, "%s {\n", Classes[m].name);
-                  object_resource2text(data, hf, obj, Classes[m].o2t);
-                  fputs("}\n", hf);
+                  fprintf(hf != NULL ? hf : stdout, "%s {\n", Classes[m].name);
+                  object_resource2text(data, hf != NULL ? hf : stdout, obj, Classes[m].o2t);
+                  fputs("}\n", hf != NULL ? hf : stdout);
                   break;
                 }
             }
@@ -212,7 +218,8 @@ static bool res2text(DATA *data, const char *pszOutFile)
         }
       while (cb != 0 && obj < end);
     }
-  fclose(hf);
+  if (hf != NULL)
+    fclose(hf);
 #ifdef __riscos__
   osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
 #endif
@@ -366,9 +373,8 @@ static bool text2template(DATA *data, const char *pszOutFile)
         }
       else
         {
-          if ((hf = fopen(pszOutFile, "wb")) == NULL)
-            ccres_report(data, report_error, 0, "Unable to create output file '%s'", pszOutFile);
-          else
+	  hf = NULL;
+	  if ((pszOutFile != NULL && pszOutFile[0] == '-' && pszOutFile[1] == '\0') || (hf = fopen(pszOutFile, "wb")) != NULL)
             {
               header = (template_header *) pszTemplate;
               header->font_offset = template_NO_FONTS;
@@ -430,14 +436,18 @@ static bool text2template(DATA *data, const char *pszOutFile)
                     break;
 
                 }
-              fwrite(pszTemplate, (int) (pszOut - pszTemplate), 1, hf);
-              fclose(hf);
+              fwrite(pszTemplate, (int) (pszOut - pszTemplate), 1, hf != NULL ? hf : stdout);
+	      if (hf != NULL)
+                fclose(hf);
 #ifdef __riscos__
               osfile_set_type(pszOutFile, osfile_TYPE_TEMPLATE);
 #endif
               MyFree(pszBuff);
               fConverted = true;
             }
+          else
+            ccres_report(data, report_error, 0, "Unable to create output file '%s'", pszOutFile);
+
           MyFree(pszTemplate);
           free_string_table(&data->StringTable);
         }
@@ -452,12 +462,14 @@ static bool template2text(DATA *data, const char *pszOutFile)
   FILE *hf;
   unsigned int cbBuff;
 
-  if ((hf = fopen(pszOutFile, "wb")) == NULL)
+  if (pszOutFile != NULL && pszOutFile[0] == '-' && pszOutFile[1] == '\0')
+      hf = NULL;
+  else if ((hf = fopen(pszOutFile, "wb")) == NULL)
     {
       ccres_report(data, report_error, 0, "Unable to create output file '%s'", pszOutFile);
       return false;
     }
-  fputs("Template:\n", hf);
+  fputs("Template:\n", hf != NULL ? hf : stdout);
 
   pszBuff = NULL;
   cbBuff = 0;
@@ -482,17 +494,18 @@ static bool template2text(DATA *data, const char *pszOutFile)
           cbBuff = obj->size;
         }
       memcpy(pszBuff, data->pszIn + obj->offset, obj->size);
-      fputs("\nwimp_window {\n", hf);
-      get_objects(data, hf, NULL, (const char *)obj, TemplateHeaderList, ELEMENTS(TemplateHeaderList), 1);
-      window_template2text(data, hf, pszBuff, obj->size);
-      fputs("}\n", hf);
+      fputs("\nwimp_window {\n", hf != NULL ? hf : stdout);
+      get_objects(data, hf != NULL ? hf : stdout, NULL, (const char *)obj, TemplateHeaderList, ELEMENTS(TemplateHeaderList), 1);
+      window_template2text(data, hf != NULL ? hf : stdout, pszBuff, obj->size);
+      fputs("}\n", hf != NULL ? hf : stdout);
     }
   if (template_hdr->font_offset != template_NO_FONTS)
     {
       const template_index *end = (const template_index *)&data->pszIn[data->cbIn];
-      get_template_fonts(data, hf, (const template_font_data *)(data->pszIn + template_hdr->font_offset), (const template_font_data *) end);
+      get_template_fonts(data, hf != NULL ? hf : stdout, (const template_font_data *)(data->pszIn + template_hdr->font_offset), (const template_font_data *) end);
     }
-  fclose(hf);
+  if (hf != NULL)
+    fclose(hf);
 #ifdef __riscos__
   osfile_set_type(pszOutFile, osfile_TYPE_TEXT);
 #endif
@@ -574,34 +587,82 @@ bool ccres_load_file(DATA *sessionP, const char *pszPath, bits nFiletype)
     MyFree((void *)sessionP->pszIn);
 
   FILE *fhandle;
-  if ((fhandle = fopen(pszPath, "rb")) == NULL)
-    {
-      ccres_report(sessionP, report_error, 0, "Can not open file <%s> for input", pszPath);
-      return false;
-    }
-  fseek(fhandle, 0, SEEK_END);
-  int cbIn = (int)ftell(fhandle);
-  fseek(fhandle, 0, SEEK_SET);
-
   char *pszIn;
-  if ((pszIn = (char *) MyAlloc(cbIn)) == NULL)
-    return false;
-
-  if (fread(pszIn, cbIn, 1, fhandle) != 1)
+  int cbIn;
+  if (pszPath != NULL && pszPath[0] == '-' && pszPath[1] == '\0')
     {
-      ccres_report(sessionP, report_error, 0, "Can not read file <%s>", pszPath);
-      MyFree(pszIn);
-      return false;
+#define CHUNK_SIZE (4096)
+      if ((pszIn = (char *) MyAlloc(CHUNK_SIZE)) == NULL)
+        return false;
+
+      memcpy(pszIn, sessionP->ftypeBuf, sizeof(sessionP->ftypeBuf));
+      cbIn = sizeof(sessionP->ftypeBuf);
+
+      int nToRead = CHUNK_SIZE - cbIn;
+      do
+	{
+	  int read = fread(pszIn + cbIn, 1, nToRead, stdin);
+	  if (read == nToRead)
+	    {
+	      char *pTemp;
+	      if ((pTemp = (char *) MyRealloc(pszIn, cbIn + nToRead + CHUNK_SIZE)) == NULL)
+		{
+		  MyFree(pszIn);
+	          return false;
+		}
+	      pszIn = pTemp;
+	      nToRead = CHUNK_SIZE;
+	    }
+	  else
+	    nToRead -= read;
+	  cbIn += read;
+	}
+      while(feof(stdin) == 0);
+#undef CHUNK_SIZE
     }
-  fclose(fhandle);
-  fhandle = NULL;
+  else
+    {
+      if ((fhandle = fopen(pszPath, "rb")) == NULL)
+        {
+          ccres_report(sessionP, report_error, 0, "Can not open file <%s> for input", pszPath);
+          return false;
+        }
+      fseek(fhandle, 0, SEEK_END);
+      cbIn = (int)ftell(fhandle);
+      fseek(fhandle, 0, SEEK_SET);
+
+      if ((pszIn = (char *) MyAlloc(cbIn)) == NULL)
+        return false;
+
+      if (fread(pszIn, cbIn, 1, fhandle) != 1)
+        {
+          ccres_report(sessionP, report_error, 0, "Can not read file <%s>", pszPath);
+          MyFree(pszIn);
+          return false;
+        }
+      fclose(fhandle);
+      fhandle = NULL;
+    }
 
   sessionP->pszIn = pszIn;
   sessionP->cbIn = cbIn;
   strcpy(sessionP->achFileIn, pszPath);	// for throwback
   if (nFiletype == osfile_TYPE_TEXT)
     {
-      while (--cbIn >= 0)
+      int nSpaces = 0;
+      while (nSpaces < cbIn)
+	{
+	  if (!isspace(pszIn[nSpaces])) // Skip any leading whitespace
+            break;
+	  nSpaces++;
+	}
+      if (nSpaces > 0)
+	{
+	  memmove(pszIn, pszIn + nSpaces, cbIn - nSpaces);
+	  sessionP->cbIn = cbIn - nSpaces;
+	}
+
+     while (--cbIn >= 0)
         {
           if (pszIn[cbIn] == '\n')		// replace newlines with NULLs
             pszIn[cbIn] = '\0';
@@ -626,32 +687,34 @@ bool ccres_load_file(DATA *sessionP, const char *pszPath, bits nFiletype)
 bits ccres_get_filetype_in(DATA *sessionP, const char *filenameP)
 {
   FILE *fhandle;
-  if ((fhandle = fopen(filenameP, "rb")) == NULL)
+  if (filenameP != NULL && filenameP[0] == '-' && filenameP[1] == '\0')
+    fhandle = NULL;
+  else if ((fhandle = fopen(filenameP, "rb")) == NULL)
     {
       ccres_report(sessionP, report_error, 0, "Can not open file <%s> for input", filenameP);
       return 0;
     }
-  char buffer[16];
-  if (fread(buffer, sizeof(buffer), 1, fhandle) != 1)
+  if (fread(sessionP->ftypeBuf, sizeof(sessionP->ftypeBuf), 1, fhandle != NULL ? fhandle : stdin) != 1)
     {
       ccres_report(sessionP, report_error, 0, "Can't read the file contents <%s>", filenameP);
       return 0;
     }
-  fclose(fhandle);
+  if (fhandle != NULL)
+    fclose(fhandle);
 
 // Binary resource file ?
-  const toolbox_resource_file_base *resFileHdrP = (const toolbox_resource_file_base *)buffer;
+  const toolbox_resource_file_base *resFileHdrP = (const toolbox_resource_file_base *)sessionP->ftypeBuf;
   if (resFileHdrP->file_id == RESF && resFileHdrP->version == 101)
     return osfile_TYPE_RESOURCE;
 
 // Binary template file ?
-  const int *temFileHdrP = (const int *)buffer;
+  const int *temFileHdrP = (const int *)sessionP->ftypeBuf;
   if (temFileHdrP[1] == 0 && temFileHdrP[2] == 0 && temFileHdrP[3] == 0)
     return osfile_TYPE_TEMPLATE;
 
 // Text file (check for control chars) ?
-  for (unsigned int i = 0; i < sizeof(buffer); ++i)
-    if (buffer[i] < 32 && buffer[i] != 10)
+  for (unsigned int i = 0; i < sizeof(sessionP->ftypeBuf); ++i)
+    if (sessionP->ftypeBuf[i] < 32 && sessionP->ftypeBuf[i] != 10)
       return 0;
 
   return osfile_TYPE_TEXT;

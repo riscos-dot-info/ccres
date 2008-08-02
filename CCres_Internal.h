@@ -143,6 +143,7 @@ struct session_s
     report_cb report;
     report_end_cb report_end;
     char achFileIn[MAX_PATH];
+    char ftypeBuf[16];
   };
 
 // memset is (almost certainly) not required... so macro's will do

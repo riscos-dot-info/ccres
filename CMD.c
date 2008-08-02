@@ -72,6 +72,8 @@ int main(int argc, char *argv[])
       else if (!strcmp(argv[carg], "-mthrowback"))
         OptionThrowback = true;
 #endif
+      else if (argv[carg][1] == '\0')
+        break;
       else
         {
           fprintf(stderr, "Unknown option %s\n", argv[carg]);

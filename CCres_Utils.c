@@ -192,6 +192,15 @@ void *My_Alloc(int cb, const char *pszFile, int nLine)
   return p;
 }
 
+void *My_Realloc(void *b, int cb, const char *pszFile, int nLine)
+{
+  void *p;
+
+  if ((p = realloc(b, cb)) == NULL)
+    fprintf(stderr, "Unable to allocate memory: %d bytes in file '%s' at line '%d'", cb, pszFile, nLine);
+  return p;
+}
+
 unsigned int getlinenr(const DATA *sessionP, const char *ptrP)
 {
   const char *pP;

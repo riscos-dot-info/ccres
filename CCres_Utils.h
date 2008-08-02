@@ -43,7 +43,9 @@ unsigned int HexToUInt(DATA *data, const char *strP, unsigned int len);
 unsigned int getlinenr(const DATA *sessionP, const char *ptrP);
 
 void *My_Alloc(int cb, const char *pszFile, int nLine);
+void *My_Realloc(void *b, int cb, const char *pszFile, int nLine);
 #define MyAlloc(v) My_Alloc(v, __FILE__, __LINE__)
+#define MyRealloc(v, c) My_Realloc(v, c, __FILE__, __LINE__)
 #define MyFree(v) free(v)
 
 /* Write integer value 'value' to memory at 'memP' as little endian 4 byte
