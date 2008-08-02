@@ -17,7 +17,7 @@ HOST_CC = /usr/bin/gcc
 # headers.
 HOST_CCFLAGS = -I. -I${GCCSDK_INSTALL_ENV}/include -DHAVE_STRCASECMP -DHAVE_STRNCASECMP
 # Using the GCCSDK cross-compiler:
-CROSS_CC = ${GCCSDK_INSTALL_CROSSBIN}/gcc
+CROSS_CC := $(wildcard $(GCCSDK_INSTALL_CROSSBIN)/*gcc)
 CROSS_CCFLAGS = -I${GCCSDK_INSTALL_ENV}/include -mpoke-function-name -mlibscl
 
 ifeq ($(CROSS_COMPILE),)
@@ -107,9 +107,14 @@ all: $(DOBJS)
 clean:
 	-$(RM) $(RMFLAGS) $(CCRES_APPOBJS) $(CCRES_CMDOBJS) $(CCRES_LIBOBJS) $(DOBJS) $(OSLIB_HEADERS_TOFILTER)
 
-Release/\!CCres/Res,fae: Release/ccres Data/Res
+install:
+ifeq ($(CROSS_COMPILE),)
+	$(COPY) Release/ccres$(APPEXT) $(GCCSDK_INSTALL_CROSSBIN)
+endif
+
+Release/\!CCres/Res,fae: Release/ccres$(APPEXT) Data/Res
 	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
-	Release/ccres Data/Res $@ $(COPYFLAGS)
+	Release/ccres$(APPEXT) Data/Res $@ $(COPYFLAGS)
 
 Release/\!CCres/\!Run,feb: Data/!Run,feb
 	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
