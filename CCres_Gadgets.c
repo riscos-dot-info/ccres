@@ -734,7 +734,7 @@ static const OBJECTLIST TabsObjectList[] =
     {iol_FLAGS, "flags:",      offsetof(tabs_object, flags),      TabsFlags, ELEMENTS(TabsFlags) },
     {iol_WCOL,  "foreground:", offsetof(tabs_object, foreground), NULL,      0                   },
     {iol_WCOL,  "background:", offsetof(tabs_object, background), NULL,      0                   },
-    {iol_MSG,   "text:",       offsetof(tabs_object, text),       NULL,      0                   }
+    {iol_STRING,"text:",       offsetof(tabs_object, text),       NULL,      0                   }
   };
 
 int tabs_t2g(DATA *data, const char *pszIn, int nOffset, gadget_object_base *gadget)

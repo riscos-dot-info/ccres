@@ -42,7 +42,7 @@ struct tabs_object
     uint8_t unused1[3];
     wimp_colour background;
     uint8_t unused2[3];
-    toolbox_msg_reference text;
+    toolbox_string_reference text;
   };
 
 /* TreeView */
