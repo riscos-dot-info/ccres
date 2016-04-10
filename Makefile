@@ -109,7 +109,7 @@ clean:
 
 install:
 ifeq ($(CROSS_COMPILE),)
-	$(COPY) Release/ccres$(APPEXT) $(GCCSDK_INSTALL_CROSSBIN)
+	$(COPY) Release/ccres$(APPEXT) $(GCCSDK_INSTALL_ENV)/bin
 endif
 
 Release/\!CCres/Res,fae: Release/ccres$(APPEXT) Data/Res
