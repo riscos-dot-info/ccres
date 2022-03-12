@@ -128,7 +128,7 @@ Release/\!CCres/\!Sprites22,ff9: Data/!Sprites22,ff9
 	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
 	$(COPY) $< $@ $(COPYFLAGS)
 
-Release/\!CCres/COPYING: Doc/COPYING
+Release/\!CCres/COPYING: COPYING
 	$(MKDIR) $(MKDIRFLAGS) Release/\!CCres
 	$(COPY) $< $@ $(COPYFLAGS)
 
