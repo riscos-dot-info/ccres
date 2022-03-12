@@ -1,7 +1,6 @@
 #!/bin/bash
 
-CCRES=../Release/ccres,ff8
-#CCRES=../Release/ccres
+CCRES=../Release/ccres
 CCRESFLAGS=
 
 # Diffing original binary and produced binary nearly always generate a difference
@@ -9,6 +8,8 @@ CCRESFLAGS=
 DIFFBINARY=false
 
 set -e
+
+RETVAL=0
 
 LOGFILE_B2T=diff_bin2txt.log
 test -f $LOGFILE_B2T && rm $LOGFILE_B2T
@@ -29,7 +30,10 @@ for RFILE in $RESFILES ; do
   # binary -> text
   echo --- Comparing test file $TRFILE >> $LOGFILE_B2T
   $CCRES $CCRESFLAGS Res01/$RFILE Res01.bin2txt/$TRFILE
-  diff Res01.ref/$TRFILE Res01.bin2txt/$TRFILE >> $LOGFILE_B2T || echo "  *** resource to text result differs"
+  if ! diff Res01.ref/$TRFILE Res01.bin2txt/$TRFILE >> $LOGFILE_B2T ; then
+    echo "  *** resource to text result differs"
+    RETVAL=1
+  fi
 
   # text -> binary
   echo --- Comparing test file $TRFILE >> $LOGFILE_B2T_T2B
@@ -39,12 +43,16 @@ for RFILE in $RESFILES ; do
     echo -- >> $LOGFILE_B2T_T2B
     od -t c -t x1 Res01.bin2txt.txt2bin/$RFILE >> $LOGFILE_B2T_T2B
     echo "  *** resource files differ"
+    RETVAL=1
   fi
 
   # binary -> text
   echo --- Comparing test file $TRFILE >> $LOGFILE_B2T_T2B_B2T
   $CCRES $CCRESFLAGS Res01.bin2txt.txt2bin/$RFILE Res01.bin2txt.txt2bin.bin2txt/$TRFILE
-  diff Res01.bin2txt/$TRFILE Res01.bin2txt.txt2bin.bin2txt/$TRFILE >> $LOGFILE_B2T_T2B_B2T || echo "  *** text to resource result differs"
+  if ! diff Res01.bin2txt/$TRFILE Res01.bin2txt.txt2bin.bin2txt/$TRFILE >> $LOGFILE_B2T_T2B_B2T ; then
+    echo "  *** text to resource result differs"
+    RETVAL=1
+  fi
 done
 
 echo +++ Testing for Template regressions
@@ -59,7 +67,10 @@ for TFILE in $TEMFILES ; do
   # binary -> text
   echo --- Comparing test file $TTFILE >> $LOGFILE_B2T
   $CCRES $CCRESFLAGS Tem01/$TFILE Tem01.bin2txt/$TTFILE
-  diff Tem01.ref/$TTFILE Tem01.bin2txt/$TTFILE >> $LOGFILE_B2T || echo "  *** template to text result differs"
+  if ! diff Tem01.ref/$TTFILE Tem01.bin2txt/$TTFILE >> $LOGFILE_B2T ; then
+    echo "  *** template to text result differs"
+    RETVAL=1
+  fi
 
   # text-> binary
   echo --- Comparing test file $TTFILE >> $LOGFILE_B2T_T2B
@@ -69,10 +80,16 @@ for TFILE in $TEMFILES ; do
     echo -- >> $LOGFILE_B2T_T2B
     od -t c -t x1 Tem01.bin2txt.txt2bin/$TFILE >> $LOGFILE_B2T_T2B
     echo "  *** template files differ"
+    RETVAL=1
   fi
 
   # binary -> text
   echo --- Comparing test file $TTFILE >> $LOGFILE_B2T_T2B_B2T
   $CCRES $CCRESFLAGS Tem01.bin2txt.txt2bin/$TFILE Tem01.bin2txt.txt2bin.bin2txt/$TTFILE
-  diff Tem01.bin2txt/$TTFILE Tem01.bin2txt.txt2bin.bin2txt/$TTFILE >> $LOGFILE_B2T_T2B_B2T || echo "  *** text to template result differs"
+  if ! diff Tem01.bin2txt/$TTFILE Tem01.bin2txt.txt2bin.bin2txt/$TTFILE >> $LOGFILE_B2T_T2B_B2T ; then
+    echo "  *** text to template result differs"
+    RETVAL=1
+  fi
 done
+
+exit $RETVAL

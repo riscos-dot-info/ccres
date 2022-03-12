@@ -48,7 +48,7 @@ window_object {
     flags:tabs_ALLOW_SCROLL_ARROWS
     foreground:wimp_COLOUR_BLACK
     background:wimp_COLOUR_VERY_LIGHT_GREY
-    text:"type gadget type &402c"
+    text:"pane_1,pane_2"
   }
 }
 

@@ -48,7 +48,7 @@ window_object {
     flags:tabs_ALLOW_SCROLL_ARROWS
     foreground:wimp_COLOUR_BLACK
     background:wimp_COLOUR_VERY_LIGHT_GREY
-    text:"gadget test harness"
+    text:"Pane0,Pane1"
   }
   actionbutton_object {
     cmp:&4
